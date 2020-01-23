@@ -20,6 +20,7 @@ import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
+import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.WebhookListener;
@@ -123,6 +124,7 @@ public class Main {
 				.addEventListeners(new PlayerCounter())
 				.addEventListeners(new WebhookListener())
 				.addEventListeners(new ReactionRolesListener())
+				.addEventListeners(new LockdownKicker())
 
 				.addEventListeners(new ListenerAdapter() {
 

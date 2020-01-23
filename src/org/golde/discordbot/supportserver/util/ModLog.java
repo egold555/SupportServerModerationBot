@@ -11,10 +11,10 @@ import net.dv8tion.jda.api.entities.User;
 
 public class ModLog {
 
-	protected static final long LOG_CHANNEL = 652295175850426398L;
+	
 
 	public static final void log(Guild guild, MessageEmbed embed) {
-		TextChannel logChannel = guild.getTextChannelById(LOG_CHANNEL);
+		TextChannel logChannel = guild.getTextChannelById(Channels.MOD_LOGS);
 		logChannel.sendMessage(embed).queue();
 	}
 
