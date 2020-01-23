@@ -54,7 +54,7 @@ public class CommandUnlock extends ModCommand {
 			
 		}
 		
-		ModLog.getActionTakenEmbed(ModAction.UNLOCK, event.getAuthor());
+		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.UNLOCK, event.getAuthor()));
 		CommandLock.locked = false;
 	}
 

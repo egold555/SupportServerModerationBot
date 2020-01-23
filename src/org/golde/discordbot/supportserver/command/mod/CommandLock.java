@@ -59,7 +59,7 @@ public class CommandLock extends ModCommand {
 			}
 			
 		}
-		ModLog.getActionTakenEmbed(ModAction.LOCK, event.getAuthor());
+		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.LOCK, event.getAuthor()));
 		locked = true;
 		
 	}
