@@ -49,7 +49,7 @@ public class CommandUnmute extends ModCommand {
 	        	reason = "No reason provided.";
 	        }
 	        
-	        Role mutedRole = event.getGuild().getRoleById(Roles.MUTE_ROLE);
+	        Role mutedRole = Roles.MUTED.getRole();
 	        
 	        event.getGuild().removeRoleFromMember(target, mutedRole).queue();
 	        

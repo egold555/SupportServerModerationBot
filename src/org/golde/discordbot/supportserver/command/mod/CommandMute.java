@@ -48,7 +48,7 @@ public class CommandMute extends ModCommand {
 	        	reason = "No reason provided.";
 	        }
 	        
-	        Role mutedRole = event.getGuild().getRoleById(Roles.MUTE_ROLE);
+	        Role mutedRole = Roles.MUTED.getRole();
 	        
 	        event.getGuild().addRoleToMember(target, mutedRole).queue();
 	        

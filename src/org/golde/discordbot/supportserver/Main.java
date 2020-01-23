@@ -11,8 +11,10 @@ import org.golde.discordbot.supportserver.command.everyone.CommandRPS;
 import org.golde.discordbot.supportserver.command.mod.CommandBan;
 import org.golde.discordbot.supportserver.command.mod.CommandCommonError;
 import org.golde.discordbot.supportserver.command.mod.CommandKick;
+import org.golde.discordbot.supportserver.command.mod.CommandLock;
 import org.golde.discordbot.supportserver.command.mod.CommandMute;
 import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
+import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
@@ -20,19 +22,18 @@ import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
-import org.golde.discordbot.supportserver.event.WatchYourProfanity;
 import org.golde.discordbot.supportserver.event.WebhookListener;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import com.jagrosh.jdautilities.examples.command.PingCommand;
 
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -41,6 +42,8 @@ public class Main {
 	private static JDA jda;
 
 	public static final boolean MAINTANCE = isEclipse();
+	
+	private static Guild guild;
 
 	public static void main(String[] args) throws Exception {
 		// config.txt contains two lines
@@ -95,6 +98,8 @@ public class Main {
 				new CommandUnmute(),
 				new CommandPruneChat(),
 				new CommandCommonError(),
+				new CommandLock(),
+				new CommandUnlock(),
 
 				new CommandAddReaction(),
 				new CommandFunnySpongeBob(),
@@ -126,6 +131,8 @@ public class Main {
 						if(MAINTANCE) {
 							event.getJDA().getPresence().setStatus(OnlineStatus.DO_NOT_DISTURB);
 						}
+						
+						guild = event.getJDA().getGuilds().get(0); //only one guild
 
 					}
 
@@ -140,6 +147,10 @@ public class Main {
 
 	private static boolean isEclipse() {
 		return System.getProperty("java.class.path").toLowerCase().contains("eclipse");
+	}
+	
+	public static Guild getGuild() {
+		return guild;
 	}
 
 }

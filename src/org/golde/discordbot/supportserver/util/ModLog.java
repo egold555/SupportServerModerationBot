@@ -19,10 +19,11 @@ public class ModLog {
 	}
 
 	public enum ModAction {
-		KICK, BAN, SOFT_BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE;
+		KICK, BAN, SOFT_BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK;
 	}
 
 	//should take a list of String[] key, value. Every key value pair is a addField function
+	@Deprecated
 	public static final MessageEmbed getActionTakenEmbed(ModAction action, @Nonnull User user, @Nonnull Member offender, @Nonnull String reason) {
 
 		String[][] text = new String[][] {
@@ -49,12 +50,14 @@ public class ModLog {
 		eb.addField("Action: ", action.name(), false);
 		eb.addField("Moderator: ", "<@" + mod.getId() + ">", false);
 
-		for(String[] thing : text) {
+		if(text != null) {
+			for(String[] thing : text) {
 
-			if(thing != null && thing.length == 2) {
-				eb.addField(thing[0], thing[1], false);
+				if(thing != null && thing.length == 2) {
+					eb.addField(thing[0], thing[1], false);
+				}
+
 			}
-
 		}
 
 		return eb.build();

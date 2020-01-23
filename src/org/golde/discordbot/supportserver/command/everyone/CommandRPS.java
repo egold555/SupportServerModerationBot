@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.command.everyone;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.util.CustomEmotes;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -10,7 +11,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 public class CommandRPS extends BaseCommand {
 
-	private static final String EMOJI_ROCK = "<:rock:661115004275130390>";
+	private static final String EMOJI_ROCK = CustomEmotes.ROCK;
 	private static final String EMOJI_PAPER = "🗞️";
 	private static final String EMOJI_SCISSORS = "✂️";
 	private static final String EMOJI_TIE = "👔";

@@ -69,7 +69,7 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 		msg.delete().queue();
 
 		//mute them
-		Role mutedRole = guild.getRoleById(Roles.MUTE_ROLE);
+		Role mutedRole = Roles.MUTED.getRole();
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
