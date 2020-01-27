@@ -56,7 +56,8 @@ public class Main {
 			Activity.listening("We Are The Robots - Kraftwerk"), 
 			Activity.listening(BaseCommand.PREFIX + "help"),
 			Activity.playing("Robot Arena 2: Design and Destroy"),
-			Activity.watching("BattleBots")
+			Activity.watching("BattleBots"),
+			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot")
 			};
 	
 	private static int currentPlayingStatus = 0;
@@ -87,15 +88,15 @@ public class Main {
 
 		// sets the bot prefix
 		client.setPrefix(BaseCommand.PREFIX);
-
-		if(MAINTANCE) {
-			client.setActivity(Activity.listening("Maintenance by Miranda Cosgrove"));
-			//client.setActivity(Activity.listening("Kraftwerk - We Are The Robots"));
-		}
-		else {
-			
-			//client.setActivity(Activity.watching("Over Eric's Server"));
-		}
+//
+//		if(MAINTANCE) {
+//			client.setActivity(Activity.listening("Maintenance by Miranda Cosgrove"));
+//			//client.setActivity(Activity.listening("Kraftwerk - We Are The Robots"));
+//		}
+//		else {
+//			
+//			//client.setActivity(Activity.watching("Over Eric's Server"));
+//		}
 
 
 		//client.
@@ -146,23 +147,23 @@ public class Main {
 					public void onReady(ReadyEvent event) {
 						if(MAINTANCE) {
 							event.getJDA().getPresence().setStatus(OnlineStatus.DO_NOT_DISTURB);
-						}else {
-							new Timer().scheduleAtFixedRate(new TimerTask() {
-								
-								@Override
-								public void run() {
-									
-									if(currentPlayingStatus > playingStatuses.length - 1) {
-										currentPlayingStatus = 0;
-									}
-									
-									jda.getPresence().setActivity(playingStatuses[currentPlayingStatus]);
-									
-									currentPlayingStatus++;
-									
-								}
-							}, 0, 60000);
 						}
+
+						new Timer().scheduleAtFixedRate(new TimerTask() {
+							
+							@Override
+							public void run() {
+								
+								if(currentPlayingStatus > playingStatuses.length - 1) {
+									currentPlayingStatus = 0;
+								}
+								
+								jda.getPresence().setActivity(playingStatuses[currentPlayingStatus]);
+								
+								currentPlayingStatus++;
+								
+							}
+						}, 0, 60000);
 						
 						guild = event.getJDA().getGuilds().get(0); //only one guild
 						
@@ -185,8 +186,7 @@ public class Main {
 	}
 
 	private static boolean isEclipse() {
-		return false;
-		//return System.getProperty("java.class.path").toLowerCase().contains("eclipse");
+		return System.getProperty("java.class.path").toLowerCase().contains("eclipse");
 	}
 	
 	public static Guild getGuild() {

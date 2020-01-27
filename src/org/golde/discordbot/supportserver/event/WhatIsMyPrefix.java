@@ -10,8 +10,7 @@ public class WhatIsMyPrefix extends AbstractMessageChecker {
 
 	@Override
 	protected boolean checkMessage(Member sender, String text) {
-		return text.equalsIgnoreCase("@Moderation Bot");
-		//return text.startsWith("@Moderation Bot");
+		return (text.startsWith("@Support Server Bot") && text.length() < 20);
 	}
 
 	@Override
