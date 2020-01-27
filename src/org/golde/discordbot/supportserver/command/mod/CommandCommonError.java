@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.util.Channels;
+
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.entities.Member;
@@ -52,7 +54,7 @@ public class CommandCommonError extends ModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 
 
-		Member member = event.getMember();
+		//Member member = event.getMember();
 
 		if(args.size() != 2) {
 			event.replyError("Please specify a error: \n" + helpErrorBuilt);
@@ -72,7 +74,7 @@ public class CommandCommonError extends ModCommand {
 	}
 
 	private void printError(CommandEvent event, long err) {
-		TextChannel tc = event.getGuild().getTextChannelById("637484447205425153");
+		TextChannel tc = event.getGuild().getTextChannelById(Channels.COMMON_ERRORS);
 
 
 		tc.retrieveMessageById(err).queue(onSuccess -> {

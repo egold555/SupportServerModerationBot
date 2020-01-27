@@ -86,9 +86,6 @@ public class Main {
 		// adds commands
 		client.addCommands(
 
-
-				// command to check bot latency
-
 				new CommandHelp(),
 				new CommandPing(),
 				new CommandRPS(),

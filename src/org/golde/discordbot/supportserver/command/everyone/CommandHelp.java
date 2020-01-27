@@ -20,8 +20,6 @@ public class CommandHelp extends BaseCommand {
 		StringBuilder builder = new StringBuilder(" __**Commands**:__");
 		Category category = null;
 
-
-
 		for(Command command : event.getClient().getCommands()) {
 			if(!command.isOwnerCommand() || event.getAuthor().getId().equals(event.getClient().getOwnerId())){
 

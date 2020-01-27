@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.command.mod;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.util.Categories;
 import org.golde.discordbot.supportserver.util.Channels;
 import org.golde.discordbot.supportserver.util.CustomEmotes;
 import org.golde.discordbot.supportserver.util.ModLog;
@@ -69,7 +70,7 @@ public class CommandLock extends ModCommand {
 		List<GuildChannel> toReturn = new ArrayList<GuildChannel>();
 
 		//Discussion
-		for(GuildChannel c : g.getCategoryById("594335572173258753").getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.DISCUSSION).getChannels()) {
 
 			if(!c.getName().equalsIgnoreCase("leak-lounge")) {
 				toReturn.add(c);
@@ -78,12 +79,12 @@ public class CommandLock extends ModCommand {
 		}
 
 		//User Stuff & Things
-		for(GuildChannel c : g.getCategoryById("635964206251900956").getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THING).getChannels()) {
 			toReturn.add(c);
 		}
 
 		//Misc
-		for(GuildChannel c : g.getCategoryById("644005865103556608").getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.MISC).getChannels()) {
 			toReturn.add(c);
 		}
 
