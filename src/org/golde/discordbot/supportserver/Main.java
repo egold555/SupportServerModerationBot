@@ -1,8 +1,12 @@
 package org.golde.discordbot.supportserver;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
@@ -35,6 +39,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -45,6 +50,16 @@ public class Main {
 	public static final boolean MAINTANCE = isEclipse();
 	
 	private static Guild guild;
+	
+	private static final Activity[] playingStatuses = new Activity[] {
+			Activity.watching("Over Eric's Server"), 
+			Activity.listening("We Are The Robots - Kraftwerk"), 
+			Activity.listening(BaseCommand.PREFIX + "help"),
+			Activity.playing("Robot Arena 2: Design and Destroy"),
+			Activity.watching("BattleBots")
+			};
+	
+	private static int currentPlayingStatus = 0;
 
 	public static void main(String[] args) throws Exception {
 		// config.txt contains two lines
@@ -75,9 +90,11 @@ public class Main {
 
 		if(MAINTANCE) {
 			client.setActivity(Activity.listening("Maintenance by Miranda Cosgrove"));
+			//client.setActivity(Activity.listening("Kraftwerk - We Are The Robots"));
 		}
 		else {
-			client.setActivity(Activity.watching("Over Eric's Server"));
+			
+			//client.setActivity(Activity.watching("Over Eric's Server"));
 		}
 
 
@@ -129,10 +146,33 @@ public class Main {
 					public void onReady(ReadyEvent event) {
 						if(MAINTANCE) {
 							event.getJDA().getPresence().setStatus(OnlineStatus.DO_NOT_DISTURB);
+						}else {
+							new Timer().scheduleAtFixedRate(new TimerTask() {
+								
+								@Override
+								public void run() {
+									
+									if(currentPlayingStatus > playingStatuses.length - 1) {
+										currentPlayingStatus = 0;
+									}
+									
+									jda.getPresence().setActivity(playingStatuses[currentPlayingStatus]);
+									
+									currentPlayingStatus++;
+									
+								}
+							}, 0, 60000);
 						}
 						
 						guild = event.getJDA().getGuilds().get(0); //only one guild
-
+						
+//						event.getJDA().getSelfUser().getManager().setName("Support Server Bot").queue();;
+//						try {
+//							event.getJDA().getSelfUser().getManager().setAvatar(Icon.from(new File("res/purple.png"))).queue();;
+//						} catch (IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
 					}
 
 				})
@@ -145,7 +185,8 @@ public class Main {
 	}
 
 	private static boolean isEclipse() {
-		return System.getProperty("java.class.path").toLowerCase().contains("eclipse");
+		return false;
+		//return System.getProperty("java.class.path").toLowerCase().contains("eclipse");
 	}
 	
 	public static Guild getGuild() {
