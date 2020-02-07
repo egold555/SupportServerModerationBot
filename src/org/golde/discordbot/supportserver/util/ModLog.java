@@ -71,12 +71,9 @@ public class ModLog {
 	 * Custom Embed! ~ Si1kn
 	 */
 
-	public static final MessageEmbed report(ModAction action, @Nonnull User user, @Nonnull Member offender, @Nonnull String reason, Date time) {
+	public static final MessageEmbed report( @Nonnull User user, @Nonnull Member offender, @Nonnull String reason, Date time) {
 
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
-		time = cal.getTime();
 		String[][] text = new String[][] {
 				null,
 				null,
@@ -90,7 +87,7 @@ public class ModLog {
 			text[1] = new String[] {"Reporter:", StringUtil.abbreviate(reason, 250)};
 		}
 
-		return report(action,user,offender,reason,time);
+		return report(user,offender,reason,time);
 
 	}
 

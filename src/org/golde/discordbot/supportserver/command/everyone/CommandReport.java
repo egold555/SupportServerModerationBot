@@ -9,6 +9,9 @@ import org.golde.discordbot.supportserver.command.BaseCommand;
 import org.golde.discordbot.supportserver.command.mod.ModCommand;
 import org.golde.discordbot.supportserver.util.ModLog;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CommandReport extends BaseCommand {
@@ -60,7 +63,18 @@ public class CommandReport extends BaseCommand {
 
             final String reasonFinal = reason;
 
-            MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(ModLog.ModAction.REPORT, event.getAuthor(), target, reason);
+
+            /*
+            //just this
+             */
+
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+            Date time;
+            time = cal.getTime();
+
+            MessageEmbed actionEmbed = ModLog.report(event.getAuthor(), target, reason, time);
             ModLog.log(event.getGuild(), actionEmbed);
 
            /* target.getUser().openPrivateChannel().queue((dmChannel) ->
