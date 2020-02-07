@@ -1,0 +1,31 @@
+<component name="libraryTable">
+  <library name="opus-java-api-1.0.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/opus-java-api-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDAUtilities/lib/json-20160810.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDAUtilities/jda-utilities-doc-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/commons-collections4-4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/jackson-annotations-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/jackson-core-2.9.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/jackson-databind-2.9.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDAUtilities/jda-utilities-menu-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/nv-websocket-client-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDAUtilities/jda-utilities-command-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDAUtilities/jda-utilities-examples-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/JDA-4.0.0_39.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/okhttp-3.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/opus-java-natives-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/okio-1.17.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDAUtilities/jda-utilities-commons-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/jna-4.4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/annotations-16.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/trove4j-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JDA/lib/jsr305-3.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/JDA/JDA-4.0.0_39-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
