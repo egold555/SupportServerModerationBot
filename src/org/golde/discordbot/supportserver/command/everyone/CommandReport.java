@@ -1,6 +1,7 @@
 package org.golde.discordbot.supportserver.command.everyone;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.sun.org.apache.xpath.internal.objects.XNull;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -74,6 +75,7 @@ public class CommandReport extends BaseCommand {
             Date time;
             time = cal.getTime();
 
+            //re
             MessageEmbed actionEmbed = ModLog.report(event.getAuthor(), target, reason, time);
             ModLog.log(event.getGuild(), actionEmbed);
 
