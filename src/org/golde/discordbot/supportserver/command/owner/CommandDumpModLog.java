@@ -37,7 +37,7 @@ public class CommandDumpModLog extends OwnerCommand {
 		{
 
 			try {
-				File exportFile = new File("res/export.txt");
+				File exportFile = new File("res/user-data.json");
 				FileWriter writer = new FileWriter(exportFile);
 				List<JsonEmbed> msgJson = new ArrayList<JsonEmbed>();
 
@@ -58,7 +58,6 @@ public class CommandDumpModLog extends OwnerCommand {
 							for(Field f : em.getFields()) {
 								
 								if(f.getName().equalsIgnoreCase("Action:")) {
-									System.err.println(f.getValue());
 									ModAction act = ModAction.valueOf(f.getValue());
 									if(act == ModAction.BAN || act == ModAction.KICK || act == ModAction.MUTE || act == ModAction.UNMUTE || act == ModAction.WARN) {
 										jsonEmbed.setAction(act.name());
@@ -96,21 +95,14 @@ public class CommandDumpModLog extends OwnerCommand {
 					long offender = Long.parseLong(em.getOffender());
 					SimpleUser user = Database.getUser(offender);
 					
-					if(Main.getGuild().getMemberById(offender) != null && Main.getGuild().getMemberById(offender).getUser() != null) {
-						user.setUserLKU(Main.getGuild().getMemberById(offender).getUser().getAsTag());
-					}
-					else {
-						user.setUserLKU("null");
-					}
-					
-					user.addOffence(new Offence(ModAction.valueOf(em.getAction()), offender, Main.getGuild().getMemberById(em.getModerator()).getUser().getAsTag(), em.getReason(), em.getTimestamp()));
+					user.addOffence(new Offence(ModAction.valueOf(em.getAction()), Database.getUsernameCache(Long.parseLong(em.getModerator())), em.getReason(), em.getTimestamp()));
 					if(!users.contains(user)) {
 						users.add(user);
 					}
 				}
 				
-				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-				writer.append(gson.toJson(users));
+				
+				writer.append(Database.GSON.toJson(users));
 
 				writer.flush();
 				writer.close();

@@ -24,6 +24,8 @@ import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
 import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
+import org.golde.discordbot.supportserver.command.owner.DumpUsernameCache;
+import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
@@ -64,6 +66,9 @@ public class Main {
 	private static int currentPlayingStatus = 0;
 
 	public static void main(String[] args) throws Exception {
+		
+		Database.loadAllFromFile();
+		
 		// config.txt contains two lines
 		List<String> list = Files.readAllLines(Paths.get("config.txt"));
 
@@ -121,7 +126,8 @@ public class Main {
 				new CommandAddReaction(),
 				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter),
-				new CommandDumpModLog()
+				new CommandDumpModLog(),
+				new DumpUsernameCache()
 
 				);
 

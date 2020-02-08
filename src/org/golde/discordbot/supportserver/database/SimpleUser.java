@@ -10,13 +10,12 @@ import lombok.Setter;
 @Getter
 public class SimpleUser {
 
-	private final long snowflake;
-	@Setter private String userLKU;
+	private final UsernameCache user;
 	
 	private ArrayList<Offence> offences = new ArrayList<Offence>();
 	
-	public SimpleUser(long snowflake) {
-		this.snowflake = snowflake;
+	public SimpleUser(UsernameCache user) {
+		this.user = user;
 	}
 	
 	public int getAmountOfWarns() {
