@@ -2,6 +2,7 @@ package org.golde.discordbot.supportserver.database;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,23 +23,50 @@ public class Database {
 	
 	public static void saveToFile(List<?> list, String filename) {
 
+		FileWriter writer = null;
+		
 		try {
-			GSON.toJson(list, new FileWriter("res/" + filename + ".json"));
+			writer = new FileWriter("res/" + filename + ".json");
+			GSON.toJson(list, writer);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			if(writer != null) {
+				try {
+					writer.close();
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 	}
 	
 	public static <T> List<T> loadFromFile(String filename, Class<T[]> clazz) {
 		
+		FileReader reader = null;
+		
 		try {
-			T[] arr = new Gson().fromJson(new FileReader("res/" + filename + ".json"), clazz);
+			reader = new FileReader("res/" + filename + ".json");
+			T[] arr = new Gson().fromJson(reader, clazz);
 		    return new ArrayList<>(Arrays.asList(arr)); //Arrays.asList returns a fixed size list. Jolly. https://stackoverflow.com/questions/5755477/java-list-add-unsupportedoperationexception
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			if(reader != null) {
+				try {
+					reader.close();
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 		
 	
@@ -53,6 +81,10 @@ public class Database {
 	
 	public static List<SimpleUser> getAllUsers() {
 		return USERS;
+	}
+	
+	public static List<UsernameCache> getUsernameCashe() {
+		return USERNAME_CACHE;
 	}
 	
 	public static SimpleUser getUser(long snowflake) {

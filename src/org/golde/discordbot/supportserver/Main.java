@@ -23,6 +23,7 @@ import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
 import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
+import org.golde.discordbot.supportserver.command.owner.CommandSaveUD;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.command.owner.DumpUsernameCache;
 import org.golde.discordbot.supportserver.database.Database;
@@ -127,7 +128,8 @@ public class Main {
 				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter),
 				new CommandDumpModLog(),
-				new DumpUsernameCache()
+				new DumpUsernameCache(),
+				new CommandSaveUD()
 
 				);
 
