@@ -2,7 +2,10 @@ package org.golde.discordbot.supportserver.command.mod;
 
 import java.util.List;
 
+import org.golde.discordbot.supportserver.constants.MiscConstants;
 import org.golde.discordbot.supportserver.util.ModLog;
+import org.golde.discordbot.supportserver.util.StringUtil;
+import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -22,9 +25,6 @@ public class CommandKick extends ModCommand {
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
-		
-		
-		Member member = event.getMember();
 		
 		if(event.getArgs().isEmpty())
         {
@@ -55,15 +55,26 @@ public class CommandKick extends ModCommand {
 	        
 	        final String reasonFinal = reason;
 	        
-	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(ModLog.ModAction.KICK, event.getAuthor(), target, reason);
+	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
+					ModAction.KICK, 
+					event.getAuthor(), 
+					new String[][] {
+						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
+						new String[] {"Reason:", StringUtil.abbreviate(reason, 250)}
+					}
+					);
 	        ModLog.log(event.getGuild(), actionEmbed);
 	        
+	        //TODO: Add discord link back to the server
 	        target.getUser().openPrivateChannel().queue((dmChannel) ->
 	        {
 	        	dmChannel.sendMessage(actionEmbed).queue((unused1) ->
 		        {
-		        	event.getGuild().kick(target, String.format("Kick by: %#s, with reason: %s",
-			                event.getAuthor(), reasonFinal)).queue();
+		        	dmChannel.sendMessage("You can join back with this link: " + MiscConstants.DISCORD_INVITE).queue((unused2) ->
+			        {
+			        	event.getGuild().kick(target, String.format("Kick by: %#s, with reason: %s",
+				                event.getAuthor(), reasonFinal)).queue();
+			        });
 		        });
 	        	
 	        });

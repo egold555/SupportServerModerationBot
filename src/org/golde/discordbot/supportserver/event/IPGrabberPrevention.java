@@ -1,7 +1,9 @@
 package org.golde.discordbot.supportserver.event;
 
+import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.Roles;
+import org.golde.discordbot.supportserver.util.StringUtil;
+import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -73,7 +75,14 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
-		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(ModLog.ModAction.MUTE, guild.getSelfMember().getUser(), target, "IP grabber link");
+		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
+				ModAction.BAN, 
+				guild.getSelfMember().getUser(), 
+				new String[][] {
+					new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
+					new String[] {"Reason:", "IP Grabber Link"}
+				}
+				);
 		ModLog.log(guild, actionEmbed);
 
 		target.getUser().openPrivateChannel().queue((dmChannel) ->

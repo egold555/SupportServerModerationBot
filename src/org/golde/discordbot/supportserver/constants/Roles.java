@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.util;
+package org.golde.discordbot.supportserver.constants;
 
 import org.golde.discordbot.supportserver.Main;
 

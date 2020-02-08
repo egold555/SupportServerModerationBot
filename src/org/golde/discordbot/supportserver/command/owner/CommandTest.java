@@ -2,11 +2,15 @@ package org.golde.discordbot.supportserver.command.owner;
 
 import java.util.List;
 
+import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.Offence;
+import org.golde.discordbot.supportserver.database.SimpleUser;
+import org.golde.discordbot.supportserver.util.ModLog.ModAction;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
 
 public class CommandTest extends OwnerCommand {
 
@@ -22,27 +26,18 @@ public class CommandTest extends OwnerCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-		
-		final long role_ = 667224721544183838L;
-		
-		Guild g = event.getGuild();
-		
-		Role role = g.getRoleById(role_);
-		
-		role.getManager().setMentionable(true).queue(success1 -> {
-			
-			g.getTextChannelById(604769552416374807L).sendMessage("Hello! This is a test announcement. Only I can ping " + role.getAsMention() + " !").queue(success2 -> {
-				
-				role.getManager().setMentionable(false).queue();
-			
-			});
-			
-				
-			
-		});		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+		SimpleUser user = Database.getUser(8895);
+
+//		user.setLastKnownUsername("HIIII#1234");
+//		user.addOffence(new Offence(ModAction.BAN, 5678L, "Tesdasdasdst"));
+		
+		String json = gson.toJson(Database.getAllUsers());
+		
+		System.out.println(json);
+		
+		
 	}
-
-	
 
 }

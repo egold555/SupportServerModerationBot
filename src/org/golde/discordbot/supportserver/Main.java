@@ -21,6 +21,7 @@ import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
+import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
 import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
@@ -118,8 +119,9 @@ public class Main {
 				new CommandUnlock(),
 
 				new CommandAddReaction(),
-				new CommandFunnySpongeBob(),
-				new CommandTest(waiter)
+				//new CommandFunnySpongeBob(),
+				new CommandTest(waiter),
+				new CommandDumpModLog()
 
 				);
 

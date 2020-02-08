@@ -1,6 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
-import org.golde.discordbot.supportserver.util.Channels;
+import org.golde.discordbot.supportserver.constants.Channels;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.golde.discordbot.supportserver.util.Channels;
+import org.golde.discordbot.supportserver.constants.Channels;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 

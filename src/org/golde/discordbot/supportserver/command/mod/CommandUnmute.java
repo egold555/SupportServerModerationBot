@@ -2,8 +2,10 @@ package org.golde.discordbot.supportserver.command.mod;
 
 import java.util.List;
 
+import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.Roles;
+import org.golde.discordbot.supportserver.util.StringUtil;
+import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -53,7 +55,14 @@ public class CommandUnmute extends ModCommand {
 	        
 	        event.getGuild().removeRoleFromMember(target, mutedRole).queue();
 	        
-	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(ModLog.ModAction.UNMUTE, event.getAuthor(), target, reason);
+	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
+					ModAction.UNMUTE, 
+					event.getAuthor(), 
+					new String[][] {
+						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
+						new String[] {"Reason:", StringUtil.abbreviate(reason, 250)}
+					}
+					);
 	        ModLog.log(event.getGuild(), actionEmbed);
 	        
 	        target.getUser().openPrivateChannel().queue((dmChannel) ->

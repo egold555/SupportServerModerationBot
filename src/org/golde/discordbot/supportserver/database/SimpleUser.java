@@ -1,0 +1,50 @@
+package org.golde.discordbot.supportserver.database;
+
+import java.util.ArrayList;
+
+import org.golde.discordbot.supportserver.util.ModLog.ModAction;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+public class SimpleUser {
+
+	private final long snowflake;
+	@Setter private String userLKU;
+	
+	private ArrayList<Offence> offences = new ArrayList<Offence>();
+	
+	public SimpleUser(long snowflake) {
+		this.snowflake = snowflake;
+	}
+	
+	public int getAmountOfWarns() {
+		return getOffenceCount(ModAction.WARN);
+	}
+	
+	public int getAmountOfMutes() {
+		return getOffenceCount(ModAction.MUTE);
+	}
+	
+	public int getAmountOfOffences() {
+		return offences.size();
+	}
+	
+	public void addOffence(Offence o) {
+		offences.add(o);
+	}
+	
+	private int getOffenceCount(ModAction action) {
+		int toReturn = 0;
+		
+		for(Offence o : offences) {
+			if(o.getAction() == action) {
+				toReturn++;
+			}
+		}
+		
+		return toReturn;
+	}
+	
+}

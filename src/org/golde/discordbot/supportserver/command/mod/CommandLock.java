@@ -3,12 +3,12 @@ package org.golde.discordbot.supportserver.command.mod;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.golde.discordbot.supportserver.util.Categories;
-import org.golde.discordbot.supportserver.util.Channels;
-import org.golde.discordbot.supportserver.util.CustomEmotes;
+import org.golde.discordbot.supportserver.constants.Categories;
+import org.golde.discordbot.supportserver.constants.Channels;
+import org.golde.discordbot.supportserver.constants.CustomEmotes;
+import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
-import org.golde.discordbot.supportserver.util.Roles;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 

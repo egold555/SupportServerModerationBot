@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.util;
+package org.golde.discordbot.supportserver.constants;
 
 public class Channels {
 

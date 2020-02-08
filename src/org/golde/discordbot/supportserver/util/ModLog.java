@@ -1,17 +1,44 @@
 package org.golde.discordbot.supportserver.util;
 
-import javax.annotation.Nonnull;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import org.golde.discordbot.supportserver.constants.Channels;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class ModLog {
 
+	private static HashMap<Long, Integer> DB_WARNS = new HashMap<Long, Integer>();
+
+	private static final String EOL = System.getProperty("line.separator");
+
+	private static void saveDatabaseToFile() {
+
+		try (Writer writer = new FileWriter("somefile.csv")) {
+			for (Entry<Long, Integer> entry : DB_WARNS.entrySet()) {
+				writer.append(Long.toString(entry.getKey()))
+				.append(',')
+				.append(Integer.toString(entry.getValue()))
+				.append(EOL);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace(System.err);
+		}
+
+	}
 	
+	public static void readDatabseFromFIle() {
+		
+	}
 
 	public static final void log(Guild guild, MessageEmbed embed) {
 		TextChannel logChannel = guild.getTextChannelById(Channels.MOD_LOGS);
@@ -19,28 +46,7 @@ public class ModLog {
 	}
 
 	public enum ModAction {
-		KICK, BAN, SOFT_BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK;
-	}
-
-	//should take a list of String[] key, value. Every key value pair is a addField function
-	@Deprecated
-	public static final MessageEmbed getActionTakenEmbed(ModAction action, @Nonnull User user, @Nonnull Member offender, @Nonnull String reason) {
-
-		String[][] text = new String[][] {
-			null,
-			null,
-		};
-
-		if(offender != null) {
-			text[0] = new String[] {"Offender: ", "<@" + offender.getId() + ">"};
-		}
-
-		if(reason != null) {
-			text[1] = new String[] {"Reason:", StringUtil.abbreviate(reason, 250)};
-		}
-
-		return getActionTakenEmbed(action, user, text);
-
+		KICK, BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK, WARN;
 	}
 
 	public static final MessageEmbed getActionTakenEmbed(ModAction action, User mod, String[]... text) {
@@ -59,6 +65,8 @@ public class ModLog {
 
 			}
 		}
+
+		eb.setFooter(new Date().toString());
 
 		return eb.build();
 	}
