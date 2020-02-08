@@ -15,4 +15,11 @@ public class Offence {
 	private long timestamp;
 	
 	
+	@Override
+	public String toString() {
+		return "Offence [action=" + action + ", moderator=" + moderator + ", reason=" + reason + ", timestamp="
+				+ timestamp + "]";
+	}
+	
+	
 }

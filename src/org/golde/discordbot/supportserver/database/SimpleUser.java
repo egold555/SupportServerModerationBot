@@ -45,5 +45,14 @@ public class SimpleUser {
 		
 		return toReturn;
 	}
+
+	@Override
+	public String toString() {
+		return "SimpleUser [user=" + user + ", offences=" + offences + ", getAmountOfWarns()=" + getAmountOfWarns()
+				+ ", getAmountOfMutes()=" + getAmountOfMutes() + ", getAmountOfOffences()=" + getAmountOfOffences()
+				+ "]";
+	}
+	
+	
 	
 }

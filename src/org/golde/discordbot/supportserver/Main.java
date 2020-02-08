@@ -25,8 +25,10 @@ import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
 import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
 import org.golde.discordbot.supportserver.command.owner.CommandSaveUD;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
+import org.golde.discordbot.supportserver.command.owner.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.owner.DumpUsernameCache;
 import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.event.DatabaseEventListener;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
@@ -129,7 +131,8 @@ public class Main {
 				new CommandTest(waiter),
 				new CommandDumpModLog(),
 				new DumpUsernameCache(),
-				new CommandSaveUD()
+				new CommandSaveUD(),
+				new CommandUserHistory()
 
 				);
 
@@ -150,6 +153,7 @@ public class Main {
 				.addEventListeners(new WebhookListener())
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
+				.addEventListeners(new DatabaseEventListener())
 
 				.addEventListeners(new ListenerAdapter() {
 

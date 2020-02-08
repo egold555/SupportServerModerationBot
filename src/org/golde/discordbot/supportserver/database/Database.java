@@ -112,14 +112,14 @@ public class Database {
 		UsernameCache c = new UsernameCache(snowflake);
 		USERNAME_CACHE.add(c);
 		System.out.println("creating new user " + snowflake);
-		//saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
+		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
 		return c;
 		
 	}
 	
 	public static void updateUsername(long snowflake, String name) {
 		getUsernameCache(snowflake).setUsername(name);
-		//saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
+		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
 		System.out.println("Updating username " + snowflake + " - " + name);
 	}
 	

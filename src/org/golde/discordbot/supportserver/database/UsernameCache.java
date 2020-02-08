@@ -34,5 +34,12 @@ public class UsernameCache {
 			return username;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "UsernameCache [snowflake=" + snowflake + ", username=" + username + "]";
+	}
+	
+	
 	
 }
