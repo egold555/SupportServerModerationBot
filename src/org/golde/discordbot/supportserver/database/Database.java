@@ -90,11 +90,12 @@ public class Database {
 	public static SimpleUser getUser(long snowflake) {
 		
 		for(SimpleUser u : USERS) {
-			if(u.getUser().equals(getUsernameCache(snowflake))) {
+			if(u.getUser().getSnowflake() == snowflake) {
 				return u;
 			}
 		}
 		
+		System.out.println("creating new SimpleUser " + snowflake);
 		SimpleUser u = new SimpleUser(getUsernameCache(snowflake));
 		USERS.add(u);
 		return u;
@@ -111,7 +112,7 @@ public class Database {
 		
 		UsernameCache c = new UsernameCache(snowflake);
 		USERNAME_CACHE.add(c);
-		System.out.println("creating new user " + snowflake);
+		System.out.println("creating new UsernameCache " + snowflake);
 		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
 		return c;
 		
