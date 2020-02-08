@@ -1,11 +1,7 @@
 package org.golde.discordbot.supportserver.database;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +23,7 @@ public class Database {
 	public static void saveToFile(List<?> list, String filename) {
 
 		try {
-			GSON.toJson(list, new OutputStreamWriter(new FileOutputStream(new File("res/" + filename + ".json")), StandardCharsets.UTF_8));
+			GSON.toJson(list, new FileWriter("res/" + filename + ".json"));
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -52,7 +48,7 @@ public class Database {
 	
 	public static void loadAllFromFile() {
 		USERNAME_CACHE = loadFromFile(USERNAME_CACHE_FILE, UsernameCache[].class);
-		//USERS = loadFromFile(USERS_FILE, SimpleUser[].class);
+		USERS = loadFromFile(USERS_FILE, SimpleUser[].class);
 	}
 	
 	public static List<SimpleUser> getAllUsers() {
@@ -83,14 +79,16 @@ public class Database {
 		
 		UsernameCache c = new UsernameCache(snowflake);
 		USERNAME_CACHE.add(c);
-		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
+		System.out.println("creating new user " + snowflake);
+		//saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
 		return c;
 		
 	}
 	
 	public static void updateUsername(long snowflake, String name) {
 		getUsernameCache(snowflake).setUsername(name);
-		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
+		//saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
+		System.out.println("Updating username " + snowflake + " - " + name);
 	}
 	
 }
