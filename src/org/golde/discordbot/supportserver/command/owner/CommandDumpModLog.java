@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.golde.discordbot.supportserver.Main;
 import org.golde.discordbot.supportserver.constants.Channels;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.database.JsonEmbed;
@@ -13,8 +12,6 @@ import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.database.SimpleUser;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.entities.Message;

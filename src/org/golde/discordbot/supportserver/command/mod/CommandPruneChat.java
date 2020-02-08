@@ -1,13 +1,11 @@
 package org.golde.discordbot.supportserver.command.mod;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.golde.discordbot.supportserver.util.ModLog;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;

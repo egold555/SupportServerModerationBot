@@ -8,7 +8,6 @@ import org.golde.discordbot.supportserver.constants.Channels;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandCommonError extends ModCommand {

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class SimpleUser {

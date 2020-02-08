@@ -3,9 +3,7 @@ package org.golde.discordbot.supportserver.command.owner;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.database.SimpleUser;
-import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

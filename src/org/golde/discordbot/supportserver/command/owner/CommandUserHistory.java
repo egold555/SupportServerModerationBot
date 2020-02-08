@@ -1,6 +1,5 @@
 package org.golde.discordbot.supportserver.command.owner;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.database.Database;
@@ -17,7 +16,7 @@ public class CommandUserHistory extends OwnerCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 		
-		System.out.println(Arrays.toString(args.toArray(new String[0])));
+		//System.out.println(Arrays.toString(args.toArray(new String[0])));
 		
 		long thePerson = -1;
 		
@@ -26,12 +25,15 @@ public class CommandUserHistory extends OwnerCommand {
 		}
 		else if(args.size() == 2) {
 			String msg = args.get(1);
-			msg = msg.replace("<@", "");
+			msg = msg.replace("<", "");
+			msg = msg.replace("@", "");
+			msg = msg.replace("!", "");
 			msg = msg.replace(">", "");
 			try {
 				thePerson = Long.parseLong(msg);
 			}
 			catch(Exception e) {
+				e.printStackTrace();
 				/*Ignore*/
 			}
 		}
@@ -43,7 +45,10 @@ public class CommandUserHistory extends OwnerCommand {
 			
 			SimpleUser user = Database.getUser(thePerson);
 			
-			System.out.println(user.toString());
+			String json = Database.GSON.toJson(user);
+			
+			event.getChannel().sendFile(json.getBytes(), user.getUser().getSnowflake() + ".json").append("File sent").queue();;
+			
 			event.replySuccess("Check console");
 			
 		}

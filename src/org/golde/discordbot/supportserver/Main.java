@@ -1,7 +1,5 @@
 package org.golde.discordbot.supportserver;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -22,7 +20,6 @@ import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
-import org.golde.discordbot.supportserver.command.owner.CommandFunnySpongeBob;
 import org.golde.discordbot.supportserver.command.owner.CommandSaveUD;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.command.owner.CommandUserHistory;
@@ -45,7 +42,6 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
