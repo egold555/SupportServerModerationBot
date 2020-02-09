@@ -7,12 +7,13 @@ import java.net.URLEncoder;
 import lombok.Getter;
 
 
-public class UsernameCache {
+public class UserDataCache {
 
 	@Getter private final long snowflake;
 	private String username = "null";
+	private String avatar = "null";
 	
-	public UsernameCache(long snowflake) {
+	public UserDataCache(long snowflake) {
 		this.snowflake = snowflake;
 	}
 	
@@ -23,6 +24,10 @@ public class UsernameCache {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	
 	public String getUsername() {
@@ -37,9 +42,8 @@ public class UsernameCache {
 
 	@Override
 	public String toString() {
-		return "UsernameCache [snowflake=" + snowflake + ", username=" + username + "]";
+		return "UserDataCache [snowflake=" + snowflake + ", username=" + username + ", avatar=" + avatar + "]";
 	}
-	
 	
 	
 }

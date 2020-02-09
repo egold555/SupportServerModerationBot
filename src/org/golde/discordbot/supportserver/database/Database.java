@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.util.ModLog.ModAction;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,9 +17,9 @@ public class Database {
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	
 	private static List<SimpleUser> USERS = new ArrayList<SimpleUser>();
-	private static List<UsernameCache> USERNAME_CACHE = new ArrayList<UsernameCache>();
+	private static List<UserDataCache> USERNAME_CACHE = new ArrayList<UserDataCache>();
 	
-	public static final String USERNAME_CACHE_FILE = "username-cache";
+	public static final String USERNAME_CACHE_FILE = "userdata-cache";
 	public static final String USERS_FILE = "user-data";
 	
 	public static void saveToFile(List<?> list, String filename) {
@@ -74,7 +76,7 @@ public class Database {
 	}
 	
 	public static void loadAllFromFile() {
-		USERNAME_CACHE = loadFromFile(USERNAME_CACHE_FILE, UsernameCache[].class);
+		USERNAME_CACHE = loadFromFile(USERNAME_CACHE_FILE, UserDataCache[].class);
 		USERS = loadFromFile(USERS_FILE, SimpleUser[].class);
 	}
 	
@@ -82,7 +84,7 @@ public class Database {
 		return USERS;
 	}
 	
-	public static List<UsernameCache> getUsernameCashe() {
+	public static List<UserDataCache> getUsernameCashe() {
 		return USERNAME_CACHE;
 	}
 	
@@ -93,25 +95,23 @@ public class Database {
 				return u;
 			}
 		}
-		
-		System.out.println("creating new SimpleUser " + snowflake);
+
 		SimpleUser u = new SimpleUser(getUsernameCache(snowflake));
 		USERS.add(u);
 		return u;
 		
 	}
 	
-	public static UsernameCache getUsernameCache(long snowflake) {
+	public static UserDataCache getUsernameCache(long snowflake) {
 		
-		for(UsernameCache c : USERNAME_CACHE) {
+		for(UserDataCache c : USERNAME_CACHE) {
 			if(c.getSnowflake() == snowflake) {
 				return c;
 			}
 		}
 		
-		UsernameCache c = new UsernameCache(snowflake);
+		UserDataCache c = new UserDataCache(snowflake);
 		USERNAME_CACHE.add(c);
-		System.out.println("creating new UsernameCache " + snowflake);
 		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
 		return c;
 		
@@ -120,7 +120,16 @@ public class Database {
 	public static void updateUsername(long snowflake, String name) {
 		getUsernameCache(snowflake).setUsername(name);
 		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
-		System.out.println("Updating username " + snowflake + " - " + name);
+	}
+	
+	public static void updateAvatar(long snowflake, String url) {
+		getUsernameCache(snowflake).setAvatar(url);
+		saveToFile(USERNAME_CACHE, USERNAME_CACHE_FILE);
+	}
+	
+	public static void addOffence(long snowflake, long moderator, ModAction action, String reason) {
+		getUser(snowflake).addOffence(new Offence(action, getUsernameCache(moderator), reason, System.currentTimeMillis()));
+		saveToFile(USERS, USERS_FILE);
 	}
 	
 }

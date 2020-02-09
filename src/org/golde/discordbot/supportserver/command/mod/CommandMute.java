@@ -3,6 +3,8 @@ package org.golde.discordbot.supportserver.command.mod;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.Roles;
+import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.StringUtil;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -54,12 +56,15 @@ public class CommandMute extends ModCommand {
 	        
 	        event.getGuild().addRoleToMember(target, mutedRole).queue();
 	        
+	        Database.addOffence(target.getIdLong(), member.getIdLong(), ModAction.MUTE, reason);
+	        //Database.getUser(target.getIdLong()).addOffence(new Offence(ModAction.MUTE, Database.getUsernameCache(target.getIdLong()), reason, System.currentTimeMillis()));
+	        
 	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					ModAction.MUTE, 
 					event.getAuthor(), 
 					new String[][] {
 						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
-						new String[] {"Reason:", StringUtil.abbreviate(reason, 250)}
+						new String[] {"Reason:", StringUtil.abbreviate(reason, 250)},
 					}
 					);
 	        

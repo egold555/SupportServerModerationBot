@@ -5,6 +5,8 @@ import org.golde.discordbot.supportserver.database.Database;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateAvatarEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateDiscriminatorEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateNameEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -21,6 +23,18 @@ public class DatabaseEventListener extends ListenerAdapter {
 	
 	@Override
 	public void onUserUpdateName(UserUpdateNameEvent event) {
+		User member = event.getEntity();
+		Database.updateUsername(member.getIdLong(), member.getAsTag());
+	}
+	
+	@Override
+	public void onUserUpdateAvatar(UserUpdateAvatarEvent event) {
+		User member = event.getEntity();
+		Database.updateAvatar(member.getIdLong(), member.getAvatarUrl());
+	}
+	
+	@Override
+	public void onUserUpdateDiscriminator(UserUpdateDiscriminatorEvent event) {
 		User member = event.getEntity();
 		Database.updateUsername(member.getIdLong(), member.getAsTag());
 	}

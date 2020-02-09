@@ -1,6 +1,7 @@
 package org.golde.discordbot.supportserver.event;
 
 import org.golde.discordbot.supportserver.constants.Roles;
+import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
@@ -71,6 +72,8 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
+		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.BAN, "IP Grabber Link");
+		
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				ModAction.BAN, 
 				guild.getSelfMember().getUser(), 

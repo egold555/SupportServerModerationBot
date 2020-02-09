@@ -18,6 +18,7 @@ import org.golde.discordbot.supportserver.command.mod.CommandMute;
 import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
+import org.golde.discordbot.supportserver.command.mod.CommandWarn;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
 import org.golde.discordbot.supportserver.command.owner.CommandSaveUD;
@@ -117,6 +118,7 @@ public class Main {
 				new CommandBan(),
 				new CommandMute(),
 				new CommandUnmute(),
+				new CommandWarn(),
 				new CommandPruneChat(),
 				new CommandCommonError(),
 				new CommandLock(),

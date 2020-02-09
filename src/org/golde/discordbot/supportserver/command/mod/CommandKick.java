@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.command.mod;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.MiscConstants;
+import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.StringUtil;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -54,6 +55,8 @@ public class CommandKick extends ModCommand {
 	        }
 	        
 	        final String reasonFinal = reason;
+	        
+	        Database.addOffence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.KICK, reason);
 	        
 	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					ModAction.KICK, 

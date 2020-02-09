@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.golde.discordbot.supportserver.Main;
 import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.database.UsernameCache;
+import org.golde.discordbot.supportserver.database.UserDataCache;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -24,15 +24,16 @@ public class DumpUsernameCache extends OwnerCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 		
 		try {
-			File exportFile = new File("res/username-cache.json");
+			File exportFile = new File("res/userdata-cache.json");
 			FileWriter writer = new FileWriter(exportFile);
 			
-			List<UsernameCache> list = new ArrayList<UsernameCache>();
+			List<UserDataCache> list = new ArrayList<UserDataCache>();
 			
 			for(Member m : Main.getGuild().getMembers()) {
 				
-				UsernameCache cache = new UsernameCache(m.getIdLong());
+				UserDataCache cache = new UserDataCache(m.getIdLong());
 				cache.setUsername(m.getUser().getAsTag());
+				cache.setAvatar(m.getUser().getAvatarUrl());
 				list.add(cache);
 			}
 			

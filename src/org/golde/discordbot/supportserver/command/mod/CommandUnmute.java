@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.command.mod;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.Roles;
+import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.StringUtil;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -54,6 +55,8 @@ public class CommandUnmute extends ModCommand {
 	        Role mutedRole = Roles.MUTED.getRole();
 	        
 	        event.getGuild().removeRoleFromMember(target, mutedRole).queue();
+	        
+	        Database.addOffence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.UNMUTE, reason);
 	        
 	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					ModAction.UNMUTE, 

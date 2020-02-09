@@ -10,7 +10,7 @@ import lombok.Getter;
 public class Offence {
 
 	private ModAction action;
-	private UsernameCache moderator;
+	private UserDataCache moderator;
 	private String reason;
 	private long timestamp;
 	

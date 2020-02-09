@@ -9,11 +9,11 @@ import lombok.Getter;
 @Getter
 public class SimpleUser {
 
-	private final UsernameCache user;
+	private final UserDataCache user;
 	
 	private ArrayList<Offence> offences = new ArrayList<Offence>();
 	
-	public SimpleUser(UsernameCache user) {
+	public SimpleUser(UserDataCache user) {
 		this.user = user;
 	}
 	
@@ -33,7 +33,7 @@ public class SimpleUser {
 		offences.add(o);
 	}
 	
-	private int getOffenceCount(ModAction action) {
+	public int getOffenceCount(ModAction action) {
 		int toReturn = 0;
 		
 		for(Offence o : offences) {
