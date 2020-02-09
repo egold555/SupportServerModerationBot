@@ -9,10 +9,6 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 public class ModLog {
 
 	
@@ -65,30 +61,6 @@ public class ModLog {
 		}
 
 		return eb.build();
-	}
-
-	/**
-	 * Custom Embed! ~ Si1kn
-	 */
-
-	public static final MessageEmbed report( @Nonnull User user, @Nonnull Member offender, @Nonnull String reason, Date time) {
-
-
-		String[][] text = new String[][] {
-				null,
-				null,
-		};
-
-		if(offender != null) {
-			text[0] = new String[] {"Offender: ", "<@" + offender.getId() + ">"};
-		}
-
-		if(reason != null) {
-			text[1] = new String[] {"Reporter:", StringUtil.abbreviate(reason, 250)};
-		}
-
-		return report(user,offender,reason,time);
-
 	}
 
 }

@@ -12,7 +12,6 @@ import org.golde.discordbot.supportserver.command.BaseCommand;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandPing;
 import org.golde.discordbot.supportserver.command.everyone.CommandRPS;
-import org.golde.discordbot.supportserver.command.everyone.CommandReport;
 import org.golde.discordbot.supportserver.command.mod.CommandBan;
 import org.golde.discordbot.supportserver.command.mod.CommandCommonError;
 import org.golde.discordbot.supportserver.command.mod.CommandKick;
@@ -120,8 +119,8 @@ public class Main {
 
 				new CommandAddReaction(),
 				new CommandFunnySpongeBob(),
-				new CommandTest(waiter),
-				new CommandReport()
+				new CommandTest(waiter)
+
 				);
 
 		// start getting a bot account set up
