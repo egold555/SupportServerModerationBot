@@ -11,6 +11,8 @@ local.properties
 .recommenders
 *.iml
 *.iml
+*.idea
+.idea/
 
 # External tool builders
 .externalToolBuilders/
@@ -58,3 +60,4 @@ bin/
 config.txt
 
 res/profanity.txt
+/.idea/
