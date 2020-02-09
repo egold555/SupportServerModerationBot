@@ -10,6 +10,7 @@ local.properties
 .loadpath
 .recommenders
 *.iml
+*.iml
 
 # External tool builders
 .externalToolBuilders/
@@ -51,6 +52,8 @@ local.properties
 data/
 code/
 test/
+bin/
+.idea/
 
 config.txt
 
