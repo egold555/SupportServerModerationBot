@@ -11,7 +11,7 @@ public class UserDataCache {
 
 	@Getter private final long snowflake;
 	private String username = "null";
-	private String avatar = "null";
+	@Getter private String avatar = "null";
 	
 	public UserDataCache(long snowflake) {
 		this.snowflake = snowflake;

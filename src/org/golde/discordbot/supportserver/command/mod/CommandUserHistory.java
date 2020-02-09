@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.owner;
+package org.golde.discordbot.supportserver.command.mod;
 
 import java.time.Instant;
 import java.util.List;
@@ -13,10 +13,13 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 
-public class CommandUserHistory extends OwnerCommand {
+public class CommandUserHistory extends ModCommand {
 
 	public CommandUserHistory() {
 		this.name = "userHistory";
+		this.aliases = new String[] {"uh"};
+		this.arguments = "<player>";
+		this.help = "Shows you the players history of bans/kicks/mutes/warns";
 	}
 	
 	@Override
@@ -51,12 +54,6 @@ public class CommandUserHistory extends OwnerCommand {
 			
 			SimpleUser user = Database.getUser(thePerson);
 			
-//			String json = Database.GSON.toJson(user);
-//			
-//			event.getChannel().sendFile(json.getBytes(), user.getUser().getSnowflake() + ".json").append("File sent").queue();;
-//			
-//			event.replySuccess("Check console");
-			
 			
 			EmbedBuilder builder = new EmbedBuilder();
 			//builder.setTitle(user.getUser().getUsername() + "'s Report");
@@ -71,15 +68,13 @@ public class CommandUserHistory extends OwnerCommand {
 			builder.setTimestamp(Instant.now());
 			builder.setFooter(Main.getJda().getSelfUser().getAsTag(), Main.getJda().getSelfUser().getAvatarUrl());
 			
-			Member mem = Main.getGuild().getMemberById(thePerson);
-			if(mem != null) {
-				
-				System.out.println(mem.getUser().getAvatarUrl());
-				builder.setAuthor(mem.getUser().getAsTag());
-				builder.setThumbnail(mem.getUser().getAvatarUrl());
+			builder.setAuthor(user.getUser().getUsername());
+			if(user.getUser().getAvatar() == null || user.getUser().getAvatar().isEmpty() || user.getUser().getAvatar().equals("null")) {
+				builder.setThumbnail("https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"); //default avatar
 			}
-			
-			
+			else {
+				builder.setThumbnail(user.getUser().getAvatar());
+			}
 			
 			event.getChannel().sendMessage(builder.build()).queue();;
 			

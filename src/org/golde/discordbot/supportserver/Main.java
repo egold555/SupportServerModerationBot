@@ -18,12 +18,11 @@ import org.golde.discordbot.supportserver.command.mod.CommandMute;
 import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
+import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.mod.CommandWarn;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
-import org.golde.discordbot.supportserver.command.owner.CommandSaveUD;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
-import org.golde.discordbot.supportserver.command.owner.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.owner.DumpUsernameCache;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.DatabaseEventListener;
@@ -123,14 +122,14 @@ public class Main {
 				new CommandCommonError(),
 				new CommandLock(),
 				new CommandUnlock(),
+				new CommandUserHistory(),
 
 				new CommandAddReaction(),
 				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter),
 				new CommandDumpModLog(),
-				new DumpUsernameCache(),
-				new CommandSaveUD(),
-				new CommandUserHistory()
+				new DumpUsernameCache()
+				
 
 				);
 
