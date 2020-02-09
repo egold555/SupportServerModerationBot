@@ -9,6 +9,9 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ModLog {
 
 	
@@ -19,7 +22,7 @@ public class ModLog {
 	}
 
 	public enum ModAction {
-		KICK, BAN, SOFT_BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK;
+		KICK, BAN, SOFT_BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK, REPORT;
 	}
 
 	//should take a list of String[] key, value. Every key value pair is a addField function
@@ -61,6 +64,42 @@ public class ModLog {
 		}
 
 		return eb.build();
+	}
+
+	public static final MessageEmbed report(ModAction action, @Nonnull User user, @Nonnull Member offender, @Nonnull String reason, Long time) {
+
+		String[][] text = new String[][] {
+				null,
+				null,
+				null,
+		};
+
+
+
+		if(offender != null) {
+			text[0] = new String[] {"Offender: ", "<@" + offender.getId() + ">"};
+		}
+
+		if(reason != null) {
+			text[1] = new String[] {"Reason:", StringUtil.abbreviate(reason, 250)};
+		}
+
+		if(time != null)
+		{
+			text[1] = new String[] {
+					"Time:", time()
+			};
+		}
+
+		return getActionTakenEmbed(action, user, text);
+
+	}
+
+	public static String time()
+	{
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 
 }
