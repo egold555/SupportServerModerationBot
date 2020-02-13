@@ -43,6 +43,7 @@ public class CommandUserHistory extends ModCommand {
 			}
 			catch(Exception e) {
 				e.printStackTrace();
+				event.replyError("Please use @<username> for the time being. I don't know how to search users by name yet -- Eric. Thanks for discovering this issue Si1kn!");
 				/*Ignore*/
 			}
 		}

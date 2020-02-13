@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class PlayerCounter extends ListenerAdapter {
@@ -24,6 +25,11 @@ public class PlayerCounter extends ListenerAdapter {
 	
 	@Override
 	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+		updateChannel(event.getGuild());
+	}
+	
+	@Override
+	public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
 		updateChannel(event.getGuild());
 	}
 	
