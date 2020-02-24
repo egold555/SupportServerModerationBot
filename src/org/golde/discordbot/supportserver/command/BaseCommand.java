@@ -39,7 +39,7 @@ public abstract class BaseCommand extends Command {
 		}
 		
 		//delete their command
-		event.getMessage().delete().queue();
+		//event.getMessage().delete().queue();
 		
 		execute(event, toPass);
 		

@@ -38,7 +38,7 @@ public class WebhookListener extends AbstractMessageChecker {
 			String title = parts[0];
 			String link = parts[1];
 			
-			if(true/*title.toLowerCase().startsWith("How to code a Minecraft PVP Client".toLowerCase())*/) {
+			if(title.toLowerCase().startsWith("How to code a Minecraft PVP Client".toLowerCase())) {
 				guild.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage("<a:RedAlert:665412686175010816> **Hey " + guild.getRoleById("667224721544183838").getAsMention() + ", Eric has uploaded a new video**: " + title + "\n\nWatch it here: " + link).queue();
 			}
 			
