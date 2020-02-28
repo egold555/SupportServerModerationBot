@@ -30,7 +30,7 @@ public class CommandCommonError extends ModCommand {
 
 		keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
 
-		keysToIds.put(new String[] {"EntityRenderer", "$1", "getMouseOver"}, 644343295853723662L);
+		keysToIds.put(new String[] {"EntityRenderer", "$1"}, 644343295853723662L);
 
 		keysToIds.put(new String[] {"star"}, 646065217897234433L);
 

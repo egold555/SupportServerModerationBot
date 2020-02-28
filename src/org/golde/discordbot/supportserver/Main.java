@@ -25,6 +25,7 @@ import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.command.owner.DumpUsernameCache;
 import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.DatabaseEventListener;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
@@ -151,6 +152,7 @@ public class Main {
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new DatabaseEventListener())
+				.addEventListeners(new AutoCommonError())
 
 				.addEventListeners(new ListenerAdapter() {
 
