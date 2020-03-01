@@ -29,6 +29,7 @@ import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.DatabaseEventListener;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
+import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.WebhookListener;
@@ -153,6 +154,7 @@ public class Main {
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new DatabaseEventListener())
 				//.addEventListeners(new AutoCommonError())
+				.addEventListeners(new MiscModLog())
 
 				.addEventListeners(new ListenerAdapter() {
 
