@@ -152,7 +152,7 @@ public class Main {
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new DatabaseEventListener())
-				.addEventListeners(new AutoCommonError())
+				//.addEventListeners(new AutoCommonError())
 
 				.addEventListeners(new ListenerAdapter() {
 

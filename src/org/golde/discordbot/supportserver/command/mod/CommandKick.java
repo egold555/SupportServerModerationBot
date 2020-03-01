@@ -45,10 +45,15 @@ public class CommandKick extends ModCommand {
 	        Member target = mentionedMembers.get(0);
 	        String reason = String.join(" ", args.subList(2, args.size()));
 
-	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target)) {
+	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
 	            event.replyError("I can't kick that user or I don't have the kick members permission");
 	            return;
 	        }
+	        
+	        if(!target.canInteract(target)) {
+				event.replyError("Sorry you can not interact with that user! Please contact Eric.");
+				return;
+			}
 	        
 	        if(reason == null || reason.isEmpty()) {
 	        	reason = "No reason provided.";

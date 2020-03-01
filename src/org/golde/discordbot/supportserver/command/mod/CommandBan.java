@@ -33,7 +33,7 @@ public class CommandBan extends ModCommand {
 
 		if(event.getArgs().isEmpty())
 		{
-			event.replyError("Please provide the name of a player to kick!");
+			event.replyError("Please provide the name of a player to ban!");
 			return;
 		}
 		else {
@@ -51,6 +51,11 @@ public class CommandBan extends ModCommand {
 
 			if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
 				event.replyError("I can't ban that user or I don't have the ban members permission");
+				return;
+			}
+			
+			if(!member.canInteract(target)) {
+				event.replyError("Sorry you can not interact with that user! Please contact Eric.");
 				return;
 			}
 
