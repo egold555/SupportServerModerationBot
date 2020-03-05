@@ -464,5 +464,24 @@
         "timestamp": 1576649434435
       }
     ]
+  },
+  {
+    "user": {
+      "snowflake": 670112955291140096,
+      "username": "null",
+      "avatar": "null"
+    },
+    "offences": [
+      {
+        "action": "WARN",
+        "moderator": {
+          "snowflake": 285926117561466881,
+          "username": "Nova#3400",
+          "avatar": "https://cdn.discordapp.com/avatars/285926117561466881/fb11c1efdf219a75ac4f822cdc496cd0.png"
+        },
+        "reason": "Do Not Post Invite For Hacked Clients",
+        "timestamp": 1583179059384
+      }
+    ]
   }
 ]

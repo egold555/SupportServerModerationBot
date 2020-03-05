@@ -6,6 +6,8 @@ import java.util.List;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
+import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
+
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -15,7 +17,7 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class MiscModLog extends ListenerAdapter {
-
+	
 	@Override
 	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
 		Member member = event.getMember();
@@ -29,6 +31,13 @@ public class MiscModLog extends ListenerAdapter {
 	}
 
 	private void log(Guild g, Member m, List<Role> currentRoles, List<Role> changedRoles, boolean added) {
+		
+		//youtube reaction role. 
+		//TODO: Better way of doing this
+		if(changedRoles.contains(g.getRoleById(667224721544183838L))) {
+			return;
+		}
+		
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				ModAction.ROLE_CHANGE, 
 				g.getSelfMember().getUser(), 

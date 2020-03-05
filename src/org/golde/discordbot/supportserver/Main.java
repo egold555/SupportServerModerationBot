@@ -56,12 +56,19 @@ public class Main {
 	private static Guild guild;
 	
 	private static final Activity[] playingStatuses = new Activity[] {
-			Activity.watching("Over Eric's Server"), 
+			Activity.watching("Over Eric's Server"),
+			Activity.watching("WALL-E"),
 			Activity.listening("We Are The Robots - Kraftwerk"), 
+			Activity.watching("The Matrix"),
 			Activity.listening(BaseCommand.PREFIX + "help"),
+			Activity.watching("2001: A Space Odyssey"),
 			Activity.playing("Robot Arena 2: Design and Destroy"),
 			Activity.watching("BattleBots"),
-			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot")
+			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot"),
+			Activity.watching("2001: A Space Odyssey"),
+			Activity.watching("The Terminator"),
+			Activity.watching("For user submitted crash reports!"),
+			
 			};
 	
 	private static int currentPlayingStatus = 0;
@@ -153,7 +160,7 @@ public class Main {
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new DatabaseEventListener())
-				//.addEventListeners(new AutoCommonError())
+				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
 
 				.addEventListeners(new ListenerAdapter() {
