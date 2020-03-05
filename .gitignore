@@ -54,3 +54,7 @@ test/
 config.txt
 
 res/profanity.txt
+
+res/user-data.json
+
+res/userdata-cache.json
