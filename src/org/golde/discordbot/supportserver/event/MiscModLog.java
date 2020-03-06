@@ -22,6 +22,7 @@ public class MiscModLog extends ListenerAdapter {
 	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
 		Member member = event.getMember();
 		log(event.getGuild(), member, member.getRoles(), event.getRoles(), true);
+		
 	}
 
 	@Override

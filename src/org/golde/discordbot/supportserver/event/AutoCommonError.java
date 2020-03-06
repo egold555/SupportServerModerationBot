@@ -63,6 +63,8 @@ public class AutoCommonError extends ListenerAdapter {
 
 		errorToMessage.put(new String[] {"java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;"}, "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
 
+		errorToMessage.put(new String[] {"java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers"}, "Looks like you did not shade in the Discord library from your libs folder. Make sure to share in **every* library in your libs folder to your jar before running it outside of eclipse!");
+		
 		//keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
 	}
 
@@ -133,7 +135,7 @@ public class AutoCommonError extends ListenerAdapter {
 
 		if(!success) {
 			channel.sendMessage("[Crash Report Identifier] :x: Could not match data to anything in my memory. I have let Eric know to add this exception into my crash report database. Sorry for the inconveenence.").queue();
-			channel.getGuild().getTextChannelById(684115853721075715L).sendFile(msg.getBytes(), sender.getId() + " Crash Report").queue();
+			channel.getGuild().getTextChannelById(684115853721075715L).sendFile(msg.getBytes(), sender.getId() + " Crash Report.txt").queue();
 		}
 
 	}
