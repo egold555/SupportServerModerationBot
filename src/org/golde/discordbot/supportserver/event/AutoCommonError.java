@@ -63,7 +63,7 @@ public class AutoCommonError extends ListenerAdapter {
 
 		errorToMessage.put(new String[] {"java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;"}, "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
 
-		errorToMessage.put(new String[] {"java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers"}, "Looks like you did not shade in the Discord library from your libs folder. Make sure to share in **every* library in your libs folder to your jar before running it outside of eclipse!");
+		errorToMessage.put(new String[] {"java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers"}, "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!");
 		
 		//keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
 	}
