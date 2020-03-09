@@ -65,6 +65,12 @@ public class AutoCommonError extends ListenerAdapter {
 
 		errorToMessage.put(new String[] {"java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers"}, "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!");
 		
+		errorToMessage.put(new String[] {"java.lang.NullPointerException: Registering texture"}, "Looks like you are trying to register a null texture. I would add some print statements or breakpoints to figure out why your texture is null.");
+		
+		errorToMessage.put(new String[] {"java.lang.IndexOutOfBoundsException"}, "Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html");
+		
+		errorToMessage.put(new String[] {"org.lwjgl.LWJGLException: Pixel format not accelerated"}, "There are a few issues that could cause this. Outdated graphics card, or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about your issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/");
+		
 		//keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
 	}
 
