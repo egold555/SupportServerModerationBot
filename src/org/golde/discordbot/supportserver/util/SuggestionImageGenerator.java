@@ -14,6 +14,9 @@ import java.awt.geom.RoundRectangle2D;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 public class SuggestionImageGenerator {
 	
 	private static final int SPACE_BETWEEN_OPTIONS = 44;
@@ -46,7 +49,7 @@ public class SuggestionImageGenerator {
 
 		int newY = 10 + y;
 		for(Suggestion s : suggestions) {
-			drawPercentageBar(g2, x, newY, s.getPercent(), s.getQuestion());
+			drawPercentageBar(g2, x, newY, s);
 			newY += SPACE_BETWEEN_OPTIONS;
 		}
 		
@@ -74,10 +77,10 @@ public class SuggestionImageGenerator {
 		PERCENTAGE_COMPONENT_SIZE[0] = width - (OPTIONS_AWAY_FROM_EDGES_WIDTH[0] * 2);
 	}
 
-	private static void drawPercentageBar(Graphics2D g2, int x, int y, double value, String text) {
+	private static void drawPercentageBar(Graphics2D g2, int x, int y, Suggestion sugg) {
 		drawPercentageComponentBackground(g2, x, y);
-		drawPercentageComponentOverlay(g2, x, y, value);
-		drawPercentageComponentOverlayText(g2, x, y, value, text);
+		drawPercentageComponentOverlay(g2, x, y, sugg.getPercent());
+		drawPercentageComponentOverlayText(g2, x, y, sugg);
 	}
 
 	private static void drawPercentageComponentBackground(Graphics2D g2, int x, int y) {
@@ -94,10 +97,10 @@ public class SuggestionImageGenerator {
 
 	}
 
-	private static void drawPercentageComponentOverlayText(Graphics2D g2, int x, int y, double percentage, String thing) {
+	private static void drawPercentageComponentOverlayText(Graphics2D g2, int x, int y,  Suggestion sugg) {
 		g2.setColor(TEXT_COLOR);
 
-		thing += ": " + PERCENTAGE_FORMAT.format(percentage * 100) + "%";
+		String thing = sugg.getQuestion() + ": " + PERCENTAGE_FORMAT.format(sugg.getPercent() * 100) + "% (" + sugg.getShortCode() + ")";
 
 		drawCenteredString(g2, thing, new Rectangle(new Point(x +  OPTIONS_AWAY_FROM_EDGES_WIDTH[0], y + OPTIONS_AWAY_FROM_EDGES_WIDTH[1]), new Dimension(PERCENTAGE_COMPONENT_SIZE[0], PERCENTAGE_COMPONENT_SIZE[1])), FONT);
 
@@ -124,22 +127,13 @@ public class SuggestionImageGenerator {
 		g.drawString(text, x, y);
 	}
 	
+	@AllArgsConstructor
+	@Getter
 	public static class Suggestion {
 
-		private final String question;
-		private final double percent;
-		
-		public Suggestion(String question, double percent) {
-			this.question = question;
-			this.percent = percent;
-		}
-		
-		public double getPercent() {
-			return percent;
-		}
-		public String getQuestion() {
-			return question;
-		}
+		private String question;
+		private double percent;
+		private String shortCode;
 		
 		
 	}

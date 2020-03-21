@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -36,12 +37,12 @@ public class CommandTest extends OwnerCommand {
 
 		BufferedImage bm = new BufferedImage(10000, 10000, BufferedImage.TYPE_INT_ARGB);
 		List<Suggestion> polls = new ArrayList<Suggestion>();
-		polls.add(new Suggestion("Example #1", Math.random()));
-		polls.add(new Suggestion("Another one with a super long key", Math.random()));
-		polls.add(new Suggestion("3rd one!", Math.random()));
-		polls.add(new Suggestion("4rd one!", Math.random()));
-		polls.add(new Suggestion("5rd one!", Math.random()));
-		polls.add(new Suggestion("6rd one!", Math.random()));
+		polls.add(new Suggestion("Example #1", Math.random(), randomId()));
+		polls.add(new Suggestion("Another one with a super long key", Math.random(), randomId()));
+		polls.add(new Suggestion("3rd one!", Math.random(), randomId()));
+		polls.add(new Suggestion("4rd one!", Math.random(), randomId()));
+		polls.add(new Suggestion("5th one!", Math.random(), randomId()));
+		polls.add(new Suggestion("6th one!", Math.random(), randomId()));
 
 		int[] cropXY = SuggestionImageGenerator.paint((Graphics2D) bm.getGraphics(), polls, 0, 0);
 		BufferedImage bi = bm.getSubimage(0, 0, cropXY[0], cropXY[1]);
@@ -69,6 +70,27 @@ public class CommandTest extends OwnerCommand {
 		//	     });
 
 
+	}
+	
+	//should just store a number and the current approved suggestions in a json file
+	/*
+	 {
+	    "idNext": 0,
+	    "suggestions": [
+	      {
+	        "id": 0,
+	        "txt": ""
+	      }
+	    ]
+	  }
+	 */
+	private Random random = new Random();
+	private String randomId() {
+		String ret = "";
+		for(int i = 0; i < 4; i++) {
+			ret += (char) (random.nextInt(26) + 'A');
+		}
+		return ret;
 	}
 
 }
