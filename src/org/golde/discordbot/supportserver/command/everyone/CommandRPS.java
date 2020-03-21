@@ -17,9 +17,7 @@ public class CommandRPS extends BaseCommand {
 	private static final String EMOJI_TIE = "👔";
 
 	public CommandRPS() {
-		this.name = "rps";
-		this.help = "Play a game of Rock Paper Scissors";
-		this.arguments = "<rock | paper | scissors>";
+		super("rps", "<rock | paper | scissors>", "Play a game of Rock Paper Scissors");
 	}
 
 	@Override

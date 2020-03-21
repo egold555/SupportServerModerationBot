@@ -10,10 +10,8 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 public class CommandPing extends BaseCommand {
 
 	public CommandPing() {
-		this.name = "ping";
-        this.help = "checks the bot's latency";
+		super("ping", null, "checks the bot's latency", "pong");
         this.guildOnly = false;
-        this.aliases = new String[]{"pong"};
 	}
 	
 	@Override

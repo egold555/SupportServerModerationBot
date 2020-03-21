@@ -24,8 +24,7 @@ import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 public class CommandLock extends ModCommand {
 
 	public CommandLock() {
-		this.name = "lock";
-		this.help = "Attempt to mitigate botting as much as we can";
+		super("lock", null, "Attempt to mitigate botting as much as we can");
 	}
 	
 	public static boolean locked = false;
@@ -62,6 +61,8 @@ public class CommandLock extends ModCommand {
 		}
 		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.LOCK, event.getAuthor()));
 		locked = true;
+		
+		event.replySuccess("Success!");
 		
 	}
 

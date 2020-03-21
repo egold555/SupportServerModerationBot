@@ -1,13 +1,19 @@
 package org.golde.discordbot.supportserver.command.owner;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.golde.discordbot.supportserver.command.BaseCommand;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
 public abstract class OwnerCommand extends BaseCommand {
+	
+	public OwnerCommand(@Nonnull String nameIn, @Nullable String argsIn, @Nullable String helpIn, @Nullable String... aliasesIn) {
+		
+		super(nameIn, argsIn, helpIn, aliasesIn);
 
-	public OwnerCommand() {
 		this.category = CATEGORY_OWNER;
 		this.requiredRole = "Founder";
 	}

@@ -6,7 +6,6 @@ import org.golde.discordbot.supportserver.util.ModLog;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.exceptions.PermissionException;
@@ -14,18 +13,14 @@ import net.dv8tion.jda.api.exceptions.PermissionException;
 public class CommandPruneChat extends ModCommand {
 
 	public CommandPruneChat() {
-		this.guildOnly = true;
-		this.name = "prune";
-		this.help = "prunes the chat";
-		this.arguments = "<amount>";
-		this.aliases = new String[]{"p", "prune", "cc", "clear", "purge"};
+		super("prune", "<amount>", "prunes the chat", "p", "prune", "cc", "clear", "purge");
 	}
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
 
-		Member member = event.getMember();
+		//Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{

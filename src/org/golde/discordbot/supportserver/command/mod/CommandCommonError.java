@@ -17,12 +17,7 @@ public class CommandCommonError extends ModCommand {
 	private String helpErrorBuilt = "";
 
 	public CommandCommonError() {
-		this.name = "commonerror";
-		this.help = "Prints a link to a common error. Leave <error> blank for a list of common errors";
-		this.arguments = "<error>";
-
-		//ec is because I am dyslexic 
-		this.aliases = new String[]{"ce", "ec"};
+		super("commonerror", "<error>", "Prints a link to a common error. Leave <error> blank for a list of common errors", "ce", "ec");
 
 		//keysToIds.put(new String[] {""}, L);
 
@@ -36,11 +31,14 @@ public class CommandCommonError extends ModCommand {
 
 		keysToIds.put(new String[] {"compilejava8"}, 648306714474709002L);
 
-		keysToIds.put(new String[] {"decompileram"}, 652053663828672532L);
+		keysToIds.put(new String[] {"decompileram", "decompram"}, 652053663828672532L);
 
-		keysToIds.put(new String[] {"Predicate"}, 654951373070139402L);
+		keysToIds.put(new String[] {"predicate"}, 654951373070139402L);
 		
 		keysToIds.put(new String[] {"1.12keybinds", "112keybinds", "1.12.2keybinds"}, 669275068874096661L);
+		
+		keysToIds.put(new String[] {"pixel", "pixelFormat", "pf"}, 689268615484407846L);
+		
 
 		for(String[] keys : keysToIds.keySet()) {
 			String keyList = Arrays.toString(keys);

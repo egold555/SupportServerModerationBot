@@ -1,6 +1,7 @@
 package org.golde.discordbot.supportserver.database;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
@@ -43,6 +44,16 @@ public class SimpleUser {
 		}
 		
 		return toReturn;
+	}
+	
+	public void removeLastOffence(ModAction action) {
+		Iterator<Offence> it = offences.iterator();
+		while(it.hasNext()) {
+			if(it.next().getAction() == action) {
+				it.remove();
+				return;
+			}
+		}
 	}
 
 	@Override

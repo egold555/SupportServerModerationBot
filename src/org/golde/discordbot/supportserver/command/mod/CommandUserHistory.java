@@ -11,15 +11,11 @@ import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
 
 public class CommandUserHistory extends ModCommand {
 
 	public CommandUserHistory() {
-		this.name = "userHistory";
-		this.aliases = new String[] {"uh"};
-		this.arguments = "<player>";
-		this.help = "Shows you the players history of bans/kicks/mutes/warns";
+		super("userHistory", "<player>", "Shows you the players history of bans/kicks/mutes/warns", "uh");
 	}
 	
 	@Override

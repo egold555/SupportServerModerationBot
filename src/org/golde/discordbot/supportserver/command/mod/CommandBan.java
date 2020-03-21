@@ -18,18 +18,14 @@ public class CommandBan extends ModCommand {
 	public static final int DEL_DAYS = 7;
 
 	public CommandBan() {
-		this.guildOnly = true;
-		this.name = "ban";
-		this.help = "ban a player";
-		this.arguments = "<player> [reason]";
-		this.aliases = new String[]{"b"};
+		super("ban", "<player> [reason]", "ban a player", "b");
 	}
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
 
-		Member member = event.getMember();
+		//Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{

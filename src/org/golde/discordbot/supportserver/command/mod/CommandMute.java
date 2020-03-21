@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.StringUtil;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
+import org.golde.discordbot.supportserver.util.StringUtil;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -19,11 +18,7 @@ import net.dv8tion.jda.api.entities.Role;
 public class CommandMute extends ModCommand {
 
 	public CommandMute() {
-		this.guildOnly = true;
-		this.name = "mute";
-		this.help = "mute a player";
-		this.arguments = "<player> [reason]";
-		this.aliases = new String[]{"m"};
+		super("mute", "<player> [reason]", "mute a player", "m");
 	}
 
 	@Override

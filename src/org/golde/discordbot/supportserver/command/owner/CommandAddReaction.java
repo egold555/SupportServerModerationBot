@@ -15,10 +15,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class CommandAddReaction extends OwnerCommand {
 
 	public CommandAddReaction() {
-		super();
-		this.name = "addReaction";
-		this.arguments = "<msg id> <emoji...>";
-		this.help = "Makes the bot add reaction(s) to a message";
+		super("addReaction", "<msg id> <emoji...>", "Makes the bot add reaction(s) to a message");
 	}
 	
 	@Override

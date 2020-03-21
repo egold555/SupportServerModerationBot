@@ -21,9 +21,9 @@ import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.mod.CommandWarn;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
-import org.golde.discordbot.supportserver.command.owner.CommandDumpModLog;
+import org.golde.discordbot.supportserver.command.owner.CommandReload;
+import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
-import org.golde.discordbot.supportserver.command.owner.DumpUsernameCache;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.DatabaseEventListener;
@@ -102,18 +102,6 @@ public class Main {
 
 		// sets the bot prefix
 		client.setPrefix(BaseCommand.PREFIX);
-//
-//		if(MAINTANCE) {
-//			client.setActivity(Activity.listening("Maintenance by Miranda Cosgrove"));
-//			//client.setActivity(Activity.listening("Kraftwerk - We Are The Robots"));
-//		}
-//		else {
-//			
-//			//client.setActivity(Activity.watching("Over Eric's Server"));
-//		}
-
-
-		//client.
 
 		// adds commands
 		client.addCommands(
@@ -133,11 +121,13 @@ public class Main {
 				new CommandUnlock(),
 				new CommandUserHistory(),
 
+				new CommandRemoveAction(),
 				new CommandAddReaction(),
+				new CommandReload(),
 				//new CommandFunnySpongeBob(),
-				new CommandTest(waiter),
-				new CommandDumpModLog(),
-				new DumpUsernameCache()
+				new CommandTest(waiter)
+				//new CommandDumpModLog(),
+				//new DumpUsernameCache()
 				
 
 				);

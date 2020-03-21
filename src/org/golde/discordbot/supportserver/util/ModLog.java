@@ -1,7 +1,6 @@
 package org.golde.discordbot.supportserver.util;
 
 import java.time.Instant;
-import java.util.Date;
 
 import org.golde.discordbot.supportserver.Main;
 import org.golde.discordbot.supportserver.constants.Channels;
@@ -20,7 +19,7 @@ public class ModLog {
 	}
 
 	public enum ModAction {
-		KICK, BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK, WARN, ROLE_CHANGE;
+		KICK, BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK, WARN, ROLE_CHANGE, REMOVE;
 	}
 
 	public static final MessageEmbed getActionTakenEmbed(ModAction action, User mod, String[]... text) {

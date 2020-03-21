@@ -17,11 +17,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 public class CommandKick extends ModCommand {
 
 	public CommandKick() {
-		this.guildOnly = true;
-		this.name = "kick";
-		this.help = "kick a player";
-		this.arguments = "<player> [reason]";
-		this.aliases = new String[]{"k"};
+		super("kick", "<player> [reason]", "kick a player", "k");
 	}
 
 	@Override

@@ -132,4 +132,9 @@ public class Database {
 		saveToFile(USERS, USERS_FILE);
 	}
 	
+	public static void removeOffence(long snowflake, ModAction action) {
+		getUser(snowflake).removeLastOffence(action);
+		saveToFile(USERS, USERS_FILE);
+	}
+	
 }

@@ -1,10 +1,9 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.owner;
 
 import java.util.List;
 
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.StringUtil;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -12,16 +11,15 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
-public class CommandWarn extends ModCommand {
+public class CommandRemoveAction extends OwnerCommand {
 
-	public CommandWarn() {
-		super("warn", "<player> [reason]", "Warn a player", "wn", "w");
+	public CommandRemoveAction() {
+		super("removeAction", "<user> <enum>", "Removes a mod action from a given user", "ra");
 	}
-
+	
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
-
-		Member member = event.getMember();
+		//Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
@@ -38,21 +36,30 @@ public class CommandWarn extends ModCommand {
 			}
 
 			Member target = mentionedMembers.get(0);
-			String reason = String.join(" ", args.subList(2, args.size()));
+			String enumValue = args.get(2).toUpperCase();
 
-			if(reason == null || reason.isEmpty()) {
-				reason = "No reason provided.";
+			ModAction action = null;
+			try {
+				action = ModAction.valueOf(enumValue);
 			}
-
-			Database.addOffence(target.getIdLong(), member.getIdLong(), ModAction.WARN, reason);
+			catch(Exception e) {
+				event.replyError("`" + enumValue + "` is not a valid enum. Please use KICK, BAN, MUTE, WARN");
+				return;
+			}
+			
+			if(action == null) {
+				return;
+			}
+			
+			Database.removeOffence(target.getIdLong(), action);
 
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
-					ModAction.WARN, 
+					ModAction.REMOVE, 
 					event.getAuthor(), 
 					new String[][] {
 						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
-						new String[] {"Reason:", StringUtil.abbreviate(reason, 250)},
-						new String[] {"Warn Count:", Database.getUser(target.getIdLong()).getAmountOfWarns() + ""}
+						new String[] {"Offence Removed:", enumValue},
+						new String[] {"Current Offence Count:", Database.getUser(target.getIdLong()).getOffenceCount(action) + ""}
 					}
 					);
 
@@ -66,11 +73,7 @@ public class CommandWarn extends ModCommand {
 			});
 			
 			event.replySuccess("Success!");
-
 		}
-
-
-
 	}
 
 }

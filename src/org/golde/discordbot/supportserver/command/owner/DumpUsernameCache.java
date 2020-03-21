@@ -17,7 +17,7 @@ import net.dv8tion.jda.api.entities.Member;
 public class DumpUsernameCache extends OwnerCommand {
 
 	public DumpUsernameCache() {
-		this.name = "dumpUserCache";
+		super("dumpUserCache", null, null);
 	}
 	
 	@Override

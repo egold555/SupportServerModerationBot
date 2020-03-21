@@ -18,18 +18,14 @@ import net.dv8tion.jda.api.entities.Role;
 public class CommandUnmute extends ModCommand {
 
 	public CommandUnmute() {
-		this.guildOnly = true;
-		this.name = "unmute";
-		this.help = "unmute a player";
-		this.arguments = "<player> [reason]";
-		this.aliases = new String[]{"um"};
+		super("unmute", "<player> [reason]", "unmute a player", "um");
 	}
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
 
-		Member member = event.getMember();
+		//Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{

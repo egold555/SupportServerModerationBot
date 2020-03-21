@@ -3,21 +3,14 @@ package org.golde.discordbot.supportserver.event;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.golde.discordbot.supportserver.constants.Channels;
 
-import com.jagrosh.jdautilities.command.CommandEvent;
-
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.utils.AttachmentOption;
 
 public class AutoCommonError extends ListenerAdapter {
 
@@ -56,12 +49,12 @@ public class AutoCommonError extends ListenerAdapter {
 		}, 
 				"Looks like a method tried to parse non JSON data as JSON data. I would check to make sure the website you are requesting data from is actually returning JSON data.");
 
-		errorToMessage.put(new String[] {
-				"java.lang.NullPointerException: Initializing game"
-		}, 
-				"Looks like something was null. I would put print statements before your object method calls to check if that object was null.");
+//		errorToMessage.put(new String[] {
+//				"java.lang.NullPointerException: Initializing game"
+//		}, 
+//				"Looks like something was null. I would put print statements before your object method calls to check if that object was null.");
 
-		errorToMessage.put(new String[] {"java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;"}, "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
+		errorToMessage.put(new String[] {"java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;"}, "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` I would also double check in your IIDE your compiling with Java 8. Just because you have Java 8 Installed, does not mean your IDE is compiling with it. For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
 
 		errorToMessage.put(new String[] {"java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers"}, "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!");
 		
@@ -70,6 +63,8 @@ public class AutoCommonError extends ListenerAdapter {
 		errorToMessage.put(new String[] {"java.lang.IndexOutOfBoundsException"}, "Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html");
 		
 		errorToMessage.put(new String[] {"org.lwjgl.LWJGLException: Pixel format not accelerated"}, "There are a few issues that could cause this. Outdated graphics card, or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about your issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/");
+		
+		errorToIds.put(new String[] {"net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:"}, 669275068874096661L);
 		
 		//keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
 	}

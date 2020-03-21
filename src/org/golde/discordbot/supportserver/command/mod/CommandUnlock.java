@@ -21,8 +21,7 @@ import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 public class CommandUnlock extends ModCommand {
 
 	public CommandUnlock() {
-		this.name = "unlock";
-		this.help = "Attempt to mitigate botting as much as we can";
+		super("unlock", null, "Attempt to mitigate botting as much as we can");
 	}
 	
 	@Override
@@ -56,6 +55,8 @@ public class CommandUnlock extends ModCommand {
 		
 		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.UNLOCK, event.getAuthor()));
 		CommandLock.locked = false;
+		
+		event.replySuccess("Success!");
 	}
 
 }

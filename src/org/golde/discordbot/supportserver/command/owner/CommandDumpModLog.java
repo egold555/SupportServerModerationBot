@@ -23,7 +23,7 @@ import net.dv8tion.jda.internal.entities.ReceivedMessage;
 public class CommandDumpModLog extends OwnerCommand {
 
 	public CommandDumpModLog() {
-		this.name = "dumpModLog";
+		super("dumpModLog", null, null);
 	}
 
 	@Override

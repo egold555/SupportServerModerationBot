@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -19,10 +22,24 @@ public abstract class BaseCommand extends Command {
 	static {
 		CATEGORY_EVERYONE = new Category("Everyone");
 		CATEGORY_MODERATOR = new Category("Moderator");
-		CATEGORY_OWNER = new Category("Owner");
+		CATEGORY_OWNER = new Category("Founder");
 	}
 	
-	public BaseCommand() {
+	public BaseCommand(@Nonnull String nameIn, @Nullable String argsIn, @Nullable String helpIn, @Nullable String... aliasesIn) {
+		
+		this.name = nameIn;
+		if(argsIn != null) {
+			this.arguments = argsIn;
+		}
+		
+		if(helpIn != null) {
+			this.help = helpIn;
+		}
+		
+		if(aliasesIn != null && aliasesIn.length > 0) {
+			this.aliases = aliasesIn;
+		}
+		
 		this.category = CATEGORY_EVERYONE;
 	}
 	
