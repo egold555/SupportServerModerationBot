@@ -1,20 +1,28 @@
 package org.golde.discordbot.supportserver.command.owner;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.database.SimpleUser;
+import javax.imageio.ImageIO;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.golde.discordbot.supportserver.util.SuggestionImageGenerator;
+import org.golde.discordbot.supportserver.util.SuggestionImageGenerator.Suggestion;
+
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandTest extends OwnerCommand {
 
 	private final EventWaiter waiter;
 
 	public CommandTest(EventWaiter waiter) {
+		super("test", null, "Its for testing, thats all it does");
 		this.waiter = waiter;
 		this.name = "test";
 		this.help = "Its for testing, thats all it does";
@@ -24,18 +32,43 @@ public class CommandTest extends OwnerCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		TextChannel channel = event.getTextChannel();
 
-		SimpleUser user = Database.getUser(8895);
+		BufferedImage bm = new BufferedImage(10000, 10000, BufferedImage.TYPE_INT_ARGB);
+		List<Suggestion> polls = new ArrayList<Suggestion>();
+		polls.add(new Suggestion("Example #1", Math.random()));
+		polls.add(new Suggestion("Another one with a super long key", Math.random()));
+		polls.add(new Suggestion("3rd one!", Math.random()));
+		polls.add(new Suggestion("4rd one!", Math.random()));
+		polls.add(new Suggestion("5rd one!", Math.random()));
+		polls.add(new Suggestion("6rd one!", Math.random()));
 
-//		user.setLastKnownUsername("HIIII#1234");
-//		user.addOffence(new Offence(ModAction.BAN, 5678L, "Tesdasdasdst"));
-		
-		String json = gson.toJson(Database.getAllUsers());
-		
-		System.out.println(json);
-		
-		
+		int[] cropXY = SuggestionImageGenerator.paint((Graphics2D) bm.getGraphics(), polls, 0, 0);
+		BufferedImage bi = bm.getSubimage(0, 0, cropXY[0], cropXY[1]);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write( bi, "PNG", baos );
+			baos.flush();
+			byte[] imageInByte = baos.toByteArray();
+			channel.sendFile(imageInByte, "img.png").queue();;
+			baos.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		//		channel.getHistoryFromBeginning(1).queue(history ->
+		//	     {
+		//	         if (!history.isEmpty())
+		//	         {
+		//	             Message firstMsg = history.getRetrievedHistory().get(0);
+		//	             channel.sendMessage(firstMsg).queue();
+		//	         }
+		//	         else
+		//	             channel.sendMessage("No history for this channel!").queue();
+		//	     });
+
+
 	}
 
 }
