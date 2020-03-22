@@ -21,9 +21,10 @@ import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.mod.CommandWarn;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
-import org.golde.discordbot.supportserver.command.owner.CommandReload;
+import org.golde.discordbot.supportserver.command.owner.CommandPoll;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
+import org.golde.discordbot.supportserver.command.owner.CommandVote;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.DatabaseEventListener;
@@ -123,7 +124,9 @@ public class Main {
 
 				new CommandRemoveAction(),
 				new CommandAddReaction(),
-				new CommandReload(),
+				new CommandVote(),
+				new CommandPoll(),
+				//new CommandReload(),
 				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter)
 				//new CommandDumpModLog(),

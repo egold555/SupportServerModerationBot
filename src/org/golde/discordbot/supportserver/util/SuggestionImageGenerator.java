@@ -1,4 +1,5 @@
 package org.golde.discordbot.supportserver.util;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,11 +12,20 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+
+import javax.imageio.ImageIO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class SuggestionImageGenerator {
 	
@@ -32,23 +42,26 @@ public class SuggestionImageGenerator {
 	
 	private static final Font FONT = new Font("Arial", Font.PLAIN, 20);
 
-	
-	public static int[] paint(Graphics2D g2, List<Suggestion> suggestions, int x, int y) {
+	public static int[] paint(Graphics2D g2, Poll poll) {
+		return paint(g2, poll, 0, 0);
+	}
+	public static int[] paint(Graphics2D g2, Poll poll, int x, int y) {
 
 		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
 
-		String longestString = longestString(suggestions);
+		String longestString = longestString(poll.getSuggestions(), poll.getTitle());
 		int width = getStringPixelLength(longestString, g2);
 
 		
 
-		int height = 46 * suggestions.size() + 24;
+		int height = 46 * poll.getSuggestions().size() + 24;
 		updateVariables(width);
 		drawBackground(g2, x, y, width, height);
+		drawTitleText(g2, x, y - 17, poll);
 
-		int newY = 10 + y;
-		for(Suggestion s : suggestions) {
+		int newY = 15 + y;
+		for(Suggestion s : poll.getSuggestions()) {
 			drawPercentageBar(g2, x, newY, s);
 			newY += SPACE_BETWEEN_OPTIONS;
 		}
@@ -58,12 +71,15 @@ public class SuggestionImageGenerator {
 	}
 
 
-	private static String longestString(List<Suggestion> set) {
+	private static String longestString(List<Suggestion> set, String title) {
 		String max = "";
 		for(Suggestion s : set) {
 			if(s.getQuestion().length() > max.length()) {
 				max = s.getQuestion();
 			}
+		}
+		if(title.length() > max.length()) {
+			max = title;
 		}
 		return max;
 	}
@@ -100,9 +116,18 @@ public class SuggestionImageGenerator {
 	private static void drawPercentageComponentOverlayText(Graphics2D g2, int x, int y,  Suggestion sugg) {
 		g2.setColor(TEXT_COLOR);
 
-		String thing = sugg.getQuestion() + ": " + PERCENTAGE_FORMAT.format(sugg.getPercent() * 100) + "% (" + sugg.getShortCode() + ")";
+		String thing = sugg.getQuestion() + ": " + PERCENTAGE_FORMAT.format(sugg.getPercent() * 100) + "% (" + sugg.getId() + ")";
 
+		
 		drawCenteredString(g2, thing, new Rectangle(new Point(x +  OPTIONS_AWAY_FROM_EDGES_WIDTH[0], y + OPTIONS_AWAY_FROM_EDGES_WIDTH[1]), new Dimension(PERCENTAGE_COMPONENT_SIZE[0], PERCENTAGE_COMPONENT_SIZE[1])), FONT);
+
+	}
+	
+	private static void drawTitleText(Graphics2D g2, int x, int y, Poll poll) {
+		g2.setColor(Color.YELLOW);
+
+		String thing = poll.title + " (" + poll.getId() + ")";
+		drawCenteredString(g2, thing, new Rectangle(new Point(x +  OPTIONS_AWAY_FROM_EDGES_WIDTH[0], y + OPTIONS_AWAY_FROM_EDGES_WIDTH[1]), new Dimension(PERCENTAGE_COMPONENT_SIZE[0], PERCENTAGE_COMPONENT_SIZE[1])), FONT.deriveFont(Font.BOLD));
 
 	}
 
@@ -127,13 +152,75 @@ public class SuggestionImageGenerator {
 		g.drawString(text, x, y);
 	}
 	
-	@AllArgsConstructor
+
 	@Getter
 	public static class Suggestion {
 
-		private String question;
+		private final int id;
+		private final String question;
+		
+		@Setter
 		private double percent;
-		private String shortCode;
+		
+		public Suggestion(int id, String thing) {
+			this.id = id;
+			this.question = thing;
+		}
+	}
+	
+	@Getter
+	public static class Poll {
+		private final String title;
+		private final int id;
+		private final List<Suggestion> suggestions;
+		
+		public Poll(int id, String title) {
+			this(id, title, new ArrayList<Suggestion>());
+		}
+		
+		public Poll(int id, String title, List<Suggestion> suggestions) {
+			this.id = id;
+			this.title = title;
+			this.suggestions = suggestions;
+		}
+		
+		public void addSuggestion(Suggestion s) {
+			suggestions.add(s);
+		}
+		
+		public boolean removeSuggestion(Suggestion s) {
+			return suggestions.remove(s);
+		}
+		
+//		public boolean removeSuggestion(int id) {
+//			ListIterator<Suggestion> sugg = suggestions.listIterator();
+//			while(sugg.hasNext()) {
+//				Suggestion next = sugg.next();
+//				if(next.getId() == id) {
+//					sugg.remove();
+//					return true;
+//				}
+//			}
+//			return false;
+//		}
+		
+		public void sendImage(TextChannel channel) {
+			BufferedImage bm = new BufferedImage(10000, 10000, BufferedImage.TYPE_INT_ARGB);
+			int[] cropXY = SuggestionImageGenerator.paint((Graphics2D) bm.getGraphics(),this, 0, 0);
+			BufferedImage bi = bm.getSubimage(0, 0, cropXY[0], cropXY[1]);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			try {
+				ImageIO.write( bi, "PNG", baos );
+				baos.flush();
+				byte[] imageInByte = baos.toByteArray();
+				channel.sendFile(imageInByte, "img.png").queue();;
+				baos.close();
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
 	}
