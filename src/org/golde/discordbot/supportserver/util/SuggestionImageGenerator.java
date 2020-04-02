@@ -166,6 +166,11 @@ public class SuggestionImageGenerator {
 			this.id = id;
 			this.question = thing;
 		}
+
+		public Suggestion(int id, String thing, double percent) {
+			this(id, thing);
+			this.percent = percent;
+		}
 	}
 	
 	@Getter

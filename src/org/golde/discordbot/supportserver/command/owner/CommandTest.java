@@ -39,12 +39,12 @@ public class CommandTest extends OwnerCommand {
 
 		BufferedImage bm = new BufferedImage(10000, 10000, BufferedImage.TYPE_INT_ARGB);
 		List<Suggestion> polls = new ArrayList<Suggestion>();
-//		polls.add(new Suggestion("Example #1", Math.random(), randomId()));
-//		polls.add(new Suggestion("Another one with a super long key", Math.random(), randomId()));
-//		polls.add(new Suggestion("3rd one!", Math.random(), randomId()));
-//		polls.add(new Suggestion("4rd one!", Math.random(), randomId()));
-//		polls.add(new Suggestion("5th one!", Math.random(), randomId()));
-//		polls.add(new Suggestion("6th one!", Math.random(), randomId()));
+		polls.add(new Suggestion(1, "Example #1", Math.random()));
+		polls.add(new Suggestion(2, "Another one with a super long key", Math.random()));
+		polls.add(new Suggestion(3, "Example #3", Math.random()));
+		polls.add(new Suggestion(4, "Example #4", Math.random()));
+		polls.add(new Suggestion(5, "Example #5", Math.random()));
+		polls.add(new Suggestion(6, "Example #6", Math.random()));
 
 		int[] cropXY = SuggestionImageGenerator.paint((Graphics2D) bm.getGraphics(), new Poll(0, UUID.randomUUID().toString(), polls), 0, 0);
 		BufferedImage bi = bm.getSubimage(0, 0, cropXY[0], cropXY[1]);

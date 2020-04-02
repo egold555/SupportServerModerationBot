@@ -3,7 +3,7 @@ package org.golde.discordbot.supportserver.command.mod;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.Channels;
-import org.golde.discordbot.supportserver.constants.CustomEmotes;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -31,7 +31,7 @@ public class CommandUnlock extends ModCommand {
 		//now everything is good. Try to prevent the bots from joining....
 		g.getManager().setVerificationLevel(VerificationLevel.NONE).queue();
 		
-		g.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(CustomEmotes.RED_ALERT + " Server has been released from lockdown mode.").queue();
+		g.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has been released from lockdown mode.").queue();
 		
 		List<GuildChannel> channelsToModify = CommandLock.getChannels(g);
 		

@@ -3,18 +3,15 @@ package org.golde.discordbot.supportserver.command.everyone;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
-import org.golde.discordbot.supportserver.constants.CustomEmotes;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public class CommandRPS extends BaseCommand {
+public class CommandRPS extends EveryoneCommand {
 
-	private static final String EMOJI_ROCK = CustomEmotes.ROCK;
-	private static final String EMOJI_PAPER = "🗞️";
-	private static final String EMOJI_SCISSORS = "✂️";
-	private static final String EMOJI_TIE = "👔";
+	
 
 	public CommandRPS() {
 		super("rps", "<rock | paper | scissors>", "Play a game of Rock Paper Scissors");
@@ -28,17 +25,17 @@ public class CommandRPS extends BaseCommand {
 			String hand2 = getHand();
 			if("rock".equals(args.get(1).toLowerCase()) || "rocks".equals(args.get(1).toLowerCase()) || "r".equals(args.get(1).toLowerCase()) || "stone".equals(args.get(1).toLowerCase()))
 			{
-				emoji = EMOJI_ROCK;
+				emoji = SSEmojis.ROCK;
 				hand = "rock";
 			}
 			else if("paper".equals(args.get(1).toLowerCase()) || "papers".equals(args.get(1).toLowerCase()) || "p".equals(args.get(1).toLowerCase()))
 			{
-				emoji = EMOJI_PAPER;
+				emoji = SSEmojis.PAPER;
 				hand = "paper";
 			}
 			else if("scissor".equals(args.get(1).toLowerCase()) || "scissors".equals(args.get(1).toLowerCase()) || "s".equals(args.get(1).toLowerCase()))
 			{
-				emoji = EMOJI_SCISSORS;
+				emoji = SSEmojis.SCISSORS;
 				hand = "scissors";
 			}
 			else
@@ -73,13 +70,13 @@ public class CommandRPS extends BaseCommand {
 		switch(choice)
 		{
 		case 1: hand = "rock";
-		emoji2 = EMOJI_ROCK;
+		emoji2 = SSEmojis.ROCK;
 		break;
 		case 2: hand = "paper";
-		emoji2 = EMOJI_PAPER;
+		emoji2 = SSEmojis.PAPER;
 		break;
 		case 3: hand = "scissors";
-		emoji2 = EMOJI_SCISSORS;
+		emoji2 = SSEmojis.SCISSORS;
 		break;
 		default: hand = "no hand";
 		break;
@@ -91,7 +88,7 @@ public class CommandRPS extends BaseCommand {
 	{
 		String result = "";
 		if(hand.equals(hand2))
-			result = EMOJI_TIE + " It's a tie!";
+			result = SSEmojis.TIE + " It's a tie!";
 		else if(hand.equals("rock"))
 		{
 			if(hand2.equals("paper"))

@@ -1,10 +1,14 @@
 package org.golde.discordbot.supportserver.event;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.Channels;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
+
+import com.opencsv.CSVReader;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message.Attachment;
@@ -15,66 +19,141 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class AutoCommonError extends ListenerAdapter {
 
 
-	private HashMap<String[], Long> errorToIds = new HashMap<String[], Long>();
-	private HashMap<String[], String> errorToMessage = new HashMap<String[], String>();
-
+	private static HashMap<String, Long> errorToIds = new HashMap<String, Long>();
+	private static HashMap<String, String> errorToMessage = new HashMap<String, String>();
+	private static HashMap<String, String> errorToMessageJava = new HashMap<String, String>();
+	
+	
 	//isolate the exception from the rest of the file
 	//Pattern p;
 
 
 	public AutoCommonError() {
-		errorToIds.put(new String[] {
+		reloadDB();
+		
+		try {
+			CSVReader reader = new CSVReader(new FileReader("res/java-exported-exceptions.csv"));
+			
+			String [] nextLine;
+			// prints the following for the line in your question
+			while ((nextLine = reader.readNext()) != null) {
+			    
+				String match = nextLine[0];
+				String message = nextLine[1];
+				errorToMessageJava.put(match, message);
+			}
+			
+			reader.close();
+			
+			
+		} 
+		catch (IOException e) {
+			System.err.println("Failed to read res/java-exported-exceptions.csv");
+			e.printStackTrace();
+		}
+		
+		/*
+		errorToIds.put(
 				"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>(Lnet/minecraft/client/renderer/EntityRenderer;)V",
-		"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'"},
+				644343295853723662L);
+
+		errorToIds.put(
+				"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'",
 				644343295853723662L);
 
 
-		errorToIds.put(new String[] {
+		errorToIds.put(
 				"The method addLayer(U) in the type RendererLivingEntity<AbstractClientPlayer> is not applicable for the arguments (LayerCape)"
-		}, 
+				, 
 				637484900169023499L);
 
-		errorToMessage.put(new String[] {
+		errorToMessage.put(
 				"Caused by: java.net.ConnectException: Connection refused: connect"
-		}, 
+				, 
 				"Check to make sure the website your pinging is online!");
 
-		errorToIds.put(new String[] {
+		errorToIds.put(
 				"$MouseOverFinder cannot be cast to class java.util.function.Predicate"
-		}, 
+				, 
 				654951373070139402L);
 
-		errorToMessage.put(new String[] {
+		errorToMessage.put(
 				"com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT"
-		}, 
+				, 
 				"Looks like a method tried to parse non JSON data as JSON data. I would check to make sure the website you are requesting data from is actually returning JSON data.");
 
-//		errorToMessage.put(new String[] {
-//				"java.lang.NullPointerException: Initializing game"
-//		}, 
-//				"Looks like something was null. I would put print statements before your object method calls to check if that object was null.");
+		//		errorToMessage.put(new String[] {
+		//				"java.lang.NullPointerException: Initializing game"
+		//		}, 
+		//				"Looks like something was null. I would put print statements before your object method calls to check if that object was null.");
 
-		errorToMessage.put(new String[] {"java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;"}, "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` I would also double check in your IIDE your compiling with Java 8. Just because you have Java 8 Installed, does not mean your IDE is compiling with it. For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
+		errorToMessage.put("java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;", "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` I would also double check in your IIDE your compiling with Java 8. Just because you have Java 8 Installed, does not mean your IDE is compiling with it. For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
 
-		errorToMessage.put(new String[] {"java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers"}, "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!");
-		
-		errorToMessage.put(new String[] {"java.lang.NullPointerException: Registering texture"}, "Looks like you are trying to register a null texture. I would add some print statements or breakpoints to figure out why your texture is null.");
-		
-		errorToMessage.put(new String[] {"java.lang.IndexOutOfBoundsException"}, "Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html");
-		
-		errorToMessage.put(new String[] {"org.lwjgl.LWJGLException: Pixel format not accelerated"}, "There are a few issues that could cause this. Outdated graphics card, or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about your issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/");
-		
-		errorToIds.put(new String[] {"net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:"}, 669275068874096661L);
-		
+		errorToMessage.put("java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers", "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!");
+
+		errorToMessage.put("java.lang.NullPointerException: Registering texture", "Looks like you are trying to register a null texture. I would add some print statements or breakpoints to figure out why your texture is null.");
+
+		errorToMessage.put("java.lang.IndexOutOfBoundsException", "Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html");
+
+		errorToMessage.put("org.lwjgl.LWJGLException: Pixel format not accelerated", "There are a few issues that could cause this. Outdated graphics card, or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about your issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/");
+
+		errorToIds.put("net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:", 669275068874096661L);
+
+		errorToMessage.put("java.lang.IllegalArgumentException: input == null!", "Looks like Minecraft is trying to read a BufferedImage and it was not found. Make sure any BufferedImages (pack.png, server-icon, title-icon) are in your exported assets. I don't have the capability to tell you exactly which image it is as of now.");
+
+		errorToMessage.put("java.lang.NullPointerException: Initializing game", "Looks like something is null. I would take a look at your splash screen code and double check nothing is null in there.");
+
+		//catch all
+		//java.io.FileNotFoundException
+		//java.lang.IllegalArgumentException: 
+		//java.lang.ArrayIndexOutOfBoundsException
+
+		errorToMessage.put("Unresolved compilation problem", "You have compile time errors in your code. Your client will not run until you fix these. Your IDE will tell you what these are in the error pane.");
+		errorToMessage.put("java.lang.NullPointerException", "Looks like something is null. I can't quite yet pinpoint what it is yet. I am not that smart yet :|");
+
 		//keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
+		*/
+	}
+	
+	public static void reloadDB() {
+		errorToMessage.clear();
+		errorToIds.clear();
+		
+		try {
+			CSVReader reader = new CSVReader(new FileReader("res/auto-common-error.csv"));
+			
+			String [] nextLine;
+			// prints the following for the line in your question
+			while ((nextLine = reader.readNext()) != null) {
+			    
+				String match = nextLine[0];
+				String message = nextLine[1];
+				if(Character.isDigit(message.charAt(0))) {
+					long channelId = Long.parseLong(message.replace("L", ""));
+					errorToIds.put(match, channelId);
+				}
+				else {
+					errorToMessage.put(match, message);
+				}
+			}
+			
+			reader.close();
+			
+			
+		} 
+		catch (IOException e) {
+			System.err.println("Failed to read res/auto-common-error.csv");
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
-//		if(event.getChannel().getIdLong() != 604769552416374807L) {
-//			return;
-//		}
+		//		if(event.getChannel().getIdLong() != 604769552416374807L) {
+		//			return;
+		//		}
 
 		checkFiles(event.getMember(), event.getChannel(), event.getMessage().getAttachments());
 		//checkMessage(event.getMember(), event.getChannel(), event.getMessage().getContentStripped());
@@ -98,38 +177,43 @@ public class AutoCommonError extends ListenerAdapter {
 
 		channel.sendMessage("[Crash Report Identifier] Parsing crash data... This might take a moment.").queue();
 
-//		p = Pattern.compile("(?m)^.*?Exception.*(?:[\\r\\n]+^\\s*at .*)");
-//		Matcher m = p.matcher(msg);
-//
-//		
-//		if(m.find()) {
-//			for(int i = 0; i <= m.groupCount(); i++) {
-//				String theGroup = m.group(i);
-//				channel.sendMessage("Exception: ```" + theGroup + "```").queue();
-//				System.out.println("-----" + theGroup);
-//			}
-//		}
+		//		p = Pattern.compile("(?m)^.*?Exception.*(?:[\\r\\n]+^\\s*at .*)");
+		//		Matcher m = p.matcher(msg);
+		//
+		//		
+		//		if(m.find()) {
+		//			for(int i = 0; i <= m.groupCount(); i++) {
+		//				String theGroup = m.group(i);
+		//				channel.sendMessage("Exception: ```" + theGroup + "```").queue();
+		//				System.out.println("-----" + theGroup);
+		//			}
+		//		}
 
 		boolean success = false;
-		
-		for(String[] keys : errorToIds.keySet()) {
-			for(String key : keys) {
-				if(msg.contains(key)) {
-					printError(channel, errorToIds.get(keys));
-					success = true;
-					return;
-				}
+
+		for(String key : errorToIds.keySet()) {
+			if(msg.contains(key)) {
+				printError(channel, errorToIds.get(key));
+				success = true;
+				return;
 			}
 
 		}
 
-		for(String[] keys : errorToMessage.keySet()) {
-			for(String key : keys) {
-				if(msg.contains(key)) {
-					channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + errorToMessage.get(keys)).queue();
-					success = true;
-					return;
-				}
+		for(String key : errorToMessage.keySet()) {
+			if(msg.contains(key)) {
+				channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + errorToMessage.get(key)).queue();
+				success = true;
+				return;
+			}
+
+		}
+		
+		for(String key : errorToMessageJava.keySet()) {
+			if(msg.contains(key)) {
+				channel.sendMessage("[Crash Report Identifier] :warning: (Javadocs) " + errorToMessageJava.get(key)).queue();
+				success = true;
+				return;
 			}
 
 		}

@@ -1,16 +1,18 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.everyone;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.command.mod.ModCommand;
 import org.golde.discordbot.supportserver.constants.Channels;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class CommandCommonError extends ModCommand {
+public class CommandCommonError extends EveryoneCommand {
 
 	private HashMap<String[], Long> keysToIds = new HashMap<String[], Long>();
 
@@ -39,6 +41,7 @@ public class CommandCommonError extends ModCommand {
 		
 		keysToIds.put(new String[] {"pixel", "pixelFormat", "pf"}, 689268615484407846L);
 		
+		keysToIds.put(new String[] {"pack",  "rpi"}, 693350938076905474L);
 
 		for(String[] keys : keysToIds.keySet()) {
 			String keyList = Arrays.toString(keys);

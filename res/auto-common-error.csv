@@ -1,0 +1,16 @@
+java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>(Lnet/minecraft/client/renderer/EntityRenderer;)V,644343295853723662L
+java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)',644343295853723662L
+The method addLayer(U) in the type RendererLivingEntity<AbstractClientPlayer> is not applicable for the arguments (LayerCape),637484900169023499L
+Caused by: java.net.ConnectException: Connection refused: connect,Check to make sure the website your pinging is online!
+$MouseOverFinder cannot be cast to class java.util.function.Predicate,654951373070139402L
+com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT,Looks like a method tried to parse non JSON data as JSON data. I would check to make sure the website you are requesting data from is actually returning JSON data.
+java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;,This is a strange issue but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` I would also double check in your IIDE your compiling with Java 8. Just because you have Java 8 Installed does not mean your IDE is compiling with it. For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;
+java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers, Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!
+java.lang.NullPointerException: Registering texture,Looks like you are trying to register a null texture. I would add some print statements or breakpoints to figure out why your texture is null.
+java.lang.IndexOutOfBoundsException,Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html
+org.lwjgl.LWJGLException: Pixel format not accelerated,There are a few issues that could cause this. Outdated graphics card or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about your issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/
+net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:,669275068874096661L
+java.lang.IllegalArgumentException: input == null!,"Looks like Minecraft is trying to read a BufferedImage and it was not found. Make sure any BufferedImages (pack.png,  server-icon title-icon) are in your exported assets. I don't have the capability to tell you exactly which image it is as of now."
+java.lang.NullPointerException: Initializing game,Looks like something is null hen booting your game up. I would take a look at your splash screen code and double check nothing is null in there.
+Unresolved compilation problem,You have compile time errors in your code. Your client will not run until you fix these. Your IDE will tell you what these are in the error pane.
+net.minecraft.client.resources.DefaultResourcePack.getPackImage,693350938076905474L

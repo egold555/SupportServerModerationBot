@@ -2,6 +2,8 @@ package org.golde.discordbot.supportserver.command.owner;
 
 import java.util.List;
 
+import org.golde.discordbot.supportserver.event.AutoCommonError;
+
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 public class CommandReload extends OwnerCommand {
@@ -12,8 +14,7 @@ public class CommandReload extends OwnerCommand {
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
-		// TODO Auto-generated method stub
-		
+		AutoCommonError.reloadDB();
 	}
 
 }

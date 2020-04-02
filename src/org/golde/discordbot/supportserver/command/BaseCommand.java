@@ -40,7 +40,7 @@ public abstract class BaseCommand extends Command {
 			this.aliases = aliasesIn;
 		}
 		
-		this.category = CATEGORY_EVERYONE;
+		
 	}
 	
 	@Override

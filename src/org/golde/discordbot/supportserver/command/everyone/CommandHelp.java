@@ -8,7 +8,7 @@ import org.golde.discordbot.supportserver.command.BaseCommand;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class CommandHelp extends BaseCommand {
+public class CommandHelp extends EveryoneCommand {
 
 	public CommandHelp() {
 		super("help", null, "What are all the commands again?!");

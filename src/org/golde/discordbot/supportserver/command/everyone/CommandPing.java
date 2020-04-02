@@ -7,7 +7,7 @@ import org.golde.discordbot.supportserver.command.BaseCommand;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class CommandPing extends BaseCommand {
+public class CommandPing extends EveryoneCommand {
 
 	public CommandPing() {
 		super("ping", null, "checks the bot's latency", "pong");

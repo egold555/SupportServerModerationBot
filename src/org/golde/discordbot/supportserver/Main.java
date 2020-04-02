@@ -7,11 +7,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandPing;
 import org.golde.discordbot.supportserver.command.everyone.CommandRPS;
 import org.golde.discordbot.supportserver.command.mod.CommandBan;
-import org.golde.discordbot.supportserver.command.mod.CommandCommonError;
 import org.golde.discordbot.supportserver.command.mod.CommandKick;
 import org.golde.discordbot.supportserver.command.mod.CommandLock;
 import org.golde.discordbot.supportserver.command.mod.CommandMute;
@@ -21,10 +21,9 @@ import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.mod.CommandWarn;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
-import org.golde.discordbot.supportserver.command.owner.CommandPoll;
+import org.golde.discordbot.supportserver.command.owner.CommandReload;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
-import org.golde.discordbot.supportserver.command.owner.CommandVote;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.DatabaseEventListener;
@@ -124,9 +123,9 @@ public class Main {
 
 				new CommandRemoveAction(),
 				new CommandAddReaction(),
-				new CommandVote(),
-				new CommandPoll(),
-				//new CommandReload(),
+				//new CommandVote(),
+				//new CommandPoll(),
+				new CommandReload(),
 				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter)
 				//new CommandDumpModLog(),
