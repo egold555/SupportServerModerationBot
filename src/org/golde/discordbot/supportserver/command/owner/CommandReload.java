@@ -15,6 +15,7 @@ public class CommandReload extends OwnerCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 		AutoCommonError.reloadDB();
+		event.reply("Reloaded.");
 	}
 
 }

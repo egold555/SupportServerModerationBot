@@ -39,8 +39,9 @@ public class AutoCommonError extends ListenerAdapter {
 			while ((nextLine = reader.readNext()) != null) {
 			    
 				String match = nextLine[0];
-				String message = nextLine[1];
-				errorToMessageJava.put(match, message);
+				String name = nextLine[1];
+				String url = nextLine[2];
+				errorToMessageJava.put(match, "**" + name + "**. Here is the Javadoc for that exception: " + url);
 			}
 			
 			reader.close();
@@ -211,7 +212,7 @@ public class AutoCommonError extends ListenerAdapter {
 		
 		for(String key : errorToMessageJava.keySet()) {
 			if(msg.contains(key)) {
-				channel.sendMessage("[Crash Report Identifier] :warning: (Javadocs) " + errorToMessageJava.get(key)).queue();
+				channel.sendMessage("[Crash Report Identifier] :warning: I could not match any specific errors to your Crash Report, but it looks like you got a " + errorToMessageJava.get(key)).queue();
 				success = true;
 				return;
 			}

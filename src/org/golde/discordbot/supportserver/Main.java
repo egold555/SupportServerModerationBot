@@ -108,6 +108,7 @@ public class Main {
 
 				new CommandHelp(),
 				new CommandPing(),
+				new CommandCommonError(),
 				new CommandRPS(),
 
 				new CommandKick(),
@@ -116,7 +117,6 @@ public class Main {
 				new CommandUnmute(),
 				new CommandWarn(),
 				new CommandPruneChat(),
-				new CommandCommonError(),
 				new CommandLock(),
 				new CommandUnlock(),
 				new CommandUserHistory(),
