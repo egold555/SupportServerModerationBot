@@ -2,6 +2,8 @@ package org.golde.discordbot.supportserver;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,6 +72,15 @@ public class Main {
 			Activity.watching("For user submitted crash reports!"),
 			
 			};
+	
+	//randomize these messages
+	static {
+		List<Activity> statusList = Arrays.asList(playingStatuses);
+
+		Collections.shuffle(statusList);
+
+		statusList.toArray(playingStatuses);
+	}
 	
 	private static int currentPlayingStatus = 0;
 

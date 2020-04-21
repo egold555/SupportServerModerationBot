@@ -1,12 +1,25 @@
 package org.golde.discordbot.supportserver.event;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import org.golde.discordbot.supportserver.constants.Channels;
-import org.golde.discordbot.supportserver.constants.SSEmojis;
+import org.golde.discordbot.supportserver.crash.CrashReport;
+import org.golde.discordbot.supportserver.crash.CrashReportParser;
 
 import com.opencsv.CSVReader;
 
@@ -18,17 +31,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class AutoCommonError extends ListenerAdapter {
 
-
 	private static HashMap<String, Long> errorToIds = new HashMap<String, Long>();
 	private static HashMap<String, String> errorToMessage = new HashMap<String, String>();
 	private static HashMap<String, String> errorToMessageJava = new HashMap<String, String>();
-	
-	
-	//isolate the exception from the rest of the file
-	//Pattern p;
-
-
-	public AutoCommonError() {
+	static {
 		reloadDB();
 		
 		try {
@@ -39,9 +45,8 @@ public class AutoCommonError extends ListenerAdapter {
 			while ((nextLine = reader.readNext()) != null) {
 			    
 				String match = nextLine[0];
-				String name = nextLine[1];
-				String url = nextLine[2];
-				errorToMessageJava.put(match, "**" + name + "**. Here is the Javadoc for that exception: " + url);
+				String url = nextLine[1];
+				errorToMessageJava.put(match, "Here is the Javadoc for that exception: " + url);
 			}
 			
 			reader.close();
@@ -53,80 +58,19 @@ public class AutoCommonError extends ListenerAdapter {
 			e.printStackTrace();
 		}
 		
-		/*
-		errorToIds.put(
-				"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>(Lnet/minecraft/client/renderer/EntityRenderer;)V",
-				644343295853723662L);
-
-		errorToIds.put(
-				"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'",
-				644343295853723662L);
-
-
-		errorToIds.put(
-				"The method addLayer(U) in the type RendererLivingEntity<AbstractClientPlayer> is not applicable for the arguments (LayerCape)"
-				, 
-				637484900169023499L);
-
-		errorToMessage.put(
-				"Caused by: java.net.ConnectException: Connection refused: connect"
-				, 
-				"Check to make sure the website your pinging is online!");
-
-		errorToIds.put(
-				"$MouseOverFinder cannot be cast to class java.util.function.Predicate"
-				, 
-				654951373070139402L);
-
-		errorToMessage.put(
-				"com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT"
-				, 
-				"Looks like a method tried to parse non JSON data as JSON data. I would check to make sure the website you are requesting data from is actually returning JSON data.");
-
-		//		errorToMessage.put(new String[] {
-		//				"java.lang.NullPointerException: Initializing game"
-		//		}, 
-		//				"Looks like something was null. I would put print statements before your object method calls to check if that object was null.");
-
-		errorToMessage.put("java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;", "This is a strange issue, but it seems to be fixed by: `casting ByteBuffer instances to Buffer before calling the method.` I would also double check in your IIDE your compiling with Java 8. Just because you have Java 8 Installed, does not mean your IDE is compiling with it. For more detail: please see https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;");
-
-		errorToMessage.put("java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers", "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse!");
-
-		errorToMessage.put("java.lang.NullPointerException: Registering texture", "Looks like you are trying to register a null texture. I would add some print statements or breakpoints to figure out why your texture is null.");
-
-		errorToMessage.put("java.lang.IndexOutOfBoundsException", "Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html");
-
-		errorToMessage.put("org.lwjgl.LWJGLException: Pixel format not accelerated", "There are a few issues that could cause this. Outdated graphics card, or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about your issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/");
-
-		errorToIds.put("net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:", 669275068874096661L);
-
-		errorToMessage.put("java.lang.IllegalArgumentException: input == null!", "Looks like Minecraft is trying to read a BufferedImage and it was not found. Make sure any BufferedImages (pack.png, server-icon, title-icon) are in your exported assets. I don't have the capability to tell you exactly which image it is as of now.");
-
-		errorToMessage.put("java.lang.NullPointerException: Initializing game", "Looks like something is null. I would take a look at your splash screen code and double check nothing is null in there.");
-
-		//catch all
-		//java.io.FileNotFoundException
-		//java.lang.IllegalArgumentException: 
-		//java.lang.ArrayIndexOutOfBoundsException
-
-		errorToMessage.put("Unresolved compilation problem", "You have compile time errors in your code. Your client will not run until you fix these. Your IDE will tell you what these are in the error pane.");
-		errorToMessage.put("java.lang.NullPointerException", "Looks like something is null. I can't quite yet pinpoint what it is yet. I am not that smart yet :|");
-
-		//keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
-		*/
 	}
-	
+
 	public static void reloadDB() {
 		errorToMessage.clear();
 		errorToIds.clear();
-		
+
 		try {
 			CSVReader reader = new CSVReader(new FileReader("res/auto-common-error.csv"));
-			
+
 			String [] nextLine;
 			// prints the following for the line in your question
 			while ((nextLine = reader.readNext()) != null) {
-			    
+
 				String match = nextLine[0];
 				String message = nextLine[1];
 				if(Character.isDigit(message.charAt(0))) {
@@ -137,22 +81,26 @@ public class AutoCommonError extends ListenerAdapter {
 					errorToMessage.put(match, message);
 				}
 			}
-			
+
 			reader.close();
-			
-			
+
+
 		} 
 		catch (IOException e) {
 			System.err.println("Failed to read res/auto-common-error.csv");
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
-		//		if(event.getChannel().getIdLong() != 604769552416374807L) {
+//		if(!event.getChannel().getName().startsWith("t-")) {
+//			return;
+//		}
+
+		//		if(!event.getMember().isOwner()) {
 		//			return;
 		//		}
 
@@ -162,85 +110,191 @@ public class AutoCommonError extends ListenerAdapter {
 
 
 
-	private void checkMessage(Member sender, TextChannel channel, String msg) {
+	private void newCrashReporter(Member sender, TextChannel channel, File crashFile) throws FileNotFoundException, ParseException {
 
-		if(sender.getUser().isBot()) {
+		//System.out.println(crashFile.getAbsolutePath());
+
+		CrashReport report = CrashReportParser.parse(crashFile);
+
+		if(report == null) {
 			return;
 		}
 
-		if(msg.isEmpty()) {
-			return;
-		}
+		StringBuilder builder = new StringBuilder("Looks like you got a **");
 
-		if(!isMinecraftCrashReport(msg)) {
-			return;
-		}
-
-		channel.sendMessage("[Crash Report Identifier] Parsing crash data... This might take a moment.").queue();
-
-		//		p = Pattern.compile("(?m)^.*?Exception.*(?:[\\r\\n]+^\\s*at .*)");
-		//		Matcher m = p.matcher(msg);
-		//
-		//		
-		//		if(m.find()) {
-		//			for(int i = 0; i <= m.groupCount(); i++) {
-		//				String theGroup = m.group(i);
-		//				channel.sendMessage("Exception: ```" + theGroup + "```").queue();
-		//				System.out.println("-----" + theGroup);
-		//			}
-		//		}
-
-		boolean success = false;
-
-		for(String key : errorToIds.keySet()) {
-			if(msg.contains(key)) {
-				printError(channel, errorToIds.get(key));
-				success = true;
-				return;
+		int startStacktrace = 0;
+		for(int i = 0; i < report.getException().getBody().length; i++) {
+			String line = report.getException().getBody()[i];
+			//System.err.println("Searching for: " + line);
+			if(!line.contains(" ") && line.length() > 3) {
+				startStacktrace = i;
+				break;
 			}
-
 		}
 
-		for(String key : errorToMessage.keySet()) {
-			if(msg.contains(key)) {
-				channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + errorToMessage.get(key)).queue();
-				success = true;
-				return;
-			}
+		String[] split = report.getException().getBody()[startStacktrace].split("\\.");
 
+		int found = 0;
+		for(int i = 0; i < split.length; i++) {
+			if(split[i].contains("(")) {
+				found = i;
+				break;
+			}
+		}
+
+		String path = combine(split, 0, found, ".");
+		String linetest = combine(split, found, split.length, ".");
+		//String function = linetest.split("\\(")[0];
+
+		Matcher m = Pattern.compile("\\((.*?)\\)").matcher(linetest);
+		m.find();
+		String classAndLine = m.group(1);
+		String[] classesSplit = classAndLine.split(":");
+		path = path.substring(0, path.length() - 1); //remove last .
+//		System.out.println(Arrays.toString(split));
+//		System.out.println(linetest);
+//		System.out.println(function);
+//		System.out.println(path);
+//		System.out.println(classAndLine);
+//		System.out.println(Arrays.toString(classesSplit));
+//		System.out.println(report.toString());
+
+		builder.append(report.getException().getType() + "** on line **" + classesSplit[1] + "** in the class ** " + path + "**");
+		
+		if(errorToMessageJava.containsKey(report.getException().getType())) {
+			builder.append("\n\n").append(errorToMessageJava.get(report.getException().getType()));
 		}
 		
-		for(String key : errorToMessageJava.keySet()) {
-			if(msg.contains(key)) {
-				channel.sendMessage("[Crash Report Identifier] :warning: I could not match any specific errors to your Crash Report, but it looks like you got a " + errorToMessageJava.get(key)).queue();
-				success = true;
-				return;
-			}
 
-		}
+		channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + builder.toString()).queue();
+		channel.sendMessage(getDebugInfo(report)).queue();
 
-		if(!success) {
-			channel.sendMessage("[Crash Report Identifier] :x: Could not match data to anything in my memory. I have let Eric know to add this exception into my crash report database. Sorry for the inconveenence.").queue();
-			channel.getGuild().getTextChannelById(684115853721075715L).sendFile(msg.getBytes(), sender.getId() + " Crash Report.txt").queue();
-		}
+
+		//		}
+		//		catch(Exception e) {
+		//			e.printStackTrace();
+		//			channel.sendMessage("[Crash Report Identifier] :x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric. Attempting to use the old crash report parser...").queue();
+		//			//TODO: Send report to me, exception, and to use the old function to parse based on common error.
+		//		}
+
+
 
 	}
 
-	private void printError(TextChannel tc, long err) {
+	private String getDebugInfo(CrashReport report) {
+		StringBuilder dbg = new StringBuilder("```csharp\n");
 
+		dbg.append("MC Version: " + report.getSystemDetails().getMinecraftVersion() + "\n");
+		dbg.append("Java Version: " + report.getSystemDetails().getJavaVersion() + "\n");
+		dbg.append("OS: " + report.getSystemDetails().getOperatingSystem() + "\n");
+		dbg.append("JVM Flags: " + Arrays.toString(report.getSystemDetails().getJVMFlags()) + "\n");
+		dbg.append("\n");
+		dbg.append("Exception: \n");
+		dbg.append("    " + report.getException().getType() + ": " + report.getException().getDesc() + "\n");
+		dbg.append("\n");
+		dbg.append("Stacktrace: \n");
+		for(String s : report.getException().getBody()) {
+			dbg.append("    " + s + "\n");
+		}
+
+
+
+		dbg.append("```");
+		return dbg.toString();
+	}
+
+	private void checkForCommonError(Member sender, TextChannel channel, File crashFile) {
+
+		try {
+			
+			if(sender.getUser().isBot() || sender.getUser().isFake()) {
+				return;
+			}
+
+			String msg = "";
+
+			StringBuilder contentBuilder = new StringBuilder();
+			Stream<String> stream = Files.lines( crashFile.toPath(), StandardCharsets.UTF_8);
+			stream.forEach(s -> contentBuilder.append(s).append("\n"));
+			msg = contentBuilder.toString();
+			stream.close();
+
+			if(msg.isEmpty()) {
+				return;
+			}
+
+			if(!isMinecraftCrashReport(msg)) {
+				return;
+			}
+
+			sendUpdateMessage(channel, "Parsing crash data... This might take a moment.");
+
+
+			for(String key : errorToIds.keySet()) {
+				if(msg.contains(key)) {
+					sendUpdateMessage(channel, errorToIds.get(key));
+					break;
+				}
+
+			}
+
+			for(String key : errorToMessage.keySet()) {
+				if(msg.contains(key)) {
+					sendUpdateMessage(channel, ":white_check_mark: " + errorToMessage.get(key));
+					break;
+				}
+
+			}
+			
+//			if(!success) {
+//				//if we did not match anything to the common error, we now call the new crash reporter
+//				newCrashReporter(sender, channel, crashFile);
+//			}
+			//.out.println("We got to here 3");
+			newCrashReporter(sender, channel, crashFile);
+
+		}
+		catch(Exception e) {
+			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
+			channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendFile(crashFile, UUID.randomUUID() + " Crash Report.txt").queue();
+			
+			try {
+				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(e) + "```").queue();
+			}
+			catch(IOException ignored) {};
+			
+			
+			e.printStackTrace();
+		}
+
+	}
+	
+	private String toStringException(Throwable t) throws IOException {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		t.printStackTrace(pw);
+		String toReturn = sw.toString();
+		pw.close();
+		sw.close();
+		return toReturn;
+	}
+	
+	private void sendUpdateMessage(TextChannel tc, String msg) {
+		tc.sendMessage("[Crash Report Identifier] " + msg).queue();
+	}
+	
+	private void sendUpdateMessage(TextChannel tc, long err) {
 
 		TextChannel commonErrors = tc.getGuild().getTextChannelById(Channels.COMMON_ERRORS);
 
 		commonErrors.retrieveMessageById(err).queue(onSuccess -> {
-
-			String textMsg = "[Crash Report Identifier] :white_check_mark: Please see " + commonErrors.getAsMention() + ". A fix for this crash can be found here: " + onSuccess.getJumpUrl();
-
-			tc.sendMessage(textMsg).queue();;
-
+			sendUpdateMessage(tc, ":white_check_mark: Please see " + commonErrors.getAsMention() + ". A fix for this crash can be found here: " + onSuccess.getJumpUrl());
 		});
 	}
 
-
+	private boolean isMinecraftCrashReport(String s) {
+		return s.contains("---- Minecraft Crash Report ----");
+	}
 
 	private void checkFiles(Member sender, TextChannel channel, List<Attachment> attachments) {
 
@@ -264,34 +318,33 @@ public class AutoCommonError extends ListenerAdapter {
 			return;
 		}
 
-		//System.out.println("Step 3");
+		File folder = new File(System.getProperty("java.io.tmpdir"), "SupportServerBot");
+		folder.mkdir();
 
-		attachment.retrieveInputStream().thenAccept(in -> {
-			StringBuilder builder = new StringBuilder();
-			byte[] buf = new byte[1024];
-			int count = 0;
-			try {
-				while ((count = in.read(buf)) > 0) {
-					builder.append(new String(buf, 0, count));
-				}
+		attachment.downloadToFile(new File(folder, UUID.randomUUID().toString() + ".txt")).thenAccept(in -> {
 
-				in.close();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
 
-			checkMessage(sender, channel, builder.toString());
+			checkForCommonError(sender, channel, in);
+			
 		})
 		.exceptionally(t -> { // handle failure
 			t.printStackTrace();
+			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric. Error code: 2");
+			try {
+				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(t) + "```").queue();
+			}
+			catch(IOException ignored) {};
 			return null;
 		});
 
 	}
 
-	private boolean isMinecraftCrashReport(String s) {
-		return s.contains("---- Minecraft Crash Report ----");
+	static String combine(String[] arr, int starting, int ending, String combineChar) {
+		StringBuilder builder = new StringBuilder();
+		for(int i = starting; i < ending; i++) {
+			builder.append(arr[i] + combineChar);
+		}
+		return builder.toString();
 	}
 
 }
