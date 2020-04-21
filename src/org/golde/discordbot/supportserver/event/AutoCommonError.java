@@ -117,6 +117,7 @@ public class AutoCommonError extends ListenerAdapter {
 		CrashReport report = CrashReportParser.parse(crashFile);
 
 		if(report == null) {
+			
 			return;
 		}
 
@@ -224,6 +225,7 @@ public class AutoCommonError extends ListenerAdapter {
 			}
 
 			if(!isMinecraftCrashReport(msg)) {
+				sendUpdateMessage(channel, ":x: Not a crash report.");
 				return;
 			}
 
@@ -293,7 +295,7 @@ public class AutoCommonError extends ListenerAdapter {
 	}
 
 	private boolean isMinecraftCrashReport(String s) {
-		return s.contains("---- Minecraft Crash Report ----");
+		return s.split("\n")[0].contains("---- Minecraft Crash Report ----");
 	}
 
 	private void checkFiles(Member sender, TextChannel channel, List<Attachment> attachments) {

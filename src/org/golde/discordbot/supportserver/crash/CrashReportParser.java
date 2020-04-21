@@ -197,6 +197,10 @@ public class CrashReportParser {
 		
 		String[] firstLine = firstArray[0].split(":");
 		
+		if(firstLine.length != 2) {
+			//sometimes this is the case?
+			return new Stacktrace(firstLine[0], "", stacktrace);
+		}
 		return new Stacktrace(firstLine[0], firstLine[1].substring(1), stacktrace);
 		
 	}
