@@ -13,12 +13,15 @@ import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandPing;
 import org.golde.discordbot.supportserver.command.everyone.CommandRPS;
+import org.golde.discordbot.supportserver.command.everyone.CommandTicket;
 import org.golde.discordbot.supportserver.command.mod.CommandBan;
 import org.golde.discordbot.supportserver.command.mod.CommandKick;
 import org.golde.discordbot.supportserver.command.mod.CommandLock;
+import org.golde.discordbot.supportserver.command.mod.CommandPanic;
 import org.golde.discordbot.supportserver.command.mod.CommandMute;
 import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
+import org.golde.discordbot.supportserver.command.mod.CommandPanicUndo;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.mod.CommandWarn;
@@ -56,6 +59,8 @@ public class Main {
 	public static final boolean MAINTANCE = isEclipse();
 	
 	private static Guild guild;
+	
+	public static final int EMBED_COLOR = 0x9B59B6;
 	
 	private static final Activity[] playingStatuses = new Activity[] {
 			Activity.watching("Over Eric's Server"),
@@ -120,7 +125,8 @@ public class Main {
 				new CommandHelp(),
 				new CommandPing(),
 				new CommandCommonError(),
-				new CommandRPS(),
+				//new CommandRPS(),
+				new CommandTicket(),
 
 				new CommandKick(),
 				new CommandBan(),
@@ -128,6 +134,8 @@ public class Main {
 				new CommandUnmute(),
 				new CommandWarn(),
 				new CommandPruneChat(),
+				new CommandPanic(),
+				new CommandPanicUndo(),
 				new CommandLock(),
 				new CommandUnlock(),
 				new CommandUserHistory(),
@@ -165,6 +173,7 @@ public class Main {
 				.addEventListeners(new DatabaseEventListener())
 				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
+				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
 
 				.addEventListeners(new ListenerAdapter() {
 

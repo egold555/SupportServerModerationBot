@@ -21,40 +21,35 @@ import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 public class CommandUnlock extends ModCommand {
 
 	public CommandUnlock() {
-		super("unlock", null, "Attempt to mitigate botting as much as we can");
+		super("unlock", null, "Unlocks a given text channel");
 	}
 	
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
+		
 		Guild g = event.getGuild();
 
-		//now everything is good. Try to prevent the bots from joining....
-		g.getManager().setVerificationLevel(VerificationLevel.NONE).queue();
+		TextChannel tc = event.getTextChannel();
 		
-		g.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has been released from lockdown mode.").queue();
-		
-		List<GuildChannel> channelsToModify = CommandLock.getChannels(g);
-		
-		for(GuildChannel gc : channelsToModify) {
-			
-			if(gc instanceof TextChannel) {
-				PermissionOverride permissionOverride = gc.getPermissionOverride(Roles.EVERYONE.getRole());
-				PermissionOverrideAction manager;
-				if(permissionOverride == null) {
-					manager = gc.createPermissionOverride(Roles.EVERYONE.getRole());
-				}
-				else {
-					manager = permissionOverride.getManager();
-				}
-
-	            manager.grant(Permission.MESSAGE_WRITE).queue();
-			}
-			
-			
+		if(!CommandLock.canLock(g, tc)) {
+			event.replyError("That channel is protected and can not be locked.");
+			return;
 		}
 		
-		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.UNLOCK, event.getAuthor()));
-		CommandLock.locked = false;
+		PermissionOverride permissionOverride = tc.getPermissionOverride(Roles.EVERYONE.getRole());
+		PermissionOverrideAction manager;
+		if(permissionOverride == null) {
+			manager = tc.createPermissionOverride(Roles.EVERYONE.getRole());
+		}
+		else {
+			manager = permissionOverride.getManager();
+		}
+
+        manager.grant(Permission.MESSAGE_WRITE).queue();
+		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.UNLOCK, event.getAuthor(), new String[] {
+				"Channel",
+				tc.getAsMention()
+		}));
 		
 		event.replySuccess("Success!");
 	}

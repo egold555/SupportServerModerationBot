@@ -12,11 +12,7 @@ public class SSEmojis {
 	
 	public static final String WARNING = "⚠️";
 	
-	/*
-	 * TODO:
-	 * Make bot send something to announcements
-	 * kick all bots who manage to join saying where in lockdown
-	 * Make more classes for id organization
-	 */
+	public static final String TICKET = "🎫";
+	public static final String X = "❌";
 	
 }

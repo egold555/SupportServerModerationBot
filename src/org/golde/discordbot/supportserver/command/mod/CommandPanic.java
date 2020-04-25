@@ -21,77 +21,75 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 
-public class CommandLock extends ModCommand {
+public class CommandPanic extends ModCommand {
 
-	public CommandLock() {
-		super("lock", "[channel]", "Lock a given channel");
+	public CommandPanic() {
+		super("panic", null, "Attempt to mitigate botting as much as we can");
 	}
+	
+	public static boolean locked = false;
 	
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 		Guild g = event.getGuild();
-		TextChannel tc = event.getTextChannel();
-		
-		
-		if(args.size() != 0) {
-			List<TextChannel> gotten = g.getTextChannelsByName(args.get(0), true);
-			if(gotten.size() == 0) {
-				event.replyError("No channel found!");
-				return;
-			}
-			else {
-				tc = gotten.get(0);
-			}
-		}
-		
-		if(!canLock(g, tc)) {
-			event.replyError("That channel is protected and can not be locked.");
-			return;
-		}
-		
-		PermissionOverride permissionOverride = tc.getPermissionOverride(Roles.EVERYONE.getRole());
-		PermissionOverrideAction manager;
-		if(permissionOverride == null) {
-			manager = tc.createPermissionOverride(Roles.EVERYONE.getRole());
-		}
-		else {
-			manager = permissionOverride.getManager();
-		}
 
-        manager.deny(Permission.MESSAGE_WRITE).queue();
-		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.LOCK, event.getAuthor(), new String[] {
-				"Channel",
-				tc.getAsMention()
-		}));
+		//only people with phone verification can join. Try to prevent the bots from joining....
+		g.getManager().setVerificationLevel(VerificationLevel.HIGH).queue();
+		
+		g.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has entered lockdown mode.").queue();
+		
+		List<GuildChannel> channelsToModify = getChannels(g);
+		
+		for(GuildChannel gc : channelsToModify) {
+			
+			if(gc instanceof TextChannel) {
+				PermissionOverride permissionOverride = gc.getPermissionOverride(Roles.EVERYONE.getRole());
+				PermissionOverrideAction manager;
+				if(permissionOverride == null) {
+					manager = gc.createPermissionOverride(Roles.EVERYONE.getRole());
+				}
+				else {
+					manager = permissionOverride.getManager();
+				}
+
+	            manager.deny(Permission.MESSAGE_WRITE).queue();
+			}
+			else if(gc instanceof VoiceChannel){
+				
+			}
+			
+		}
+		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.LOCK, event.getAuthor()));
+		locked = true;
 		
 		event.replySuccess("Success!");
 		
 	}
 
-	static boolean canLock(Guild g, TextChannel tc){
+	public static List<GuildChannel> getChannels(Guild g){
 
-		List<GuildChannel> channels = new ArrayList<GuildChannel>();
+		List<GuildChannel> toReturn = new ArrayList<GuildChannel>();
 
 		//Discussion
 		for(GuildChannel c : g.getCategoryById(Categories.DISCUSSION).getChannels()) {
 
 			if(!c.getName().equalsIgnoreCase("leak-lounge")) {
-				channels.add(c);
+				toReturn.add(c);
 			}
 
 		}
 
 		//User Stuff & Things
 		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THING).getChannels()) {
-			channels.add(c);
+			toReturn.add(c);
 		}
 
 		//Misc
 		for(GuildChannel c : g.getCategoryById(Categories.MISC).getChannels()) {
-			channels.add(c);
+			toReturn.add(c);
 		}
 
-		return channels.contains(tc);
+		return toReturn;
 
 	}
 

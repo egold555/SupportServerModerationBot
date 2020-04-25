@@ -19,7 +19,7 @@ public class ModLog {
 	}
 
 	public enum ModAction {
-		KICK, BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK, WARN, ROLE_CHANGE, REMOVE;
+		KICK, BAN, MUTE, UNMUTE, MESSAGE_DELETED, PRUNE, LOCK, UNLOCK, WARN, ROLE_CHANGE, REMOVE, TICKET_CLOSE;
 	}
 
 	public static final MessageEmbed getActionTakenEmbed(ModAction action, User mod, String[]... text) {

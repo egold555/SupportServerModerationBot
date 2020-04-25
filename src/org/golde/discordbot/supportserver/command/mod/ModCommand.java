@@ -16,7 +16,7 @@ public abstract class ModCommand extends BaseCommand {
 		this.requiredRole = "Chat Moderator";
 	}
 	
-	protected final boolean isModerator(Member person) {
+	public final static boolean isModerator(Member person) {
 		for(Role r : person.getRoles()) {
 			if(r.getName().toLowerCase().contains("mod")) {
 				return true;

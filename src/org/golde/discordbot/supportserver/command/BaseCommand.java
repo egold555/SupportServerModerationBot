@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.command;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -10,6 +11,8 @@ import javax.annotation.Nullable;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 public abstract class BaseCommand extends Command {
 
@@ -41,6 +44,16 @@ public abstract class BaseCommand extends Command {
 		}
 		
 		
+	}
+	
+	protected String getHelpReply() {
+		return PREFIX + this.name + " " + this.arguments;
+	}
+	
+	protected static void sendSelfDestructingMessage(MessageChannel messageChannel, int secondsUntilDelete, String msg) {
+		messageChannel.sendMessage(msg).queue(success -> {
+			success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS);
+		});
 	}
 	
 	@Override

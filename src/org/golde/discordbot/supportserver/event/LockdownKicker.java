@@ -1,6 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
-import org.golde.discordbot.supportserver.command.mod.CommandLock;
+import org.golde.discordbot.supportserver.command.mod.CommandPanic;
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -10,7 +10,7 @@ public class LockdownKicker extends ListenerAdapter {
 	@Override
 	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 
-		if(CommandLock.locked) {
+		if(CommandPanic.locked) {
 
 			event.getUser().openPrivateChannel().queue(privateChannel -> {
 
