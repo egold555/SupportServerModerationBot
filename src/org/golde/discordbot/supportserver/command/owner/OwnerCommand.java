@@ -16,7 +16,6 @@ public abstract class OwnerCommand extends BaseCommand {
 
 		this.category = CATEGORY_OWNER;
 		this.requiredRole = "Founder";
-		this.ownerCommand = true;
 	}
 	
 	protected final boolean isOwner(Member person) {

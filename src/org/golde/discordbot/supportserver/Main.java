@@ -12,20 +12,20 @@ import org.golde.discordbot.supportserver.command.BaseCommand;
 import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandPing;
-import org.golde.discordbot.supportserver.command.everyone.CommandRPS;
 import org.golde.discordbot.supportserver.command.everyone.CommandTicket;
 import org.golde.discordbot.supportserver.command.mod.CommandBan;
 import org.golde.discordbot.supportserver.command.mod.CommandKick;
 import org.golde.discordbot.supportserver.command.mod.CommandLock;
-import org.golde.discordbot.supportserver.command.mod.CommandPanic;
 import org.golde.discordbot.supportserver.command.mod.CommandMute;
+import org.golde.discordbot.supportserver.command.mod.CommandPanic;
+import org.golde.discordbot.supportserver.command.mod.CommandPanicUndo;
 import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
-import org.golde.discordbot.supportserver.command.mod.CommandPanicUndo;
 import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.mod.CommandWarn;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
+import org.golde.discordbot.supportserver.command.owner.CommandFixAD;
 import org.golde.discordbot.supportserver.command.owner.CommandReload;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
@@ -145,6 +145,7 @@ public class Main {
 				//new CommandVote(),
 				//new CommandPoll(),
 				new CommandReload(),
+				new CommandFixAD(),
 				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter)
 				//new CommandDumpModLog(),

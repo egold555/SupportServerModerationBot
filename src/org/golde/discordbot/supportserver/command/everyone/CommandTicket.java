@@ -1,7 +1,5 @@
 package org.golde.discordbot.supportserver.command.everyone;
 
-import java.awt.Color;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Arrays;
@@ -9,7 +7,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import org.golde.discordbot.supportserver.Main;
@@ -24,7 +21,6 @@ import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -76,7 +72,7 @@ public class CommandTicket extends EveryoneCommand {
 				TextChannel channel = event.getTextChannel();
 
 				String channelNameCompare = channel.getName().substring(2);
-				if(ModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName())) {
+				if(ModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName().replace(" ", "-"))) {
 					closeTicket(event.getGuild(), channel, member);
 				}
 				else {
@@ -92,6 +88,11 @@ public class CommandTicket extends EveryoneCommand {
 
 	public static void tryNewTicket(Member member, MessageChannel messageChannel) {
 
+		if(true) {
+			sendSelfDestructingMessage(messageChannel, 10, "Hi! Thank you for tring to create a ticket, but unfortunetly, I needed to disable tickets for the time being, so I can add new features, and get some more bugs squashed. For the time being, please use <#594348119689527298>.");
+			return;
+		}
+		
 		Guild g = member.getGuild();
 		final String channelName = getChannelName(member);
 
@@ -325,8 +326,7 @@ public class CommandTicket extends EveryoneCommand {
 			else if(channel.getName().startsWith("t-")) {
 
 				String channelNameCompare = channel.getName().substring(2);
-
-				if(ModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName()) && emote.isEmote() && emote.getEmoji().equals(SSEmojis.X)) {
+				if((ModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName().replace(" ", "-"))) && emote.getEmoji().equals(SSEmojis.X)) {
 
 
 

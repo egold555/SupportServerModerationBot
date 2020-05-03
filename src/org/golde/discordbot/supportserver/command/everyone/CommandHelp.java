@@ -3,8 +3,6 @@ package org.golde.discordbot.supportserver.command.everyone;
 import java.util.List;
 import java.util.Objects;
 
-import org.golde.discordbot.supportserver.command.BaseCommand;
-
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 

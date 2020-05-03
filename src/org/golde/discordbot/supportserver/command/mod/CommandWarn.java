@@ -2,9 +2,9 @@ package org.golde.discordbot.supportserver.command.mod;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.StringUtil;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -51,7 +51,7 @@ public class CommandWarn extends ModCommand {
 					event.getAuthor(), 
 					new String[][] {
 						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
-						new String[] {"Reason:", StringUtil.abbreviate(reason, 250)},
+						new String[] {"Reason:", StringUtils.abbreviate(reason, 250)},
 						new String[] {"Warn Count:", Database.getUser(target.getIdLong()).getAmountOfWarns() + ""}
 					}
 					);

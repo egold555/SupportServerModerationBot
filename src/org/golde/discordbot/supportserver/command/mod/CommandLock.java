@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.golde.discordbot.supportserver.constants.Categories;
-import org.golde.discordbot.supportserver.constants.Channels;
-import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -14,11 +12,9 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Guild.VerificationLevel;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 
 public class CommandLock extends ModCommand {

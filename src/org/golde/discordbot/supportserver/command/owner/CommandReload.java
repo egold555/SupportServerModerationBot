@@ -6,7 +6,7 @@ import org.golde.discordbot.supportserver.event.AutoCommonError;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class CommandReload extends OwnerCommand {
+public class CommandReload extends OwnerCommandDangerous {
 
 	public CommandReload() {
 		super("reload", null, "reloads some config files", "rl");

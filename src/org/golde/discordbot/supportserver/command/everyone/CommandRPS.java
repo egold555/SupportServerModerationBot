@@ -2,7 +2,6 @@ package org.golde.discordbot.supportserver.command.everyone;
 
 import java.util.List;
 
-import org.golde.discordbot.supportserver.command.BaseCommand;
 import org.golde.discordbot.supportserver.constants.SSEmojis;
 
 import com.jagrosh.jdautilities.command.CommandEvent;

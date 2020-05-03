@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +17,7 @@ import java.util.stream.Stream;
 import org.golde.discordbot.supportserver.constants.Channels;
 import org.golde.discordbot.supportserver.crash.CrashReport;
 import org.golde.discordbot.supportserver.crash.CrashReportParser;
+import org.golde.discordbot.supportserver.util.StringUtil;
 
 import com.opencsv.CSVReader;
 
@@ -168,7 +166,6 @@ public class AutoCommonError extends ListenerAdapter {
 		
 
 		channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + builder.toString()).queue();
-		channel.sendMessage(getDebugInfo(report)).queue();
 
 
 		//		}
@@ -180,28 +177,6 @@ public class AutoCommonError extends ListenerAdapter {
 
 
 
-	}
-
-	private String getDebugInfo(CrashReport report) {
-		StringBuilder dbg = new StringBuilder("```csharp\n");
-
-		dbg.append("MC Version: " + report.getSystemDetails().getMinecraftVersion() + "\n");
-		dbg.append("Java Version: " + report.getSystemDetails().getJavaVersion() + "\n");
-		dbg.append("OS: " + report.getSystemDetails().getOperatingSystem() + "\n");
-		dbg.append("JVM Flags: " + Arrays.toString(report.getSystemDetails().getJVMFlags()) + "\n");
-		dbg.append("\n");
-		dbg.append("Exception: \n");
-		dbg.append("    " + report.getException().getType() + ": " + report.getException().getDesc() + "\n");
-		dbg.append("\n");
-		dbg.append("Stacktrace: \n");
-		for(String s : report.getException().getBody()) {
-			dbg.append("    " + s + "\n");
-		}
-
-
-
-		dbg.append("```");
-		return dbg.toString();
 	}
 
 	private void checkForCommonError(Member sender, TextChannel channel, File crashFile) {
@@ -225,23 +200,27 @@ public class AutoCommonError extends ListenerAdapter {
 			}
 
 			if(!isMinecraftCrashReport(msg)) {
-				sendUpdateMessage(channel, ":x: Not a crash report.");
+				//sendUpdateMessage(channel, ":x: Not a crash report.");
 				return;
 			}
 
 			sendUpdateMessage(channel, "Parsing crash data... This might take a moment.");
 
+			boolean foundCommonError = false;
 
 			for(String key : errorToIds.keySet()) {
 				if(msg.contains(key)) {
+					foundCommonError = true;
 					sendUpdateMessage(channel, errorToIds.get(key));
 					break;
 				}
 
 			}
 
+			
 			for(String key : errorToMessage.keySet()) {
 				if(msg.contains(key)) {
+					foundCommonError = true;
 					sendUpdateMessage(channel, ":white_check_mark: " + errorToMessage.get(key));
 					break;
 				}
@@ -253,15 +232,21 @@ public class AutoCommonError extends ListenerAdapter {
 //				newCrashReporter(sender, channel, crashFile);
 //			}
 			//.out.println("We got to here 3");
-			newCrashReporter(sender, channel, crashFile);
+			if(!foundCommonError) {
+				newCrashReporter(sender, channel, crashFile);
+			}
+			
 
 		}
 		catch(Exception e) {
 			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
+			
 			channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendFile(crashFile, UUID.randomUUID() + " Crash Report.txt").queue();
 			
 			try {
-				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(e) + "```").queue();
+				String ex = StringUtil.toStringException(e);
+				channel.sendMessage("```" + ex + "```");
+				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + ex + "```").queue();
 			}
 			catch(IOException ignored) {};
 			
@@ -271,15 +256,7 @@ public class AutoCommonError extends ListenerAdapter {
 
 	}
 	
-	private String toStringException(Throwable t) throws IOException {
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		t.printStackTrace(pw);
-		String toReturn = sw.toString();
-		pw.close();
-		sw.close();
-		return toReturn;
-	}
+	
 	
 	private void sendUpdateMessage(TextChannel tc, String msg) {
 		tc.sendMessage("[Crash Report Identifier] " + msg).queue();
@@ -333,7 +310,7 @@ public class AutoCommonError extends ListenerAdapter {
 			t.printStackTrace();
 			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric. Error code: 2");
 			try {
-				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(t) + "```").queue();
+				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + StringUtil.toStringException(t) + "```").queue();
 			}
 			catch(IOException ignored) {};
 			return null;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-public class CommandTest extends OwnerCommand {
+public class CommandTest extends OwnerCommandDangerous {
 
 	private final EventWaiter waiter;
 
