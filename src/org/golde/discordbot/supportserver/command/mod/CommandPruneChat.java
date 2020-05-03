@@ -35,7 +35,7 @@ public class CommandPruneChat extends ModCommand {
 			//Parse String to int, detect it the input is valid.
 			Integer msgs = 0;
 			try {
-				msgs = Integer.parseInt(event.getArgs());
+				msgs = Integer.parseInt(event.getArgs()) + 1; //because of the command message, thanks Crackle <3
 			} 
 			catch (NumberFormatException nfe) {
 				event.replyError("Please enter a valid number.");

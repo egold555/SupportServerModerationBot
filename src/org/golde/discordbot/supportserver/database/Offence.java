@@ -17,7 +17,7 @@ public class Offence {
 	
 	@Override
 	public String toString() {
-		return "Offence [action=" + action + ", moderator=" + moderator + ", reason=" + reason + ", timestamp="
+		return "Offence [action=" + action + ", moderator=" + moderator.getSnowflake() + ", reason=" + reason + ", timestamp="
 				+ timestamp + "]";
 	}
 	

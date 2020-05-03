@@ -11,6 +11,8 @@ import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 
 public class CommandUserHistory extends ModCommand {
 
@@ -24,6 +26,7 @@ public class CommandUserHistory extends ModCommand {
 		//System.out.println(Arrays.toString(args.toArray(new String[0])));
 		
 		long thePerson = -1;
+		Guild g = event.getGuild();
 		
 		if(args.size() == 0) {
 			thePerson = event.getAuthor().getIdLong();
@@ -50,7 +53,7 @@ public class CommandUserHistory extends ModCommand {
 		if(thePerson != -1) {
 			
 			SimpleUser user = Database.getUser(thePerson);
-			
+			Member userMember = g.getMemberById(thePerson);
 			
 			EmbedBuilder builder = new EmbedBuilder();
 			//builder.setTitle(user.getUser().getUsername() + "'s Report");
@@ -65,12 +68,13 @@ public class CommandUserHistory extends ModCommand {
 			builder.setTimestamp(Instant.now());
 			builder.setFooter(Main.getJda().getSelfUser().getAsTag(), Main.getJda().getSelfUser().getAvatarUrl());
 			
-			builder.setAuthor(user.getUser().getUsername());
-			if(user.getUser().getAvatar() == null || user.getUser().getAvatar().isEmpty() || user.getUser().getAvatar().equals("null")) {
-				builder.setThumbnail("https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"); //default avatar
+			if(userMember != null) {
+				builder.setAuthor(userMember.getUser().getAsTag());
+				builder.setThumbnail(userMember.getUser().getEffectiveAvatarUrl());
 			}
 			else {
-				builder.setThumbnail(user.getUser().getAvatar());
+				builder.setAuthor(thePerson + "");
+				builder.setThumbnail("https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"); //default avatar
 			}
 			
 			event.getChannel().sendMessage(builder.build()).queue();;

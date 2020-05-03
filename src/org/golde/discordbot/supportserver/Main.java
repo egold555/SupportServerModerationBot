@@ -31,7 +31,6 @@ import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
-import org.golde.discordbot.supportserver.event.DatabaseEventListener;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.MiscModLog;
@@ -171,7 +170,6 @@ public class Main {
 				.addEventListeners(new WebhookListener())
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
-				.addEventListeners(new DatabaseEventListener())
 				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
 				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
