@@ -43,10 +43,10 @@ public class CommandPanic extends ModCommand {
 		for(GuildChannel gc : channelsToModify) {
 			
 			if(gc instanceof TextChannel) {
-				PermissionOverride permissionOverride = gc.getPermissionOverride(Roles.EVERYONE.getRole());
+				PermissionOverride permissionOverride = gc.getPermissionOverride(g.getRoleById(Roles.EVERYONE));
 				PermissionOverrideAction manager;
 				if(permissionOverride == null) {
-					manager = gc.createPermissionOverride(Roles.EVERYONE.getRole());
+					manager = gc.createPermissionOverride(g.getRoleById(Roles.EVERYONE));
 				}
 				else {
 					manager = permissionOverride.getManager();
@@ -80,7 +80,7 @@ public class CommandPanic extends ModCommand {
 		}
 
 		//User Stuff & Things
-		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THING).getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THINGS).getChannels()) {
 			toReturn.add(c);
 		}
 

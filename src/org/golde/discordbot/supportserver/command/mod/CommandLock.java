@@ -45,10 +45,10 @@ public class CommandLock extends ModCommand {
 			return;
 		}
 		
-		PermissionOverride permissionOverride = tc.getPermissionOverride(Roles.EVERYONE.getRole());
+		PermissionOverride permissionOverride = tc.getPermissionOverride(g.getRoleById(Roles.EVERYONE));
 		PermissionOverrideAction manager;
 		if(permissionOverride == null) {
-			manager = tc.createPermissionOverride(Roles.EVERYONE.getRole());
+			manager = tc.createPermissionOverride(g.getRoleById(Roles.EVERYONE));
 		}
 		else {
 			manager = permissionOverride.getManager();
@@ -78,7 +78,7 @@ public class CommandLock extends ModCommand {
 		}
 
 		//User Stuff & Things
-		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THING).getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THINGS).getChannels()) {
 			channels.add(c);
 		}
 

@@ -44,11 +44,11 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 	};
 
 
-	
+
 
 	@Override
-	protected boolean checkMessage(Member sender, String text) {
-
+	protected boolean checkMessage(Member sender, Message msg) {
+		String text = msg.getContentStripped();
 		for(String bad : BAD_URLS) {
 			if(text.toLowerCase().contains(bad.toLowerCase())) {
 				return true;
@@ -68,12 +68,12 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 		msg.delete().queue();
 
 		//mute them
-		Role mutedRole = Roles.MUTED.getRole();
+		Role mutedRole = guild.getRoleById(Roles.MUTED);
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
 		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.BAN, "IP Grabber Link");
-		
+
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				ModAction.BAN, 
 				guild.getSelfMember().getUser(), 

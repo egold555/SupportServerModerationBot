@@ -9,7 +9,8 @@ import net.dv8tion.jda.api.entities.Message;
 public class WhatIsMyPrefix extends AbstractMessageChecker {
 
 	@Override
-	protected boolean checkMessage(Member sender, String text) {
+	protected boolean checkMessage(Member sender, Message msg) {
+		String text = msg.getContentStripped();
 		return (text.startsWith("@Support Server Bot") && text.length() < 20);
 	}
 

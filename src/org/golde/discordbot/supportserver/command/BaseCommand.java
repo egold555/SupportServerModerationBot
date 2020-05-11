@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -13,19 +14,22 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public abstract class BaseCommand extends Command {
 
-	public static final String PREFIX = ";";
+	public static final String PREFIX = ",";
 	
 	protected static final Category CATEGORY_EVERYONE;
 	protected static final Category CATEGORY_MODERATOR;
 	protected static final Category CATEGORY_OWNER;
+	protected static final Category CATEGORY_BETA;
 	
 	static {
 		CATEGORY_EVERYONE = new Category("Everyone");
 		CATEGORY_MODERATOR = new Category("Moderator");
 		CATEGORY_OWNER = new Category("Founder");
+		CATEGORY_BETA = new Category("DIscord Beta Tester");
 	}
 	
 	public BaseCommand(@Nonnull String nameIn, @Nullable String argsIn, @Nullable String helpIn, @Nullable String... aliasesIn) {
@@ -50,9 +54,18 @@ public abstract class BaseCommand extends Command {
 		return PREFIX + this.name + " " + this.arguments;
 	}
 	
-	protected static void sendSelfDestructingMessage(MessageChannel messageChannel, int secondsUntilDelete, String msg) {
+	public static void sendSelfDestructingMessage(MessageChannel messageChannel, int secondsUntilDelete, String msg) {
+		sendSelfDestructingMessage(messageChannel, secondsUntilDelete, msg, null);
+	}
+	
+	public static void sendSelfDestructingMessage(MessageChannel messageChannel, int secondsUntilDelete, String msg, Consumer<Void> finished) {
 		messageChannel.sendMessage(msg).queue(success -> {
-			success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS);
+			success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS, success2 -> {
+				if(finished != null) {
+					finished.accept(null);
+				}
+				
+			});
 		});
 	}
 	

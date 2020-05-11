@@ -38,10 +38,10 @@ public class CommandPanicUndo extends ModCommand {
 		for(GuildChannel gc : channelsToModify) {
 			
 			if(gc instanceof TextChannel) {
-				PermissionOverride permissionOverride = gc.getPermissionOverride(Roles.EVERYONE.getRole());
+				PermissionOverride permissionOverride = gc.getPermissionOverride(g.getRoleById(Roles.EVERYONE));
 				PermissionOverrideAction manager;
 				if(permissionOverride == null) {
-					manager = gc.createPermissionOverride(Roles.EVERYONE.getRole());
+					manager = gc.createPermissionOverride(g.getRoleById(Roles.EVERYONE));
 				}
 				else {
 					manager = permissionOverride.getManager();

@@ -32,10 +32,10 @@ public class CommandUnlock extends ModCommand {
 			return;
 		}
 		
-		PermissionOverride permissionOverride = tc.getPermissionOverride(Roles.EVERYONE.getRole());
+		PermissionOverride permissionOverride = tc.getPermissionOverride(g.getRoleById(Roles.EVERYONE));
 		PermissionOverrideAction manager;
 		if(permissionOverride == null) {
-			manager = tc.createPermissionOverride(Roles.EVERYONE.getRole());
+			manager = tc.createPermissionOverride(g.getRoleById(Roles.EVERYONE));
 		}
 		else {
 			manager = permissionOverride.getManager();

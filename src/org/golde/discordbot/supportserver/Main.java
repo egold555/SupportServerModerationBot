@@ -36,6 +36,7 @@ import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
+import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
 import org.golde.discordbot.supportserver.event.WebhookListener;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
 
@@ -173,6 +174,7 @@ public class Main {
 				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
 				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
+				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 
 				.addEventListeners(new ListenerAdapter() {
 

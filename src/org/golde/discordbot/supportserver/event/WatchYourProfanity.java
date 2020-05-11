@@ -33,7 +33,8 @@ public class WatchYourProfanity extends AbstractMessageChecker {
 	}
 
 	@Override
-	protected boolean checkMessage(Member sender, String text) {
+	protected boolean checkMessage(Member sender, Message msg) {
+		String text = msg.getContentStripped();
 		for(String bad : naughtyWords) {
 			if(text.toLowerCase().contains(bad.toLowerCase())){
 				return true;

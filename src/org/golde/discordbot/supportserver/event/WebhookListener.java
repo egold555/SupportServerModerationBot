@@ -9,8 +9,8 @@ import net.dv8tion.jda.api.entities.Message;
 public class WebhookListener extends AbstractMessageChecker {
 
 	@Override
-	protected boolean checkMessage(Member sender, String text) {
-		
+	protected boolean checkMessage(Member sender, Message msg) {
+		String text = msg.getContentStripped();
 		//Webhook
 		if(sender == null) {
 			if(text.startsWith("yt|")) {

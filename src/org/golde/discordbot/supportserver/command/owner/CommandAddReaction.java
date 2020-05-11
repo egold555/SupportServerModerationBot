@@ -41,7 +41,7 @@ public class CommandAddReaction extends OwnerCommand {
 		// Sort based on index in message to preserve order
 		merged.sort(Comparator.comparingInt(content::indexOf));
 		
-		System.out.println(merged.toString());
+		//System.out.println(merged.toString());
 		
 		tc.retrieveMessageById(rawMsg).queue(onSuccess -> {
 
