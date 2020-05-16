@@ -16,7 +16,7 @@ public class StopChattingInTheWrongChannelsPls extends AbstractMessageChecker {
 		String text = msg.getContentRaw();
 		if(msg.getChannel().getIdLong() == Channels.USER_MADE_SNIPPETS) {
 
-			if(!text.toLowerCase().contains("name:") || !text.toLowerCase().contains("description:")) {
+			if(!text.toLowerCase().contains("name(.*:|:)") || !text.toLowerCase().contains("description(.*:|:)")) {
 				return true;
 			}
 
