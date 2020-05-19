@@ -17,7 +17,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 
 public abstract class BaseCommand extends Command {
 
-	public static final String PREFIX = ",";
+	public static final String PREFIX = ";";
 	
 	protected static final Category CATEGORY_EVERYONE;
 	protected static final Category CATEGORY_MODERATOR;
@@ -28,7 +28,7 @@ public abstract class BaseCommand extends Command {
 		CATEGORY_EVERYONE = new Category("Everyone");
 		CATEGORY_MODERATOR = new Category("Moderator");
 		CATEGORY_OWNER = new Category("Founder");
-		CATEGORY_BETA = new Category("DIscord Beta Tester");
+		CATEGORY_BETA = new Category("Discord Beta Tester");
 	}
 	
 	public BaseCommand(@Nonnull String nameIn, @Nullable String argsIn, @Nullable String helpIn, @Nullable String... aliasesIn) {
