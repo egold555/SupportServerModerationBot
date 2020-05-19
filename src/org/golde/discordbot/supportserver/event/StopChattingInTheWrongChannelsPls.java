@@ -13,10 +13,13 @@ public class StopChattingInTheWrongChannelsPls extends AbstractMessageChecker {
 
 	@Override
 	protected boolean checkMessage(Member sender, Message msg) {
-		String text = msg.getContentRaw();
+		String text = msg.getContentStripped(); //Must strip everything, thanks tascord for reporting this :)
+		
 		if(msg.getChannel().getIdLong() == Channels.USER_MADE_SNIPPETS) {
 
-			if(!text.toLowerCase().contains("name:") || !text.toLowerCase().contains("description:")) {
+			text = text.toLowerCase();
+			
+			if(!text.contains("name:") || !text.contains("description:")) {
 				return true;
 			}
 
