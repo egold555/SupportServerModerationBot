@@ -31,6 +31,8 @@ import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
+import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
+import org.golde.discordbot.supportserver.event.Countingv2;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.MiscModLog;
@@ -175,6 +177,8 @@ public class Main {
 				.addEventListeners(new MiscModLog())
 				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
+				.addEventListeners(new AutoRemoveBirthdayRole())
+				.addEventListeners(new Countingv2())
 
 				.addEventListeners(new ListenerAdapter() {
 
