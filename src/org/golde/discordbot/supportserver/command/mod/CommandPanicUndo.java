@@ -27,6 +27,7 @@ public class CommandPanicUndo extends ModCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 		Guild g = event.getGuild();
+		TextChannel tc = event.getTextChannel();
 
 		//now everything is good. Try to prevent the bots from joining....
 		g.getManager().setVerificationLevel(VerificationLevel.NONE).queue();
@@ -56,7 +57,7 @@ public class CommandPanicUndo extends ModCommand {
 		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.UNLOCK, event.getAuthor()));
 		CommandPanic.locked = false;
 		
-		event.replySuccess("Success!");
+		replySuccess(tc, "Success!");
 	}
 
 }

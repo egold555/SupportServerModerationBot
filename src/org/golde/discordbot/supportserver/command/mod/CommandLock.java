@@ -32,7 +32,7 @@ public class CommandLock extends ModCommand {
 		if(args.size() != 0) {
 			List<TextChannel> gotten = g.getTextChannelsByName(args.get(0), true);
 			if(gotten.size() == 0) {
-				event.replyError("No channel found!");
+				replyError(tc, "No channel found!");
 				return;
 			}
 			else {
@@ -41,7 +41,7 @@ public class CommandLock extends ModCommand {
 		}
 		
 		if(!canLock(g, tc)) {
-			event.replyError("That channel is protected and can not be locked.");
+			replyError(tc, "That channel is protected and can not be locked.");
 			return;
 		}
 		
@@ -60,7 +60,7 @@ public class CommandLock extends ModCommand {
 				tc.getAsMention()
 		}));
 		
-		event.replySuccess("Success!");
+		replySuccess(tc, "Success!");
 		
 	}
 

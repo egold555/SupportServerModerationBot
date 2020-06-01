@@ -1,6 +1,7 @@
 package org.golde.discordbot.supportserver.event;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.command.BaseCommand.EnumReplyType;
 import org.golde.discordbot.supportserver.constants.Channels;
 
 import com.vdurmont.emoji.EmojiParser;
@@ -36,7 +37,7 @@ public class StopChattingInTheWrongChannelsPls extends AbstractMessageChecker {
 
 	@Override
 	protected void takeAction(Guild guild, Member target, Message msg) {
-		BaseCommand.sendSelfDestructingMessage(msg.getChannel(), 2, "Please don't chat in here " + EmojiParser.parseToUnicode(":smile:"), success -> {
+		BaseCommand.replySuccess(msg.getChannel(), "Please don't chat in here " + EmojiParser.parseToUnicode(":smile:"), 2, success -> {
 			msg.delete().queue();
 		});
 		

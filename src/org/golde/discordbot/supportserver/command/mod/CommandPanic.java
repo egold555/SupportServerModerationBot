@@ -33,6 +33,8 @@ public class CommandPanic extends ModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 		Guild g = event.getGuild();
 
+		TextChannel tc = event.getTextChannel();
+		
 		//only people with phone verification can join. Try to prevent the bots from joining....
 		g.getManager().setVerificationLevel(VerificationLevel.HIGH).queue();
 		
@@ -62,7 +64,7 @@ public class CommandPanic extends ModCommand {
 		ModLog.log(g, ModLog.getActionTakenEmbed(ModAction.LOCK, event.getAuthor()));
 		locked = true;
 		
-		event.replySuccess("Success!");
+		replySuccess(tc, "Success!");
 		
 	}
 

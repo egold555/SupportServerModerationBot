@@ -14,6 +14,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandUnmute extends ModCommand {
 
@@ -24,12 +25,12 @@ public class CommandUnmute extends ModCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-
+		TextChannel tc = event.getTextChannel();
 		//Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
-			event.replyError("Please provide the name of a player to unmute!");
+			replyError(tc, "Please provide the name of a player to unmute!");
 			return;
 		}
 		else {
@@ -38,7 +39,7 @@ public class CommandUnmute extends ModCommand {
 			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
 
 			if (args.isEmpty() || mentionedMembers.isEmpty()) {
-				event.replyError("Missing arguments");
+				replyError(tc, "Missing arguments");
 				return;
 			}
 
@@ -48,12 +49,12 @@ public class CommandUnmute extends ModCommand {
 			Member selfMember = event.getGuild().getSelfMember();
 
 			if (!selfMember.hasPermission(Permission.VOICE_MUTE_OTHERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-				event.replyError("I can't mute that user or I don't have the mute members permission");
+				replyError(tc, "I can't mute that user or I don't have the mute members permission");
 				return;
 			}
 
 //			if(!target.canInteract(target)) {
-//				event.replyError("Sorry you can not interact with that user! Please contact Eric.");
+//				replyError(tc, "Sorry you can not interact with that user! Please contact Eric.");
 //				return;
 //			}
 
@@ -85,7 +86,7 @@ public class CommandUnmute extends ModCommand {
 
 
 
-			event.replySuccess("Success!");
+			replySuccess(tc, "Success!");
 
 
 		}

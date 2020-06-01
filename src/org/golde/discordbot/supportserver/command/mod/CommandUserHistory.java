@@ -13,6 +13,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandUserHistory extends ModCommand {
 
@@ -27,6 +28,7 @@ public class CommandUserHistory extends ModCommand {
 		
 		long thePerson = -1;
 		Guild g = event.getGuild();
+		TextChannel tc = event.getTextChannel();
 		
 		if(args.size() == 0) {
 			thePerson = event.getAuthor().getIdLong();
@@ -42,12 +44,12 @@ public class CommandUserHistory extends ModCommand {
 			}
 			catch(Exception e) {
 				e.printStackTrace();
-				event.replyError("Please use @<username> for the time being. I don't know how to search users by name yet -- Eric. Thanks for discovering this issue Si1kn!");
+				replyError(tc, "Please use @<username> for the time being. I don't know how to search users by name yet -- Eric. Thanks for discovering this issue Si1kn!");
 				/*Ignore*/
 			}
 		}
 		else {
-			event.replyError("Args must be 2");
+			replyError(tc, "Args must be 2");
 		}
 		
 		if(thePerson != -1) {
@@ -82,7 +84,7 @@ public class CommandUserHistory extends ModCommand {
 			
 		}
 		else {
-			event.replyError("User was not valid");
+			replyError(tc, "User was not valid");
 		}
 		
 	}

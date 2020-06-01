@@ -14,7 +14,7 @@ public class CommandHelp extends EveryoneCommand {
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
-		StringBuilder builder = new StringBuilder(" __**Commands**:__");
+		StringBuilder builder = new StringBuilder();
 		Category category = null;
 
 		for(Command command : event.getClient().getCommands()) {
@@ -34,7 +34,7 @@ public class CommandHelp extends EveryoneCommand {
 				+ "\nFor additional help, contact **Eric Golde#3352**");
 
 
-		event.getChannel().sendMessage(builder.toString()).queue();;
+		reply(event.getChannel(), "__**Commands**:__", builder.toString());
 	}
 
 }

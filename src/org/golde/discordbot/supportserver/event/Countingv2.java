@@ -1,7 +1,13 @@
 package org.golde.discordbot.supportserver.event;
 
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import org.golde.discordbot.supportserver.Main;
 import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.command.BaseCommand.EnumReplyType;
 import org.golde.discordbot.supportserver.constants.Categories;
 import org.golde.discordbot.supportserver.constants.Channels;
 
@@ -14,12 +20,13 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class Countingv2 extends ListenerAdapter {
+public class Countingv2 extends EventBase {
 
 	int currentCount = 1;
 	int highScore = 0;
 	
 	private static final String CHANNEL_NAME = "counting-v2";
+	private static final long CATEGORY = Categories.BETA_TESTER;
 	
 	long prevChatter = -1;
 
@@ -81,7 +88,7 @@ public class Countingv2 extends ListenerAdapter {
 					}
 					else {
 						message.delete().queue();
-						BaseCommand.sendSelfDestructingMessage(tc, 10, sender.getAsMention() + ", you can't send a number again until a different person sends a number!");
+						replyError(tc, sender.getAsMention() + ", you can't send a number again until a different person sends a number!", 10);
 					}
 					
 				}
@@ -118,19 +125,72 @@ public class Countingv2 extends ListenerAdapter {
 
 		//resets the channel
 		Guild g = tc.getGuild();
-
-		tc.delete().queue(success -> {
-
-			g.createTextChannel(CHANNEL_NAME).setParent(g.getCategoryById(Categories.MISC)).queue(success2 -> {
-				success2.sendMessage("1").queue();
-				updateScore(success2, 1);
-				success2.getManager().setTopic("Highscore: **" + highScore + "**").queue();
+		
+		tc.getManager().setParent(g.getCategoryById(Categories.TEMP)).queue(success1 -> {
+			purgeChannelMessage(tc, () -> {
+				tc.getManager().setParent(g.getCategoryById(CATEGORY)).queue();
+				tc.sendMessage("1").queue();
+				updateScore(tc, 1);
+				tc.getManager().setTopic("Highscore: **" + highScore + "**").queue();
 			});
-
 		});
+		
+
+//		tc.delete().queue(success -> {
+//
+//			g.createTextChannel(CHANNEL_NAME).setParent(g.getCategoryById(Categories.BETA_TESTER)).queue(success2 -> {
+//				success2.sendMessage("1").queue();
+//				updateScore(success2, 1);
+//				success2.getManager().setTopic("Highscore: **" + highScore + "**").queue();
+//			});
+//
+//		});
 
 
 
+	}
+	
+	
+	private boolean isWorking = false;
+	//this is so bad but whatever,=. Discord needs better endpoints -.-
+	private void purgeChannelMessage(TextChannel tc, Runnable run) {
+		
+		System.out.println("Deleting messages in channel: " + tc.getName());
+		isWorking = true;
+		
+		new Thread(() -> 
+        {
+            while (isWorking)
+            {
+                tc.getHistory().retrievePast(100).queue(messages -> {
+                	 if (messages.isEmpty())
+                     {
+                         isWorking = false;
+                        // System.out.println("Done deleting: " + tc.getName());
+                         run.run();//idk if this is right but it works
+                         return;
+                     }
+                	 
+                	 if(messages.size() < 3) {
+                		 isWorking = false;
+                		 return;
+                	 }
+             
+                     //messages.forEach(m -> System.out.println("Deleting: " + m));
+                     tc.deleteMessages(messages).queue();
+                     
+                });
+                try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+               
+            }
+        })
+        .run();
+		
 	}
 
 	private void updateScore(TextChannel channel, int newCurrentCount) {

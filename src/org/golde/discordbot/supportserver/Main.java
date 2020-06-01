@@ -170,7 +170,7 @@ public class Main {
 				//.addEventListeners(new WatchYourProfanity())
 				.addEventListeners(new WhatIsMyPrefix())
 				.addEventListeners(new PlayerCounter())
-				.addEventListeners(new WebhookListener())
+				//.addEventListeners(new WebhookListener())
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new AutoCommonError())

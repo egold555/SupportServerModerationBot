@@ -14,6 +14,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandMute extends ModCommand {
 
@@ -24,12 +25,12 @@ public class CommandMute extends ModCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 		
-		
+		TextChannel tc = event.getTextChannel();
 		Member member = event.getMember();
 		
 		if(event.getArgs().isEmpty())
         {
-            event.replyError("Please provide the name of a player to mute!");
+            replyError(tc, "Please provide the name of a player to mute!");
             return;
         }
 		else {
@@ -37,7 +38,7 @@ public class CommandMute extends ModCommand {
 	        List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
 
 	        if (args.isEmpty() || mentionedMembers.isEmpty()) {
-	            event.replyError("Missing arguments");
+	            replyError(tc, "Missing arguments");
 	            return;
 	        }
 
@@ -47,7 +48,7 @@ public class CommandMute extends ModCommand {
 	        Member selfMember = event.getGuild().getSelfMember();
 	        
 	        if (!selfMember.hasPermission(Permission.VOICE_MUTE_OTHERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-	            event.replyError("I can't mute that user or I don't have the mute members permission");
+	            replyError(tc, "I can't mute that user or I don't have the mute members permission");
 	            return;
 	        }
 	        
@@ -86,7 +87,7 @@ public class CommandMute extends ModCommand {
 
 	        
 
-	        event.replySuccess("Success!");
+	        replySuccess(tc, "Success!");
 	        
 			
 		}

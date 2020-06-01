@@ -28,7 +28,7 @@ public class CommandUnlock extends ModCommand {
 		TextChannel tc = event.getTextChannel();
 		
 		if(!CommandLock.canLock(g, tc)) {
-			event.replyError("That channel is protected and can not be locked.");
+			replyError(tc, "That channel is protected and can not be locked.");
 			return;
 		}
 		
@@ -47,7 +47,7 @@ public class CommandUnlock extends ModCommand {
 				tc.getAsMention()
 		}));
 		
-		event.replySuccess("Success!");
+		replySuccess(tc, "Success!");
 	}
 
 }

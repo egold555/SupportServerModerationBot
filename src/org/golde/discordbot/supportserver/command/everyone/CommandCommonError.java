@@ -55,7 +55,7 @@ public class CommandCommonError extends EveryoneCommand {
 		//Member member = event.getMember();
 
 		if(args.size() != 2) {
-			event.replyError("Please specify a error: \n" + helpErrorBuilt);
+			replyError(event.getChannel(), "Please specify a error: \n" + helpErrorBuilt);
 			return;
 		}
 
@@ -79,7 +79,7 @@ public class CommandCommonError extends EveryoneCommand {
 
 			String textMsg = "Please see " + tc.getAsMention() + ". This question has been answered before here: " + onSuccess.getJumpUrl();
 
-			event.reply(textMsg);
+			replySuccess(tc, textMsg);
 
 		});
 	}

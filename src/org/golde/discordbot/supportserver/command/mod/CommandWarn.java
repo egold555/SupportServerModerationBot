@@ -11,6 +11,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandWarn extends ModCommand {
 
@@ -22,6 +23,7 @@ public class CommandWarn extends ModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 
 		Member member = event.getMember();
+		TextChannel tc = event.getTextChannel();
 
 		if(event.getArgs().isEmpty())
 		{
@@ -33,7 +35,7 @@ public class CommandWarn extends ModCommand {
 			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
 
 			if (args.isEmpty() || mentionedMembers.isEmpty()) {
-				event.replyError("Missing arguments");
+				replyError(tc, "Missing arguments");
 				return;
 			}
 
@@ -65,7 +67,7 @@ public class CommandWarn extends ModCommand {
 
 			});
 			
-			event.replySuccess("Success!");
+			replySuccess(tc, "Success!");
 
 		}
 

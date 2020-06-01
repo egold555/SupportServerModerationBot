@@ -13,6 +13,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandKick extends ModCommand {
 
@@ -23,9 +24,11 @@ public class CommandKick extends ModCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 		
+		TextChannel tc = event.getTextChannel();
+		
 		if(event.getArgs().isEmpty())
         {
-            event.replyError("Please provide the name of a player to kick!");
+            replyError(tc, "Please provide the name of a player to kick!");
             return;
         }
 		else {
@@ -34,7 +37,7 @@ public class CommandKick extends ModCommand {
 	        List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
 
 	        if (args.isEmpty() || mentionedMembers.isEmpty()) {
-	            event.replyError("Missing arguments");
+	            replyError(tc, "Missing arguments");
 	            return;
 	        }
 
@@ -42,12 +45,12 @@ public class CommandKick extends ModCommand {
 	        String reason = String.join(" ", args.subList(2, args.size()));
 
 	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-	            event.replyError("I can't kick that user or I don't have the kick members permission");
+	           replyError(tc, "I can't kick that user or I don't have the kick members permission");
 	            return;
 	        }
 	        
 //	        if(!target.canInteract(target)) {
-//				event.replyError("Sorry you can not interact with that user! Please contact Eric.");
+//				replyError(tc, "Sorry you can not interact with that user! Please contact Eric.");
 //				return;
 //			}
 	        
@@ -85,7 +88,7 @@ public class CommandKick extends ModCommand {
 
 	        
 
-	        event.replySuccess("Success!");
+	        replySuccess(tc, "Success!");
 	        
 			
 		}

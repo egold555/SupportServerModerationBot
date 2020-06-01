@@ -5,9 +5,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public abstract class AbstractMessageChecker extends ListenerAdapter {
+public abstract class AbstractMessageChecker extends EventBase {
 
 	protected abstract boolean checkMessage(Member sender, Message msg);
 	protected abstract void takeAction(Guild guild, Member target, Message msg);

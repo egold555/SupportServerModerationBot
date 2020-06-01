@@ -12,6 +12,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandBan extends ModCommand {
 
@@ -24,12 +25,12 @@ public class CommandBan extends ModCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-
+		TextChannel tc = event.getTextChannel();
 		//Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
-			event.replyError("Please provide the name of a player to ban!");
+			replyError(tc, "Please provide the name of a player to ban!");
 			return;
 		}
 		else {
@@ -38,7 +39,7 @@ public class CommandBan extends ModCommand {
 			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
 
 			if (args.isEmpty() || mentionedMembers.isEmpty()) {
-				event.replyError("Missing arguments");
+				replyError(tc, "Missing arguments");
 				return;
 			}
 
@@ -46,14 +47,14 @@ public class CommandBan extends ModCommand {
 			String reason = String.join(" ", args.subList(2, args.size()));
 
 			if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-				event.replyError("I can't ban that user or I don't have the ban members permission");
+				replyError(tc, "I can't ban that user or I don't have the ban members permission");
 				return;
 			}
-			
-//			if(!member.canInteract(target)) {
-//				event.replyError("Sorry you can not interact with that user! Please contact Eric.");
-//				return;
-//			}
+
+			//			if(!member.canInteract(target)) {
+			//				replyError(tc, "Sorry you can not interact with that user! Please contact Eric.");
+			//				return;
+			//			}
 
 			if(reason == null || reason.isEmpty()) {
 				reason = "No reason provided.";
@@ -62,7 +63,7 @@ public class CommandBan extends ModCommand {
 			final String reasonFinal = reason;
 
 			Database.addOffence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.BAN, reason);
-			
+
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					ModAction.BAN, 
 					event.getAuthor(), 
@@ -71,7 +72,7 @@ public class CommandBan extends ModCommand {
 						new String[] {"Reason:", StringUtils.abbreviate(reason, 250)}
 					}
 					);
-			
+
 			ModLog.log(event.getGuild(), actionEmbed);
 
 			target.getUser().openPrivateChannel().queue((dmChannel) ->
@@ -84,7 +85,7 @@ public class CommandBan extends ModCommand {
 
 			});
 
-			event.replySuccess("Success!");
+			replySuccess(tc, "Success!");
 
 
 		}

@@ -16,7 +16,7 @@ public class WhatIsMyPrefix extends AbstractMessageChecker {
 
 	@Override
 	protected void takeAction(Guild guild, Member target, Message msg) {
-		msg.getTextChannel().sendMessage("My prefix is **" + BaseCommand.PREFIX + "** .").queue();;
+		replySuccess(msg.getChannel(), "My prefix is **" + BaseCommand.PREFIX + "** .");
 	}
 
 }

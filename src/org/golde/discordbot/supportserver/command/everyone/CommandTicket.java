@@ -52,6 +52,7 @@ public class CommandTicket extends EveryoneCommand {
 		if(args.size() != 2) {
 			event.replyError(this.getHelpReply());
 		}
+		
 		else {
 			if(args.get(1).equalsIgnoreCase("create")) {
 				tryNewTicket(event.getMember(), event.getChannel());
@@ -76,20 +77,20 @@ public class CommandTicket extends EveryoneCommand {
 					closeTicket(event.getGuild(), channel, member);
 				}
 				else {
-					event.replyError("You do not have permission to close this channel.");
+					replyError(channel, "You do not have permission to close this channel.");
 				}
 			}
 		}
 	}
 
 	private static void ticketAlreadyExists(Member member, TextChannel theirChannel) {
-		sendSelfDestructingMessage(theirChannel, 2, member.getAsMention() + " Your ticket is over here!");
+		reply(theirChannel, member.getAsMention() + " Your ticket is over here!", 2);
 	}
 
 	public static void tryNewTicket(Member member, MessageChannel messageChannel) {
 
 		if(true) {
-			sendSelfDestructingMessage(messageChannel, 10, "Hi! Thank you for tring to create a ticket, but unfortunetly, I needed to disable tickets for the time being, so I can add new features, and get some more bugs squashed. For the time being, please use <#594348119689527298>.");
+			replyError(messageChannel, "Hi! Thank you for tring to create a ticket, but unfortunetly, I needed to disable tickets for the time being, so I can add new features, and get some more bugs squashed. For the time being, please use <#594348119689527298>.", 10);
 			return;
 		}
 		
@@ -101,7 +102,7 @@ public class CommandTicket extends EveryoneCommand {
 			@Override
 			public void accept(TextChannel t) {
 				//channel already exists
-				sendSelfDestructingMessage(t, 10, "Your ticket already exists. Click " + t.getAsMention() + " to quickly jump there.");
+				replyWarning(t, "Your ticket already exists. Click " + t.getAsMention() + " to quickly jump there.", 10);
 				ticketAlreadyExists(member, t);
 			}
 
@@ -118,13 +119,13 @@ public class CommandTicket extends EveryoneCommand {
 				eb.setTimestamp(Instant.now());
 				eb.setFooter(Main.getJda().getSelfUser().getAsTag(), Main.getJda().getSelfUser().getAvatarUrl());
 
-				sendSelfDestructingMessage(messageChannel, 5, "Your ticket has been created! Click " + t.getAsMention() + " to quickly jump there.");
+				replySuccess(messageChannel, "Your ticket has been created! Click " + t.getAsMention() + " to quickly jump there.", 5);
 				t.sendMessage(eb.build()).queue(success -> {
 					success.addReaction("❌").queue();
 					t.pinMessageById(success.getId()).queue();
 				});
 
-				sendSelfDestructingMessage(t, 2, "Hey " + member.getAsMention() + "! Over here!");
+				reply(t, "Hey " + member.getAsMention() + "! Over here!", 2);
 
 				t.getManager().setTopic(member.getId()).queue();
 
