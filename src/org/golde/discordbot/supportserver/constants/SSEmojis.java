@@ -15,4 +15,5 @@ public class SSEmojis {
 	public static final String TICKET = "🎫";
 	public static final String X = "❌";
 	
+	public static final String CHECK_MARK = "✅";
 }

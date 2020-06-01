@@ -13,6 +13,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.golde.discordbot.supportserver.Main;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -63,27 +64,35 @@ public abstract class BaseCommand extends Command {
 	
 	
 	public enum EnumReplyType {
-		SUCCESS("**Success!**", Color.GREEN), 
-		WARNING("**Warning!**", Color.YELLOW), 
-		ERROR("**Error!**", Color.RED), 
-		NONE(null, new Color(155, 89, 182));
+		SUCCESS("**Success!**", Color.GREEN, SSEmojis.CHECK_MARK), 
+		WARNING("**Warning!**", Color.YELLOW, SSEmojis.WARNING), 
+		ERROR("**Error!**", Color.RED, SSEmojis.X), 
+		NONE("", new Color(155, 89, 182), null);
 		
 		private final String title;
 		private final Color color;
-		private EnumReplyType(String title, Color color) {
+		private final String prefix;
+		private EnumReplyType(String title, Color color, String prefix) {
 			this.title = title;
 			this.color = color;
+			if(prefix != null) {
+				this.prefix = prefix + " ";
+			}
+			else {
+				this.prefix = "";
+			}
+			
 		}
 	}
 	
 	private static final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
 		
 		EmbedBuilder builder = new EmbedBuilder();
-		if(type.title == null) {
-			builder.setTitle(type.title);
+		if(title == null) {
+			builder.setTitle(type.prefix + type.title);
 		}
 		else {
-			builder.setTitle(title);
+			builder.setTitle(type.prefix + title);
 		}
 		builder.setColor(type.color);
 		builder.setDescription(desc);
@@ -119,6 +128,18 @@ public abstract class BaseCommand extends Command {
 		reply(channel, EnumReplyType.SUCCESS, null, desc, secondsUntilDelete, finished);
 	}
 	
+	public static void replySuccess(MessageChannel channel, String title, String desc) {
+		reply(channel, EnumReplyType.SUCCESS, title, desc);
+	}
+	
+	public static void replySuccess(MessageChannel channel, String title, String desc, int secondsUntilDelete) {
+		reply(channel, EnumReplyType.SUCCESS, title, desc, secondsUntilDelete, null);
+	}
+	
+	public static void replySuccess(MessageChannel channel, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
+		reply(channel, EnumReplyType.SUCCESS, title, desc, secondsUntilDelete, finished);
+	}
+	
 	public static void replyWarning(MessageChannel channel, String desc) {
 		reply(channel, EnumReplyType.WARNING, null, desc);
 	}
@@ -131,6 +152,18 @@ public abstract class BaseCommand extends Command {
 		reply(channel, EnumReplyType.WARNING, null, desc, secondsUntilDelete, finished);
 	}
 	
+	public static void replyWarning(MessageChannel channel, String title, String desc) {
+		reply(channel, EnumReplyType.WARNING, title, desc);
+	}
+	
+	public static void replyWarning(MessageChannel channel, String title, String desc, int secondsUntilDelete) {
+		reply(channel, EnumReplyType.WARNING, title, desc, secondsUntilDelete, null);
+	}
+	
+	public static void replyWarning(MessageChannel channel, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
+		reply(channel, EnumReplyType.WARNING, title, desc, secondsUntilDelete, finished);
+	}
+	
 	public static void replyError(MessageChannel channel, String desc) {
 		reply(channel, EnumReplyType.ERROR, null, desc);
 	}
@@ -141,6 +174,18 @@ public abstract class BaseCommand extends Command {
 	
 	public static void replyError(MessageChannel channel, String desc, int secondsUntilDelete, Consumer<Void> finished) {
 		reply(channel, EnumReplyType.ERROR, null, desc, secondsUntilDelete, finished);
+	}
+	
+	public static void replyError(MessageChannel channel, String title, String desc) {
+		reply(channel, EnumReplyType.ERROR, title, desc);
+	}
+	
+	public static void replyError(MessageChannel channel, String title, String desc, int secondsUntilDelete) {
+		reply(channel, EnumReplyType.ERROR, title, desc, secondsUntilDelete, null);
+	}
+	
+	public static void replyError(MessageChannel channel, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
+		reply(channel, EnumReplyType.ERROR, title, desc, secondsUntilDelete, finished);
 	}
 	
 	public static void reply(MessageChannel channel, String desc) {
