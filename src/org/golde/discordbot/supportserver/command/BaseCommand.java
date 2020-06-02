@@ -113,6 +113,10 @@ public abstract class BaseCommand extends Command {
 						finished.accept(null);
 					}
 					
+				}, failed -> {
+					if(finished != null) {
+						finished.accept(null);
+					}
 				});
 			}
 			catch(Exception e) {

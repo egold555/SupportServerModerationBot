@@ -130,23 +130,19 @@ public class Countingv2 extends EventBase {
 		Guild g = tc.getGuild();
 
 		tc.putPermissionOverride(g.getRoleById(Roles.EVERYONE)).deny(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue(unused1 -> {
-			tc.getManager().setParent(g.getCategoryById(Categories.TEMP)).queue(
-
-					new ChannelPurger9000(tc, () -> {
-						
-						tc.sendMessage("1").queue(unused2 -> {
-							tc.putPermissionOverride(g.getRoleById(Roles.EVERYONE)).grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue(unused3 -> {
-								tc.getManager().setParent(g.getCategoryById(CATEGORY)).queue(unused4 -> {
-									updateScore(tc, 1);
-									tc.getManager().setTopic("Highscore: **" + highScore + "**").queue();
-								});
-							});
-						});
-						
-						
-					})
-
-					);
+			
+			new ChannelPurger9000(tc, () -> {
+				
+				tc.sendMessage("1").queue(unused2 -> {
+					tc.putPermissionOverride(g.getRoleById(Roles.EVERYONE)).grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue(unused3 -> {
+						updateScore(tc, 1);
+						tc.getManager().setTopic("Highscore: **" + highScore + "**").queue();
+					});
+				});
+				
+				
+			}).accept(null);
+			
 		});
 
 

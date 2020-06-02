@@ -178,7 +178,7 @@ public class Main {
 				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 				.addEventListeners(new AutoRemoveBirthdayRole())
-				.addEventListeners(new Countingv2())
+				//.addEventListeners(new Countingv2())
 
 				.addEventListeners(new ListenerAdapter() {
 
