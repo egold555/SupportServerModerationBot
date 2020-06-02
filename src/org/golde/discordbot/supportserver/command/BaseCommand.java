@@ -107,12 +107,19 @@ public abstract class BaseCommand extends Command {
 	
 	private static void reply(MessageChannel channel, EnumReplyType type, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
 		channel.sendMessage(getReplyEmbed(type, title, desc)).queue(success -> {
-			success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS, success2 -> {
+			try {
+				success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS, success2 -> {
+					if(finished != null) {
+						finished.accept(null);
+					}
+					
+				});
+			}
+			catch(Exception e) {
 				if(finished != null) {
 					finished.accept(null);
 				}
-				
-			});
+			}
 		});;
 	}
 	
