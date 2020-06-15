@@ -21,7 +21,7 @@ import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 public class CommandLock extends ChatModCommand {
 
 	public CommandLock() {
-		super("lock", "[channel]", "Lock a given channel");
+		super("lock", "<channel>", "Lock a given channel");
 	}
 	
 	@Override

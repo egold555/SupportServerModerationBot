@@ -27,12 +27,6 @@ public abstract class BaseCommand extends Command {
 
 	public static final String PREFIX = ";";
 
-	protected static final Category CATEGORY_BETA;
-	
-	static {
-		CATEGORY_BETA = new Category("Discord Beta Tester");
-	}
-	
 	public BaseCommand(@Nonnull String nameIn, @Nullable String argsIn, @Nullable String helpIn, @Nullable String... aliasesIn) {
 		
 		this.name = nameIn;
