@@ -6,6 +6,9 @@ import java.util.Objects;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+
 public class CommandHelp extends EveryoneCommand {
 
 	public CommandHelp() {
@@ -18,8 +21,8 @@ public class CommandHelp extends EveryoneCommand {
 		Category category = null;
 
 		for(Command command : event.getClient().getCommands()) {
-			//if(!command.isOwnerCommand() || event.getAuthor().getId().equals(event.getClient().getOwnerId())){
-				
+			if(can(event.getMember(), command.getCategory().getName())) {
+
 				if(!Objects.equals(category, command.getCategory())){
 					category = command.getCategory();
 					builder.append("\n\n  __").append(category.getName()).append("__:");
@@ -28,13 +31,29 @@ public class CommandHelp extends EveryoneCommand {
 				builder.append("\n**").append("        •   ").append(event.getClient().getPrefix()).append(command.getName())
 				.append(command.getArguments()==null ? "**" : " "+command.getArguments()+"**")
 				.append(" - ").append(command.getHelp());
-			//}
+			}
 		}
 		builder.append("\n\nDo not include <> nor [] - <> means required and [] means optional."
 				+ "\nFor additional help, contact **Eric Golde#3352**");
 
 
 		reply(event.getChannel(), "__**Commands**:__", builder.toString());
+	}
+
+	private boolean can(Member member, String name) {
+
+		if(name.equals("Everyone")) {
+			return true;
+		}
+
+		for(Role r : member.getRoles()) {
+			if(r.getName().equals(name)) {
+				return true;
+			}
+		}
+
+		return false;
+
 	}
 
 }

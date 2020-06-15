@@ -1,7 +1,8 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.chatmod;
 
 import java.util.List;
 
+import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.util.ModLog;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -11,7 +12,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.exceptions.PermissionException;
 
-public class CommandPruneChat extends ModCommand {
+public class CommandPruneChat extends ChatModCommand {
 
 	public CommandPruneChat() {
 		super("prune", "<amount>", "prunes the chat", "p", "prune", "cc", "clear", "purge");

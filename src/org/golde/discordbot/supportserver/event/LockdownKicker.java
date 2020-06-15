@@ -1,6 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
-import org.golde.discordbot.supportserver.command.mod.CommandPanic;
+import org.golde.discordbot.supportserver.command.guildmod.CommandPanic;
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

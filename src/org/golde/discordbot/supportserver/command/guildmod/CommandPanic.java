@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.guildmod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 
-public class CommandPanic extends ModCommand {
+public class CommandPanic extends GuildModCommand {
 
 	public CommandPanic() {
 		super("panic", null, "Attempt to mitigate botting as much as we can");

@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.guildmod;
 
 import java.time.Instant;
 import java.util.List;
@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class CommandUserHistory extends ModCommand {
+public class CommandUserHistory extends GuildModCommand {
 
 	public CommandUserHistory() {
 		super("userHistory", "<player>", "Shows you the players history of bans/kicks/mutes/warns", "uh");

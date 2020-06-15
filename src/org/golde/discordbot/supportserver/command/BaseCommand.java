@@ -26,16 +26,10 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public abstract class BaseCommand extends Command {
 
 	public static final String PREFIX = ";";
-	
-	protected static final Category CATEGORY_EVERYONE;
-	protected static final Category CATEGORY_MODERATOR;
-	protected static final Category CATEGORY_OWNER;
+
 	protected static final Category CATEGORY_BETA;
 	
 	static {
-		CATEGORY_EVERYONE = new Category("Everyone");
-		CATEGORY_MODERATOR = new Category("Moderator");
-		CATEGORY_OWNER = new Category("Founder");
 		CATEGORY_BETA = new Category("Discord Beta Tester");
 	}
 	

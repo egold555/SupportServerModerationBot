@@ -1,8 +1,9 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.chatmod;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Categories;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
@@ -17,7 +18,7 @@ import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 
-public class CommandLock extends ModCommand {
+public class CommandLock extends ChatModCommand {
 
 	public CommandLock() {
 		super("lock", "[channel]", "Lock a given channel");

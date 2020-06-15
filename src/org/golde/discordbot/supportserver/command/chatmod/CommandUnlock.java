@@ -1,7 +1,8 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.chatmod;
 
 import java.util.List;
 
+import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -14,7 +15,7 @@ import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 
-public class CommandUnlock extends ModCommand {
+public class CommandUnlock extends ChatModCommand {
 
 	public CommandUnlock() {
 		super("unlock", null, "Unlocks a given text channel");

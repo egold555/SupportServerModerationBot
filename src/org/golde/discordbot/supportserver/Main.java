@@ -9,38 +9,34 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.command.chatmod.CommandLock;
+import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
+import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
+import org.golde.discordbot.supportserver.command.chatmod.CommandUnlock;
+import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
+import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandPing;
-import org.golde.discordbot.supportserver.command.everyone.CommandTicket;
-import org.golde.discordbot.supportserver.command.mod.CommandBan;
-import org.golde.discordbot.supportserver.command.mod.CommandKick;
-import org.golde.discordbot.supportserver.command.mod.CommandLock;
-import org.golde.discordbot.supportserver.command.mod.CommandMute;
-import org.golde.discordbot.supportserver.command.mod.CommandPanic;
-import org.golde.discordbot.supportserver.command.mod.CommandPanicUndo;
-import org.golde.discordbot.supportserver.command.mod.CommandPruneChat;
-import org.golde.discordbot.supportserver.command.mod.CommandUnlock;
-import org.golde.discordbot.supportserver.command.mod.CommandUnmute;
-import org.golde.discordbot.supportserver.command.mod.CommandUserHistory;
-import org.golde.discordbot.supportserver.command.mod.CommandWarn;
+import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
+import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
+import org.golde.discordbot.supportserver.command.guildmod.CommandPanic;
+import org.golde.discordbot.supportserver.command.guildmod.CommandPanicUndo;
+import org.golde.discordbot.supportserver.command.guildmod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
-import org.golde.discordbot.supportserver.command.owner.CommandFixAD;
 import org.golde.discordbot.supportserver.command.owner.CommandReload;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
+import org.golde.discordbot.supportserver.command.support.CommandTicket;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
-import org.golde.discordbot.supportserver.event.Countingv2;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
-import org.golde.discordbot.supportserver.event.YRDShanagans;
-import org.golde.discordbot.supportserver.event.WebhookListener;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
@@ -66,19 +62,19 @@ public class Main {
 	public static final int EMBED_COLOR = 0x9B59B6;
 	
 	private static final Activity[] playingStatuses = new Activity[] {
-//			Activity.watching("Over Eric's Server"),
-//			Activity.watching("WALL-E"),
-//			Activity.listening("We Are The Robots - Kraftwerk"), 
-//			Activity.watching("The Matrix"),
-//			Activity.listening(BaseCommand.PREFIX + "help"),
-//			Activity.watching("2001: A Space Odyssey"),
-//			Activity.playing("Robot Arena 2: Design and Destroy"),
-//			Activity.watching("BattleBots"),
-//			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot"),
-//			Activity.watching("2001: A Space Odyssey"),
-//			Activity.watching("The Terminator"),
-//			Activity.watching("For user submitted crash reports!"),
-			Activity.playing("Degraded Preformance. Expect issues.")
+			Activity.watching("Over Eric's Server"),
+			Activity.watching("WALL-E"),
+			Activity.listening("We Are The Robots - Kraftwerk"), 
+			Activity.watching("The Matrix"),
+			Activity.listening(BaseCommand.PREFIX + "help"),
+			Activity.watching("2001: A Space Odyssey"),
+			Activity.playing("Robot Arena 2: Design and Destroy"),
+			Activity.watching("BattleBots"),
+			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot"),
+			Activity.watching("2001: A Space Odyssey"),
+			Activity.watching("The Terminator"),
+			Activity.watching("For user submitted crash reports!"),
+			//Activity.playing("Degraded Preformance. Expect issues.")
 			};
 	
 	//randomize these messages
@@ -125,34 +121,38 @@ public class Main {
 		// adds commands
 		client.addCommands(
 
+				//Everyone
 				new CommandHelp(),
 				new CommandPing(),
 				new CommandCommonError(),
 				//new CommandRPS(),
+				
+				
+				//Support team
 				new CommandTicket(),
-
-				new CommandKick(),
-				new CommandBan(),
+				
+				
+				//Chat Moderator
 				new CommandMute(),
 				new CommandUnmute(),
 				new CommandWarn(),
 				new CommandPruneChat(),
-				new CommandPanic(),
-				new CommandPanicUndo(),
 				new CommandLock(),
 				new CommandUnlock(),
+				
+				
+				//Guild Moderator
+				new CommandKick(),
+				new CommandBan(),
+				new CommandPanic(),
+				new CommandPanicUndo(),
 				new CommandUserHistory(),
+				
 
 				new CommandRemoveAction(),
 				new CommandAddReaction(),
-				//new CommandVote(),
-				//new CommandPoll(),
 				new CommandReload(),
-				new CommandFixAD(),
-				//new CommandFunnySpongeBob(),
 				new CommandTest(waiter)
-				//new CommandDumpModLog(),
-				//new DumpUsernameCache()
 				
 
 				);
@@ -179,7 +179,7 @@ public class Main {
 				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 				.addEventListeners(new AutoRemoveBirthdayRole())
-				.addEventListeners(new YRDShanagans())
+				//.addEventListeners(new YRDShanagans())
 				//.addEventListeners(new Countingv2())
 
 				.addEventListeners(new ListenerAdapter() {

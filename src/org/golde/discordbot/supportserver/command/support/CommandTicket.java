@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.everyone;
+package org.golde.discordbot.supportserver.command.support;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -11,7 +11,8 @@ import java.util.function.Consumer;
 
 import org.golde.discordbot.supportserver.Main;
 import org.golde.discordbot.supportserver.command.BaseCommand;
-import org.golde.discordbot.supportserver.command.mod.ModCommand;
+import org.golde.discordbot.supportserver.command.everyone.EveryoneCommand;
+import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Channels;
 import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.util.HistoryCallback;
@@ -36,14 +37,14 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class CommandTicket extends EveryoneCommand {
+public class CommandTicket extends SupportCommand {
 
 	private static final long MCIW_TICKETS_CATEGORY = 699752267481481236L;
 
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH-mm-ss") ;
 
 	public CommandTicket() {
-		super("ticket", "[create, close]", "Ticket management command", "t");
+		super("ticket", "[close]", "Ticket management command", "t");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -73,7 +74,7 @@ public class CommandTicket extends EveryoneCommand {
 				TextChannel channel = event.getTextChannel();
 
 				String channelNameCompare = channel.getName().substring(2);
-				if(ModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName().replace(" ", "-"))) {
+				if(GuildModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName().replace(" ", "-"))) {
 					closeTicket(event.getGuild(), channel, member);
 				}
 				else {
@@ -121,7 +122,7 @@ public class CommandTicket extends EveryoneCommand {
 
 				replySuccess(messageChannel, "Your ticket has been created! Click " + t.getAsMention() + " to quickly jump there.", 5);
 				t.sendMessage(eb.build()).queue(success -> {
-					success.addReaction("❌").queue();
+					success.addReaction("�?�").queue();
 					t.pinMessageById(success.getId()).queue();
 				});
 
@@ -327,7 +328,7 @@ public class CommandTicket extends EveryoneCommand {
 			else if(channel.getName().startsWith("t-")) {
 
 				String channelNameCompare = channel.getName().substring(2);
-				if((ModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName().replace(" ", "-"))) && emote.getEmoji().equals(SSEmojis.X)) {
+				if((GuildModCommand.isModerator(member) || channelNameCompare.equalsIgnoreCase(member.getEffectiveName().replace(" ", "-"))) && emote.getEmoji().equals(SSEmojis.X)) {
 
 
 

@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.guildmod;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class CommandBan extends ModCommand {
+public class CommandBan extends GuildModCommand {
 
 	public static final int DEL_DAYS = 7;
 

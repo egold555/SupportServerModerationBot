@@ -1,8 +1,9 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.chatmod;
 
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
@@ -16,7 +17,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class CommandUnmute extends ModCommand {
+public class CommandUnmute extends ChatModCommand {
 
 	public CommandUnmute() {
 		super("unmute", "<player> [reason]", "unmute a player", "um");

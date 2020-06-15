@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.mod;
+package org.golde.discordbot.supportserver.command.guildmod;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.Guild.VerificationLevel;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 
-public class CommandPanicUndo extends ModCommand {
+public class CommandPanicUndo extends GuildModCommand {
 
 	public CommandPanicUndo() {
 		super("panicisover", null, "Were good boss, no need to panic anymore");
