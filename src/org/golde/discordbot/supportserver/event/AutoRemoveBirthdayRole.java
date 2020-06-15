@@ -33,13 +33,12 @@ public class AutoRemoveBirthdayRole extends ListenerAdapter {
 	
 	protected void tryClearExpiredRoles() {
 		for(long userId : peopleWhoHaveTheRole.keySet()) {
-			if((peopleWhoHaveTheRole.get(userId) + 86400000) > System.currentTimeMillis()) {
+			if((peopleWhoHaveTheRole.get(userId) + 86400000) < System.currentTimeMillis()) {
 				Main.getGuild().removeRoleFromMember(userId, Main.getGuild().getRoleById(Roles.ITS_MY_BDAY)).queue();
+				peopleWhoHaveTheRole.remove(userId);
 			}
 			
 		}
-		
-		peopleWhoHaveTheRole.clear();
 	}
 
 	@Override

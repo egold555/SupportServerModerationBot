@@ -77,9 +77,9 @@ public class CommandCommonError extends EveryoneCommand {
 
 		tc.retrieveMessageById(err).queue(onSuccess -> {
 
-			String textMsg = "Please see " + tc.getAsMention() + ". This question has been answered before here: " + onSuccess.getJumpUrl();
-
-			replySuccess(tc, textMsg);
+			String textMsg = "This question has been answered before here: " + onSuccess.getJumpUrl();
+			String title = "Please see " + tc.getAsMention() + ".";
+			replySuccess(event.getTextChannel(), title, textMsg);
 
 		});
 	}

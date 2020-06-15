@@ -72,10 +72,10 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
-		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.BAN, "IP Grabber Link");
+		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.MUTE, "IP Grabber Link");
 
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
-				ModAction.BAN, 
+				ModAction.MUTE, 
 				guild.getSelfMember().getUser(), 
 				new String[][] {
 					new String[] {"Offender: ", "<@" + target.getId() + ">"}, 

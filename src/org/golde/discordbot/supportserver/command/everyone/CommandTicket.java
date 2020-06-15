@@ -52,7 +52,7 @@ public class CommandTicket extends EveryoneCommand {
 		if(args.size() != 2) {
 			event.replyError(this.getHelpReply());
 		}
-		
+
 		else {
 			if(args.get(1).equalsIgnoreCase("create")) {
 				tryNewTicket(event.getMember(), event.getChannel());
@@ -93,7 +93,7 @@ public class CommandTicket extends EveryoneCommand {
 			replyError(messageChannel, "Hi! Thank you for tring to create a ticket, but unfortunetly, I needed to disable tickets for the time being, so I can add new features, and get some more bugs squashed. For the time being, please use <#594348119689527298>.", 10);
 			return;
 		}
-		
+
 		Guild g = member.getGuild();
 		final String channelName = getChannelName(member);
 

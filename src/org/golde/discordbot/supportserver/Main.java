@@ -39,6 +39,7 @@ import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
+import org.golde.discordbot.supportserver.event.YRDShanagans;
 import org.golde.discordbot.supportserver.event.WebhookListener;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
 
@@ -65,19 +66,19 @@ public class Main {
 	public static final int EMBED_COLOR = 0x9B59B6;
 	
 	private static final Activity[] playingStatuses = new Activity[] {
-			Activity.watching("Over Eric's Server"),
-			Activity.watching("WALL-E"),
-			Activity.listening("We Are The Robots - Kraftwerk"), 
-			Activity.watching("The Matrix"),
-			Activity.listening(BaseCommand.PREFIX + "help"),
-			Activity.watching("2001: A Space Odyssey"),
-			Activity.playing("Robot Arena 2: Design and Destroy"),
-			Activity.watching("BattleBots"),
-			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot"),
-			Activity.watching("2001: A Space Odyssey"),
-			Activity.watching("The Terminator"),
-			Activity.watching("For user submitted crash reports!"),
-			
+//			Activity.watching("Over Eric's Server"),
+//			Activity.watching("WALL-E"),
+//			Activity.listening("We Are The Robots - Kraftwerk"), 
+//			Activity.watching("The Matrix"),
+//			Activity.listening(BaseCommand.PREFIX + "help"),
+//			Activity.watching("2001: A Space Odyssey"),
+//			Activity.playing("Robot Arena 2: Design and Destroy"),
+//			Activity.watching("BattleBots"),
+//			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot"),
+//			Activity.watching("2001: A Space Odyssey"),
+//			Activity.watching("The Terminator"),
+//			Activity.watching("For user submitted crash reports!"),
+			Activity.playing("Degraded Preformance. Expect issues.")
 			};
 	
 	//randomize these messages
@@ -178,6 +179,7 @@ public class Main {
 				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 				.addEventListeners(new AutoRemoveBirthdayRole())
+				.addEventListeners(new YRDShanagans())
 				//.addEventListeners(new Countingv2())
 
 				.addEventListeners(new ListenerAdapter() {
