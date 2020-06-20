@@ -25,11 +25,11 @@ public class StopChattingInTheWrongChannelsPls extends AbstractMessageChecker {
 
 		}
 
-		if(msg.getChannel().getIdLong() == Channels.CLIENT_INVITES) {
-
-			return !text.toLowerCase().contains("https://discord.");
-
-		}
+//		if(msg.getChannel().getIdLong() == Channels.CLIENT_INVITES) {
+//
+//			return !text.toLowerCase().contains("https://discord.");
+//
+//		}
 
 		return false;
 	}

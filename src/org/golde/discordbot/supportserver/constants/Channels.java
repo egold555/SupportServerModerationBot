@@ -25,7 +25,7 @@ public class Channels {
 	
 	public static final long USER_MADE_SNIPPETS = 632743056113926154L;
 	public static final long USER_MADE_TUTORIALS = 671939263453069332L;
-	public static final long CLIENT_INVITES = 635963933186064395L;
+	public static final long CLIENT_INVITES = 723950034688933978L;
 	public static final long SHOWCASE = 604764182830645259L;
 	
 	public static final long BOT_COMMANDS = 644005910515023872L;

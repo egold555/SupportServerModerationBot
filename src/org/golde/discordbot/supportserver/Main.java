@@ -30,6 +30,7 @@ import org.golde.discordbot.supportserver.command.owner.CommandYoutube;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
+import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.EventManagerTicketEvent;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
@@ -177,7 +178,10 @@ public class Main {
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
+				
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
+				.addEventListeners(new ClientInvitesNeedsToBeBetter())
+				
 				.addEventListeners(new AutoRemoveBirthdayRole())
 				//should be combined
 				.addEventListeners(new TicketManager.TicketManagerEvents())
@@ -209,6 +213,8 @@ public class Main {
 						}, 0, 60000);
 						
 						guild = event.getJDA().getGuilds().get(0); //only one guild
+						TicketManager.loadFromFile();
+						ClientInvitesNeedsToBeBetter.loadAlreadyUsedServers();
 						
 //						event.getJDA().getSelfUser().getManager().setName("Support Server Bot").queue();;
 //						try {

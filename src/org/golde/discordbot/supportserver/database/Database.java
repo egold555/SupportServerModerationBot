@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
@@ -137,6 +138,12 @@ public class Database {
 	public static void removeOffence(long snowflake, ModAction action) {
 		getUser(snowflake).removeLastOffence(action);
 		saveToFile(USERS, USERS_FILE);
+	}
+
+	public static <T> T jsonFile2JavaObject(String file, Class<T> clazz) {
+
+		return jsonFile2JavaObject(new File("res/" + file + ".json"), clazz);
+
 	}
 	
 }
