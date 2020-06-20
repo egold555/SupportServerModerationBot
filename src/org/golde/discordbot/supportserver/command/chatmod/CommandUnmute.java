@@ -3,7 +3,6 @@ package org.golde.discordbot.supportserver.command.chatmod;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;

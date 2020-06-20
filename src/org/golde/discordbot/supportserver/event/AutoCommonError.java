@@ -190,7 +190,7 @@ public class AutoCommonError extends ListenerAdapter {
 			String msg = "";
 
 			StringBuilder contentBuilder = new StringBuilder();
-			Stream<String> stream = Files.lines( crashFile.toPath(), StandardCharsets.UTF_8);
+			Stream<String> stream = Files.lines( crashFile.toPath(), StandardCharsets.ISO_8859_1); //UTF doesn't work sometimes, and ISO_8859_1 is a catchall  https://stackoverflow.com/questions/26268132/all-inclusive-charset-to-avoid-java-nio-charset-malformedinputexception-input
 			stream.forEach(s -> contentBuilder.append(s).append("\n"));
 			msg = contentBuilder.toString();
 			stream.close();

@@ -2,7 +2,6 @@ package org.golde.discordbot.supportserver.command.chatmod;
 
 import java.util.List;
 
-import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;

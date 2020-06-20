@@ -9,15 +9,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
-import org.golde.discordbot.supportserver.command.chatmod.CommandLock;
 import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
-import org.golde.discordbot.supportserver.command.chatmod.CommandUnlock;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandPing;
+import org.golde.discordbot.supportserver.command.everyone.CommandTicket;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandPanic;
@@ -27,10 +26,11 @@ import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandReload;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandTest;
-import org.golde.discordbot.supportserver.command.support.CommandTicket;
+import org.golde.discordbot.supportserver.command.owner.CommandYoutube;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
+import org.golde.discordbot.supportserver.event.EventManagerTicketEvent;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.MiscModLog;
@@ -38,6 +38,7 @@ import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
+import org.golde.discordbot.supportserver.tickets.TicketManager;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -123,13 +124,13 @@ public class Main {
 
 				//Everyone
 				new CommandHelp(),
-				new CommandPing(),
 				new CommandCommonError(),
+				new CommandTicket(),
 				//new CommandRPS(),
 				
 				
 				//Support team
-				new CommandTicket(),
+				//new CommandTicket(),
 				
 				
 				//Chat Moderator
@@ -137,8 +138,8 @@ public class Main {
 				new CommandUnmute(),
 				new CommandWarn(),
 				new CommandPruneChat(),
-				new CommandLock(),
-				new CommandUnlock(),
+				//new CommandLock(),
+				//new CommandUnlock(),
 				
 				
 				//Guild Moderator
@@ -149,6 +150,8 @@ public class Main {
 				new CommandUserHistory(),
 				
 
+				new CommandPing(),
+				new CommandYoutube(),
 				new CommandRemoveAction(),
 				new CommandAddReaction(),
 				new CommandReload(),
@@ -168,18 +171,17 @@ public class Main {
 				// add the listeners
 				.addEventListeners(waiter, client.build())
 				.addEventListeners(new IPGrabberPrevention())
-				//.addEventListeners(new WatchYourProfanity())
 				.addEventListeners(new WhatIsMyPrefix())
 				.addEventListeners(new PlayerCounter())
-				//.addEventListeners(new WebhookListener())
 				.addEventListeners(new ReactionRolesListener())
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
-				.addEventListeners(new CommandTicket.TicketReactionRoleListener())
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 				.addEventListeners(new AutoRemoveBirthdayRole())
-				//.addEventListeners(new YRDShanagans())
+				//should be combined
+				.addEventListeners(new TicketManager.TicketManagerEvents())
+				.addEventListeners(new EventManagerTicketEvent())
 				//.addEventListeners(new Countingv2())
 
 				.addEventListeners(new ListenerAdapter() {

@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
 
-import com.jagrosh.jdautilities.command.Command.Category;
-
 public abstract class EveryoneCommand extends BaseCommand {
 
 	private static final Category CATEGORY_EVERYONE = new Category("Everyone");

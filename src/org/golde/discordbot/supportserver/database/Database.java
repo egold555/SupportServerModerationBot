@@ -1,5 +1,6 @@
 package org.golde.discordbot.supportserver.database;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +22,9 @@ public class Database {
 	public static final String USERNAME_CACHE_FILE = "userdata-cache";
 	public static final String USERS_FILE = "user-data";
 	
-	public static void saveToFile(List<?> list, String filename) {
+	
+	
+	public static void saveToFile(Object list, String filename) {
 
 		FileWriter writer = null;
 		
@@ -73,6 +76,36 @@ public class Database {
 		return null;
 		
 	}
+	
+	public static <T> T jsonFile2JavaObject(File file, Class<T> clazz) {
+
+		FileReader reader = null;
+
+		try {
+			reader = new FileReader(file);
+			T arr = new Gson().fromJson(reader, clazz);
+			return arr;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(reader != null) {
+				try {
+					reader.close();
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+
+
+		return null;
+
+	}
+
 	
 	public static void loadAllFromFile() {
 		USERS = loadFromFile(USERS_FILE, SimpleUser[].class);

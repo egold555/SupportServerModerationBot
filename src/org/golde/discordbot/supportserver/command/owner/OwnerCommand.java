@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
 
-import com.jagrosh.jdautilities.command.Command.Category;
-
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
@@ -22,7 +20,7 @@ public abstract class OwnerCommand extends BaseCommand {
 		this.requiredRole = CATEGORY_OWNER.getName();
 	}
 	
-	protected final boolean isOwner(Member person) {
+	public final static boolean isOwner(Member person) {
 		for(Role r : person.getRoles()) {
 			if(r.getName().equals(CATEGORY_OWNER.getName())) {
 				return true;

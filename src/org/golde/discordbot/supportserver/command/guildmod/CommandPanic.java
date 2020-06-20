@@ -71,6 +71,11 @@ public class CommandPanic extends GuildModCommand {
 	public static List<GuildChannel> getChannels(Guild g){
 
 		List<GuildChannel> toReturn = new ArrayList<GuildChannel>();
+		
+		long[] NON_SPECIAL_CASES = new long[] {
+				Categories.USER_CONTRIBUTIONS,
+				Categories.MISCELLANEOUS_CHATS,
+		};
 
 		//Discussion
 		for(GuildChannel c : g.getCategoryById(Categories.DISCUSSION).getChannels()) {
@@ -81,14 +86,10 @@ public class CommandPanic extends GuildModCommand {
 
 		}
 
-		//User Stuff & Things
-		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THINGS).getChannels()) {
-			toReturn.add(c);
-		}
-
-		//Misc
-		for(GuildChannel c : g.getCategoryById(Categories.MISC).getChannels()) {
-			toReturn.add(c);
+		for(long categoryId : NON_SPECIAL_CASES) {
+			for(GuildChannel c : g.getCategoryById(categoryId).getChannels()) {
+				toReturn.add(c);
+			}
 		}
 
 		return toReturn;

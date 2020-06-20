@@ -21,7 +21,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 public abstract class BaseCommand extends Command {
 
@@ -55,7 +54,7 @@ public abstract class BaseCommand extends Command {
 		SUCCESS("**Success!**", Color.GREEN, SSEmojis.CHECK_MARK), 
 		WARNING("**Warning!**", Color.YELLOW, SSEmojis.WARNING), 
 		ERROR("**Error!**", Color.RED, SSEmojis.X), 
-		NONE("", new Color(155, 89, 182), null);
+		NONE(" ", new Color(155, 89, 182), "");
 		
 		private final String title;
 		private final Color color;
@@ -73,7 +72,7 @@ public abstract class BaseCommand extends Command {
 		}
 	}
 	
-	private static final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
+	protected static final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
 		
 		EmbedBuilder builder = new EmbedBuilder();
 		if(title == null) {

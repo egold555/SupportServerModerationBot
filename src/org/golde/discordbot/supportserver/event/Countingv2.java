@@ -1,15 +1,5 @@
 package org.golde.discordbot.supportserver.event;
 
-import java.util.List;
-import java.util.concurrent.Future;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import org.golde.discordbot.supportserver.Main;
-import org.golde.discordbot.supportserver.command.BaseCommand;
-import org.golde.discordbot.supportserver.command.BaseCommand.EnumReplyType;
-import org.golde.discordbot.supportserver.constants.Categories;
-import org.golde.discordbot.supportserver.constants.Channels;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ChannelPurger9000;
 
@@ -21,7 +11,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Countingv2 extends EventBase {
 
@@ -29,7 +18,7 @@ public class Countingv2 extends EventBase {
 	int highScore = 0;
 
 	private static final String CHANNEL_NAME = "counting-v2";
-	private static final long CATEGORY = Categories.MISC;
+	//private static final long CATEGORY = Categories.MISCELLANEOUS_CHATS;
 
 	long prevChatter = -1;
 

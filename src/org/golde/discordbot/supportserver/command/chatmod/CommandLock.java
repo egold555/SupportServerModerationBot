@@ -3,7 +3,6 @@ package org.golde.discordbot.supportserver.command.chatmod;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.golde.discordbot.supportserver.command.guildmod.GuildModCommand;
 import org.golde.discordbot.supportserver.constants.Categories;
 import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
@@ -79,12 +78,12 @@ public class CommandLock extends ChatModCommand {
 		}
 
 		//User Stuff & Things
-		for(GuildChannel c : g.getCategoryById(Categories.USER_STUFF_AND_THINGS).getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.USER_CONTRIBUTIONS).getChannels()) {
 			channels.add(c);
 		}
 
 		//Misc
-		for(GuildChannel c : g.getCategoryById(Categories.MISC).getChannels()) {
+		for(GuildChannel c : g.getCategoryById(Categories.MISCELLANEOUS_CHATS).getChannels()) {
 			channels.add(c);
 		}
 

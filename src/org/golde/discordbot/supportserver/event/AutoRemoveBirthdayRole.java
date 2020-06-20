@@ -1,8 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,7 +32,7 @@ public class AutoRemoveBirthdayRole extends ListenerAdapter {
 	protected void tryClearExpiredRoles() {
 		for(long userId : peopleWhoHaveTheRole.keySet()) {
 			if((peopleWhoHaveTheRole.get(userId) + 86400000) < System.currentTimeMillis()) {
-				Main.getGuild().removeRoleFromMember(userId, Main.getGuild().getRoleById(Roles.ITS_MY_BDAY)).queue();
+				Main.getGuild().removeRoleFromMember(userId, Main.getGuild().getRoleById(Roles.ITS_MY_B_DAY)).queue();
 				peopleWhoHaveTheRole.remove(userId);
 			}
 			
@@ -46,7 +44,7 @@ public class AutoRemoveBirthdayRole extends ListenerAdapter {
 		
 		for(Role r : event.getRoles()) {
 			
-			if(r.getIdLong() == Roles.ITS_MY_BDAY) {
+			if(r.getIdLong() == Roles.ITS_MY_B_DAY) {
 				peopleWhoHaveTheRole.put(event.getMember().getIdLong(), System.currentTimeMillis());
 			}
 			

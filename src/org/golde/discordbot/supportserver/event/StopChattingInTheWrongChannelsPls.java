@@ -1,7 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
-import org.golde.discordbot.supportserver.command.BaseCommand.EnumReplyType;
 import org.golde.discordbot.supportserver.constants.Channels;
 
 import com.vdurmont.emoji.EmojiParser;

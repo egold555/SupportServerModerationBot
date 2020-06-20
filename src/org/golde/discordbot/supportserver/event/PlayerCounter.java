@@ -1,9 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
 import java.util.Timer;
-import java.util.TimerTask;
-
-import org.golde.discordbot.supportserver.Main;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
@@ -12,7 +9,6 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
-import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class PlayerCounter extends ListenerAdapter {

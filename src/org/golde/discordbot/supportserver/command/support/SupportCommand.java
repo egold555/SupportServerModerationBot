@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
 
-import com.jagrosh.jdautilities.command.Command.Category;
-
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
