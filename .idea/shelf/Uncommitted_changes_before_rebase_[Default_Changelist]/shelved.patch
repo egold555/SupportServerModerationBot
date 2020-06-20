@@ -1,0 +1,16 @@
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.metadata\r\nbin/\r\ntmp/\r\n*.tmp\r\n*.bak\r\n*.swp\r\n*~.nib\r\nlocal.properties\r\n.settings/\r\n.loadpath\r\n.recommenders\r\n\r\n# External tool builders\r\n.externalToolBuilders/\r\n\r\n# Locally stored \"Eclipse launch configurations\"\r\n*.launch\r\n\r\n# PyDev specific (Python IDE for Eclipse)\r\n*.pydevproject\r\n\r\n# CDT-specific (C/C++ Development Tooling)\r\n.cproject\r\n\r\n# Java annotation processor (APT)\r\n.factorypath\r\n\r\n# PDT-specific (PHP Development Tools)\r\n.buildpath\r\n\r\n# sbteclipse plugin\r\n.target\r\n\r\n# Tern plugin\r\n.tern-project\r\n\r\n# TeXlipse plugin\r\n.texlipse\r\n\r\n# STS (Spring Tool Suite)\r\n.springBeans\r\n\r\n# Code Recommenders\r\n.recommenders/\r\n\r\n# Scala IDE specific (Scala & Java development for Eclipse)\r\n.cache-main\r\n.scala_dependencies\r\n.worksheet\r\ndata/\r\ncode/\r\ntest/\r\n\r\nconfig.txt\r\n\r\nres/profanity.txt\r\n\r\nres/user-data.json\r\n\r\nres/userdata-cache.json\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .gitignore	(revision 3b4ac44e771181691a5d1da60f133dd771c20bee)
++++ .gitignore	(date 1592635758908)
+@@ -57,4 +57,4 @@
+ 
+ res/user-data.json
+ 
+-res/userdata-cache.json
++res/userdata-cache.json
+\ No newline at end of file

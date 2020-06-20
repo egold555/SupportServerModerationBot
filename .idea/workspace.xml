@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c0e2b005-4554-4648-8ce1-4b6ff1c55964" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/golde/discordbot/supportserver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/golde/discordbot/supportserver/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/golde/discordbot/supportserver/command/everyone/CommandRPS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/golde/discordbot/supportserver/command/everyone/CommandRPS.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectId" id="1dZa8ljsqKSbZrUJpjq5FxVLwm1" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/lombok.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c0e2b005-4554-4648-8ce1-4b6ff1c55964" name="Default Changelist" comment="" />
+      <created>1592634911949</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592634911949</updated>
+      <workItem from="1592634915693" duration="534000" />
+      <workItem from="1592635588630" duration="1337000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="754" y="149" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1592636381815">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="754" y="149" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1849.1080@0.0.1849.1080" timestamp="1592636381815" />
+    <state x="680" y="425" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1592636617197">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="680" y="425" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1849.1080@0.0.1849.1080" timestamp="1592636617197" />
+    <state x="654" y="294" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1592636385803">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="654" y="294" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1849.1080@0.0.1849.1080" timestamp="1592636385803" />
+    <state x="721" y="417" key="DetectedRootsChooserDialog" timestamp="1592636346917">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="721" y="417" key="DetectedRootsChooserDialog/0.0.1849.1080@0.0.1849.1080" timestamp="1592636346917" />
+    <state x="630" y="281" key="FileChooserDialogImpl" timestamp="1592636507590">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="630" y="281" key="FileChooserDialogImpl/0.0.1849.1080@0.0.1849.1080" timestamp="1592636507590" />
+    <state x="585" y="289" key="NewModule_or_Project.wizard" timestamp="1592635319262">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="585" y="289" key="NewModule_or_Project.wizard/0.0.1849.1080@0.0.1849.1080" timestamp="1592635319262" />
+    <state x="485" y="31" width="1040" height="906" key="SettingsEditor" timestamp="1592636517967">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="485" y="31" width="1040" height="906" key="SettingsEditor/0.0.1849.1080@0.0.1849.1080" timestamp="1592636517967" />
+    <state x="732" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592635771273">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="732" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1849.1080@0.0.1849.1080" timestamp="1592635771273" />
+    <state x="731" y="382" key="git4idea.rebase.GitRebaseDialog" timestamp="1592635820283">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="731" y="382" key="git4idea.rebase.GitRebaseDialog/0.0.1849.1080@0.0.1849.1080" timestamp="1592635820283" />
+    <state x="307" y="119" key="new project wizard" timestamp="1592635192598">
+      <screen x="0" y="0" width="1849" height="1080" />
+    </state>
+    <state x="307" y="119" key="new project wizard/0.0.1849.1080@0.0.1849.1080" timestamp="1592635192598" />
+  </component>
+</project>
