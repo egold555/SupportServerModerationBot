@@ -1,7 +1,9 @@
 package org.golde.discordbot.supportserver.tickets;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.golde.discordbot.supportserver.constants.SSEmojis;
@@ -29,11 +31,13 @@ public abstract class QuestionStateAbstract {
 	private static final int TIMEOUT = 60 * 5; //5min per question
 	
 	private List<Message> responses = new ArrayList<Message>();
+	
+	public static Set<Long> inTemp = new HashSet<Long>();
 
 	public QuestionStateAbstract(TextChannel channel, Member member) {
 		this.channel = channel;
 		this.member = member;
-		
+		inTemp.add(member.getIdLong());
 		pingUser();
 		
 		sendNextQuestion();
@@ -55,6 +59,7 @@ public abstract class QuestionStateAbstract {
 
 	private void finish() {
 		isFinished = true;
+		inTemp.remove(member.getIdLong());
 		TicketManager.create(member, this);
 	}
 

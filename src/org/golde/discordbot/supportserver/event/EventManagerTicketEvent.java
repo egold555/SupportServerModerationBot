@@ -34,9 +34,9 @@ public class EventManagerTicketEvent extends EventBase {
 	private static final String THREE = "U+33U+20e3";
 	private static final String FOUR = "U+34U+20e3";
 	private static final String QUESTION = "U+2753";
-	
+
 	static Map<Long, QuestionStateAbstract> questionState = new HashMap<Long, QuestionStateAbstract>();
-	
+
 	@Override
 	public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event)
 	{
@@ -45,80 +45,87 @@ public class EventManagerTicketEvent extends EventBase {
 		ReactionEmote emote = event.getReactionEmote();
 		Member member = event.getMember();
 		User user = member.getUser();
-		
+
 		if(user.isBot() || user.isFake()) {
 			return;
 		}
-		
+
 		if(!tc.getName().startsWith("temp-t-") && tc.getIdLong() != Channels.TICKETS) {
 			return;
 		}
-		
-		if(!can(member)) {
-			replyError(tc, "You already have a ticket!", 3);
-			return;
-		}
-		
+
+
+
+
 
 		String channelName = "temp-t-" + UUID.randomUUID().toString().substring(0, 16);
-		if(emote.getAsCodepoints().equals(ONE)) {
-			member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
-				questionState.put(member.getIdLong(), new QuestionStateMCPNotDecompiling(success, member));
-			});
-		}
-		else if(emote.getAsCodepoints().equals(TWO)) {
-			member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
-				questionState.put(member.getIdLong(), new QuestionStateErrorsInCode(success, member));
-			});
-		}
-		else if(emote.getAsCodepoints().equals(THREE)) {
-			member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
-				questionState.put(member.getIdLong(), new QuestionStateClientIsCrashing(success, member));
-			});
-		}
-		else if(emote.getAsCodepoints().equals(FOUR)) {
-			member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
-				questionState.put(member.getIdLong(), new QuestionStateIssueWithOtherUser(success, member));
-			});
-		}
-		else if(emote.getAsCodepoints().equals(QUESTION)) {
-			member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
-				questionState.put(member.getIdLong(), new QuestionStateOther(success, member));
-			});
+		if(can(member)) {
+			if(emote.getAsCodepoints().equals(ONE)) {
+				member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
+					questionState.put(member.getIdLong(), new QuestionStateMCPNotDecompiling(success, member));
+				});
+			}
+			else if(emote.getAsCodepoints().equals(TWO)) {
+				member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
+					questionState.put(member.getIdLong(), new QuestionStateErrorsInCode(success, member));
+				});
+			}
+			else if(emote.getAsCodepoints().equals(THREE)) {
+				member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
+					questionState.put(member.getIdLong(), new QuestionStateClientIsCrashing(success, member));
+				});
+			}
+			else if(emote.getAsCodepoints().equals(FOUR)) {
+				member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
+					questionState.put(member.getIdLong(), new QuestionStateIssueWithOtherUser(success, member));
+				});
+			}
+			else if(emote.getAsCodepoints().equals(QUESTION)) {
+				member.getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS).createTextChannel(channelName).queue(success -> {
+					questionState.put(member.getIdLong(), new QuestionStateOther(success, member));
+				});
+			}
 		}
 
 		//special case
 		if(emote.getName().equals(SSEmojis.NEXT) && questionState.containsKey(member.getIdLong())) {
 			questionState.get(member.getIdLong()).sendNextQuestion();
 			//remove bot reaction
-			
+
 			reaction.removeReaction().queue();
 		}
-		
-//		System.out.println(emote);
+
+		//		System.out.println(emote);
 		//remove user reaction
 		reaction.removeReaction(user).queue();
-		
-		
+
+
 	}
-	
+
 	private boolean can(Member member) {
+
+		if(!TicketManager.alreadyHadTicket(member)) {
+			if(QuestionStateAbstract.inTemp.contains(member.getIdLong())) {
+				return false;
+			}
+		}
+
 		return !TicketManager.alreadyHadTicket(member);
 	}
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-		
+
 		if(event.getAuthor().isBot() || event.getAuthor().isFake()) {
 			return;
 		}
-		
+
 		if(!event.getChannel().getName().startsWith("temp-t-")) {
 			return;
 		}
-		
+
 		Set<Long> toRemove = new HashSet<Long>();
-		
+
 		for(QuestionStateAbstract qs : questionState.values()) {
 			if(qs.getChannel().getIdLong() == event.getChannel().getIdLong()) {
 				qs.recieved(event.getMessage());
@@ -127,9 +134,9 @@ public class EventManagerTicketEvent extends EventBase {
 				toRemove.add(qs.getMemberId());
 			}
 		}
-		
+
 		questionState.keySet().removeAll(toRemove);
-		
+
 	}
-	
+
 }
