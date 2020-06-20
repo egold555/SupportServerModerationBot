@@ -17,35 +17,29 @@ public class CommandCommonError extends EveryoneCommand {
 	private String helpErrorBuilt = "";
 
 	public CommandCommonError() {
+
 		super("commonerror", "<error>", "Prints a link to a common error. Leave <error> blank for a list of common errors", "ce", "ec");
 
 		//keysToIds.put(new String[] {""}, L);
 
 		keysToIds.put(new String[] {"addLayer"}, 637484900169023499L);
-
 		keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
-
 		keysToIds.put(new String[] {"EntityRenderer", "$1"}, 644343295853723662L);
-
 		keysToIds.put(new String[] {"star"}, 646065217897234433L);
-
 		keysToIds.put(new String[] {"compilejava8"}, 648306714474709002L);
-
 		keysToIds.put(new String[] {"decompileram", "decompram"}, 652053663828672532L);
-
 		keysToIds.put(new String[] {"predicate"}, 654951373070139402L);
-		
 		keysToIds.put(new String[] {"1.12keybinds", "112keybinds", "1.12.2keybinds"}, 669275068874096661L);
-		
 		keysToIds.put(new String[] {"pixel", "pixelFormat", "pf"}, 689268615484407846L);
-		
 		keysToIds.put(new String[] {"pack",  "rpi"}, 693350938076905474L);
 
-		for(String[] keys : keysToIds.keySet()) {
+		for(String[] keys : keysToIds.keySet())
+		{
 			String keyList = Arrays.toString(keys);
 
 			helpErrorBuilt += keyList + " - " + keysToIds.get(keys) + "\n";
 		}
+
 	}
 
 	@Override
