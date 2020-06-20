@@ -80,7 +80,7 @@ public class TicketManager {
 	}
 
 	public static void loadFromFile() {
-
+		openTickets.clear();
 		for (File file : new File("res/tickets").listFiles()) {
 			if (file.isFile()) {
 				try {

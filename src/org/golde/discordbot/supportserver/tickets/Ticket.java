@@ -84,13 +84,20 @@ public class Ticket {
 			//System.out.println("Removing override for " + holder.getId());
 		}
 	}
+	
+	public void deny(IPermissionHolder holder) {
+		channel.putPermissionOverride(holder).queue(onSuccess1 -> {
+			onSuccess1.getManager().setDeny(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ, Permission.MESSAGE_ATTACH_FILES).queue();
+		});
+	}
 
 	public void close(Consumer<Void> onFinish) {
-		remove(owner);
-		remove(g.getRoleById(Roles.TICKET_SUPPORT_TEAM));
+		deny(owner);
+		deny(g.getRoleById(Roles.TICKET_SUPPORT_TEAM));
+		deny(g.getRoleById(Roles.EVERYONE));
 		
 		for(long member : members) {
-			remove(g.getMemberById(member));
+			deny(g.getMemberById(member));
 		}
 		
 		onFinish.accept(null);
