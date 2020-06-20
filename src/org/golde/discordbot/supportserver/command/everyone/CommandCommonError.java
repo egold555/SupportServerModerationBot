@@ -45,7 +45,6 @@ public class CommandCommonError extends EveryoneCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-
 		//Member member = event.getMember();
 
 		if(args.size() != 2) {
@@ -55,11 +54,11 @@ public class CommandCommonError extends EveryoneCommand {
 
 		String error = args.get(1);
 
-		for(String[] keys : keysToIds.keySet()) {
-			for(String key : keys) {
-				if(error.equalsIgnoreCase(key)) {
-					printError(event, keysToIds.get(keys));
-				}
+		for(String[] keys : keysToIds.keySet())
+		{
+			for(String key : keys)
+			{
+				if(error.equalsIgnoreCase(key)) { printError(event, keysToIds.get(keys)); }
 			}
 		}
 
@@ -76,6 +75,7 @@ public class CommandCommonError extends EveryoneCommand {
 			replySuccess(event.getTextChannel(), title, textMsg);
 
 		});
+
 	}
 
 }
