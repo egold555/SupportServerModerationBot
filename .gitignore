@@ -62,3 +62,5 @@ res/userdata-cache.json
 res/tickets/
 
 res/client-invites.json
+
+res/ip-logger-urls.txt
