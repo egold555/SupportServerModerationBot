@@ -12,6 +12,7 @@ import org.golde.discordbot.supportserver.database.Database;
 import net.dv8tion.jda.api.entities.Invite.InviteType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.internal.entities.InviteImpl;
@@ -41,10 +42,14 @@ public class ClientInvitesNeedsToBeBetter extends EventBase {
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-
+		User user = event.getAuthor();
 		Message m = event.getMessage();
 		TextChannel tc = event.getChannel();
 		if(tc.getIdLong() != Channels.CLIENT_INVITES) {
+			return;
+		}
+		
+		if(user.isBot() || user.isFake()) {
 			return;
 		}
 
@@ -66,6 +71,10 @@ public class ClientInvitesNeedsToBeBetter extends EventBase {
 				replyError(tc, "Plese only post a client invite and a description in this channel. Chatting isn't allowed.", 20);
 				m.delete().queue();
 			}
+		}
+		else {
+			replyError(tc, "Plese only post a client invite and a description in this channel. Chatting isn't allowed.", 20);
+			m.delete().queue();
 		}
 	}
 

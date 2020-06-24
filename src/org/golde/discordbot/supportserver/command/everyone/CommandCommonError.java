@@ -31,15 +31,23 @@ public class CommandCommonError extends EveryoneCommand {
 
 		keysToIds.put(new String[] {"compilejava8"}, 648306714474709002L);
 
-		keysToIds.put(new String[] {"decompileram", "decompram"}, 652053663828672532L);
+		keysToIds.put(new String[] {"decompileram", "decompram", "mcpram"}, 652053663828672532L);
 
-		keysToIds.put(new String[] {"predicate"}, 654951373070139402L);
+		keysToIds.put(new String[] {"predicate", "MouseOverFinder"}, 654951373070139402L);
 		
 		keysToIds.put(new String[] {"1.12keybinds", "112keybinds", "1.12.2keybinds"}, 669275068874096661L);
 		
 		keysToIds.put(new String[] {"pixel", "pixelFormat", "pf"}, 689268615484407846L);
 		
-		keysToIds.put(new String[] {"pack",  "rpi"}, 693350938076905474L);
+		keysToIds.put(new String[] {"pack",  "rpi", "resourcepack"}, 693350938076905474L);
+		
+		keysToIds.put(new String[] {"-Xincgc", "xincgc"}, 683555004048867348L);
+		
+		keysToIds.put(new String[] {"flip()", "ByteBuffer"}, 697648850365841509L);
+		
+		keysToIds.put(new String[] {"1710scaled"}, 656924417997144114L);
+		
+		keysToIds.put(new String[] {"mcp-source", "mcp1.6"}, 648306714474709002L);
 
 		for(String[] keys : keysToIds.keySet()) {
 			String keyList = Arrays.toString(keys);

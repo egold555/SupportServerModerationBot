@@ -35,7 +35,7 @@ public class CommandBan extends GuildModCommand {
 		}
 		else {
 
-			Member selfMember = event.getGuild().getSelfMember();
+			Member selfMember = event.getMember(); //Whoops! god damn.
 			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
 
 			if (args.isEmpty() || mentionedMembers.isEmpty()) {
