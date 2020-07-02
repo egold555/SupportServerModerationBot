@@ -45,10 +45,10 @@ public class CommandPanic extends GuildModCommand {
 		for(GuildChannel gc : channelsToModify) {
 			
 			if(gc instanceof TextChannel) {
-				PermissionOverride permissionOverride = gc.getPermissionOverride(g.getRoleById(Roles.EVERYONE));
+				PermissionOverride permissionOverride = gc.getPermissionOverride(g.getRoleById(Roles.MEMBER));
 				PermissionOverrideAction manager;
 				if(permissionOverride == null) {
-					manager = gc.createPermissionOverride(g.getRoleById(Roles.EVERYONE));
+					manager = gc.createPermissionOverride(g.getRoleById(Roles.MEMBER));
 				}
 				else {
 					manager = permissionOverride.getManager();

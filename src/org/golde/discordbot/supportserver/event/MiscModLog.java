@@ -36,6 +36,10 @@ public class MiscModLog extends ListenerAdapter {
 		if(changedRoles.contains(g.getRoleById(667224721544183838L))) {
 			return;
 		}
+		//Member role -- Ha rember this shit storm?!
+		else if(changedRoles.contains(g.getRoleById(726526640313860236L))) {
+			return;
+		}
 		
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				ModAction.ROLE_CHANGE, 

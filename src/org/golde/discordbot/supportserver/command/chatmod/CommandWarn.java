@@ -9,6 +9,7 @@ import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -45,6 +46,11 @@ public class CommandWarn extends ChatModCommand {
 			if(reason == null || reason.isEmpty()) {
 				reason = "No reason provided.";
 			}
+			
+			if (!event.getMember().canInteract(target) || event.getMember().equals(target) || target.getUser().isBot() || target.getUser().isFake()) {
+		           replyError(tc, "I'm sorry ~~Dave~~ " + event.getMember().getAsMention() + ", I'm afraid I can't do that" );
+		            return;
+		        }
 
 			Database.addOffence(target.getIdLong(), member.getIdLong(), ModAction.WARN, reason);
 

@@ -22,11 +22,8 @@
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDA/lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDA/lib/trove4j-3.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDAUtilities/lib/json-20160810.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDAUtilities/jda-utilities-command-3.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDAUtilities/jda-utilities-commons-3.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDAUtilities/jda-utilities-doc-3.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDAUtilities/jda-utilities-menu-3.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/JDAUtilities/jda-utilities-oauth2-3.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/OpenCSV/commons-beanutils-1.9.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/OpenCSV/commons-collections-3.2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/OpenCSV/commons-lang3-3.6.jar"/>

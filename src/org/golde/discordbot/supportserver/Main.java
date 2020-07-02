@@ -38,6 +38,7 @@ import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
+import org.golde.discordbot.supportserver.event.TryToFindIntrestingFiles;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
 import org.golde.discordbot.supportserver.tickets.TicketManager;
 
@@ -76,6 +77,7 @@ public class Main {
 			Activity.watching("2001: A Space Odyssey"),
 			Activity.watching("The Terminator"),
 			Activity.watching("For user submitted crash reports!"),
+			Activity.playing("Oh look! Emma's here.")
 			//Activity.playing("Degraded Preformance. Expect issues.")
 			};
 	
@@ -178,6 +180,7 @@ public class Main {
 				.addEventListeners(new LockdownKicker())
 				.addEventListeners(new AutoCommonError())
 				.addEventListeners(new MiscModLog())
+				.addEventListeners(new TryToFindIntrestingFiles())
 				
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 				.addEventListeners(new ClientInvitesNeedsToBeBetter())

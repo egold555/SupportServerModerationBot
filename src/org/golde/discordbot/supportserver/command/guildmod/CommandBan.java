@@ -47,7 +47,7 @@ public class CommandBan extends GuildModCommand {
 			String reason = String.join(" ", args.subList(2, args.size()));
 
 			if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-				replyError(tc, "I can't ban that user or I don't have the ban members permission");
+				replyError(tc, "I'm sorry ~~Dave~~ " + event.getMember().getAsMention() + ", I'm afraid I can't do that" );
 				return;
 			}
 
