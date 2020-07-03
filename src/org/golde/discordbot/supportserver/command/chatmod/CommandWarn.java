@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.command.chatmod;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -46,11 +47,11 @@ public class CommandWarn extends ChatModCommand {
 			if(reason == null || reason.isEmpty()) {
 				reason = "No reason provided.";
 			}
-			
+
 			if (!event.getMember().canInteract(target) || event.getMember().equals(target) || target.getUser().isBot() || target.getUser().isFake()) {
-		           replyError(tc, "I'm sorry ~~Dave~~ " + event.getMember().getAsMention() + ", I'm afraid I can't do that" );
-		            return;
-		        }
+				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
+				return;
+			}
 
 			Database.addOffence(target.getIdLong(), member.getIdLong(), ModAction.WARN, reason);
 
@@ -72,7 +73,7 @@ public class CommandWarn extends ChatModCommand {
 				dmChannel.sendMessage(actionEmbed).queue();
 
 			});
-			
+
 			replySuccess(tc, "Success!");
 
 		}

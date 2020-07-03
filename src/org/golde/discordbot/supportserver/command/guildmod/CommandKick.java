@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.supportserver.constants.MiscConstants;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -45,7 +46,7 @@ public class CommandKick extends GuildModCommand {
 	        String reason = String.join(" ", args.subList(2, args.size()));
 
 	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-	        	replyError(tc, "I'm sorry ~~Dave~~ " + event.getMember().getAsMention() + ", I'm afraid I can't do that" );
+	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 	            return;
 	        }
 	        

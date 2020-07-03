@@ -19,6 +19,10 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
+
+import org.golde.discordbot.supportserver.command.BaseCommand;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
+
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
@@ -230,9 +234,11 @@ public abstract class Command
         
         // required role check
         if(requiredRole!=null)
+        	//Eric -- I just wanted to change this one error message lol
             if(!event.isFromType(ChannelType.TEXT) || event.getMember().getRoles().stream().noneMatch(r -> r.getName().equalsIgnoreCase(requiredRole)))
             {
-                terminate(event, event.getClient().getError()+" You must have a role called `"+requiredRole+"` to use that!");
+                //terminate(event, event.getClient().getError()+" You must have a role called `"+requiredRole+"` to use that!");
+            	BaseCommand.replyError(event.getChannel(),  SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't do that. You are missing the role **" + requiredRole + "** and therefor, I am denying you access to that command.");
                 return;
             }
         

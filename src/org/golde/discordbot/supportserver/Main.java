@@ -10,17 +10,18 @@ import java.util.TimerTask;
 
 import org.golde.discordbot.supportserver.command.BaseCommand;
 import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
+import org.golde.discordbot.supportserver.command.chatmod.CommandPing;
 import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
-import org.golde.discordbot.supportserver.command.everyone.CommandPing;
 import org.golde.discordbot.supportserver.command.everyone.CommandTicket;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandPanic;
 import org.golde.discordbot.supportserver.command.guildmod.CommandPanicUndo;
+import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
 import org.golde.discordbot.supportserver.command.guildmod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandReload;
@@ -64,6 +65,8 @@ public class Main {
 	
 	public static final int EMBED_COLOR = 0x9B59B6;
 	
+	private static long ownerId;
+	
 	private static final Activity[] playingStatuses = new Activity[] {
 			Activity.watching("Over Eric's Server"),
 			Activity.watching("WALL-E"),
@@ -77,7 +80,9 @@ public class Main {
 			Activity.watching("2001: A Space Odyssey"),
 			Activity.watching("The Terminator"),
 			Activity.watching("For user submitted crash reports!"),
-			Activity.playing("Oh look! Emma's here.")
+			Activity.playing("Oh look! Emma's here."),
+			Activity.playing("Becoming more like HAL every day!"),
+			Activity.playing("Eric's remember to replace this placeholder status text!")
 			//Activity.playing("Degraded Preformance. Expect issues.")
 			};
 	
@@ -103,7 +108,7 @@ public class Main {
 		String token = list.get(0);
 
 		// the second is the bot's owner's id
-		String ownerId = list.get(1);
+		ownerId = Long.parseLong(list.get(1));
 
 		// define an eventwaiter, dont forget to add this to the JDABuilder!
 		EventWaiter waiter = new EventWaiter();
@@ -114,7 +119,7 @@ public class Main {
 		client.useHelpBuilder(false);
 
 		// sets the owner of the bot
-		client.setOwnerId(ownerId);
+		client.setOwnerId(String.valueOf(ownerId));
 
 		// sets emojis used throughout the bot on successes, warnings, and failures
 		client.setEmojis("\uD83D\uDE03", "\uD83D\uDE2E", "\uD83D\uDE26");
@@ -137,6 +142,7 @@ public class Main {
 				
 				
 				//Chat Moderator
+				new CommandPing(),
 				new CommandMute(),
 				new CommandUnmute(),
 				new CommandWarn(),
@@ -148,12 +154,13 @@ public class Main {
 				//Guild Moderator
 				new CommandKick(),
 				new CommandBan(),
+				new CommandToggleRole(),
 				new CommandPanic(),
 				new CommandPanicUndo(),
 				new CommandUserHistory(),
 				
 
-				new CommandPing(),
+				
 				new CommandYoutube(),
 				new CommandRemoveAction(),
 				new CommandAddReaction(),
@@ -208,6 +215,8 @@ public class Main {
 									currentPlayingStatus = 0;
 								}
 								
+								
+								
 								jda.getPresence().setActivity(playingStatuses[currentPlayingStatus]);
 								
 								currentPlayingStatus++;
@@ -243,6 +252,10 @@ public class Main {
 	
 	public static Guild getGuild() {
 		return guild;
+	}
+	
+	public static long getOwnerId() {
+		return ownerId;
 	}
 
 }

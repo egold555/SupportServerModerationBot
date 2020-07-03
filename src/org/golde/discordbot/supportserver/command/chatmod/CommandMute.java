@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.supportserver.constants.Roles;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -47,8 +48,8 @@ public class CommandMute extends ChatModCommand {
 	        
 	        Member selfMember = event.getGuild().getSelfMember();
 	        
-	        if (!selfMember.hasPermission(Permission.VOICE_MUTE_OTHERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-	            replyError(tc, "I can't mute that user or I don't have the mute members permission");
+	        if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target) || member.equals(target)) {
+	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 	            return;
 	        }
 	        

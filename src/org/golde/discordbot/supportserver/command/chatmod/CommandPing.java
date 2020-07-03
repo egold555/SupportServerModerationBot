@@ -1,11 +1,13 @@
-package org.golde.discordbot.supportserver.command.everyone;
+package org.golde.discordbot.supportserver.command.chatmod;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.command.everyone.EveryoneCommand;
+
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class CommandPing extends EveryoneCommand {
+public class CommandPing extends ChatModCommand {
 
 	public CommandPing() {
 		super("ping", null, "checks the bot's latency", "pong");

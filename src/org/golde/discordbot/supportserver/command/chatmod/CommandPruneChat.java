@@ -1,7 +1,12 @@
 package org.golde.discordbot.supportserver.command.chatmod;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.golde.discordbot.supportserver.Main;
+import org.golde.discordbot.supportserver.constants.Channels;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.util.ModLog;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -13,6 +18,12 @@ import net.dv8tion.jda.api.exceptions.PermissionException;
 
 public class CommandPruneChat extends ChatModCommand {
 
+	static final Set<Long> DENY_CHANNELS = new HashSet<Long>();
+	static {
+		DENY_CHANNELS.add(Channels.MOD_CHAT);
+		DENY_CHANNELS.add(Channels.MOD_LOGS);
+	}
+	
 	public CommandPruneChat() {
 		super("prune", "<amount>", "prunes the chat", "p", "prune", "cc", "clear", "purge");
 	}
@@ -45,10 +56,17 @@ public class CommandPruneChat extends ChatModCommand {
 				return;
 			}
 			
+			if(DENY_CHANNELS.contains(event.getTextChannel().getIdLong()) && event.getMember().getIdLong() != Main.getOwnerId()) {
+				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", but that channel is forbidden to be purged.");
+				return;
+			}
+			
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(ModLog.ModAction.PRUNE, event.getAuthor(), new String[][] {
 				new String[] {"Channel: ", "<#" + event.getChannel().getId() + ">"},
 				new String[] {"Pruned: ", "" + msgs}
 			});
+			
+			
 
 			//Delete command call
 			//event.getTextChannel().deleteMessageById(event.getMessage().getId()).complete();

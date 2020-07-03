@@ -23,4 +23,6 @@ public class SSEmojis {
 	public static final String UNLOCK = "🔓";
 	public static final String NEXT = "⏩";
 	
+	public static final String HAL9000 = "<:Hal9000:728364944965500939>";
+	
 }
