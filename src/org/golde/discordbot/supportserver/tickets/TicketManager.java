@@ -1,9 +1,14 @@
 package org.golde.discordbot.supportserver.tickets;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.golde.discordbot.supportserver.Main;
@@ -133,7 +138,7 @@ public class TicketManager {
 						success.addReaction(SSEmojis.LOCK).queue();
 					});
 				});
-				
+
 				onSuccess.pinMessageById(success.getId()).queue();
 			});
 
@@ -202,9 +207,9 @@ public class TicketManager {
 			BaseCommand.replyError(tc, "No permission :(", DELETE_TIME);
 			return;
 		}
-		
+
 		ticket.makePublic();
-		
+
 	}
 
 	public static void makePrivate(Member sender, TextChannel tc) {
@@ -219,10 +224,11 @@ public class TicketManager {
 			BaseCommand.replyError(tc, "No permission :(", DELETE_TIME);
 			return;
 		}
-		
+
 		ticket.makePrivate();
 	}
 
+	@SuppressWarnings("resource")
 	public static boolean close(Member sender, TextChannel cmdChannel) {
 		Ticket ticket = getTicketFromChannel(cmdChannel);
 
@@ -244,7 +250,36 @@ public class TicketManager {
 			Guild g = cmdChannel.getGuild();
 
 			BaseCommand.replySuccess(g.getTextChannelById(Channels.TICKET_LOGS), "Ticket closed", ticket.getChannel().getName());
-			g.getTextChannelById(Channels.TICKET_LOGS).sendFile(ticket.getFile()).queueAfter(3, TimeUnit.SECONDS);
+
+			try {
+				g.getTextChannelById(Channels.TICKET_LOGS).sendFile(ticket.getFile()).queueAfter(3, TimeUnit.SECONDS);
+			}
+			catch(Exception e) {
+				String newName = UUID.randomUUID().toString() + ".json";
+				System.err.println("Failed to archive this ticket in Discord. Archiving it on system disc for the time being. " + newName);
+				FileChannel sourceChannel = null;
+				FileChannel destChannel = null;
+				try {
+					sourceChannel = new FileInputStream(ticket.getFile()).getChannel();
+					destChannel = new FileOutputStream(new File("res/tickets/archive/" + newName)).getChannel();
+					destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+				} 
+				catch (IOException e1) {
+					System.err.println("Well I failed to archive this ticket even on system disc. Its done now forever sorry about that!");
+					e1.printStackTrace();
+				}
+				finally{
+					try {
+						sourceChannel.close();
+						destChannel.close();
+					} 
+					catch (IOException ignored) {
+						//Well fuck lets just hope we don't get here okay?
+					}
+					
+				}
+				
+			}
 
 			for(long mem : ticket.getMembers()) {
 				User u = g.getMemberById(mem).getUser();
@@ -257,6 +292,7 @@ public class TicketManager {
 					}
 				}
 				catch(Exception ignored) {
+					System.err.println("Failed to send a file to ");
 					ignored.printStackTrace();
 				}
 
@@ -265,9 +301,9 @@ public class TicketManager {
 			final String ticketName = ticket.getChannel().getName();
 
 			ticket.getChannel().getManager().setParent(ticket.getChannel().getGuild().getCategoryById(Categories.TEMPORARY_CHANNELS)).queue();
-			ticket.getChannel().delete().queueAfter(1, TimeUnit.MINUTES, onDelete -> {
+			ticket.getChannel().delete().queueAfter(30, TimeUnit.SECONDS, onDelete -> {
 
-				System.out.println("Deleted Ticket: " + ticketName);
+				System.out.println("Deleted Ticket File: " + ticketName + " - " + ticket.getFile().getAbsolutePath());
 				ticket.getFile().delete();
 
 
@@ -356,17 +392,17 @@ public class TicketManager {
 			 */
 
 			ReactionEmote emote = event.getReactionEmote();
-			
+
 			//System.out.println(emote.getEmoji() + " " + emote.getAsCodepoints());
 
 			if(member.getUser().isBot() || member.getUser().isFake()) {
 				return;
 			}
-			
+
 			if(channel.getName().startsWith("t-")) {
-				
-				
-				
+
+
+
 				//X close emoji
 				if(emote.getEmoji().equals(SSEmojis.X)) {
 					boolean success = TicketManager.close(member, event.getChannel());
@@ -374,19 +410,19 @@ public class TicketManager {
 						event.getReaction().removeReaction(member.getUser()).queue();;
 					}
 				}
-				
+
 				//unlock
 				else if(emote.getEmoji().equals(SSEmojis.UNLOCK)) {
 					event.getReaction().removeReaction(member.getUser()).queue();;
 					TicketManager.makePublic(member, channel);
 				}
-				
+
 				//lock
 				else if(emote.getEmoji().equals(SSEmojis.LOCK)) {
 					event.getReaction().removeReaction(member.getUser()).queue();;
 					TicketManager.makePrivate(member, channel);
 				}
-				
+
 			}
 
 		}

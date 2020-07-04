@@ -75,7 +75,7 @@ public class CommandToggleRole extends GuildModCommand {
 	        Member target = mentionedMembers.get(0);
 	       
 	        
-	        if (!member.canInteract(target) || member.equals(target)) {
+	        if (!member.canInteract(target)) {
 	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 	            return;
 	        }

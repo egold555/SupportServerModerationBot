@@ -2,8 +2,6 @@ package org.golde.discordbot.supportserver.command.owner;
 
 import java.util.List;
 
-import org.golde.discordbot.supportserver.command.BaseCommand.EnumReplyType;
-
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.vdurmont.emoji.EmojiManager;
@@ -29,7 +27,7 @@ public class CommandTest extends OwnerCommandDangerous {
 
 		String breaker = "\n\n";
 
-		String desc = "**Please select the option that best quits the issue your having**"
+		String desc = "**Please select the option that best suits the issue your having**"
 				+ breaker
 				+ getEmo("one") + " MCP is not decompiling / I have errors in my command prompt window"
 				+ breaker
@@ -60,7 +58,20 @@ public class CommandTest extends OwnerCommandDangerous {
 			});
 
 		});
-
+		
+//		ButtonMenu menu = new ButtonMenu.Builder()
+//				.setEventWaiter(waiter)
+//				.setDescription(desc)
+//				.addChoices(getEmo("one"), getEmo("two"), getEmo("three"), getEmo("four"), getEmo("five"), getEmo("question"))
+//				.setColor(new Color(Main.EMBED_COLOR))
+//				.setAction(onReact -> {
+//					
+//					System.out.println(onReact.getName());
+//					
+//				})
+//				.build();
+//
+//		menu.display(g.getTextChannelById(Channels.TICKETS));
 
 	}
 	

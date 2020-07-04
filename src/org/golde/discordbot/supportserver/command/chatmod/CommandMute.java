@@ -48,7 +48,7 @@ public class CommandMute extends ChatModCommand {
 	        
 	        Member selfMember = event.getGuild().getSelfMember();
 	        
-	        if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target) || member.equals(target)) {
+	        if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target)) {
 	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 	            return;
 	        }

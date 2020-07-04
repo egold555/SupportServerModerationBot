@@ -40,11 +40,11 @@ public class EventManagerTicketEvent extends EventBase {
 	@Override
 	public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event)
 	{
-		TextChannel tc = event.getChannel();
-		MessageReaction reaction = event.getReaction();
-		ReactionEmote emote = event.getReactionEmote();
-		Member member = event.getMember();
-		User user = member.getUser();
+		final TextChannel tc = event.getChannel();
+		final MessageReaction reaction = event.getReaction();
+		final ReactionEmote emote = event.getReactionEmote();
+		final Member member = event.getMember();
+		final User user = member.getUser();
 
 		if(user.isBot() || user.isFake()) {
 			return;
@@ -53,10 +53,6 @@ public class EventManagerTicketEvent extends EventBase {
 		if(!tc.getName().startsWith("temp-t-") && tc.getIdLong() != Channels.TICKETS) {
 			return;
 		}
-
-
-
-
 
 		String channelName = "temp-t-" + UUID.randomUUID().toString().substring(0, 16);
 		if(can(member)) {
@@ -91,8 +87,9 @@ public class EventManagerTicketEvent extends EventBase {
 		if(emote.getName().equals(SSEmojis.NEXT) && questionState.containsKey(member.getIdLong())) {
 			questionState.get(member.getIdLong()).sendNextQuestion();
 			//remove bot reaction
-
-			reaction.removeReaction().queue();
+			reaction.removeReaction(user).queue(onSuccess -> {
+				
+			});
 		}
 
 		//		System.out.println(emote);

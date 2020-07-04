@@ -45,7 +45,7 @@ public class CommandKick extends GuildModCommand {
 	        Member target = mentionedMembers.get(0);
 	        String reason = String.join(" ", args.subList(2, args.size()));
 
-	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
+	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target)) {
 	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 	            return;
 	        }
