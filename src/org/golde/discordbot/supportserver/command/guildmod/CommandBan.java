@@ -37,14 +37,14 @@ public class CommandBan extends GuildModCommand {
 		else {
 
 			Member selfMember = event.getMember(); //Whoops! god damn.
-			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
+			Member target = getMember(event, args, 1);
 
-			if (args.isEmpty() || mentionedMembers.isEmpty()) {
-				replyError(tc, "Missing arguments");
+			if (args.isEmpty() || target == null) {
+				replyError(tc, "Missing or invalid arguments");
 				return;
 			}
 
-			Member target = mentionedMembers.get(0);
+
 			String reason = String.join(" ", args.subList(2, args.size()));
 
 			if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target)) {
@@ -52,10 +52,6 @@ public class CommandBan extends GuildModCommand {
 				return;
 			}
 
-			//			if(!member.canInteract(target)) {
-			//				replyError(tc, "Sorry you can not interact with that user! Please contact Eric.");
-			//				return;
-			//			}
 
 			if(reason == null || reason.isEmpty()) {
 				reason = "No reason provided.";
@@ -86,7 +82,7 @@ public class CommandBan extends GuildModCommand {
 
 			});
 
-			replySuccess(tc, "Success!");
+			replySuccess(tc, "Successfully banned " + target.getAsMention() + " for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
 
 
 		}

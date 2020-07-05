@@ -34,14 +34,13 @@ public class CommandWarn extends ChatModCommand {
 		}
 		else {
 
-			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
-
-			if (args.isEmpty() || mentionedMembers.isEmpty()) {
-				replyError(tc, "Missing arguments");
+			Member target = getMember(event, args, 1);
+			
+			if (args.isEmpty() || target == null) {
+				replyError(tc, "Missing or invalid arguments");
 				return;
 			}
 
-			Member target = mentionedMembers.get(0);
 			String reason = String.join(" ", args.subList(2, args.size()));
 
 			if(reason == null || reason.isEmpty()) {
@@ -74,7 +73,7 @@ public class CommandWarn extends ChatModCommand {
 
 			});
 
-			replySuccess(tc, "Success!");
+			replySuccess(tc, "Successfully warned " + target.getAsMention() + " for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
 
 		}
 

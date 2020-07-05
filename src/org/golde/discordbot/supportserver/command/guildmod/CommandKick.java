@@ -26,6 +26,7 @@ public class CommandKick extends GuildModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 		
 		TextChannel tc = event.getTextChannel();
+		Member member = event.getMember();
 		
 		if(event.getArgs().isEmpty())
         {
@@ -34,27 +35,21 @@ public class CommandKick extends GuildModCommand {
         }
 		else {
 		
-	        Member selfMember = event.getMember(); //Whoops.
-	        List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
+			Member target = getMember(event, args, 1);
 
-	        if (args.isEmpty() || mentionedMembers.isEmpty()) {
-	            replyError(tc, "Missing arguments");
-	            return;
-	        }
+			if (args.isEmpty() || target == null) {
+				replyError(tc, "Missing or invalid arguments");
+				return;
+			}
 
-	        Member target = mentionedMembers.get(0);
 	        String reason = String.join(" ", args.subList(2, args.size()));
 
-	        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target)) {
+	        if (!member.hasPermission(Permission.KICK_MEMBERS) || !member.canInteract(target)) {
 	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 	            return;
 	        }
 	        
-//	        if(!target.canInteract(target)) {
-//				replyError(tc, "Sorry you can not interact with that user! Please contact Eric.");
-//				return;
-//			}
-	        
+
 	        if(reason == null || reason.isEmpty()) {
 	        	reason = "No reason provided.";
 	        }

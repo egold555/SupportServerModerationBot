@@ -65,14 +65,12 @@ public class CommandToggleRole extends GuildModCommand {
         }
 		else {
 		
-	        List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
+			Member target = getMember(event, args, 2);
 
-	        if (args.isEmpty() || mentionedMembers.isEmpty()) {
-	            replyError(tc, "Missing arguments");
-	            return;
-	        }
-
-	        Member target = mentionedMembers.get(0);
+			if (args.isEmpty() || target == null) {
+				replyError(tc, "Missing or invalid arguments");
+				return;
+			}
 	       
 	        
 	        if (!member.canInteract(target)) {
@@ -86,12 +84,13 @@ public class CommandToggleRole extends GuildModCommand {
 		        
 	        	if(target.getRoles().contains(role)) {
 	        		event.getGuild().removeRoleFromMember(target, role).queue();
+	        		replySuccess(tc, "Successfully removed role " + role.getName() + " from " + target.getAsMention() + "!");
 	        	}
 	        	else {
 	        		event.getGuild().addRoleToMember(target, role).queue();
+	        		replySuccess(tc, "Successfully added role " + role.getName() + " to " + target.getAsMention() + "!");
 	        	}
-	        	
-		        replySuccess(tc, "Success!");
+	        
 	        }
 	        catch(Exception e) {
 	        	replyError(tc, "Whoops. That role was not found. Please use <" + RolesThatCanBeToggled.buildToggleableRoles() + ">");

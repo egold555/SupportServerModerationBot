@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.supportserver.constants.Roles;
+import org.golde.discordbot.supportserver.constants.SSEmojis;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -26,7 +27,7 @@ public class CommandUnmute extends ChatModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 
 		TextChannel tc = event.getTextChannel();
-		//Member member = event.getMember();
+		Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
@@ -36,27 +37,21 @@ public class CommandUnmute extends ChatModCommand {
 		else {
 
 
-			List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
+			Member target = getMember(event, args, 1);
 
-			if (args.isEmpty() || mentionedMembers.isEmpty()) {
-				replyError(tc, "Missing arguments");
+			if (args.isEmpty() || target == null) {
+				replyError(tc, "Missing or invalid arguments");
 				return;
 			}
-
-			Member target = mentionedMembers.get(0);
 			String reason = String.join(" ", args.subList(2, args.size()));
 
-			Member selfMember = event.getGuild().getSelfMember();
 
-			if (!selfMember.hasPermission(Permission.VOICE_MUTE_OTHERS) || !selfMember.canInteract(target) || selfMember.equals(target)) {
-				replyError(tc, "I can't mute that user or I don't have the mute members permission");
+
+			if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target)) {
+				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}
 
-//			if(!target.canInteract(target)) {
-//				replyError(tc, "Sorry you can not interact with that user! Please contact Eric.");
-//				return;
-//			}
 
 			if(reason == null || reason.isEmpty()) {
 				reason = "No reason provided.";
@@ -86,7 +81,8 @@ public class CommandUnmute extends ChatModCommand {
 
 
 
-			replySuccess(tc, "Success!");
+			replySuccess(tc, "Successfully un-muted " + target.getAsMention() + " for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
+
 
 
 		}
