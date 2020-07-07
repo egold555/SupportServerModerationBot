@@ -347,6 +347,11 @@ public class TicketManager {
 		}
 		return null;
 	}
+	
+	public static boolean isInTicket(TextChannel tc){
+		Ticket t = getTicketFromChannel(tc);
+		return (t != null);
+	}
 
 	public static class TicketManagerEvents extends ListenerAdapter {
 

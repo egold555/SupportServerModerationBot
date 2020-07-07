@@ -3,6 +3,7 @@ package org.golde.discordbot.supportserver.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.golde.discordbot.supportserver.constants.Roles;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
@@ -38,6 +39,10 @@ public class MiscModLog extends ListenerAdapter {
 		}
 		//Member role -- Ha rember this shit storm?!
 		else if(changedRoles.contains(g.getRoleById(726526640313860236L))) {
+			return;
+		}
+		//no need to log twice
+		else if(changedRoles.contains(g.getRoleById(Roles.MUTED))) {
 			return;
 		}
 		

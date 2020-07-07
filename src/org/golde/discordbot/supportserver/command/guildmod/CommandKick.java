@@ -44,10 +44,10 @@ public class CommandKick extends GuildModCommand {
 
 	        String reason = String.join(" ", args.subList(2, args.size()));
 
-	        if (!member.hasPermission(Permission.KICK_MEMBERS) || !member.canInteract(target)) {
-	        	replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
-	            return;
-	        }
+	        if (!event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
+				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
+				return;
+			}
 	        
 
 	        if(reason == null || reason.isEmpty()) {

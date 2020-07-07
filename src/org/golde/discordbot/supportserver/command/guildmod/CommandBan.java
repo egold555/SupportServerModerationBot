@@ -27,7 +27,7 @@ public class CommandBan extends GuildModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 
 		TextChannel tc = event.getTextChannel();
-		//Member member = event.getMember();
+		Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
@@ -36,7 +36,6 @@ public class CommandBan extends GuildModCommand {
 		}
 		else {
 
-			Member selfMember = event.getMember(); //Whoops! god damn.
 			Member target = getMember(event, args, 1);
 
 			if (args.isEmpty() || target == null) {
@@ -47,7 +46,7 @@ public class CommandBan extends GuildModCommand {
 
 			String reason = String.join(" ", args.subList(2, args.size()));
 
-			if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target)) {
+			if (!event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}

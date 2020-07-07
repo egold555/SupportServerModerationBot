@@ -17,12 +17,24 @@ public class CommandTicket extends EveryoneCommand {
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
+		TextChannel tc = event.getTextChannel();
 		if(args.size() < 2) {
-			event.replyError(this.getHelpReply());
+			if(TicketManager.isInTicket(tc)) {
+				replyError(tc, this.getHelpReply());
+				return;
+			}
+			else {
+				notInTicket(tc);
+				return;
+			}
 		}
 		else {
+			if(!TicketManager.isInTicket(tc)) {
+				notInTicket(tc);
+				return;
+			}
 			Member sender = event.getMember();
-			TextChannel tc = event.getTextChannel();
+			
 			String subCmd = args.get(1);
 			
 			if(subCmd.equalsIgnoreCase("close")) {
@@ -44,9 +56,13 @@ public class CommandTicket extends EveryoneCommand {
 //				TicketManager.genHtml(tc);
 //			}
 			else {
-				event.replyError(this.getHelpReply());
+				replyError(tc, this.getHelpReply());
 			}
 		}
+	}
+	
+	private void notInTicket(TextChannel tc) {
+		replyError(tc, "You must be in a ticket to use this command!");
 	}
 
 }

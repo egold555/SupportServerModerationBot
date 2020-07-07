@@ -32,6 +32,7 @@ import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
+import org.golde.discordbot.supportserver.event.DiscordMutePermsAreFucked;
 import org.golde.discordbot.supportserver.event.EventManagerTicketEvent;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
@@ -82,8 +83,13 @@ public class Main {
 			Activity.watching("For user submitted crash reports!"),
 			Activity.playing("Oh look! Emma's here."),
 			Activity.playing("Becoming more like HAL every day!"),
-			Activity.playing("Eric's remember to replace this placeholder status text!")
-			//Activity.playing("Degraded Preformance. Expect issues.")
+			Activity.playing("Eric's remember to replace this placeholder status text!"),
+			Activity.playing("Chronologically inept since 2060."),
+			Activity.playing("Fighting Ignorance since 1973 (It’s taking longer than we thought)."),
+			Activity.playing("This is just a placeholder because I don't know what to put here."),
+			Activity.playing("Haphazardly Spellchecked Since 2002."),
+			Activity.playing("Putting The “i” Into “Teaim”."),
+			//Activity.playing("Under Maintenance")
 			};
 	
 	//randomize these messages
@@ -191,6 +197,7 @@ public class Main {
 				
 				.addEventListeners(new StopChattingInTheWrongChannelsPls())
 				.addEventListeners(new ClientInvitesNeedsToBeBetter())
+				.addEventListeners(new DiscordMutePermsAreFucked())
 				
 				.addEventListeners(new AutoRemoveBirthdayRole())
 				//should be combined
