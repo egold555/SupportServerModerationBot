@@ -15,6 +15,7 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.everyone.CommandCommonError;
+import org.golde.discordbot.supportserver.command.everyone.CommandCommonResponse;
 import org.golde.discordbot.supportserver.command.everyone.CommandHelp;
 import org.golde.discordbot.supportserver.command.everyone.CommandTicket;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
@@ -31,16 +32,19 @@ import org.golde.discordbot.supportserver.command.owner.CommandYoutube;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.AutoCommonError;
 import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
+import org.golde.discordbot.supportserver.event.BannedUrlsChecker;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.DiscordMutePermsAreFucked;
 import org.golde.discordbot.supportserver.event.EventManagerTicketEvent;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
+import org.golde.discordbot.supportserver.event.IShouldNotEvenNeedThis;
 import org.golde.discordbot.supportserver.event.LockdownKicker;
 import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.PlayerCounter;
 import org.golde.discordbot.supportserver.event.ReactionRolesListener;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
 import org.golde.discordbot.supportserver.event.TryToFindIntrestingFiles;
+import org.golde.discordbot.supportserver.event.Under100ClubEvent;
 import org.golde.discordbot.supportserver.event.WhatIsMyPrefix;
 import org.golde.discordbot.supportserver.tickets.TicketManager;
 
@@ -161,12 +165,12 @@ public class Main {
 				new CommandKick(),
 				new CommandBan(),
 				new CommandToggleRole(),
-				new CommandPanic(),
-				new CommandPanicUndo(),
+				//new CommandPanic(),
+				//new CommandPanicUndo(),
 				new CommandUserHistory(),
 				
 
-				
+				new CommandCommonResponse(),
 				new CommandYoutube(),
 				new CommandRemoveAction(),
 				new CommandAddReaction(),
@@ -186,7 +190,12 @@ public class Main {
 				.setActivity(Activity.playing("Loading..."))
 				// add the listeners
 				.addEventListeners(waiter, client.build())
+				
 				.addEventListeners(new IPGrabberPrevention())
+				.addEventListeners(new BannedUrlsChecker())
+				
+				.addEventListeners(new IShouldNotEvenNeedThis())
+				
 				.addEventListeners(new WhatIsMyPrefix())
 				.addEventListeners(new PlayerCounter())
 				.addEventListeners(new ReactionRolesListener())
@@ -199,11 +208,14 @@ public class Main {
 				.addEventListeners(new ClientInvitesNeedsToBeBetter())
 				.addEventListeners(new DiscordMutePermsAreFucked())
 				
+				
 				.addEventListeners(new AutoRemoveBirthdayRole())
 				//should be combined
 				.addEventListeners(new TicketManager.TicketManagerEvents())
 				.addEventListeners(new EventManagerTicketEvent())
 				//.addEventListeners(new Countingv2())
+				
+				.addEventListeners(new Under100ClubEvent())
 
 				.addEventListeners(new ListenerAdapter() {
 

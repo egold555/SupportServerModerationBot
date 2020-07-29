@@ -53,6 +53,11 @@ public abstract class BaseCommand extends Command {
 	protected Member getMember(CommandEvent evt, List<String> args, int expecting) {
 		Guild g = evt.getGuild();
 		List<Member> mentionedMembers = evt.getMessage().getMentionedMembers();
+		
+		if(args.size() < expecting) {
+			return null;
+		}
+		
 		try {
 			Member tmp = g.getMemberById(args.get(expecting));
 			if(tmp != null) {

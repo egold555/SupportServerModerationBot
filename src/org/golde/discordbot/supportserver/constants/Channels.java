@@ -22,6 +22,7 @@ public class Channels {
 	public static final long LEAK_LOUNGE = 638555766944563250L;
 	public static final long NO_MICROPHONE = 658469317343707137L;
 	public static final long MISC_PROGRAMMING = 677955099687125027L;
+	public static final long REDEEM_YOUR_MUTE = 730174585592348693L;
 	
 	public static final long USER_MADE_SNIPPETS = 632743056113926154L;
 	public static final long USER_MADE_TUTORIALS = 671939263453069332L;

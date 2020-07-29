@@ -60,7 +60,7 @@ public class CommandToggleRole extends GuildModCommand {
 		
 		if(event.getArgs().isEmpty())
         {
-            replyError(tc, "Please provide the name of a player to mute!");
+            replyError(tc, "Please provide the name of a player to toggle a role!");
             return;
         }
 		else {

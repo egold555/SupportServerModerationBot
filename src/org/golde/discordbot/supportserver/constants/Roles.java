@@ -14,7 +14,8 @@ public class Roles {
 	public static final long TICKET_SUPPORT_TEAM = 722228963145154642L;
 	public static final long ITS_MY_B_DAY = 655191789879296041L;
 	public static final long SERVER_BOOSTER = 644854909891510293L;
-	public static final long CODE_HELPER = 594351130235109397L;
+	public static final long CODE_HELPER = 735591581708582975L;
+	public static final long LEGACY_CODE_HELPER = 594351130235109397L;
 	public static final long CONTRIBUTOR = 635532547287285762L;
 	public static final long MEMBER = 726526640313860236L;
 	public static final long EVERYONE = 594335572173258752L;

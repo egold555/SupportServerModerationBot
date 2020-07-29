@@ -70,13 +70,15 @@ public class CommandBan extends GuildModCommand {
 					);
 
 			ModLog.log(event.getGuild(), actionEmbed);
+			
+			event.getGuild().ban(target, DEL_DAYS, String.format("Banned by: %#s, with reason: %s",
+					event.getAuthor(), reasonFinal)).queue();
 
 			target.getUser().openPrivateChannel().queue((dmChannel) ->
 			{
 				dmChannel.sendMessage(actionEmbed).queue((unused1) ->
 				{
-					event.getGuild().ban(target, DEL_DAYS, String.format("Banned by: %#s, with reason: %s",
-							event.getAuthor(), reasonFinal)).queue();
+					
 				});
 
 			});

@@ -68,6 +68,10 @@ public class CommandKick extends GuildModCommand {
 					);
 	        ModLog.log(event.getGuild(), actionEmbed);
 	        
+	        
+	        event.getGuild().kick(target, String.format("Kick by: %#s, with reason: %s",
+	                event.getAuthor(), reasonFinal)).queue();
+	        
 	        //TODO: Add discord link back to the server
 	        target.getUser().openPrivateChannel().queue((dmChannel) ->
 	        {
@@ -75,8 +79,7 @@ public class CommandKick extends GuildModCommand {
 		        {
 		        	dmChannel.sendMessage("You can join back with this link: " + MiscConstants.DISCORD_INVITE).queue((unused2) ->
 			        {
-			        	event.getGuild().kick(target, String.format("Kick by: %#s, with reason: %s",
-				                event.getAuthor(), reasonFinal)).queue();
+			        	
 			        });
 		        });
 	        	

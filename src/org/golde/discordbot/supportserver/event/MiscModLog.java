@@ -45,6 +45,14 @@ public class MiscModLog extends ListenerAdapter {
 		else if(changedRoles.contains(g.getRoleById(Roles.MUTED))) {
 			return;
 		}
+		//Under 100 club
+		else if(changedRoles.contains(g.getRoleById(735287621974097950L))) {
+			return;
+		}
+		
+		else if(changedRoles.contains(g.getRoleById(Roles.CODE_HELPER))) {
+			return;
+		}
 		
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				ModAction.ROLE_CHANGE, 

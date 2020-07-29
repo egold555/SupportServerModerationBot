@@ -2,13 +2,17 @@ package org.golde.discordbot.supportserver.event;
 
 import java.util.Timer;
 
+import org.golde.discordbot.supportserver.constants.Roles;
+
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class PlayerCounter extends ListenerAdapter {
@@ -42,6 +46,15 @@ public class PlayerCounter extends ListenerAdapter {
 	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 		updateChannel(event.getGuild());
 	}
+	
+	@Override
+	public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent event) {
+		Role the100club = event.getGuild().getRoleById(735287621974097950L);
+		
+		if(event.getRoles().contains(the100club)) {
+			updateChannel(event.getGuild());
+		}
+	}
 //	
 //	@Override
 //	public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
@@ -72,7 +85,8 @@ public class PlayerCounter extends ListenerAdapter {
 	
 	private int getTotalMemberCount(Guild g) {
 		int toReturn = 0;
-		for(Member m : g.getMemberCache().asSet()) {
+		
+		for(Member m : g.getMembersWithRoles(g.getRoleById(Roles.MEMBER))) {
 			if(!m.getUser().isBot() && !m.getUser().isFake()) {
 				toReturn++;
 			}

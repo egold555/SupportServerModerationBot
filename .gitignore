@@ -64,3 +64,7 @@ res/tickets/
 res/client-invites.json
 
 res/ip-logger-urls.txt
+
+res/banned-urls.txt
+
+res/not-ok-words.txt

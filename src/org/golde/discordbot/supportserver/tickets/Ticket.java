@@ -27,6 +27,7 @@ public class Ticket {
 	List<JSONMessage> messages = new ArrayList<JSONMessage>();
 	String fileName;
 	List<Long> members = new ArrayList<Long>();
+	boolean isPrivate = true;
 
 	@Deprecated
 	public Ticket() {
@@ -94,7 +95,7 @@ public class Ticket {
 	public void close(Consumer<Void> onFinish) {
 		deny(owner);
 		deny(g.getRoleById(Roles.TICKET_SUPPORT_TEAM));
-		deny(g.getRoleById(Roles.EVERYONE));
+		deny(g.getRoleById(Roles.MEMBER));
 		
 		for(long member : members) {
 			deny(g.getMemberById(member));
@@ -134,16 +135,29 @@ public class Ticket {
 	}
 
 	public void makePublic() {
-		channel.putPermissionOverride(g.getRoleById(Roles.EVERYONE)).queue(onSuccess1 -> {
-			onSuccess1.getManager().setAllow(Permission.MESSAGE_READ).queue();
+//		if(!isPrivate) {
+//			BaseCommand.replyError(getChannel(), "This ticket is already public!");
+//			return;
+//		}
+		isPrivate = false;
+		channel.putPermissionOverride(g.getRoleById(Roles.MEMBER)).queue(onSuccess1 -> {
+			onSuccess1.getManager().setAllow(Permission.MESSAGE_READ).queue(onAllow -> {
+				channel.sendMessage("updated it").queue();;
+			});
+			onSuccess1.getManager().setDeny(Permission.MESSAGE_WRITE).queue();
 			BaseCommand.replySuccess(getChannel(), "Channel set to **public**. Everyone can view it now. \n\nPeople can not speak in this channel until you add them. \n\nTo add a person, use **" + BaseCommand.PREFIX + "ticket add <@user>**");
 		});
 		
 	}
 	
 	public void makePrivate() {
-		channel.putPermissionOverride(g.getRoleById(Roles.EVERYONE)).queue(onSuccess1 -> {
-			onSuccess1.getManager().setDeny(Permission.MESSAGE_READ).queue();
+		if(isPrivate) {
+			BaseCommand.replyError(getChannel(), "This ticket is already private!");
+			return;
+		}
+		isPrivate = true;
+		channel.putPermissionOverride(g.getRoleById(Roles.MEMBER)).queue(onSuccess1 -> {
+			onSuccess1.getManager().setDeny(Permission.MESSAGE_READ, Permission.MESSAGE_WRITE).queue();
 			BaseCommand.replySuccess(getChannel(), "Channel set to **private** Only added members, and Ticket Support staff can read your ticket.");
 		});
 	}

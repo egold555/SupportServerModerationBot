@@ -14,19 +14,19 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 
-public class IPGrabberPrevention extends AbstractMessageChecker {
+public class IShouldNotEvenNeedThis extends AbstractMessageChecker {
 
-	private static final Set<String> BAD_URLS;
+	private static final Set<String> BAD_WORDS;
 	
 	static {
-		BAD_URLS = FileUtil.readGenericConfig("ip-logger-urls");
+		BAD_WORDS = FileUtil.readGenericConfig("not-ok-words");
 	}
 
 
 	@Override
 	protected boolean checkMessage(Member sender, Message msg) {
 		String text = msg.getContentStripped();
-		for(String bad : BAD_URLS) {
+		for(String bad : BAD_WORDS) {
 			if(text.toLowerCase().contains(bad.toLowerCase())) {
 				return true;
 			}
@@ -49,7 +49,7 @@ public class IPGrabberPrevention extends AbstractMessageChecker {
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
-		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.MUTE, "IP Grabber Link");
+		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.MUTE, "Very offensive language.");
 
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				ModAction.MUTE, 

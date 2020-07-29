@@ -15,6 +15,7 @@ public class JSONTicket {
 	final long channel;
 	final List<Long> members;
 	final String channelName;
+	final boolean isPrivate;
 	
 	public JSONTicket(Ticket ticket) {
 		messages = ticket.messages;
@@ -22,6 +23,7 @@ public class JSONTicket {
 		channel = ticket.channel.getIdLong();
 		this.members = ticket.members;
 		this.channelName = ticket.channel.getName();
+		this.isPrivate = ticket.isPrivate;
 	}
 	
 	public Ticket toTicket(String fileName) {
@@ -32,6 +34,7 @@ public class JSONTicket {
 		ticket.members = members;
 		ticket.messages = messages;
 		ticket.fileName = "tickets/" + fileName.replace(".json", "");
+		ticket.isPrivate = isPrivate;
 		return ticket;
 	}
 	

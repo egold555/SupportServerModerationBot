@@ -33,5 +33,6 @@
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/emoji-java-5.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/gson-2.8.6.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eric/eclipse-workspace/SupportServerModerationBot/lib/Webhook/discord-webhooks-0.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
