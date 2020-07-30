@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.golde.discordbot.supportserver.Main;
+import org.golde.discordbot.supportserver.ModerationBot;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.constants.Channels;
@@ -60,7 +60,7 @@ public class CommandPruneChat extends ChatModCommand {
 				return;
 			}
 			
-			if(DENY_CHANNELS.contains(event.getTextChannel().getIdLong()) && event.getMember().getIdLong() != Main.getOwnerId()) {
+			if(DENY_CHANNELS.contains(event.getTextChannel().getIdLong()) && event.getMember().getIdLong() != ModerationBot.getOwnerId()) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", but that channel is forbidden to be purged.");
 				return;
 			}

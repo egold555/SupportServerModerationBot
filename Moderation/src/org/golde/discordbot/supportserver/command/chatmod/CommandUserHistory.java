@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
-import org.golde.discordbot.supportserver.Main;
+import org.golde.discordbot.supportserver.ModerationBot;
 import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.database.SimpleUser;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
