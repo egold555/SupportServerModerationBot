@@ -51,20 +51,15 @@ data/
 code/
 test/
 
-config.txt
+# Eric stuff
 
-res/profanity.txt
 
-res/user-data.json
+*.config
 
-res/userdata-cache.json
+_Shared/lib/
+Utilities/lib/
+Moderation/lib/
+Moderation/res/user-data.json
+Moderation/res/userdata-cache.json
 
-res/tickets/
-
-res/client-invites.json
-
-res/ip-logger-urls.txt
-
-res/banned-urls.txt
-
-res/not-ok-words.txt
+*.json
