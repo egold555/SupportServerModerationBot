@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.owner;
+package org.golde.discordbot.utilities.command.owner;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.constants.Channels;
 import org.golde.discordbot.shared.constants.Roles;
+import org.golde.discordbot.shared.constants.SSEmojis;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -16,7 +17,7 @@ import net.dv8tion.jda.api.entities.Guild;
 public class CommandYoutube extends OwnerCommand {
 
 	public CommandYoutube(@Nonnull ESSBot bot) {
-		super(bot, "yt", "<title|link>", "Better then the webhook stuff");
+		super(bot, "yt", "<title|link>", "Announce a new video (Replaces broken webhook stuff)");
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class CommandYoutube extends OwnerCommand {
 		if(title.toLowerCase().startsWith("How to code a Minecraft PVP Client".toLowerCase())) {
 			
 			guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getManager().setMentionable(true).queue(success -> {
-				guild.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage("<a:RedAlert:665412686175010816> **Hey " + guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getAsMention() + ", Eric has uploaded a new video**: " + title + "\n\nWatch it here: " + link).queue(success2 -> {
+				guild.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + "**Hey " + guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getAsMention() + ", Eric has uploaded a new video**: " + title + "\n\nWatch it here: " + link).queue(success2 -> {
 					guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getManager().setMentionable(false).queue();
 				});
 			});

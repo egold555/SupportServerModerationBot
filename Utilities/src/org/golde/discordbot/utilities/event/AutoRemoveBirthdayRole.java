@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.event;
+package org.golde.discordbot.utilities.event;
 
 import java.util.HashMap;
 import java.util.Timer;

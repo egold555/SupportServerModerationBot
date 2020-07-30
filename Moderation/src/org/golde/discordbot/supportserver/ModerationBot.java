@@ -22,12 +22,8 @@ import org.golde.discordbot.supportserver.command.everyone.CommandCommonResponse
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
-import org.golde.discordbot.supportserver.command.owner.CommandAddReaction;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
-import org.golde.discordbot.supportserver.command.owner.CommandTest;
-import org.golde.discordbot.supportserver.command.owner.CommandYoutube;
 import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.event.AutoRemoveBirthdayRole;
 import org.golde.discordbot.supportserver.event.BannedUrlsChecker;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.DiscordMutePermsAreFucked;
@@ -36,7 +32,6 @@ import org.golde.discordbot.supportserver.event.IShouldNotEvenNeedThis;
 import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
 import org.golde.discordbot.supportserver.event.TryToFindIntrestingFiles;
-import org.golde.discordbot.supportserver.event.Under100ClubEvent;
 
 import net.dv8tion.jda.api.entities.Activity;
 
@@ -130,8 +125,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new StopChattingInTheWrongChannelsPls(this));
 		events.add(new ClientInvitesNeedsToBeBetter(this));
 		events.add(new DiscordMutePermsAreFucked(this));
-		events.add(new AutoRemoveBirthdayRole(this));
-		events.add(new Under100ClubEvent(this));
+		
 	}
 
 	@Override
@@ -163,10 +157,8 @@ public class ModerationBot extends ESSBot {
 	@Override
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandCommonResponse(this));
-		cmds.add(new CommandYoutube(this));
 		cmds.add(new CommandRemoveAction(this));
-		cmds.add(new CommandAddReaction(this));
-		cmds.add(new CommandTest(this, getWaiter()));
+		//cmds.add(new CommandTest(this, getWaiter()));
 	}
 
 }

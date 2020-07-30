@@ -63,3 +63,5 @@ Moderation/res/user-data.json
 Moderation/res/userdata-cache.json
 
 *.json
+
+_Export/

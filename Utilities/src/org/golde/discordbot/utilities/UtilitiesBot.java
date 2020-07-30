@@ -9,10 +9,14 @@ import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.command.support.SupportCommand;
 import org.golde.discordbot.shared.event.EventBase;
+import org.golde.discordbot.utilities.command.owner.CommandAddReaction;
+import org.golde.discordbot.utilities.command.owner.CommandYoutube;
 import org.golde.discordbot.utilities.command.everyone.CommandCommonError;
 import org.golde.discordbot.utilities.crash.CrashReportEventHandler;
-import org.golde.discordbot.utilities.reactionroles.ReactionRolesListener;
-import org.golde.discordbot.utilities.usercount.PlayerCounter;
+import org.golde.discordbot.utilities.event.AutoRemoveBirthdayRole;
+import org.golde.discordbot.utilities.event.PlayerCounter;
+import org.golde.discordbot.utilities.event.ReactionRolesListener;
+import org.golde.discordbot.utilities.event.Under100ClubEvent;
 
 public class UtilitiesBot extends ESSBot {
 
@@ -45,6 +49,8 @@ public class UtilitiesBot extends ESSBot {
 		events.add(new CrashReportEventHandler(this));
 		events.add(new ReactionRolesListener(this));
 		events.add(new PlayerCounter(this));
+		events.add(new Under100ClubEvent(this));
+		events.add(new AutoRemoveBirthdayRole(this));
 	}
 
 	@Override
@@ -69,7 +75,8 @@ public class UtilitiesBot extends ESSBot {
 
 	@Override
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
-		
+		cmds.add(new CommandAddReaction(this));
+		cmds.add(new CommandYoutube(this));
 	}
 
 }

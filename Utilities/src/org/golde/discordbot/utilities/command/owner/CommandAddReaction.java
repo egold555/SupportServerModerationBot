@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.owner;
+package org.golde.discordbot.utilities.command.owner;
 
 import java.util.ArrayList;
 import java.util.Comparator;

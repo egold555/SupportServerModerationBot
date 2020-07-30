@@ -1,4 +1,4 @@
-package org.golde.discordbot.utilities.reactionroles;
+package org.golde.discordbot.utilities.event;
 
 import java.io.File;
 import java.io.IOException;

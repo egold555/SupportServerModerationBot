@@ -1,4 +1,4 @@
-package org.golde.discordbot.utilities.usercount;
+package org.golde.discordbot.utilities.event;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
