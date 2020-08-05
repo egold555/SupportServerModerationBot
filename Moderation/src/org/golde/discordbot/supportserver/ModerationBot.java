@@ -18,7 +18,6 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
-import org.golde.discordbot.supportserver.command.everyone.CommandCommonResponse;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
@@ -84,23 +83,23 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public void onReady() {
-		new Timer().scheduleAtFixedRate(new TimerTask() {
-			
-			@Override
-			public void run() {
-				
-				if(currentPlayingStatus > playingStatuses.length - 1) {
-					currentPlayingStatus = 0;
-				}
-				
-				
-				
-				getJda().getPresence().setActivity(playingStatuses[currentPlayingStatus]);
-				
-				currentPlayingStatus++;
-				
-			}
-		}, 0, 60000);
+//		new Timer().scheduleAtFixedRate(new TimerTask() {
+//			
+//			@Override
+//			public void run() {
+//				
+//				if(currentPlayingStatus > playingStatuses.length - 1) {
+//					currentPlayingStatus = 0;
+//				}
+//				
+//				
+//				
+//				getJda().getPresence().setActivity(playingStatuses[currentPlayingStatus]);
+//				
+//				currentPlayingStatus++;
+//				
+//			}
+//		}, 0, 60000);
 		
 		ClientInvitesNeedsToBeBetter.loadAlreadyUsedServers();
 	}
@@ -156,7 +155,6 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
-		cmds.add(new CommandCommonResponse(this));
 		cmds.add(new CommandRemoveAction(this));
 		//cmds.add(new CommandTest(this, getWaiter()));
 	}

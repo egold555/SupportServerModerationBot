@@ -59,6 +59,12 @@ public class MiscModLog extends EventBase {
 			return;
 		}
 		
+		for(Role r : changedRoles) {
+			if(r.getName().startsWith("Internal - ")) {
+				return;
+			}
+		}
+		
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				bot,
 				ModAction.ROLE_CHANGE, 

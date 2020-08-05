@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
+import org.golde.discordbot.shared.command.chatmod.CommandPing;
 import org.golde.discordbot.shared.command.everyone.CommandHelp;
-import org.golde.discordbot.shared.command.everyone.CommandPing;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.CommandReload;
@@ -60,7 +60,7 @@ public abstract class ESSBot {
 		//Everyone
 		List<EveryoneCommand> everyoneCommands = new ArrayList<EveryoneCommand>();
 		everyoneCommands.add(new CommandHelp(this));
-		everyoneCommands.add(new CommandPing(this));
+		
 		registerEveryoneCommand(everyoneCommands);
 		for(EveryoneCommand cmd : everyoneCommands) {
 			client.addCommand(cmd);
@@ -75,6 +75,7 @@ public abstract class ESSBot {
 		
 		//Chat Mod
 		List<ChatModCommand> chatModCommand = new ArrayList<ChatModCommand>();
+		chatModCommand.add(new CommandPing(this));
 		registerChatModCommand(chatModCommand);
 		for(ChatModCommand cmd : chatModCommand) {
 			client.addCommand(cmd);
@@ -113,7 +114,7 @@ public abstract class ESSBot {
 
 						jda.getPresence().setActivity(Activity.listening(getPrefix() + "help"));
 						guild = event.getJDA().getGuilds().get(0); //only one guild
-
+						ESSBot.this.onReady();
 					}
 
 				});

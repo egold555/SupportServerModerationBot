@@ -34,5 +34,6 @@
 	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/Utilities/lib/OpenCSV/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/Utilities/lib/OpenCSV/commons-text-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/Utilities/lib/OpenCSV/opencsv-4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/Moderation/lib/Webhook/discord-webhooks-0.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

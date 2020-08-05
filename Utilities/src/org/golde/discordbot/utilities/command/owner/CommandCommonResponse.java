@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.everyone;
+package org.golde.discordbot.utilities.command.owner;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class CommandCommonResponse extends OwnerCommand {
 		
 		RESPONSES.put("mcplog", "Can you please send me your MCP.log file %name%? It's located in <project>/logs/mcp.log . You will need to zip it up to send it over Discord.");
 		
-		RESPONSES.put("jdkver", "Looks like your using JDK %PH1%. You need to be using JDK 8. You can download JDK 8 here: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot");
+		RESPONSES.put("jdkver", "Looks like your using JDK %PH1% %name%. You need to be using JDK 8. You can download JDK 8 here: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot");
 		
 		//RESPONSES.put("test", "Test - User: %name% | PH1: %PH1% | PH2: %PH2%");
 		
