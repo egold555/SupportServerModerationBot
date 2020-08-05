@@ -1,4 +1,4 @@
-package org.golde.discordbot.shared.command.everyone;
+package org.golde.discordbot.shared.command.chatmod;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.golde.discordbot.shared.ESSBot;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class CommandPing extends EveryoneCommand {
+public class CommandPing extends ChatModCommand {
 
 	public CommandPing(@Nonnull ESSBot bot) {
 		super(bot, "ping", null, "checks the bot's latency", "pong");
