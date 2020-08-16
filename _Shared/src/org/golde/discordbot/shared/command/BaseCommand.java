@@ -1,5 +1,6 @@
 package org.golde.discordbot.shared.command;
 
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,8 +52,7 @@ public abstract class BaseCommand extends Command {
 
 	protected Member getMember(CommandEvent evt, List<String> args, int expecting) {
 		Guild g = evt.getGuild();
-		List<Member> mentionedMembers = evt.getMessage().getMentionedMembers();
-
+		
 		if(args.size()-1 < expecting) {
 			return null;
 		}
@@ -64,11 +64,36 @@ public abstract class BaseCommand extends Command {
 			}
 
 		}
-		catch(NumberFormatException ignored) {}
-
-		if(mentionedMembers.size() > 0) {
-			return mentionedMembers.get(0);
+		catch(NumberFormatException ignored) {
+			
 		}
+
+		try {
+			Member tmp = g.getMemberById(args.get(expecting));
+			if(tmp != null) {
+				return tmp;
+			}
+		}
+		catch(NumberFormatException ignored) {
+			
+		}
+		
+		try {
+			
+			String mem = args.get(expecting);
+			mem = mem.replace("<@!", "").replace(">", "");
+			//<@!199652118100049921>
+			
+			Member tmp = g.getMemberById(mem);
+			if(tmp != null) {
+				return tmp;
+			}
+
+		}
+		catch(NumberFormatException ignored) {
+			
+		}
+		
 		return null;
 	}
 
