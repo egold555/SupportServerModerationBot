@@ -50,50 +50,31 @@ public abstract class BaseCommand extends Command {
 		return bot.getPrefix() + this.name + " " + this.arguments;
 	}
 
+	/**
+	 * Gets a member from a given String array and index
+	 * @param evt The command event 
+	 * @param args The String array that contains the member
+	 * @param expecting The index of the array where we expect the user to reside
+	 * @return The member at the index, or null if none is found
+	 */
 	protected Member getMember(CommandEvent evt, List<String> args, int expecting) {
-		Guild g = evt.getGuild();
-		
-		if(args.size()-1 < expecting) {
-			return null;
-		}
+		Guild guild = evt.getGuild();
+
+		if(args.size()-1 < expecting) {return null;}
 
 		try {
-			Member tmp = g.getMemberById(args.get(expecting));
-			if(tmp != null) {
-				return tmp;
+			String id = args.get(expecting);
+			id = id.replace("<@!", "").replace(">", "");
+
+			Member member = guild.getMemberById(id);
+
+			if(member != null) {
+				return member;
 			}
 
 		}
-		catch(NumberFormatException ignored) {
-			
-		}
+		catch(NumberFormatException ignored) {}
 
-		try {
-			Member tmp = g.getMemberById(args.get(expecting));
-			if(tmp != null) {
-				return tmp;
-			}
-		}
-		catch(NumberFormatException ignored) {
-			
-		}
-		
-		try {
-			
-			String mem = args.get(expecting);
-			mem = mem.replace("<@!", "").replace(">", "");
-			//<@!199652118100049921>
-			
-			Member tmp = g.getMemberById(mem);
-			if(tmp != null) {
-				return tmp;
-			}
-
-		}
-		catch(NumberFormatException ignored) {
-			
-		}
-		
 		return null;
 	}
 
