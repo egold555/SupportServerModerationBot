@@ -113,7 +113,7 @@ public class CrashReportEventHandler extends EventBase {
 
 
 
-	private void newCrashReporter(Member sender, TextChannel channel, File crashFile) throws FileNotFoundException, ParseException {
+	private void newCrashReporter(Member sender, TextChannel channel, File crashFile) throws IOException, ParseException {
 
 		//System.out.println(crashFile.getAbsolutePath());
 

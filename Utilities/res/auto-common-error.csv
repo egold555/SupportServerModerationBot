@@ -13,3 +13,4 @@ net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:,669275068874
 java.lang.IllegalArgumentException: input == null!,"Looks like Minecraft is trying to read a BufferedImage and it was not found. Make sure any BufferedImages (pack.png,  server-icon title-icon) are in your exported assets. I don't have the capability to tell you exactly which image it is as of now."
 Unresolved compilation problem,You have compile time errors in your code. Your client will not run until you fix these. Your IDE will tell you what these are in the error pane.
 net.minecraft.client.resources.DefaultResourcePack.getPackImage,693350938076905474L
+com.google.gson.JsonSyntaxException: java.lang.NumberFormatException:,"Looks like when your json was being parsed, it expected a certain type of number, but got a different type. Double check to make sure you have cleared any old JSON files before parsing them!"
