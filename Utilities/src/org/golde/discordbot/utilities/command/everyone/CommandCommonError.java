@@ -20,6 +20,8 @@ public class CommandCommonError extends EveryoneCommand {
 
 	private String helpErrorBuilt = "";
 
+	//TODO: Make this a json file
+	
 	public CommandCommonError(@Nonnull ESSBot bot) {
 		super(bot, "commonerror", "<error>", "Prints a link to a common error. Leave <error> blank for a list of common errors", "ce", "ec");
 
@@ -52,6 +54,8 @@ public class CommandCommonError extends EveryoneCommand {
 		keysToIds.put(new String[] {"1710scaled"}, 656924417997144114L);
 		
 		keysToIds.put(new String[] {"mcp-source", "mcp1.6"}, 648306714474709002L);
+		
+		keysToIds.put(new String[] {"optifine-textures", "optifinetextures", "optitextures", "optifinetex", "optifinetext", "optitext", "optitextures"}, 752024338676580373L);
 
 		for(String[] keys : keysToIds.keySet()) {
 			String keyList = Arrays.toString(keys);

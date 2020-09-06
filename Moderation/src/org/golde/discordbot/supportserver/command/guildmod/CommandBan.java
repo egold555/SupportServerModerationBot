@@ -41,8 +41,8 @@ public class CommandBan extends GuildModCommand {
 
 			Member target = getMember(event, args, 1);
 
-			if (args.isEmpty() || target == null) {
-				replyError(tc, "Missing or invalid arguments");
+			if (target == null) {
+				replyError(tc, "I could not find that member.");
 				return;
 			}
 
