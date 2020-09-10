@@ -125,7 +125,7 @@ public class TryToFindIntrestingFiles extends AbstractMessageChecker {
 			desc += "**Attachments**: \n" + attachments;
 		}
 		
-		reply(guild.getTextChannelById(Channels.MOD_LOGS), "Intresting file/link detected", desc);
+		reply(guild.getTextChannelById(Channels.Logs.MODERATION_LOGS), "Intresting file/link detected", desc);
 	}
 
 

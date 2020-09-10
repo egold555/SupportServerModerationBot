@@ -21,7 +21,7 @@ public class DiscordMutePermsAreFucked extends EventBase {
 		}
 		
 		if(event.getMember().getRoles().contains(event.getGuild().getRoleById(Roles.MUTED))) {
-			if(event.getChannel().getIdLong() != Channels.REDEEM_YOUR_MUTE) {
+			if(event.getChannel().getIdLong() != Channels.MiscellaneousChats.REDEEM_YOUR_MUTE) {
 				event.getMessage().delete().queue();
 				replyError(event.getChannel(), "You are muted, you can not speak.", 2);
 			}

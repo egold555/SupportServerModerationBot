@@ -35,7 +35,7 @@ public class CommandYoutube extends OwnerCommand {
 		if(title.toLowerCase().startsWith("How to code a Minecraft PVP Client".toLowerCase())) {
 			
 			guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getManager().setMentionable(true).queue(success -> {
-				guild.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + "**Hey " + guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getAsMention() + ", Eric has uploaded a new video**: " + title + "\n\nWatch it here: " + link).queue(success2 -> {
+				guild.getTextChannelById(Channels.Info.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + "**Hey " + guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getAsMention() + ", Eric has uploaded a new video**: " + title + "\n\nWatch it here: " + link).queue(success2 -> {
 					guild.getRoleById(Roles.YOUTUBE_NOTIFICATIONS).getManager().setMentionable(false).queue();
 				});
 			});

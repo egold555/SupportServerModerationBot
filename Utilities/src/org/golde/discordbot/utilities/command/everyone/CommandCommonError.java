@@ -88,7 +88,7 @@ public class CommandCommonError extends EveryoneCommand {
 	}
 
 	private void printError(CommandEvent event, long err) {
-		TextChannel tc = event.getGuild().getTextChannelById(Channels.COMMON_ERRORS);
+		TextChannel tc = event.getGuild().getTextChannelById(Channels.ClientCodingSeries.COMMON_ERRORS);
 
 
 		tc.retrieveMessageById(err).queue(onSuccess -> {

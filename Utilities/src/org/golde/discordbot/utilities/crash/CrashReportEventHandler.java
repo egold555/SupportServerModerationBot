@@ -246,12 +246,12 @@ public class CrashReportEventHandler extends EventBase {
 		catch(Exception e) {
 			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
 			
-			channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendFile(crashFile, UUID.randomUUID() + " Crash Report.txt").queue();
+			channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendFile(crashFile, UUID.randomUUID() + " Crash Report.txt").queue();
 			
 			try {
 				String ex = toStringException(e);
 				channel.sendMessage("```" + ex + "```");
-				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + ex + "```").queue();
+				channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendMessage("```" + ex + "```").queue();
 			}
 			catch(IOException ignored) {};
 			
@@ -269,7 +269,7 @@ public class CrashReportEventHandler extends EventBase {
 	
 	private void sendUpdateMessage(TextChannel tc, long err) {
 
-		TextChannel commonErrors = tc.getGuild().getTextChannelById(Channels.COMMON_ERRORS);
+		TextChannel commonErrors = tc.getGuild().getTextChannelById(Channels.ClientCodingSeries.COMMON_ERRORS);
 
 		commonErrors.retrieveMessageById(err).queue(onSuccess -> {
 			sendUpdateMessage(tc, ":white_check_mark: Please see " + commonErrors.getAsMention() + ". A fix for this crash can be found here: " + onSuccess.getJumpUrl());
@@ -315,7 +315,7 @@ public class CrashReportEventHandler extends EventBase {
 			t.printStackTrace();
 			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric. Error code: 2");
 			try {
-				channel.getGuild().getTextChannelById(Channels.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(t) + "```").queue();
+				channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(t) + "```").queue();
 			}
 			catch(IOException ignored) {};
 			return null;

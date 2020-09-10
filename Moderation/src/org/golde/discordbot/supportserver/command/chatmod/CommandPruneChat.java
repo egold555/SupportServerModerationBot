@@ -24,8 +24,9 @@ public class CommandPruneChat extends ChatModCommand {
 
 	static final Set<Long> DENY_CHANNELS = new HashSet<Long>();
 	static {
-		DENY_CHANNELS.add(Channels.MOD_CHAT);
-		DENY_CHANNELS.add(Channels.MOD_LOGS);
+		DENY_CHANNELS.add(Channels.Logs.MODERATION_LOGS);
+		DENY_CHANNELS.add(Channels.ModStuffThings.MOD_CHAT);
+		DENY_CHANNELS.add(Channels.ModStuffThings.GUILD_MOD_CHAT);
 	}
 	
 	public CommandPruneChat(@Nonnull ESSBot bot) {

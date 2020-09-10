@@ -36,7 +36,7 @@ public class CommandPanicUndo extends GuildModCommand {
 		//now everything is good. Try to prevent the bots from joining....
 		g.getManager().setVerificationLevel(VerificationLevel.NONE).queue();
 		
-		g.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has been released from lockdown mode.").queue();
+		g.getTextChannelById(Channels.Info.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has been released from lockdown mode.").queue();
 		
 		List<GuildChannel> channelsToModify = CommandPanic.getChannels(g);
 		

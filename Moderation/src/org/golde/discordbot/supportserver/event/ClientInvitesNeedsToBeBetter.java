@@ -50,7 +50,7 @@ public class ClientInvitesNeedsToBeBetter extends EventBase {
 		User user = event.getAuthor();
 		Message m = event.getMessage();
 		TextChannel tc = event.getChannel();
-		if(tc.getIdLong() != Channels.CLIENT_INVITES) {
+		if(tc.getIdLong() != Channels.UserContributions.CLIENT_INVITES) {
 			return;
 		}
 		

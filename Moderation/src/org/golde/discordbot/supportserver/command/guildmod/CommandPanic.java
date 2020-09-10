@@ -42,7 +42,7 @@ public class CommandPanic extends GuildModCommand {
 		//only people with phone verification can join. Try to prevent the bots from joining....
 		g.getManager().setVerificationLevel(VerificationLevel.HIGH).queue();
 		
-		g.getTextChannelById(Channels.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has entered lockdown mode.").queue();
+		g.getTextChannelById(Channels.Info.ANNOUNCEMENTS).sendMessage(SSEmojis.RED_ALERT + " Server has entered lockdown mode.").queue();
 		
 		List<GuildChannel> channelsToModify = getChannels(g);
 		

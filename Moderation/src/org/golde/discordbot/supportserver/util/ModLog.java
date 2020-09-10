@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.User;
 public class ModLog {
 
 	public static final void log(Guild guild, MessageEmbed embed) {
-		TextChannel logChannel = guild.getTextChannelById(Channels.MOD_LOGS);
+		TextChannel logChannel = guild.getTextChannelById(Channels.Logs.MODERATION_LOGS);
 		logChannel.sendMessage(embed).queue();
 	}
 
