@@ -1,6 +1,7 @@
 package org.golde.discordbot.supportserver.command.guildmod;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +24,7 @@ public class CommandBan extends GuildModCommand {
 	public static final int DEL_DAYS = 7;
 
 	public CommandBan(@Nonnull ESSBot bot) {
-		super(bot, "ban", "<player> [reason]", "ban a player", "b");
+		super(bot, "obliterate", "<player> [reason]", "ban a player", "b", "ban");
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class CommandBan extends GuildModCommand {
 
 		if(event.getArgs().isEmpty())
 		{
-			replyError(tc, "Please provide the name of a player to ban!");
+			replyError(tc, "Please provide the name of a player to obliterate ;)");
 			return;
 		}
 		else {
@@ -87,7 +88,12 @@ public class CommandBan extends GuildModCommand {
 
 			});
 
-			replySuccess(tc, "Successfully banned " + target.getAsMention() + " for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
+			tc.sendMessage(SSEmojis.TATICAL_NUKE_INCOMING + " **Tatical Nuke, incoming!** " + SSEmojis.TATICAL_NUKE_INCOMING).queue(onSuccess -> {
+				replySuccess(tc, "Successfully obliterated " + target.getAsMention() + " from ESS with the reason '**" + StringUtils.abbreviate(reasonFinal, 250) + "**'!");
+				tc.sendMessage("https://tenor.com/view/explosion-explode-clouds-of-smoke-gif-17216934").queueAfter(2, TimeUnit.SECONDS);
+			});
+			
+			
 
 
 		}

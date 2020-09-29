@@ -25,4 +25,6 @@ public class SSEmojis {
 	
 	public static final String HAL9000 = "<:Hal9000:728364944965500939>";
 	
+	public static final String TATICAL_NUKE_INCOMING = "<a:tatical_nuke_incoming:760344337782931467>";
+	
 }
