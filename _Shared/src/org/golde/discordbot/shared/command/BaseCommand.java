@@ -77,8 +77,8 @@ public abstract class BaseCommand extends Command {
 
 		return null;
 	}
-
-	protected final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
+	
+	protected final EmbedBuilder getReplyEmbedRaw(EnumReplyType type, String title, String desc) {
 
 		EmbedBuilder builder = new EmbedBuilder();
 		if(title == null) {
@@ -91,7 +91,15 @@ public abstract class BaseCommand extends Command {
 		builder.setDescription(desc);
 		builder.setTimestamp(Instant.now());
 		builder.setFooter(bot.getJda().getSelfUser().getAsTag(), bot.getJda().getSelfUser().getAvatarUrl());
-		return builder.build();
+		return builder;
+	}
+
+	protected final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
+		return getReplyEmbedRaw(type, title, desc).build();
+	}
+	
+	protected void reply(MessageChannel channel, EmbedBuilder builder) {
+		channel.sendMessage(builder.build()).queue();
 	}
 
 	private void reply(MessageChannel channel, EnumReplyType type, String title, String desc) {

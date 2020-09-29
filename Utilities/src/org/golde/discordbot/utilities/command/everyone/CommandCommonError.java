@@ -1,67 +1,55 @@
 package org.golde.discordbot.utilities.command.everyone;
 
+import java.awt.Color;
+import java.io.File;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
-import org.golde.discordbot.shared.constants.Channels;
+import org.golde.discordbot.shared.constants.SSEmojis;
+import org.golde.discordbot.shared.util.EnumReplyType;
+import org.golde.discordbot.utilities.commonerror.CommonError;
+import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
+import club.minnced.discord.webhook.send.AllowedMentions;
+import club.minnced.discord.webhook.send.WebhookEmbed.EmbedFooter;
+import club.minnced.discord.webhook.send.WebhookEmbed.EmbedTitle;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
+import club.minnced.discord.webhook.send.WebhookMessage;
+import club.minnced.discord.webhook.send.WebhookMessageBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 public class CommandCommonError extends EveryoneCommand {
 
-	private HashMap<String[], Long> keysToIds = new HashMap<String[], Long>();
+	private static String helpErrorBuilt = "";
+	
+	public static void reloadAfterCommonError() {
+		helpErrorBuilt = "";
+		
+		for(CommonError ce : CommonErrorManager.getCommonErrors()) {
+			if(ce.getShortCodes() != null && ce.getCmdDesc() != null) {
+				String keyList = Arrays.toString(ce.getShortCodes());
 
-	private String helpErrorBuilt = "";
-
-	//TODO: Make this a json file
+				helpErrorBuilt += "`" + keyList + "` - _" + ce.getCmdDesc() + "_\n";
+			}
+			
+		}
+	}
 	
 	public CommandCommonError(@Nonnull ESSBot bot) {
 		super(bot, "commonerror", "<error>", "Prints a link to a common error. Leave <error> blank for a list of common errors", "ce", "ec");
-
-		//keysToIds.put(new String[] {""}, L);
-
-		keysToIds.put(new String[] {"addLayer"}, 637484900169023499L);
-
-		keysToIds.put(new String[] {"javax", "vecmath"}, 643882343911915541L);
-
-		keysToIds.put(new String[] {"EntityRenderer", "$1"}, 644343295853723662L);
-
-		keysToIds.put(new String[] {"star"}, 646065217897234433L);
-
-		keysToIds.put(new String[] {"compilejava8"}, 648306714474709002L);
-
-		keysToIds.put(new String[] {"decompileram", "decompram", "mcpram"}, 652053663828672532L);
-
-		keysToIds.put(new String[] {"predicate", "MouseOverFinder"}, 654951373070139402L);
-		
-		keysToIds.put(new String[] {"1.12keybinds", "112keybinds", "1.12.2keybinds"}, 669275068874096661L);
-		
-		keysToIds.put(new String[] {"pixel", "pixelFormat", "pf"}, 689268615484407846L);
-		
-		keysToIds.put(new String[] {"pack",  "rpi", "resourcepack"}, 693350938076905474L);
-		
-		keysToIds.put(new String[] {"-Xincgc", "xincgc"}, 683555004048867348L);
-		
-		keysToIds.put(new String[] {"flip()", "ByteBuffer"}, 697648850365841509L);
-		
-		keysToIds.put(new String[] {"1710scaled"}, 656924417997144114L);
-		
-		keysToIds.put(new String[] {"mcp-source", "mcp1.6"}, 648306714474709002L);
-		
-		keysToIds.put(new String[] {"optifine-textures", "optifinetextures", "optitextures", "optifinetex", "optifinetext", "optitext", "optitextures"}, 752024338676580373L);
-
-		for(String[] keys : keysToIds.keySet()) {
-			String keyList = Arrays.toString(keys);
-
-			helpErrorBuilt += keyList + " - " + keysToIds.get(keys) + "\n";
-		}
 	}
 
 	@Override
@@ -70,33 +58,158 @@ public class CommandCommonError extends EveryoneCommand {
 
 		//Member member = event.getMember();
 
-		if(args.size() != 2) {
-			replyError(event.getChannel(), "Please specify a error", helpErrorBuilt);
+		if(args.size() < 2) {
+			replyError(event.getChannel(), "Please specify a error", helpErrorBuilt, 20);
 			return;
 		}
-
+		
 		String error = args.get(1);
-
-		for(String[] keys : keysToIds.keySet()) {
-			for(String key : keys) {
-				if(error.equalsIgnoreCase(key)) {
-					printError(event, keysToIds.get(keys));
+		
+		for(CommonError ce : CommonErrorManager.getCommonErrors()) {
+			if(ce.getShortCodes() != null) {
+				for(String key : ce.getShortCodes()) {
+					if(key != null) {
+						if(error.equalsIgnoreCase(key)) {
+							
+							int extraArgumentsAmount = args.size() - 2;
+							String[] extraArguments = new String[extraArgumentsAmount];
+							for(int i = 0; i < extraArgumentsAmount; i++) {
+								extraArguments[i] = args.get(2 + i);
+							}
+							
+							sendCEMessage(event.getTextChannel(), event.getMember(), ce, extraArguments);
+							return;
+						}
+					}
 				}
 			}
+			
 		}
+		
+		replyError(event.getChannel(), "Common Error not found", helpErrorBuilt, 20);
 
 	}
+	
+	private void sendCEMessage(TextChannel tc, Member sender, CommonError ce, String[] extraArguments) {
+		
+		String desc = ce.getDetailedDesc();
+		for(int i = 0; i < extraArguments.length; i++) {
+			desc = desc.replace("%A" + (i+1) + "%", extraArguments[i]);
+		}
+		
+		if(ce.getCmdArgs() != null && extraArguments.length != ce.getCmdArgs().length) {
+			replyError(tc, "Missing arguments", "This common error is missing the required extra arguments: " + Arrays.toString(ce.getCmdArgs()));
+			return;
+		}
+		
+		
+		
+		
+		
+		if(ce.getFakeUser()) {
+			sendAsWebhook(tc, sender, ce, desc);
+		}
+		else {
+			sendAsMessage(tc, ce, desc);
+		}
+		
+		
+	}
+	
+	private void sendAsWebhook(TextChannel tc, Member sender, CommonError ce, String desc) {
+		tc.createWebhook("Fake User Hook").queue(onWebHookComplete -> {
 
-	private void printError(CommandEvent event, long err) {
-		TextChannel tc = event.getGuild().getTextChannelById(Channels.ClientCodingSeries.COMMON_ERRORS);
+			
 
+			WebhookClientBuilder builder = new WebhookClientBuilder(onWebHookComplete.getUrl()); // or id, token
+			builder.setThreadFactory((job) -> {
+				Thread thread = new Thread(job);
+				thread.setName("WebHook Thread");
+				thread.setDaemon(true);
+				return thread;
+			});
+			builder.setWait(true);
 
-		tc.retrieveMessageById(err).queue(onSuccess -> {
+			WebhookClient client = builder.build();
 
-			String textMsg = "This question has been answered before here: " + onSuccess.getJumpUrl();
-			String title = "Please see " + tc.getName() + ".";
-			replySuccess(event.getTextChannel(), title, textMsg);
+			WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
+			WebhookMessageBuilder fileMessageBuilder = new WebhookMessageBuilder();
+			
+			messageBuilder.setUsername(sender.getEffectiveName() + " (Common Error Command)");
+			messageBuilder.setAvatarUrl(sender.getUser().getEffectiveAvatarUrl());
+			
+			messageBuilder.setContent(desc);
+			
+			messageBuilder.setAllowedMentions(AllowedMentions.none());
+			
 
+			WebhookMessage message = messageBuilder.build();
+			client.send(message).thenAccept(onSuccess -> {
+				
+				if(ce.getFileAttachments() != null && ce.getFileAttachments().length > 0) {
+					for(String fileName : ce.getFileAttachments()) {
+						
+						
+						
+						File file = new File("res/common-error-attachments/" + fileName);
+						System.out.println(file.exists() + " - " + file.getAbsolutePath());
+						if(file.exists()) {
+							
+							fileMessageBuilder.addFile(file);
+							
+						}
+					}
+					
+					client.send(fileMessageBuilder.build()).thenAccept(onSuccess2 -> {
+						client.close();
+						onWebHookComplete.delete().queue();
+					});
+					
+				}
+				else {
+					client.close();
+					onWebHookComplete.delete().queue();
+				}
+
+				
+
+			});
+
+		});
+	}
+	
+	private void sendAsMessage(TextChannel tc, CommonError ce, String desc) {
+		
+		MessageEmbed embed = getReplyEmbed(
+				EnumReplyType.SUCCESS, 
+				"This question/error has been answered before", 
+				desc
+				);
+		
+		MessageAction theMsg = tc.sendMessage(embed);
+		MessageAction attachmentMessage = tc.sendMessage(" ");
+		
+		if(ce.getFileAttachments() != null && ce.getFileAttachments().length > 0) {
+			for(String fileName : ce.getFileAttachments()) {
+				
+				
+				
+				File file = new File("res/common-error-attachments/" + fileName);
+				System.out.println(file.exists() + " - " + file.getAbsolutePath());
+				if(file.exists()) {
+					
+					attachmentMessage.addFile(file);
+					
+				}
+			}
+			
+		}
+		
+		theMsg.queue(onSuccess -> {
+			if(ce.getFileAttachments() != null && ce.getFileAttachments().length > 0) {
+				attachmentMessage.queue();
+			}
+			
 		});
 	}
 

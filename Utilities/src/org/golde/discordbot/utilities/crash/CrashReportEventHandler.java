@@ -19,6 +19,8 @@ import java.util.stream.Stream;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;
 import org.golde.discordbot.shared.event.EventBase;
+import org.golde.discordbot.utilities.commonerror.CommonError;
+import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 
 import com.opencsv.CSVReader;
 
@@ -34,11 +36,8 @@ public class CrashReportEventHandler extends EventBase {
 		super(bot);
 	}
 
-	private static HashMap<String, Long> errorToIds = new HashMap<String, Long>();
-	private static HashMap<String, String> errorToMessage = new HashMap<String, String>();
 	private static HashMap<String, String> errorToMessageJava = new HashMap<String, String>();
 	static {
-		reloadDB();
 		
 		try {
 			CSVReader reader = new CSVReader(new FileReader("res/java-exported-exceptions.csv"));
@@ -61,39 +60,6 @@ public class CrashReportEventHandler extends EventBase {
 			e.printStackTrace();
 		}
 		
-	}
-
-	public static void reloadDB() {
-		errorToMessage.clear();
-		errorToIds.clear();
-
-		try {
-			CSVReader reader = new CSVReader(new FileReader("res/auto-common-error.csv"));
-
-			String [] nextLine;
-			// prints the following for the line in your question
-			while ((nextLine = reader.readNext()) != null) {
-
-				String match = nextLine[0];
-				String message = nextLine[1];
-				if(Character.isDigit(message.charAt(0))) {
-					long channelId = Long.parseLong(message.replace("L", ""));
-					errorToIds.put(match, channelId);
-				}
-				else {
-					errorToMessage.put(match, message);
-				}
-			}
-
-			reader.close();
-
-
-		} 
-		catch (IOException e) {
-			System.err.println("Failed to read res/auto-common-error.csv");
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
@@ -213,30 +179,18 @@ public class CrashReportEventHandler extends EventBase {
 
 			boolean foundCommonError = false;
 
-			for(String key : errorToIds.keySet()) {
-				if(msg.contains(key)) {
-					foundCommonError = true;
-					sendUpdateMessage(channel, errorToIds.get(key));
-					break;
+			for(CommonError ce : CommonErrorManager.getCommonErrors()) {
+				if(ce.getCrashReport() != null) {
+					for(String trigger : ce.getCrashReport()) {
+						if(msg.contains(trigger)) {
+							foundCommonError = true;
+							CommonErrorManager.sendCEMessage(bot, channel, ce);
+							break;
+						}
+					}
 				}
-
 			}
 
-			
-			for(String key : errorToMessage.keySet()) {
-				if(msg.contains(key)) {
-					foundCommonError = true;
-					sendUpdateMessage(channel, ":white_check_mark: " + errorToMessage.get(key));
-					break;
-				}
-
-			}
-			
-//			if(!success) {
-//				//if we did not match anything to the common error, we now call the new crash reporter
-//				newCrashReporter(sender, channel, crashFile);
-//			}
-			//.out.println("We got to here 3");
 			if(!foundCommonError) {
 				newCrashReporter(sender, channel, crashFile);
 			}
@@ -265,15 +219,6 @@ public class CrashReportEventHandler extends EventBase {
 	
 	private void sendUpdateMessage(TextChannel tc, String msg) {
 		tc.sendMessage("[Crash Report Identifier] " + msg).queue();
-	}
-	
-	private void sendUpdateMessage(TextChannel tc, long err) {
-
-		TextChannel commonErrors = tc.getGuild().getTextChannelById(Channels.ClientCodingSeries.COMMON_ERRORS);
-
-		commonErrors.retrieveMessageById(err).queue(onSuccess -> {
-			sendUpdateMessage(tc, ":white_check_mark: Please see " + commonErrors.getAsMention() + ". A fix for this crash can be found here: " + onSuccess.getJumpUrl());
-		});
 	}
 
 	private boolean isMinecraftCrashReport(String s) {

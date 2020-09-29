@@ -9,10 +9,10 @@ import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.command.support.SupportCommand;
 import org.golde.discordbot.shared.event.EventBase;
-import org.golde.discordbot.utilities.command.owner.CommandAddReaction;
-import org.golde.discordbot.utilities.command.owner.CommandCommonResponse;
-import org.golde.discordbot.utilities.command.owner.CommandYoutube;
 import org.golde.discordbot.utilities.command.everyone.CommandCommonError;
+import org.golde.discordbot.utilities.command.owner.CommandAddReaction;
+import org.golde.discordbot.utilities.command.owner.CommandYoutube;
+import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 import org.golde.discordbot.utilities.crash.CrashReportEventHandler;
 import org.golde.discordbot.utilities.event.AutoRemoveBirthdayRole;
 import org.golde.discordbot.utilities.event.PlayerCounter;
@@ -37,12 +37,14 @@ public class UtilitiesBot extends ESSBot {
 
 	@Override
 	public void onLoad() {
-		
+		CommonErrorManager.reload();
+		CommandCommonError.reloadAfterCommonError();
 	}
 	
 	@Override
 	public void onReload() {
-		CrashReportEventHandler.reloadDB();
+		CommonErrorManager.reload();
+		CommandCommonError.reloadAfterCommonError();
 	}
 	
 	@Override
@@ -78,7 +80,6 @@ public class UtilitiesBot extends ESSBot {
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandAddReaction(this));
 		cmds.add(new CommandYoutube(this));
-		cmds.add(new CommandCommonResponse(this));
 	}
 
 }

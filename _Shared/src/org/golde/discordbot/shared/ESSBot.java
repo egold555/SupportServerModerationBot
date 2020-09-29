@@ -14,6 +14,8 @@ import org.golde.discordbot.shared.command.support.SupportCommand;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.shared.util.FileUtil;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -35,6 +37,8 @@ public abstract class ESSBot {
 	private static final long OWNER_ID = 199652118100049921L;
 	
 	private EventWaiter waiter;
+	
+	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 	public void run() throws Exception {
 		
@@ -124,6 +128,7 @@ public abstract class ESSBot {
 		for(EventBase listener : eventList) {
 			builder.addEventListeners(listener);
 		}
+		onLoad();
 		// start it up!
 		jda = builder.build();
 	}
