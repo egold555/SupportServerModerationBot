@@ -1,10 +1,6 @@
 package org.golde.discordbot.supportserver;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
@@ -26,55 +22,18 @@ import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.BannedUrlsChecker;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.DiscordMutePermsAreFucked;
+import org.golde.discordbot.supportserver.event.IHateKids2point0;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.IShouldNotEvenNeedThis;
 import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
 import org.golde.discordbot.supportserver.event.TryToFindIntrestingFiles;
 
-import net.dv8tion.jda.api.entities.Activity;
-
 public class ModerationBot extends ESSBot {
 
 	public static void main(String[] args) throws Exception {
 		new ModerationBot().run();
 	}
-	
-	private static final Activity[] playingStatuses = new Activity[] {
-			Activity.watching("Over Eric's Server"),
-			Activity.watching("WALL-E"),
-			Activity.listening("We Are The Robots - Kraftwerk"), 
-			Activity.watching("The Matrix"),
-			Activity.listening(";help"),
-			Activity.watching("2001: A Space Odyssey"),
-			Activity.playing("Robot Arena 2: Design and Destroy"),
-			Activity.watching("BattleBots"),
-			Activity.playing("I am open source! Check me out here: https://github.com/egold555/SupportServerModerationBot"),
-			Activity.watching("2001: A Space Odyssey"),
-			Activity.watching("The Terminator"),
-			Activity.watching("For user submitted crash reports!"),
-			Activity.playing("Oh look! Emma's here."),
-			Activity.playing("Becoming more like HAL every day!"),
-			Activity.playing("Eric's remember to replace this placeholder status text!"),
-			Activity.playing("Chronologically inept since 2060."),
-			Activity.playing("Fighting Ignorance since 1973 (It’s taking longer than we thought)."),
-			Activity.playing("This is just a placeholder because I don't know what to put here."),
-			Activity.playing("Haphazardly Spellchecked Since 2002."),
-			Activity.playing("Putting The “i” Into “Teaim”."),
-			};
-	
-	//randomize these messages
-	static {
-		List<Activity> statusList = Arrays.asList(playingStatuses);
-
-		Collections.shuffle(statusList);
-
-		statusList.toArray(playingStatuses);
-	}
-	
-	private static int currentPlayingStatus = 0;
-
-	
 
 	@Override
 	public String getPrefix() {
@@ -83,24 +42,6 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public void onReady() {
-//		new Timer().scheduleAtFixedRate(new TimerTask() {
-//			
-//			@Override
-//			public void run() {
-//				
-//				if(currentPlayingStatus > playingStatuses.length - 1) {
-//					currentPlayingStatus = 0;
-//				}
-//				
-//				
-//				
-//				getJda().getPresence().setActivity(playingStatuses[currentPlayingStatus]);
-//				
-//				currentPlayingStatus++;
-//				
-//			}
-//		}, 0, 60000);
-		
 		ClientInvitesNeedsToBeBetter.loadAlreadyUsedServers();
 	}
 
@@ -124,7 +65,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new StopChattingInTheWrongChannelsPls(this));
 		events.add(new ClientInvitesNeedsToBeBetter(this));
 		events.add(new DiscordMutePermsAreFucked(this));
-		
+		events.add(new IHateKids2point0(this));
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class CommandBan extends GuildModCommand {
 	public static final int DEL_DAYS = 7;
 
 	public CommandBan(@Nonnull ESSBot bot) {
-		super(bot, "obliterate", "<player> [reason]", "ban a player", "b", "ban");
+		super(bot, "obliterate", "<player> [reason]", "ban a player", "b", "ban", "taticalnuke", "nuke");
 	}
 
 	@Override
