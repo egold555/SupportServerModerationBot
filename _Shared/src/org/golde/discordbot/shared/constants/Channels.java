@@ -1,10 +1,16 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Thu Sep 10 09:41:55 PDT 2020
+//Generated: Tue Oct 06 10:16:02 PDT 2020
 public class Channels {
 
+    public static class BotDebugging {
+        public static final long COMMAND_TESTING = 604769552416374807L;
+        public static final long COUNTING_V2 = 717213659876556830L;
+        public static final long CIRCULAR_CLIENT_INVITES_TEST = 742108596065533993L;
+        public static final long OCR_ERRORS = 760619956932182066L;
+    }
+
     public static class OwnerOnly {
-        public static final long BOT = 604769552416374807L;
         public static final long NEXT_VID_REMINDER = 676682108793782272L;
         public static final long MODS_TO_CREATE = 638114943442485255L;
         public static final long VIDEO_IDEAS = 641699324237185044L;
@@ -12,7 +18,6 @@ public class Channels {
         public static final long ESS_SUGGESTIONS = 685007582762500098L;
         public static final long BUGS = 699318635348492319L;
         public static final long FEEDBACK = 706347420644016375L;
-        public static final long COUNTING_V2 = 717213659876556830L;
     }
 
     public static class ModStuffThings {
@@ -35,13 +40,6 @@ public class Channels {
         public static final long READ_ME_FIRST = 735334629703155844L;
         public static final long WAITING_ROOM = 726534701560496149L;
         public static final long UNDER_100_CLUB = 735335171552837672L;
-    }
-
-    public static class ShitINeedToFigureOutWhatToDoWith {
-        public static final long SHIT_I_NEED_TO_DO_ASAP = 742504753115955320L;
-        public static final long AWESOMELY_COOL_SECRET_PRIVATE_CHAT = 733489592488951838L;
-        public static final long PA_YOUTUBE_ANNOUNCEMENTS_CHANNEL = 742136949602779227L;
-        public static final long SUGGESTIONS_OLD = 604769523639386112L;
     }
 
     public static class UserContributions {
@@ -122,7 +120,6 @@ public class Channels {
         public static final long BETA_TESTER_INFO = 701553074031820911L;
         public static final long BETA_TESTER = 701553280547029022L;
         public static final long REPORT_A_BUG = 701555504488513687L;
-        public static final long CIRCULAR_CLIENT_INVITES_TEST = 742108596065533993L;
     }
 
 }

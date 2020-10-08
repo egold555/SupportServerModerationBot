@@ -110,7 +110,7 @@ public class CommandCommonError extends EveryoneCommand {
 			sendAsWebhook(tc, sender, ce, desc);
 		}
 		else {
-			sendAsMessage(tc, ce, desc);
+			CommonErrorManager.sendCEMessage(bot, tc, ce, extraArguments);
 		}
 		
 		
@@ -175,41 +175,6 @@ public class CommandCommonError extends EveryoneCommand {
 
 			});
 
-		});
-	}
-	
-	private void sendAsMessage(TextChannel tc, CommonError ce, String desc) {
-		
-		MessageEmbed embed = getReplyEmbed(
-				EnumReplyType.SUCCESS, 
-				"This question/error has been answered before", 
-				desc
-				);
-		
-		MessageAction theMsg = tc.sendMessage(embed);
-		MessageAction attachmentMessage = tc.sendMessage(" ");
-		
-		if(ce.getFileAttachments() != null && ce.getFileAttachments().length > 0) {
-			for(String fileName : ce.getFileAttachments()) {
-				
-				
-				
-				File file = new File("res/common-error-attachments/" + fileName);
-				System.out.println(file.exists() + " - " + file.getAbsolutePath());
-				if(file.exists()) {
-					
-					attachmentMessage.addFile(file);
-					
-				}
-			}
-			
-		}
-		
-		theMsg.queue(onSuccess -> {
-			if(ce.getFileAttachments() != null && ce.getFileAttachments().length > 0) {
-				attachmentMessage.queue();
-			}
-			
 		});
 	}
 

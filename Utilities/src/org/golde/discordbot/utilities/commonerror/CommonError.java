@@ -10,5 +10,6 @@ public class CommonError {
 	String[] fileAttachments; //nullable
 	String[] cmdArgs; //nullable
 	String[] crashReport; //nullable
+	String[] ocr; //nullable
 	boolean fakeUser = false; //default false
 }

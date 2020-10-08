@@ -19,11 +19,11 @@ import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 public class CommonErrorManager {
 
-	@Getter static List<CommonError> commonErrors = new ArrayList<CommonError>();
+	@Getter private static List<CommonError> commonErrors = new ArrayList<CommonError>();
 
 	public static void reload() {
 		commonErrors.clear();
-		commonErrors.addAll(FileUtil.loadFromFile("common-errors", CommonError[].class));
+		commonErrors.addAll(FileUtil.loadArrayFromFile("common-errors", CommonError[].class));
 	}
 
 	public static void sendCEMessage(ESSBot bot, TextChannel tc, CommonError ce) {
