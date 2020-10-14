@@ -76,3 +76,5 @@ Utilities/res/api-keys.json
 Moderation/res/client-invites.json
 
 Moderation/res/blocked-urls.json
+
+Utilities/res/image-only-channels.json

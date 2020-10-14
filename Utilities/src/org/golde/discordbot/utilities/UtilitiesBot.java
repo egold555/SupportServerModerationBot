@@ -16,6 +16,7 @@ import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 import org.golde.discordbot.utilities.crash.CrashReportEventHandler;
 import org.golde.discordbot.utilities.db.DB;
 import org.golde.discordbot.utilities.event.AutoRemoveBirthdayRole;
+import org.golde.discordbot.utilities.event.ImageOnlyChannel;
 import org.golde.discordbot.utilities.event.OCRCommonErrors;
 import org.golde.discordbot.utilities.event.PlayerCounter;
 import org.golde.discordbot.utilities.event.ReactionRolesListener;
@@ -42,6 +43,7 @@ public class UtilitiesBot extends ESSBot {
 		DB.getInstance().load();
 		CommonErrorManager.reload();
 		CommandCommonError.reloadAfterCommonError();
+		ImageOnlyChannel.reload();
 	}
 	
 	@Override
@@ -49,6 +51,7 @@ public class UtilitiesBot extends ESSBot {
 		DB.getInstance().reload();
 		CommonErrorManager.reload();
 		CommandCommonError.reloadAfterCommonError();
+		ImageOnlyChannel.reload();
 	}
 	
 	@Override
@@ -59,6 +62,7 @@ public class UtilitiesBot extends ESSBot {
 		events.add(new Under100ClubEvent(this));
 		events.add(new AutoRemoveBirthdayRole(this));
 		events.add(new OCRCommonErrors(this));
+		events.add(new ImageOnlyChannel(this));
 	}
 
 	@Override
