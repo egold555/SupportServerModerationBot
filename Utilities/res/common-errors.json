@@ -1,0 +1,218 @@
+[
+	{
+		"shortCodes": [ "addLayer" ],
+		"cmdDesc": "The method addLayer(U)",
+		"detailedDesc": "Basically you want to paramaterize LayerRenderer with AbstractClientPlayer and all the functions in the same class will error. You need to do this for every class that errors with a similier error message. Keep in mind not every class will use the AbstractClientPlayer. Double check the entity type!",
+		"fileAttachments": [ "add-layer-example.png" ],
+		"crashReport": [
+			"The method addLayer(U) in the type RendererLivingEntity<AbstractClientPlayer> is not applicable for the arguments (LayerCape)"
+		],
+		"ocr": [
+			"The method addLayer(U) in the type Render",
+			"The method addLayer(LI) in the type is not applicable for the arguments (LayerCape)"
+		]
+	},
+	{
+		"shortCodes": [ "javax", "vecmath" ],
+		"cmdDesc": "javax.vecmath cannot be resolved to a type",
+		"detailedDesc": "Looks like your missing VecMath library. Add the jar below to your project dependencies.",
+		"fileAttachments": [ "vecmath-1.2-1.14.jar" ],
+		"ocr": [
+			"Matrix4f cannot be resolved to a type",
+			"javax.vecmath cannot be resolved to a type",
+			"The constructor Matrix4f(Matrix4f) is undefined"
+		]
+	},
+	{
+		"shortCodes": [ "EntityRenderer", "$1" ],
+		"cmdDesc": "EntityRenderer$1 MethodNotFoundException",
+		"detailedDesc": "Looks like for some reason, the decompilier left in $ in the name of inner classes. This confused the JRE and JVM into looking for a inner class of a inner class. In order to fix it, just remove all the $ from the classes: \"net.minecraft.client.renderer.EntityRenderer$1\" and \"net.minecraft.client.renderer.EntityRenderer$2\", and new instances of those classes.",
+		"crashReport": [
+			"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>(Lnet/minecraft/client/renderer/EntityRenderer;)V",
+			"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'"
+		],
+		"ocr": [
+			"EntityRendererS1",
+			"EntityRenderer$1",
+			"EntityRendererS2",
+			"EntityRenderer$2",
+			"net.minecraftdient.renderer.EntityRendererS1",
+			"net.minecraftclient.renderer.EntityRendererS1",
+			"net.minecraftdient.renderer.EntityRenderer$1",
+			"net.minecraftclient.renderer.EntityRenderer$1",
+			"net.minecraftdient.renderer.EntityRendererS2",
+			"net.minecraftclient.renderer.EntityRendererS2",
+			"net.minecraftdient.renderer.EntityRenderer$2",
+			"net.minecraftclient.renderer.EntityRenderer$2"
+		]
+	},
+	{
+		"shortCodes": [ "star", "transparent" ],
+		"cmdDesc": "Resource location isn't transparent",
+		"detailedDesc": "Not sure what causes this, but it only seems to be happning to a few people. Here the code to fix it: ```java\nGL11.glPushMatrix();\nGL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);\nGL11.glEnable( GL11.GL_BLEND );\nGui.drawModalRectWithCustomSizedTexture(x - 16, lower ? y + 16 : y, 0.0F, 0.0F, 16, 16, 16, 16);\nGL11.glDisable(GL11.GL_BLEND );\nGL11.glPopMatrix();\n```"
+	},
+	{
+		"shortCodes": [ "compilejava8", "source16", "source1.6", "mcp16", "mcp1.6" ],
+		"cmdDesc": "default methods are not supported in -source 1.6",
+		"detailedDesc": "When runnign recompile.bat, it fails with this message: \"error: default methods are not supported in -source 1.6\"\n\nIn /conf/mcp.cfg, find\n```\n CmdRecomp     = %s -Xlint:-options -deprecation -g -source 1.6 -target 1.6 -classpath \"{classpath}\" -sourcepath {sourcepath} -d {outpath} @{javasrc}\n```\nand replace it with\n```\nCmdRecomp     = %s -Xlint:-options -deprecation -g -source 1.8 -target 1.8 -classpath \"{classpath}\" -sourcepath {sourcepath} -d {outpath} @{javasrc}\n```"
+	},
+	{
+		"shortCodes": [ "getAdapter", "gsonAdapter" ],
+		"cmdDesc": "com.google.gson.Gson.getAdapter(Gson.java:356)",
+		"detailedDesc": "The error could be one of two things. Double check your HTTP methods are returning actual correctly formatted JSON in your browser. \n\nThe other issue it might be is GSON is converting a recursive object. If you are using GSON and trying to save the Minecraft.getMinecraft() object it will fail. Make sure its static if you don't want it to save, or turn on @Expose usage in the GSONBuilder class."
+	},
+	{
+		"shortCodes": [ "decompileram", "decompram", "mcpram" ],
+		"cmdDesc": "MCP is running out of ram when decompiling",
+		"detailedDesc": "MCP is running out of ram when decompiling\n\nGo to conf/mcp.cfg. Find this line\n```\nCmdFernflower = %s -jar %s -din=1 -rbr=0 -dgs=1 -asc=1 -log=WARN {indir} {outdir}\n```and change it to this\n```\nCmdFernflower = %s -Xmx2G -jar %s -din=1 -rbr=0 -dgs=1 -asc=1 -log=WARN {indir} {outdir}\n```\nThat should give MCP 2gb of ram when decompiling."
+	},
+	{
+		"shortCodes": [ "predicate", "MouseOverFinder" ],
+		"cmdDesc": "HUDConfigScreen$MouseOverFinder cannot be cast to java.util.function.Predicate",
+		"detailedDesc": "Minecraft crashed with \"HUDConfigScreen$MouseOverFinder cannot be cast to java.util.function.Predicate\"\n\nLooks like you have imported the wrong Predicate. Make sure you import __java.util.function.Predicate__ .",
+		"crashReport": [ "$MouseOverFinder cannot be cast to class java.util.function.Predicate" ]
+	},
+	{
+		"shortCodes": [ "1.7.10scaledresolution", "scaledresolution", "1710scaledresolution" ],
+		"cmdDesc": "1.7.10 constructor is different for ScaledResolution",
+		"detailedDesc": "1.7.10 and 1.8.8 have different constructors for scaled resolution. You can add a new constructor for ScaledResolution to make it like 1.8.8\n\n```java\npublic ScaledResolution(Minecraft mc) {\nthis(mc, mc.displayWidth, mc.displayHeight);\n}\n```"
+	},
+	{
+		"shortCodes": [ "1.12keybinds", "112keybinds", "1.12.2keybinds" ],
+		"cmdDesc": "Crash on 1.12.2 with adding keybinds",
+		"detailedDesc": "1.12.2 is a special snowflake and adds bad checks when comparing keybinds.\n\nIn your keybinds class, replace the compareto function with this\n\n```java\npublic int compareTo(KeyBinding p_compareTo_1_) {\nif (this.keyCategory.equals(p_compareTo_1_.keyCategory)) return I18n.format(this.keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription));\nInteger tCat = field_193627_d.get(this.keyCategory);\nInteger oCat = field_193627_d.get(p_compareTo_1_.keyCategory);\nif (tCat == null && oCat != null) return 1;\nif (tCat != null && oCat == null) return -1;\nif (tCat == null && oCat == null) return I18n.format(this.keyCategory).compareTo(I18n.format(p_compareTo_1_.keyCategory));\nreturn  tCat.compareTo(oCat);\n}\n```",
+		"crashReport": [ "net.minecraft.client.settings.KeyBinding.compareTo(KeyBinding.java:" ]
+	},
+	{
+		"shortCodes": [ "-Xincgc", "xincgc" ],
+		"cmdDesc": "Unrecognized option: -Xincgc",
+		"detailedDesc": "Hover over run, go to Run Configurations -> Arguments then remove the option '-Xincgc'.",
+		"fileAttachments": [ "xincgc.png" ],
+		"ocr": [ "Could not create the Java Virtual Machine", "A fatal exception has occurred." ]
+	},
+	{
+		"shortCodes": [ "pixel", "pixelFormat", "pf" ],
+		"cmdDesc": "org.lwjgl.LWJGLException: Pixel format not accelerated",
+		"detailedDesc": "There are a few issues that could cause this. Outdated graphics card, or remote viewing through Remote Desktop connection. Here is a helpful article by the mojang team about this issue: https://minecrafthopper.net/help/pixel-format-not-accelerated/\n\nYou can also try downgrading your java to this version https://archive.org/details/jre-8u51-windows-x64 if you have a first or second generation intel graphics card",
+		"crashReport": [ "org.lwjgl.LWJGLException: Pixel format not accelerated" ]
+	},
+	{
+		"shortCodes": [ "pack", "rpi", "resourcepack" ],
+		"cmdDesc": "Crashing when trying to view resource packs",
+		"detailedDesc": "This one is on me. I forgot in Episode 21 to include this :neutral_face: . Make sure to include the pack.png in the root of your jar file! That should fix the crash.",
+		"crashReport": [ "net.minecraft.client.resources.DefaultResourcePack.getPackImage" ]
+	},
+	{
+		"shortCodes": [ "flip()", "ByteBuffer", "bytebuff", "flip" ],
+		"cmdDesc": "java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;",
+		"detailedDesc": "This is a strange issue but it seems to be fixed by: casting ByteBuffer instances to Buffer before calling the method. I would also double check in your IDE your compiling with Java 8. Just because you have Java 8 Installed does not mean your IDE is compiling with it. For more detail (if your interested): https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;",
+		"crashReport": [ "java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;" ]
+	},
+	{
+		"shortCodes": [
+			"optifine-textures",
+			"optifinetextures",
+			"optitextures",
+			"optifinetex",
+			"optifinetext",
+			"optitext"
+		],
+		"cmdDesc": "Missing Optifine Textures",
+		"detailedDesc": "Looks like your missing the optifine textures. You can either extract the textures from the jar yourself, or I have created this zip file. Extract it to \"<mcp>/src/minecraft/assets/minecraft/textures\", and refresh your project",
+		"fileAttachments": [ "optifine-textures.zip" ],
+		"fakeUser": true
+	},
+	{
+		"shortCodes": [ "mcplog", "uploadMcpLog", "uploadLog", "uploadMcp" ],
+		"cmdDesc": "Please send your MCP log file",
+		"detailedDesc": "Can you please send your MCP.log file in this channel? It's located in <project>/logs/mcp.log . You will need to zip it up to send it over Discord.",
+		"fakeUser": true,
+		"ocr": [
+			"failed: 1",
+			"failed : 1",
+			"Decompile failed",
+			"mcp 9.18",
+			"Press any key to continue",
+			"Scala files will not be recompiled",
+			"FATAL ERROR",
+			"ERRORS FOUND in JAVA CODE",
+			"ERRORS FOUND",
+			"1 out of 1 hunk FAILED"
+		]
+	},
+	{
+		"shortCodes": [ "jdkver" ],
+		"cmdDesc": "Please use Java 8 my dude",
+		"detailedDesc": "Looks like your using JDK %A1%. You need to be using JDK 8. You can download JDK 8 here: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot",
+		"cmdArgs": [ "jdkVersion" ],
+		"fakeUser": true
+	},
+	{
+		"shortCodes": [ "uploadCrashReport", "crashReport", "uploadCW" ],
+		"cmdDesc": "Please upload your crash report",
+		"detailedDesc": "Could you please upload your latest crash report located in **<mcp>/jars/crash-reports/** to this channel?",
+		"fakeUser": true
+	},
+	{
+		"shortCodes": [ "textObj", "textureObj" ],
+		"cmdDesc": "textureObj isnt final",
+		"detailedDesc": "Try making the erroring variable textureObj final, see if that fixes your issue",
+		"ocr": [ "Cannot refer to the non-final local variable", "Cannot refer to the nan-final local variable" ],
+		"fakeUser": true
+	},
+	{
+		"detailedDesc": "You need to run Minecraft at least once before trying to decompile it",
+		"ocr": [ "Please run launcher & Minecraft at least once" ]
+	},
+	{
+		"detailedDesc": "Looks like your trying to call a function that doesn't exist. Double check you have either created this function, or that it is spelled correctly.",
+		"ocr": [ "The method imtO is undefined for the type Client" ]
+	},
+	{
+		"detailedDesc": "You can close the server project, you will not be needing it for this client tutorial series. To close it: right click Server -> Close project",
+		"ocr": [ "Project 'Server' is missing required" ]
+	},
+	{
+		"detailedDesc": "Double check that your Minecraft has decompiled successfully, or could also be an issues with -Xincgc",
+		"ocr": [ "Could not create the Java Virtual Machine", "A fatal exception has occurred." ]
+	},
+	{
+		"detailedDesc": "Change your java Project to be recompiling with JDK 8 in your IDE",
+		"ocr": [
+			"operator is not allowed for source level below 1.7",
+			"Lambda expressions are allowed only at source level 1.8 or above"
+		]
+	},
+	{
+		"detailedDesc": "You have compile time errors in your code. Your client will not run until you fix these. Your IDE will tell you what these are in the error pane.",
+		"crashReport": [ "Unresolved compilation problem" ]
+	},
+	{
+		"detailedDesc": "Looks like you did not shade in the Discord library from your libs folder. Make sure to shade in **every** library in your libs folder to your jar before running it outside of eclipse.",
+		"crashReport": [ "java.lang.NoClassDefFoundError: net/arikia/dev/drpc/DiscordEventHandlers" ]
+	},
+	{
+		"detailedDesc": "Looks like when your json was being parsed, it expected a certain type of number, but got a different type. Double check to make sure you have cleared any old JSON files before parsing them.",
+		"crashReport": [ "com.google.gson.JsonSyntaxException: java.lang.NumberFormatException:" ]
+	},
+	{
+		"detailedDesc": "Looks like a method tried to parse non JSON data as JSON data. I would check to make sure the website you are requesting data from is actually returning JSON data.",
+		"crashReport": [ "com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT" ]
+	},
+	{
+		"detailedDesc": "Looks like Minecraft is trying to read a BufferedImage and it was not found. Make sure any BufferedImages (pack.png,  server-icon title-icon) are in your exported assets. I don't have the capability to tell you exactly which image it is as of now.",
+		"crashReport": [ "java.lang.IllegalArgumentException: input == null!" ]
+	},
+	{
+		"detailedDesc": "Looks like you are trying to register a null texture. I would add some print statements or breakpoints to figure out why your texture is null.",
+		"crashReport": [ "java.lang.NullPointerException: Registering texture" ]
+	},
+	{
+		"detailedDesc": "Looks like you are trying to access a value in a list at a index that is not valid. You can read about it more here https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html",
+		"crashReport": [ "java.lang.IndexOutOfBoundsException" ]
+	},
+	{
+		"detailedDesc": "Looks like the website you are trying to ping is offline. Double check its online and that you have the correct url",
+		"crashReport": [ "Caused by: java.net.ConnectException: Connection refused: connect" ]
+	}
+]

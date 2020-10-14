@@ -62,7 +62,6 @@ Moderation/lib/
 Moderation/res/user-data.json
 Moderation/res/userdata-cache.json
 
-*.json
 
 _Export/
 
@@ -71,3 +70,9 @@ Beta/
 Tickets/
 
 Moderation/src/org/golde/discordbot/supportserver/event/IHateKids2point0.java
+
+Utilities/res/api-keys.json
+
+Moderation/res/client-invites.json
+
+Moderation/res/blocked-urls.json
