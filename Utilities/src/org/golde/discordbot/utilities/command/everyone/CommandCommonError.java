@@ -117,7 +117,7 @@ public class CommandCommonError extends EveryoneCommand {
 	}
 	
 	private void sendAsWebhook(TextChannel tc, Member sender, CommonError ce, String desc) {
-		tc.createWebhook("Fake User Hook").queue(onWebHookComplete -> {
+		tc.createWebhook(sender.getEffectiveName() + " (Common Error Command)").queue(onWebHookComplete -> {
 
 			
 
