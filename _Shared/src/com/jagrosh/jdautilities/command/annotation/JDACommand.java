@@ -95,7 +95,7 @@ public @interface JDACommand
      *
      * @return The name of a role required to use this command.
      */
-    String requiredRole() default "";
+   long requiredRole() default -1; //Fix Eric -- Required roles are longs
 
     /**
      * Whether or not the command is owner only.

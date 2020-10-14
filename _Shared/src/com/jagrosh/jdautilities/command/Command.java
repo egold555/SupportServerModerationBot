@@ -25,6 +25,7 @@ import org.golde.discordbot.shared.constants.SSEmojis;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
@@ -100,9 +101,10 @@ public abstract class Command
     protected boolean guildOnly = true;
     
     /**
+     * Eric -- Fix
      * A String name of a role required to use this command.
      */
-    protected String requiredRole = null;
+    protected long requiredRole = -1;
     
     /**
      * {@code true} if the command may only be used by a User with an ID matching the
@@ -233,11 +235,11 @@ public abstract class Command
         }
         
         // required role check
-        if(requiredRole!=null)
+        if(requiredRole!=-1)
         	//Eric -- I just wanted to change this one error message lol
-            if(!event.isFromType(ChannelType.TEXT) || event.getMember().getRoles().stream().noneMatch(r -> r.getName().equalsIgnoreCase(requiredRole)))
+            if(!event.isFromType(ChannelType.TEXT) || event.getMember().getRoles().stream().noneMatch(r -> r.getIdLong() == requiredRole))
             {
-                terminate(event, event.getClient().getError()+" You must have a role called `"+requiredRole+"` to use that!");
+                terminate(event, event.getClient().getError()+" You must have a role called `"+event.getGuild().getRoleById(requiredRole).getName()+"` to use that!");
             	//TODO: FIX THIS
             	//BaseCommand.replyError(event.getChannel(),  SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't do that. You are missing the role **" + requiredRole + "** and therefor, I am denying you access to that command.");
                 return;
@@ -394,7 +396,7 @@ public abstract class Command
             return true;
         if(topic.contains("{-"+lowerName+"}"))
             return false;
-        String lowerCat = category==null ? null : category.getName().toLowerCase();
+        String lowerCat = category==null ? null : category.getRoleIdLong() + "";
         if(lowerCat!=null)
         {
             if(topic.contains("{"+lowerCat+"}"))
@@ -461,7 +463,7 @@ public abstract class Command
      *
      * @return The requiredRole for the Command
      */
-    public String getRequiredRole()
+    public long getRequiredRole()
     {
         return requiredRole;
     }
@@ -610,17 +612,17 @@ public abstract class Command
      */
     public static class Category
     {
-        private final String name;
+        private final long name;
         private final String failResponse;
         private final Predicate<CommandEvent> predicate;
-        
+
         /**
          * A Command Category containing a name.
          * 
          * @param  name
          *         The name of the Category
          */
-        public Category(String name)
+        public Category(long name)
         {
             this.name = name;
             this.failResponse = null;
@@ -639,7 +641,7 @@ public abstract class Command
          * @param  predicate
          *         The Category predicate to test
          */
-        public Category(String name, Predicate<CommandEvent> predicate)
+        public Category(long name, Predicate<CommandEvent> predicate)
         {
             this.name = name;
             this.failResponse = null;
@@ -661,7 +663,7 @@ public abstract class Command
          * @param  predicate
          *         The Category predicate to test
          */
-        public Category(String name, String failResponse, Predicate<CommandEvent> predicate)
+        public Category(long name, String failResponse, Predicate<CommandEvent> predicate)
         {
             this.name = name;
             this.failResponse = failResponse;
@@ -673,7 +675,7 @@ public abstract class Command
          * 
          * @return The name of the Category
          */
-        public String getName()
+        public long getRoleIdLong()
         {
             return name;
         }

@@ -7,7 +7,6 @@ import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
-import org.golde.discordbot.shared.command.support.SupportCommand;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.supportserver.command.chatmod.CommandAddBlockedUrl;
 import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
@@ -75,11 +74,6 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public void registerEveryoneCommand(List<EveryoneCommand> cmds) {
-		
-	}
-
-	@Override
-	public void registerSupportCommand(List<SupportCommand> cmds) {
 		
 	}
 

@@ -10,7 +10,6 @@ import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.CommandReload;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
-import org.golde.discordbot.shared.command.support.SupportCommand;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.shared.util.FileUtil;
 
@@ -67,13 +66,6 @@ public abstract class ESSBot {
 		
 		registerEveryoneCommand(everyoneCommands);
 		for(EveryoneCommand cmd : everyoneCommands) {
-			client.addCommand(cmd);
-		}
-		
-		//Support
-		List<SupportCommand> supportCommand = new ArrayList<SupportCommand>();
-		registerSupportCommand(supportCommand);
-		for(SupportCommand cmd : supportCommand) {
 			client.addCommand(cmd);
 		}
 		
@@ -139,7 +131,6 @@ public abstract class ESSBot {
 	public abstract void onReload();
 	public abstract void registerEventListeners(List<EventBase> events);
 	public abstract void registerEveryoneCommand(List<EveryoneCommand> cmds);
-	public abstract void registerSupportCommand(List<SupportCommand> cmds);
 	public abstract void registerChatModCommand(List<ChatModCommand> cmds);
 	public abstract void registerGuildModCommand(List<GuildModCommand> cmds);
 	public abstract void registerOwnerCommand(List<OwnerCommand> cmds);

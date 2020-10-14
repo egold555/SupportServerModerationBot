@@ -6,10 +6,12 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 import org.golde.discordbot.shared.ESSBot;
+import org.golde.discordbot.shared.constants.Roles;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
@@ -25,11 +27,11 @@ public class CommandHelp extends EveryoneCommand {
 		Category category = null;
 
 		for(Command command : event.getClient().getCommands()) {
-			if(can(event.getMember(), command.getCategory().getName())) {
+			if(can(event.getMember(), command.getCategory().getRoleIdLong())) {
 
 				if(!Objects.equals(category, command.getCategory())){
 					category = command.getCategory();
-					builder.append("\n\n  __").append(category.getName()).append("__:");
+					builder.append("\n\n  __").append(getCategoryName(event.getGuild(), category)).append("__:");
 				}
 
 				builder.append("\n**").append("        •   ").append(event.getClient().getPrefix()).append(command.getName())
@@ -43,15 +45,22 @@ public class CommandHelp extends EveryoneCommand {
 
 		reply(event.getChannel(), "__**Commands**:__", builder.toString());
 	}
+	
+	private String getCategoryName(Guild g, Category c) {
+		if(c.getRoleIdLong() == Roles.EVERYONE) {
+			return "Everyone";
+		}
+		return g.getRoleById(c.getRoleIdLong()).getName();
+	}
 
-	private boolean can(Member member, String name) {
+	private boolean can(Member member, long name) {
 
-		if(name.equals("Everyone")) {
+		if(name == Roles.EVERYONE) {
 			return true;
 		}
 
 		for(Role r : member.getRoles()) {
-			if(r.getName().equals(name)) {
+			if(r.getIdLong() == name) {
 				return true;
 			}
 		}

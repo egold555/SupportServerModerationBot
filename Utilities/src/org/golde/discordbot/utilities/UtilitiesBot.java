@@ -7,7 +7,6 @@ import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
-import org.golde.discordbot.shared.command.support.SupportCommand;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.utilities.command.everyone.CommandCommonError;
 import org.golde.discordbot.utilities.command.owner.CommandAddReaction;
@@ -65,11 +64,6 @@ public class UtilitiesBot extends ESSBot {
 	@Override
 	public void registerEveryoneCommand(List<EveryoneCommand> cmds) {
 		cmds.add(new CommandCommonError(this));
-	}
-
-	@Override
-	public void registerSupportCommand(List<SupportCommand> cmds) {
-		
 	}
 
 	@Override

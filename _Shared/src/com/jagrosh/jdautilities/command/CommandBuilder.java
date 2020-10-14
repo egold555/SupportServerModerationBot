@@ -45,7 +45,7 @@ public class CommandBuilder
     private Category category = null;
     private String arguments = null;
     private boolean guildOnly = true;
-    private String requiredRole = null;
+    private long requiredRole = -1; //Fix Eric - Required roles are now longs
     private boolean ownerCommand = false;
     private int cooldown = 0;
     private Permission[] userPermissions = new Permission[0];
@@ -147,7 +147,7 @@ public class CommandBuilder
      *
      * @return This CommandBuilder
      */
-    public CommandBuilder setRequiredRole(String requiredRole)
+    public CommandBuilder setRequiredRole(long requiredRole)
     {
         this.requiredRole = requiredRole;
         return this;
@@ -505,7 +505,7 @@ public class CommandBuilder
     private abstract class BlankCommand extends Command
     {
         BlankCommand(String name, String help, Category category,
-                     String arguments, boolean guildOnly, String requiredRole,
+                     String arguments, boolean guildOnly, long requiredRole,
                      boolean ownerCommand, int cooldown, Permission[] userPermissions,
                      Permission[] botPermissions, String[] aliases, Command[] children,
                      BiConsumer<CommandEvent, Command> helpBiConsumer,

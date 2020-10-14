@@ -114,7 +114,7 @@ public class AnnotatedModuleCompilerImpl implements AnnotatedModuleCompiler
         builder.setGuildOnly(properties.guildOnly());
 
         // Required Role
-        builder.setRequiredRole(properties.requiredRole().trim().isEmpty()? null : properties.requiredRole().trim());
+        builder.setRequiredRole(properties.requiredRole() == -1 ? -1 : properties.requiredRole());
 
         // Owner Command
         builder.setOwnerCommand(properties.ownerCommand());
