@@ -64,7 +64,10 @@ public class CommandCommonError extends EveryoneCommand {
 		}
 		
 		String error = args.get(1);
-		
+		if ("tias".equalsIgnoreCase(error)) {
+			event.getChannel().sendMessage("https://tryitands.ee").queue();
+			return;
+		}
 		for(CommonError ce : CommonErrorManager.getCommonErrors()) {
 			if(ce.getShortCodes() != null) {
 				for(String key : ce.getShortCodes()) {
