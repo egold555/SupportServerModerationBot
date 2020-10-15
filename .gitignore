@@ -78,3 +78,5 @@ Moderation/res/client-invites.json
 Moderation/res/blocked-urls.json
 
 Utilities/res/image-only-channels.json
+
+Utilities/res/like-dislike-poll-channels.json

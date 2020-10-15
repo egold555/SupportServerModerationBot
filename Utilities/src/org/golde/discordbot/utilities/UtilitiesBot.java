@@ -19,6 +19,7 @@ import org.golde.discordbot.utilities.event.AutoRemoveBirthdayRole;
 import org.golde.discordbot.utilities.event.ImageOnlyChannel;
 import org.golde.discordbot.utilities.event.OCRCommonErrors;
 import org.golde.discordbot.utilities.event.PlayerCounter;
+import org.golde.discordbot.utilities.event.LikeDislikePollEvents;
 import org.golde.discordbot.utilities.event.ReactionRolesListener;
 import org.golde.discordbot.utilities.event.Under100ClubEvent;
 
@@ -44,6 +45,7 @@ public class UtilitiesBot extends ESSBot {
 		CommonErrorManager.reload();
 		CommandCommonError.reloadAfterCommonError();
 		ImageOnlyChannel.reload();
+		LikeDislikePollEvents.reload();
 	}
 	
 	@Override
@@ -52,6 +54,7 @@ public class UtilitiesBot extends ESSBot {
 		CommonErrorManager.reload();
 		CommandCommonError.reloadAfterCommonError();
 		ImageOnlyChannel.reload();
+		LikeDislikePollEvents.reload();
 	}
 	
 	@Override
@@ -63,6 +66,7 @@ public class UtilitiesBot extends ESSBot {
 		events.add(new AutoRemoveBirthdayRole(this));
 		events.add(new OCRCommonErrors(this));
 		events.add(new ImageOnlyChannel(this));
+		events.add(new LikeDislikePollEvents(this));
 	}
 
 	@Override
