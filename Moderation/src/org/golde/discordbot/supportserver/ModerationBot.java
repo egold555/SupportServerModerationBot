@@ -81,6 +81,7 @@ public class ModerationBot extends ESSBot {
 		cmds.add(new CommandUserHistory(this));
 		cmds.add(new CommandAddBlockedUrl(this));
 		cmds.add(new CommandBlockedUrls(this));
+		cmds.add(new CommandRemoveBlockedUrl(this));
 	}
 
 	@Override
