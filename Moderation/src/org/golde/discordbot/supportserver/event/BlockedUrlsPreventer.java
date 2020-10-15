@@ -38,6 +38,11 @@ public class BlockedUrlsPreventer extends AbstractMessageChecker {
 		BAD_URLS.add(url);
 		FileUtil.saveToFile(BAD_URLS, FILE_NAME);
 	}
+
+	public static List<String> getUrls() {
+		reload();
+		return BAD_URLS;
+	}
 	
 	public static void remove(String url) {
 		BAD_URLS.remove(url);
