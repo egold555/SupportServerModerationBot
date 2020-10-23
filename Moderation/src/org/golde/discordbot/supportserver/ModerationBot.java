@@ -8,12 +8,7 @@ import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.event.EventBase;
-import org.golde.discordbot.supportserver.command.chatmod.CommandAddBlockedUrl;
-import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
-import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
-import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
-import org.golde.discordbot.supportserver.command.chatmod.CommandUserHistory;
-import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
+import org.golde.discordbot.supportserver.command.chatmod.*;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
@@ -85,6 +80,8 @@ public class ModerationBot extends ESSBot {
 		cmds.add(new CommandPruneChat(this));
 		cmds.add(new CommandUserHistory(this));
 		cmds.add(new CommandAddBlockedUrl(this));
+		cmds.add(new CommandBlockedUrls(this));
+		cmds.add(new CommandRemoveBlockedUrl(this));
 	}
 
 	@Override
