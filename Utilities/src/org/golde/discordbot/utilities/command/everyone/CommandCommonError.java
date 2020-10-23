@@ -117,7 +117,7 @@ public class CommandCommonError extends EveryoneCommand {
 	}
 	
 	private void sendAsWebhook(TextChannel tc, Member sender, CommonError ce, String desc) {
-		tc.createWebhook("Fake User Hook").queue(onWebHookComplete -> {
+		tc.createWebhook(sender.getEffectiveName() + " (Common Error Command)").queue(onWebHookComplete -> {
 
 			
 
@@ -134,15 +134,16 @@ public class CommandCommonError extends EveryoneCommand {
 
 			WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
 			WebhookMessageBuilder fileMessageBuilder = new WebhookMessageBuilder();
-			
-			messageBuilder.setUsername(sender.getEffectiveName() + " (Common Error Command)");
+
 			messageBuilder.setAvatarUrl(sender.getUser().getEffectiveAvatarUrl());
 			
 			messageBuilder.setContent(desc);
 			
 			messageBuilder.setAllowedMentions(AllowedMentions.none());
 			
+			fileMessageBuilder.setAvatarUrl(sender.getUser().getEffectiveAvatarUrl());
 
+			
 			WebhookMessage message = messageBuilder.build();
 			client.send(message).thenAccept(onSuccess -> {
 				
