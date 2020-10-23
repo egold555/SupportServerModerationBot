@@ -1,6 +1,9 @@
 package org.golde.discordbot.supportserver.command.chatmod;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
+
+import net.dv8tion.jda.api.entities.TextChannel;
+
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
@@ -22,8 +25,14 @@ public class CommandRemoveBlockedUrl extends ChatModCommand {
             replyError(tc, getHelpReply());
             return;
         }
-        BlockedUrlsPreventer.remove(url);
-        replySuccess(tc, "Removed **" + url + "** from the blocked urls list.");
+        
+        boolean success = BlockedUrlsPreventer.remove(url);
+        if(success) {
+        	replySuccess(tc, "Removed **" + url + "** from the blocked urls list.");
+        }
+        else {
+        	replyError(tc, "Failed to remove **" + url + "** from the blocked urls list. Does it exist?");
+        }
     }
 
 }

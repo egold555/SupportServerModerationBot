@@ -44,9 +44,12 @@ public class BlockedUrlsPreventer extends AbstractMessageChecker {
 		return BAD_URLS;
 	}
 	
-	public static void remove(String url) {
-		BAD_URLS.remove(url);
-		FileUtil.saveToFile(BAD_URLS, FILE_NAME);
+	public static boolean remove(String url) {
+		boolean success = BAD_URLS.remove(url);
+		if(success) {
+			FileUtil.saveToFile(BAD_URLS, FILE_NAME);
+		}
+		return success;
 	}
 	
 	@Override
