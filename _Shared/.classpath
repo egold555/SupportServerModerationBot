@@ -2,30 +2,30 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/JDA-4.1.1_101.jar" sourcepath="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/JDA-4.1.1_101-sources.jar">
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/JDA-4.1.1_101.jar" sourcepath="../_Shared/lib/JDA/JDA-4.1.1_101-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/eric/Documents/Projects/Discord%20Support%20Server%20Bots/_Shared/lib/JDA/JDA-4.1.1_101-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/../_Shared/lib/JDA/JDA-4.1.1_101-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/annotations-16.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/commons-collections4-4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/jackson-annotations-2.10.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/jackson-core-2.10.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/jackson-databind-2.10.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/jna-4.4.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/jsr305-3.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/nv-websocket-client-2.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/okhttp-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/okio-1.17.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/opus-java-api-1.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/opus-java-natives-1.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/slf4j-api-1.7.25.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/lib/trove4j-3.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDAUtilities/jda-utilities-commons-3.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDAUtilities/jda-utilities-menu-3.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDAUtilities/lib/json-20160810.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/emoji-java-5.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/gson-2.8.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/annotations-16.0.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/jackson-annotations-2.10.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/jackson-core-2.10.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/jackson-databind-2.10.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/jna-4.4.0.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/jsr305-3.0.2.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/nv-websocket-client-2.9.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/okhttp-3.13.0.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/okio-1.17.2.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/opus-java-api-1.0.4.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/opus-java-natives-1.0.4.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/lib/trove4j-3.0.3.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/jda-utilities-commons-3.0.3.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/jda-utilities-menu-3.0.3.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/lib/json-20160810.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/emoji-java-5.1.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/lombok.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
