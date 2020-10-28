@@ -214,5 +214,13 @@
 	{
 		"detailedDesc": "Looks like the website you are trying to ping is offline. Double check its online and that you have the correct url",
 		"crashReport": [ "Caused by: java.net.ConnectException: Connection refused: connect" ]
-	}
+	},
+	{
+		"shortCodes": [ "lwjgl" ],
+		"cmdDesc": "lwjgl natives have become unlinked",
+		"detailedDesc": "Basically you want to paramaterize LayerRenderer with AbstractClientPlayer and all the functions in the same class will error. You need to do this for every class that errors with a similier error message. Keep in mind not every class will use the AbstractClientPlayer. Double check the entity type!",
+		"crashReport": [
+			"java.lang.UnsatisfiedLinkError: no lwjgl64 in java.library.path"
+		]
+	},
 ]

@@ -26,6 +26,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public abstract class ESSBot {
 
@@ -93,9 +94,7 @@ public abstract class ESSBot {
 		}
 
 		// start getting a bot account set up
-		JDABuilder builder = new JDABuilder(AccountType.BOT)
-				// set the token
-				.setToken(token)
+		JDABuilder builder = JDABuilder.createDefault(token, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
 
 				// set the game for when the bot is loading
 				.setStatus(OnlineStatus.DO_NOT_DISTURB)

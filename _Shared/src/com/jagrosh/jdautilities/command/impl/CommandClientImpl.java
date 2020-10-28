@@ -89,7 +89,8 @@ public class CommandClientImpl implements CommandClient, EventListener
     private final String helpWord;
     private final ScheduledExecutorService executor;
     private final AnnotatedModuleCompiler compiler;
-    private final GuildSettingsManager manager;
+    @SuppressWarnings("rawtypes")
+	private final GuildSettingsManager manager;
 
     private String textPrefix;
     private CommandListener listener = null;
@@ -98,7 +99,7 @@ public class CommandClientImpl implements CommandClient, EventListener
     public CommandClientImpl(String ownerId, String[] coOwnerIds, String prefix, String altprefix, Activity activity, OnlineStatus status, String serverInvite,
                              String success, String warning, String error, String carbonKey, String botsKey, ArrayList<Command> commands,
                              boolean useHelp, boolean shutdownAutomatically, Consumer<CommandEvent> helpConsumer, String helpWord, ScheduledExecutorService executor,
-                             int linkedCacheSize, AnnotatedModuleCompiler compiler, GuildSettingsManager manager)
+                             int linkedCacheSize, AnnotatedModuleCompiler compiler, @SuppressWarnings("rawtypes") GuildSettingsManager manager)
     {
         Checks.check(ownerId != null, "Owner ID was set null or not set! Please provide an User ID to register as the owner!");
 
@@ -422,7 +423,7 @@ public class CommandClientImpl implements CommandClient, EventListener
         return (S) manager.getSettings(guild);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public <M extends GuildSettingsManager> M getSettingsManager()
     {

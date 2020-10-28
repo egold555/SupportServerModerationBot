@@ -20,9 +20,9 @@ public class CommandBlockedUrls extends ChatModCommand {
         int index = 0;
         for (String url : badUrls) {
             if (index == badUrls.size() - 1) {
-                builder.append("â€¢ ").append(url);
+                builder.append("•   ").append(url);
             } else {
-                builder.append("â€¢ ").append(url).append("\n");
+                builder.append("•   ").append(url).append("\n");
             }
         }
         reply(event.getChannel(), "Blocked URLs", builder.toString());

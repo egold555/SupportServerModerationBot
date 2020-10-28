@@ -56,7 +56,8 @@ public class CommandClientBuilder
     private ScheduledExecutorService executor;
     private int linkedCacheSize = 0;
     private AnnotatedModuleCompiler compiler = new AnnotatedModuleCompilerImpl();
-    private GuildSettingsManager manager = null;
+    @SuppressWarnings("rawtypes")
+	private GuildSettingsManager manager = null;
 
     /**
      * Builds a {@link com.jagrosh.jdautilities.command.impl.CommandClientImpl CommandClientImpl}
@@ -490,7 +491,7 @@ public class CommandClientBuilder
      *
      * @return This builder
      */
-    public CommandClientBuilder setGuildSettingsManager(GuildSettingsManager manager)
+    public CommandClientBuilder setGuildSettingsManager(@SuppressWarnings("rawtypes") GuildSettingsManager manager)
     {
         this.manager = manager;
         return this;

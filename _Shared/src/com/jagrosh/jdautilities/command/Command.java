@@ -20,12 +20,8 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
-import org.golde.discordbot.shared.command.BaseCommand;
-import org.golde.discordbot.shared.constants.SSEmojis;
-
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;

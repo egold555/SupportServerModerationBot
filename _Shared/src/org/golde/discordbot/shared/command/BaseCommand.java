@@ -1,6 +1,5 @@
 package org.golde.discordbot.shared.command;
 
-import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;

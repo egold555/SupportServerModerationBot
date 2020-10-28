@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 import org.golde.discordbot.shared.ESSBot;
 
-import com.google.gson.Gson;
-
 public class FileUtil {
 
 	public static List<String> readGenericConfig(String file) {
