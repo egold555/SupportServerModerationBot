@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 
 public class PlayerCounter extends EventBase {
@@ -26,10 +27,8 @@ public class PlayerCounter extends EventBase {
 		updateChannel(event.getJDA().getGuildById("594335572173258752"));
 	}
 	
-	//Getting rate limited, going to update every 10 seconds
-	
 	@Override
-	public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
+	public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
 		updateChannel(event.getGuild());
 	}
 	
