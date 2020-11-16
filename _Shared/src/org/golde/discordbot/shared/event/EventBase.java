@@ -42,6 +42,9 @@ public abstract class EventBase extends ListenerAdapter {
 	}
 
 	private void reply(MessageChannel channel, EnumReplyType type, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
+		if(secondsUntilDelete > 0) {
+			desc += "\n\n*This message will automatically self distruct in " + secondsUntilDelete + " seconds.*";
+		}
 		channel.sendMessage(getReplyEmbed(type, title, desc)).queue(success -> {
 			try {
 				success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS, success2 -> {
