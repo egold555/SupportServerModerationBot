@@ -2,7 +2,7 @@ package org.golde.discordbot.supportserver.event;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.event.EventBase;
-import org.golde.discordbot.supportserver.command.guildmod.CommandPanic;
+import org.golde.discordbot.supportserver.command.guildmod.old.CommandPanic;
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 
