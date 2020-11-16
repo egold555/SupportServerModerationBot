@@ -29,7 +29,6 @@ public class CommandKick extends GuildModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 		
 		TextChannel tc = event.getTextChannel();
-		Member member = event.getMember();
 		
 		if(event.getArgs().isEmpty())
         {
@@ -41,7 +40,7 @@ public class CommandKick extends GuildModCommand {
 			Member target = getMember(event, args, 1);
 
 			if (args.isEmpty() || target == null) {
-				replyError(tc, "Missing or invalid arguments");
+				replyError(tc, "I could not find that person!");
 				return;
 			}
 

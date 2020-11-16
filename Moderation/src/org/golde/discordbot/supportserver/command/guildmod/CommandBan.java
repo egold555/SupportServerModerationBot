@@ -31,7 +31,6 @@ public class CommandBan extends GuildModCommand {
 	protected void execute(CommandEvent event, List<String> args) {
 
 		TextChannel tc = event.getTextChannel();
-		Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
@@ -43,7 +42,7 @@ public class CommandBan extends GuildModCommand {
 			Member target = getMember(event, args, 1);
 
 			if (target == null) {
-				replyError(tc, "I could not find that member.");
+				replyError(tc, "I could not find that person!");
 				return;
 			}
 

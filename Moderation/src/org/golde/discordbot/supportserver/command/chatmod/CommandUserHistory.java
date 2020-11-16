@@ -34,7 +34,7 @@ public class CommandUserHistory extends ChatModCommand {
 		Member target = getMember(event, args, 1);
 
 		if (args.isEmpty() || target == null) {
-			replyError(tc, "Missing or invalid arguments");
+			replyError(tc, "I could not find that person!");
 			return;
 		}
 
