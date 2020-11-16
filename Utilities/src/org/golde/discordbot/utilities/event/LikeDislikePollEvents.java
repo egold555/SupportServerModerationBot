@@ -34,6 +34,11 @@ public class LikeDislikePollEvents extends AbstractMessageChecker {
 
 	@Override
 	protected boolean checkMessage(Member sender, Message msg) {
+		
+		if(!IDS.contains(msg.getTextChannel().getIdLong())) {
+			return false;
+		}
+		
 		if(sender.isFake() || sender.getUser().isBot()) {
 			return false;
 		}
@@ -48,7 +53,7 @@ public class LikeDislikePollEvents extends AbstractMessageChecker {
 			return false;
 		}
 		
-		return IDS.contains(msg.getTextChannel().getIdLong());
+		return true;
 	}
 
 	@Override
