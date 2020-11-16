@@ -63,13 +63,11 @@ public abstract class BaseCommand extends Command {
 
 		try {
 			String id = args.get(expecting);
-			id = id.replace("<@!", "").replace(">", "");
+			id = id.replace("<@!", "").replace(">", "").trim();
 
-			Member member = guild.getMemberById(id);
-
-			if(member != null) {
-				return member;
-			}
+			//System.out.println(id);
+			
+			return guild.getMemberById(id);
 
 		}
 		catch(NumberFormatException ignored) {}
@@ -106,6 +104,9 @@ public abstract class BaseCommand extends Command {
 	}
 
 	private void reply(MessageChannel channel, EnumReplyType type, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
+		if(secondsUntilDelete > 0) {
+			desc += "\n\n*This message will automatically self distruct in " + secondsUntilDelete + " seconds.*";
+		}
 		channel.sendMessage(getReplyEmbed(type, title, desc)).queue(success -> {
 			try {
 				success.delete().queueAfter(secondsUntilDelete, TimeUnit.SECONDS, success2 -> {
