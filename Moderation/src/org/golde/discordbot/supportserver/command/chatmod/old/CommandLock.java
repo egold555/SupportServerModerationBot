@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.chatmod;
+package org.golde.discordbot.supportserver.command.chatmod.old;
 
 import java.util.ArrayList;
 import java.util.List;

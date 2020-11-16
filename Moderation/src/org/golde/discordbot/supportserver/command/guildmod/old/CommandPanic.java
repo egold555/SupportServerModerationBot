@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.guildmod;
+package org.golde.discordbot.supportserver.command.guildmod.old;
 
 import java.util.ArrayList;
 import java.util.List;
