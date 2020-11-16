@@ -25,6 +25,7 @@ public class LikeDislikePollEvents extends AbstractMessageChecker {
 	public static void reload() {
 		IDS.clear();
 		IDS = FileUtil.loadArrayFromFile("like-dislike-poll-channels", Long[].class);
+		//System.out.println(IDS);
 	}
 	
 	public LikeDislikePollEvents(ESSBot bot) {
@@ -37,7 +38,13 @@ public class LikeDislikePollEvents extends AbstractMessageChecker {
 			return false;
 		}
 		
-		if(sender.isOwner()) {
+		if(sender.isOwner() && msg.getAttachments().size() == 0) {
+			return false;
+		}
+		
+		if(msg.getAttachments().size() == 0) {
+			msg.delete().queue();
+			replyError(msg.getChannel(), sender.getAsMention() + ", You must provide a image to vote on!", 10);
 			return false;
 		}
 		
@@ -52,9 +59,11 @@ public class LikeDislikePollEvents extends AbstractMessageChecker {
 				
 			}, onFail2 -> {
 				//do nothing
+				//System.out.println("Failed to add reaction dislike");
 			});;
 		}, onFail -> {
 			//do nothing
+			//System.out.println("Failed to add reaction like");
 		});	
 	}
 	
@@ -69,7 +78,7 @@ public class LikeDislikePollEvents extends AbstractMessageChecker {
 		}
 		
 		if(IDS.contains(tc.getIdLong())) {
-			
+			//System.out.println("Reaction added");
 			tc.retrieveMessageById(event.getMessageIdLong()).queue(message -> {
 				for(MessageReaction r : message.getReactions()) {
 					//System.out.println(event.getReactionEmote().getName());
