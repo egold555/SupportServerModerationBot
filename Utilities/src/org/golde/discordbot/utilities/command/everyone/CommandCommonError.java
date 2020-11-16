@@ -1,9 +1,6 @@
 package org.golde.discordbot.utilities.command.everyone;
 
-import java.awt.Color;
 import java.io.File;
-import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,8 +8,6 @@ import javax.annotation.Nonnull;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
-import org.golde.discordbot.shared.constants.SSEmojis;
-import org.golde.discordbot.shared.util.EnumReplyType;
 import org.golde.discordbot.utilities.commonerror.CommonError;
 import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 
@@ -21,15 +16,10 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.send.AllowedMentions;
-import club.minnced.discord.webhook.send.WebhookEmbed.EmbedFooter;
-import club.minnced.discord.webhook.send.WebhookEmbed.EmbedTitle;
-import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 public class CommandCommonError extends EveryoneCommand {
 
