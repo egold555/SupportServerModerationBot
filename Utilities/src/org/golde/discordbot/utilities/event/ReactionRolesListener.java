@@ -17,24 +17,28 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ReactionRolesListener extends EventBase {
 
-	private final HashMap<String,Long> map = new HashMap<>();
+	private static final HashMap<String,Long> map = new HashMap<>();
 
 	/*
 	 Format of file:
 	 <message id> <emoji id / unicode> <role id>
 	 */
 	
-	public ReactionRolesListener(ESSBot bot) {
-		super(bot);
+	public static void reload() {
+		map.clear();
 		try {
 			Files.readAllLines(new File("res/role-reactions.txt").toPath(), StandardCharsets.UTF_8).forEach(line ->
 			{
 				String[] split = line.replace("\uFEFF", "").split(" ", 3);
 				try
 				{
-					long messageId = Long.parseLong(split[0].trim());
-					long roleId = Long.parseLong(split[2]);
-					map.put(getKey(messageId, split[1]), roleId);
+					if(!split[0].startsWith("#")) {
+						long messageId = Long.parseLong(split[0].trim());
+						long roleId = Long.parseLong(split[2]);
+						map.put(getKey(messageId, split[1]), roleId);
+					}
+					
+					
 				}
 				catch(Exception e)
 				{
@@ -45,6 +49,11 @@ public class ReactionRolesListener extends EventBase {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ReactionRolesListener(ESSBot bot) {
+		super(bot);
+		
 	}
 
 	@Override

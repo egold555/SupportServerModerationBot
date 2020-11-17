@@ -42,6 +42,12 @@ public class MiscModLog extends EventBase {
 		if(changedRoles.contains(g.getRoleById(667224721544183838L))) {
 			return;
 		}
+		
+		//Announcements role
+		if(changedRoles.contains(g.getRoleById(728453778956877904L))) {
+			return;
+		}
+		
 		//Member role -- Ha rember this shit storm?!
 		else if(changedRoles.contains(g.getRoleById(726526640313860236L))) {
 			return;

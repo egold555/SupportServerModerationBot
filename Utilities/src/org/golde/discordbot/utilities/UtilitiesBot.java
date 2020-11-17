@@ -46,6 +46,7 @@ public class UtilitiesBot extends ESSBot {
 		CommandCommonError.reloadAfterCommonError();
 		ImageOnlyChannel.reload();
 		LikeDislikePollEvents.reload();
+		ReactionRolesListener.reload();
 	}
 	
 	@Override
@@ -55,6 +56,7 @@ public class UtilitiesBot extends ESSBot {
 		CommandCommonError.reloadAfterCommonError();
 		ImageOnlyChannel.reload();
 		LikeDislikePollEvents.reload();
+		ReactionRolesListener.reload();
 	}
 	
 	@Override
