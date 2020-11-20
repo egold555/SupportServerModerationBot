@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
-import org.golde.discordbot.shared.constants.Roles;
-import org.golde.discordbot.shared.constants.SSEmojis;
+import org.golde.discordbot.shared.db.FileUtil;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
-import org.golde.discordbot.shared.util.FileUtil;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.MessageReaction;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 
 public class LikeDislikePollEvents extends AbstractMessageChecker {
 

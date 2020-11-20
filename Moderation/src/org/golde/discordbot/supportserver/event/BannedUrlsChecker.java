@@ -1,11 +1,10 @@
 package org.golde.discordbot.supportserver.event;
 
 import java.util.List;
-import java.util.Set;
 
 import org.golde.discordbot.shared.ESSBot;
+import org.golde.discordbot.shared.db.FileUtil;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
-import org.golde.discordbot.shared.util.FileUtil;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;

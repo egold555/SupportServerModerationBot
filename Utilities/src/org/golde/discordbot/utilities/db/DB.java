@@ -1,6 +1,6 @@
 package org.golde.discordbot.utilities.db;
 
-import org.golde.discordbot.shared.util.FileUtil;
+import org.golde.discordbot.shared.db.FileUtil;
 
 import lombok.Getter;
 

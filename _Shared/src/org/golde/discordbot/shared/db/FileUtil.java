@@ -1,4 +1,4 @@
-package org.golde.discordbot.shared.util;
+package org.golde.discordbot.shared.db;
 
 import java.io.File;
 import java.io.FileReader;

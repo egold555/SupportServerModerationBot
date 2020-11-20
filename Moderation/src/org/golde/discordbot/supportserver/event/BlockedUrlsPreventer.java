@@ -4,16 +4,12 @@ import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
+import org.golde.discordbot.shared.db.FileUtil;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
-import org.golde.discordbot.shared.util.FileUtil;
-import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 
 public class BlockedUrlsPreventer extends AbstractMessageChecker {

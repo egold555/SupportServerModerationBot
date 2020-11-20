@@ -10,15 +10,14 @@ import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.CommandReload;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
+import org.golde.discordbot.shared.db.FileUtil;
 import org.golde.discordbot.shared.event.EventBase;
-import org.golde.discordbot.shared.util.FileUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;

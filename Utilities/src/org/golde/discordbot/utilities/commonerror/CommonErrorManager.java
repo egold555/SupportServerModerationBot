@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.util.EnumReplyType;
-import org.golde.discordbot.shared.util.FileUtil;
+import org.golde.discordbot.shared.db.FileUtil;
 
 import lombok.Getter;
 import net.dv8tion.jda.api.EmbedBuilder;

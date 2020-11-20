@@ -6,7 +6,7 @@ import java.util.List;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
-import org.golde.discordbot.shared.util.FileUtil;
+import org.golde.discordbot.shared.db.FileUtil;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
