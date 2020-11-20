@@ -5,6 +5,7 @@ import java.util.List;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.db.FileUtil;
+import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -12,7 +13,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 
-public class BlockedUrlsPreventer extends AbstractMessageChecker {
+public class BlockedUrlsPreventer extends AbstractMessageChecker implements ICanHasDatabaseFile {
 
 	public BlockedUrlsPreventer(ESSBot bot) {
 		super(bot);
@@ -20,13 +21,10 @@ public class BlockedUrlsPreventer extends AbstractMessageChecker {
 
 	private static final String FILE_NAME = "blocked-urls";
 	private static List<String> BAD_URLS;
-	
-	static {
-		reload();
-	}
 
 	
-	public static void reload() {
+	@Override
+	public void reload() {
 		BAD_URLS = FileUtil.loadArrayFromFile(FILE_NAME, String[].class);
 	}
 
@@ -36,7 +34,6 @@ public class BlockedUrlsPreventer extends AbstractMessageChecker {
 	}
 
 	public static List<String> getUrls() {
-		reload();
 		return BAD_URLS;
 	}
 	

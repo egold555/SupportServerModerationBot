@@ -37,20 +37,8 @@ public class ModerationBot extends ESSBot {
 	}
 
 	@Override
-	public void onReady() {
-		ClientInvitesNeedsToBeBetter.loadAlreadyUsedServers();
-	}
-
-	@Override
 	public void onLoad() {
 		Database.loadAllFromFile();
-		BlockedUrlsPreventer.reload();
-	}
-
-	@Override
-	public void onReload() {
-		ClientInvitesNeedsToBeBetter.loadAlreadyUsedServers();
-		BlockedUrlsPreventer.reload();
 	}
 
 	@Override
@@ -65,11 +53,6 @@ public class ModerationBot extends ESSBot {
 		events.add(new DiscordMutePermsAreFucked(this));
 		events.add(new IHateKids2point0(this));
 		events.add(new BlockedUrlsPreventer(this));
-	}
-
-	@Override
-	public void registerEveryoneCommand(List<EveryoneCommand> cmds) {
-		
 	}
 
 	@Override

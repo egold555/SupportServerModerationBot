@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.util.HashMap;
 
 import org.golde.discordbot.shared.ESSBot;
+import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.EventBase;
 
 import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
@@ -15,7 +16,7 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class ReactionRolesListener extends EventBase {
+public class ReactionRolesListener extends EventBase implements ICanHasDatabaseFile {
 
 	private static final HashMap<String,Long> map = new HashMap<>();
 
@@ -24,7 +25,8 @@ public class ReactionRolesListener extends EventBase {
 	 <message id> <emoji id / unicode> <role id>
 	 */
 	
-	public static void reload() {
+	@Override
+	public void reload() {
 		map.clear();
 		try {
 			Files.readAllLines(new File("res/role-reactions.txt").toPath(), StandardCharsets.UTF_8).forEach(line ->

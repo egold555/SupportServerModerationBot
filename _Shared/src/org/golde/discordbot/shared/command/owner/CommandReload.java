@@ -16,9 +16,8 @@ public class CommandReload extends OwnerCommandDangerous {
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
-		
 		final long currentTime = System.currentTimeMillis();
-		bot.onReload();
+		bot.private_onReload();
 		long timeItTook = System.currentTimeMillis() - currentTime;
 		replySuccess(event.getChannel(), "Reloaded bot in " + timeItTook + "ms.");
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.db.FileUtil;
+import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -14,11 +15,12 @@ import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 
-public class LikeDislikePollEvents extends AbstractMessageChecker {
+public class LikeDislikePollEvents extends AbstractMessageChecker implements ICanHasDatabaseFile {
 
 	private static List<Long> IDS = new ArrayList<Long>();
 	
-	public static void reload() {
+	@Override
+	public void reload() {
 		IDS.clear();
 		IDS = FileUtil.loadArrayFromFile("like-dislike-poll-channels", Long[].class);
 		//System.out.println(IDS);

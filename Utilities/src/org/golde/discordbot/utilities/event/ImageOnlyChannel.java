@@ -7,6 +7,7 @@ import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.event.AbstractMessageChecker;
 import org.golde.discordbot.shared.db.FileUtil;
+import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -15,11 +16,12 @@ import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class ImageOnlyChannel extends AbstractMessageChecker {
+public class ImageOnlyChannel extends AbstractMessageChecker implements ICanHasDatabaseFile {
 
 	private static List<Long> IDS = new ArrayList<Long>();
 	
-	public static void reload() {
+	@Override
+	public void reload() {
 		IDS.clear();
 		IDS = FileUtil.loadArrayFromFile("image-only-channels", Long[].class);
 	}

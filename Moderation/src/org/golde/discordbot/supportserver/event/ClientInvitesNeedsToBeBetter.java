@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;
+import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.supportserver.database.Database;
 
@@ -18,7 +19,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.internal.entities.InviteImpl;
 
-public class ClientInvitesNeedsToBeBetter extends EventBase {
+public class ClientInvitesNeedsToBeBetter extends EventBase implements ICanHasDatabaseFile {
 
 	public ClientInvitesNeedsToBeBetter(ESSBot bot) {
 		super(bot);
@@ -33,12 +34,6 @@ public class ClientInvitesNeedsToBeBetter extends EventBase {
 	 
 	 */
 	static Set<String> alreadyUsedServers = new HashSet<String>();
-	
-	@SuppressWarnings("unchecked")
-	public static void loadAlreadyUsedServers() {
-		alreadyUsedServers.clear();
-		alreadyUsedServers = (Set<String>)Database.jsonFile2JavaObject("client-invites", Set.class);
-	}
 	
 	@Override
 	public void onGuildMessageDelete(GuildMessageDeleteEvent event) {
@@ -105,6 +100,12 @@ public class ClientInvitesNeedsToBeBetter extends EventBase {
 
 		});;
 
+	}
+
+	@Override
+	public void reload() {
+		alreadyUsedServers.clear();
+		alreadyUsedServers = (Set<String>)Database.jsonFile2JavaObject("client-invites", Set.class);
 	}
 
 }

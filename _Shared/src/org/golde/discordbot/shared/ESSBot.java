@@ -3,6 +3,7 @@ package org.golde.discordbot.shared;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.golde.discordbot.shared.command.BaseCommand;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.chatmod.CommandPing;
 import org.golde.discordbot.shared.command.everyone.CommandHelp;
@@ -11,6 +12,7 @@ import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.CommandReload;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.db.FileUtil;
+import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.EventBase;
 
 import com.google.gson.Gson;
@@ -39,6 +41,8 @@ public abstract class ESSBot {
 	private EventWaiter waiter;
 	
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	
+	private List<ICanHasDatabaseFile> databaseCallbacks = new ArrayList<ICanHasDatabaseFile>();
 
 	public void run() throws Exception {
 		
@@ -68,6 +72,7 @@ public abstract class ESSBot {
 		registerEveryoneCommand(everyoneCommands);
 		for(EveryoneCommand cmd : everyoneCommands) {
 			client.addCommand(cmd);
+			tryInterfaceThings(cmd);
 		}
 		
 		//Chat Mod
@@ -76,6 +81,7 @@ public abstract class ESSBot {
 		registerChatModCommand(chatModCommand);
 		for(ChatModCommand cmd : chatModCommand) {
 			client.addCommand(cmd);
+			tryInterfaceThings(cmd);
 		}
 		
 		//Guild Mod
@@ -83,6 +89,7 @@ public abstract class ESSBot {
 		registerGuildModCommand(guildModCommands);
 		for(GuildModCommand cmd : guildModCommands) {
 			client.addCommand(cmd);
+			tryInterfaceThings(cmd);
 		}
 		
 		//Owner
@@ -91,6 +98,7 @@ public abstract class ESSBot {
 		registerOwnerCommand(ownerCommands);
 		for(OwnerCommand cmd : ownerCommands) {
 			client.addCommand(cmd);
+			tryInterfaceThings(cmd);
 		}
 
 		// start getting a bot account set up
@@ -119,23 +127,51 @@ public abstract class ESSBot {
 		registerEventListeners(eventList);
 		for(EventBase listener : eventList) {
 			builder.addEventListeners(listener);
+			tryInterfaceThings(listener);
 		}
-		onLoad();
+		private_onLoad();
 		// start it up!
 		jda = builder.build();
 	}
 
 	public abstract String getPrefix();
-	public abstract void onReady();
-	public abstract void onLoad();
-	public abstract void onReload();
-	public abstract void registerEventListeners(List<EventBase> events);
-	public abstract void registerEveryoneCommand(List<EveryoneCommand> cmds);
-	public abstract void registerChatModCommand(List<ChatModCommand> cmds);
-	public abstract void registerGuildModCommand(List<GuildModCommand> cmds);
-	public abstract void registerOwnerCommand(List<OwnerCommand> cmds);
-	
+	@Deprecated public void onReady() {};
+	@Deprecated public void onLoad() {};
+	public void onReload() {};
+	public void registerEventListeners(List<EventBase> events) {};
+	public void registerEveryoneCommand(List<EveryoneCommand> cmds){};
+	public void registerChatModCommand(List<ChatModCommand> cmds){};
+	public void registerGuildModCommand(List<GuildModCommand> cmds){};
+	public void registerOwnerCommand(List<OwnerCommand> cmds){};
 
+	private void private_onLoad() {
+		onLoad();
+		for(ICanHasDatabaseFile ican : databaseCallbacks) {
+			ican.loadOnce();
+		}
+	}
+	
+	public void private_onReload() {
+		onReload();
+		for(ICanHasDatabaseFile ican : databaseCallbacks) {
+			ican.reload();
+		}
+	}
+
+	private void tryInterfaceThings(EventBase listener) {
+		if(listener instanceof ICanHasDatabaseFile) {
+			ICanHasDatabaseFile ican = (ICanHasDatabaseFile) listener;
+			databaseCallbacks.add(ican);
+		}
+	}
+
+	private void tryInterfaceThings(BaseCommand cmd) {
+		if(cmd instanceof ICanHasDatabaseFile) {
+			ICanHasDatabaseFile ican = (ICanHasDatabaseFile) cmd;
+			databaseCallbacks.add(ican);
+		}
+	}
+	
 	public final JDA getJda() {
 		return jda;
 	}

@@ -3,9 +3,7 @@ package org.golde.discordbot.utilities;
 import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
-import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
-import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.utilities.command.everyone.CommandCommonError;
@@ -17,9 +15,9 @@ import org.golde.discordbot.utilities.crash.CrashReportEventHandler;
 import org.golde.discordbot.utilities.db.DB;
 import org.golde.discordbot.utilities.event.AutoRemoveBirthdayRole;
 import org.golde.discordbot.utilities.event.ImageOnlyChannel;
+import org.golde.discordbot.utilities.event.LikeDislikePollEvents;
 import org.golde.discordbot.utilities.event.OCRCommonErrors;
 import org.golde.discordbot.utilities.event.PlayerCounter;
-import org.golde.discordbot.utilities.event.LikeDislikePollEvents;
 import org.golde.discordbot.utilities.event.ReactionRolesListener;
 import org.golde.discordbot.utilities.event.Under100ClubEvent;
 
@@ -35,18 +33,10 @@ public class UtilitiesBot extends ESSBot {
 	}
 
 	@Override
-	public void onReady() {
-		
-	}
-
-	@Override
 	public void onLoad() {
 		DB.getInstance().load();
 		CommonErrorManager.reload();
 		CommandCommonError.reloadAfterCommonError();
-		ImageOnlyChannel.reload();
-		LikeDislikePollEvents.reload();
-		ReactionRolesListener.reload();
 	}
 	
 	@Override
@@ -54,9 +44,6 @@ public class UtilitiesBot extends ESSBot {
 		DB.getInstance().reload();
 		CommonErrorManager.reload();
 		CommandCommonError.reloadAfterCommonError();
-		ImageOnlyChannel.reload();
-		LikeDislikePollEvents.reload();
-		ReactionRolesListener.reload();
 	}
 	
 	@Override
@@ -74,16 +61,6 @@ public class UtilitiesBot extends ESSBot {
 	@Override
 	public void registerEveryoneCommand(List<EveryoneCommand> cmds) {
 		cmds.add(new CommandCommonError(this));
-	}
-
-	@Override
-	public void registerChatModCommand(List<ChatModCommand> cmds) {
-		
-	}
-
-	@Override
-	public void registerGuildModCommand(List<GuildModCommand> cmds) {
-		
 	}
 
 	@Override
