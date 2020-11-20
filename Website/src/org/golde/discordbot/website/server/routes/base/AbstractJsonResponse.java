@@ -1,11 +1,11 @@
-package org.golde.discordbot.website.server.routes;
+package org.golde.discordbot.website.server.routes.base;
 
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -37,10 +37,11 @@ public abstract class AbstractJsonResponse extends DefaultHandler {
     public void setErrored() {
 		this.setErrored("No error message specified.");
 	}
+    
     public void setErrored(String errorMessage) {
 		this.setErrored(errorMessage, Status.BAD_REQUEST);
 	}
-    
+
     public void setErrored(String errorMessage, Status status) {
 		this.errorMessage = errorMessage;
 		this.status = status;
@@ -75,9 +76,19 @@ public abstract class AbstractJsonResponse extends DefaultHandler {
     		obj.add("error", error);
     	}
         String text = gson.toJson(obj);
-        ByteArrayInputStream inp = new ByteArrayInputStream(text.getBytes());
+        ByteArrayInputStream inp;
+		//utf8 fix
+        try {
+			inp = new ByteArrayInputStream(text.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			inp = new ByteArrayInputStream(text.getBytes());
+			e.printStackTrace();
+		}
         int size = text.getBytes().length;
-        return NanoHTTPD.newFixedLengthResponse(getStatus(), getMimeType(), inp, size);
+        Response response = NanoHTTPD.newFixedLengthResponse(getStatus(), getMimeType(), inp, size);
+        
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        return response;
     }
 	
 }

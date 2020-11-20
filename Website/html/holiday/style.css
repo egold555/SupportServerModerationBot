@@ -1,0 +1,13 @@
+.cardRee {
+	width: 256px;
+	height: 472px;
+	padding-left: 25px;
+}
+
+.flexFix {
+	flex-shrink: 0;
+}
+
+body {
+	overflow-x: hidden;
+}

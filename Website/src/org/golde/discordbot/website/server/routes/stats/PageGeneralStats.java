@@ -1,9 +1,10 @@
-package org.golde.discordbot.website.server.routes;
+package org.golde.discordbot.website.server.routes.stats;
 
 import java.util.Map;
 
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.website.WebsiteBot;
+import org.golde.discordbot.website.server.routes.base.AbstractJsonResponse;
 
 import com.google.gson.JsonObject;
 
@@ -12,7 +13,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
-public class ResponseGeneralStats extends AbstractJsonResponse {
+public class PageGeneralStats extends AbstractJsonResponse {
 
 	@Override
 	public JsonObject getResponse(Map<String, String> urlParams, IHTTPSession session, JsonObject root) {

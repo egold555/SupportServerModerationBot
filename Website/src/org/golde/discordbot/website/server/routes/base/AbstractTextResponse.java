@@ -1,4 +1,4 @@
-package org.golde.discordbot.website.server.routes;
+package org.golde.discordbot.website.server.routes.base;
 
 import fi.iki.elonen.NanoHTTPD.Response.IStatus;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
