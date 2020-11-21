@@ -77,3 +77,7 @@ Moderation/res/blocked-urls.json
 Utilities/res/image-only-channels.json
 
 Utilities/res/like-dislike-poll-channels.json
+
+Website/html/members/indexbackup.html
+
+Website/html/members/debug.log
