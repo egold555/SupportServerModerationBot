@@ -29,7 +29,7 @@ public class WebsiteBot extends ESSBot {
 	
 	@Override
 	public String getPrefix() {
-		return "=";
+		return null;
 	}
 
 	@Override

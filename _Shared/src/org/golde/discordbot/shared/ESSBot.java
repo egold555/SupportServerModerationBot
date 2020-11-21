@@ -37,68 +37,74 @@ public abstract class ESSBot {
 	private Guild guild;
 
 	private static final long OWNER_ID = 199652118100049921L;
-	
+
 	private EventWaiter waiter;
-	
+
 	public static final Gson GSON = new GsonBuilder().disableHtmlEscaping().serializeNulls().setPrettyPrinting().create();
-	
+
 	private List<ICanHasDatabaseFile> databaseCallbacks = new ArrayList<ICanHasDatabaseFile>();
 
 	public void run() throws Exception {
-		
+
 		String token = FileUtil.readGenericConfig("config", false).get(0);
 
 		// define an eventwaiter, dont forget to add this to the JDABuilder!
 		waiter = new EventWaiter();
 
-		// define a command client
-		CommandClientBuilder client = new CommandClientBuilder();
+		CommandClientBuilder client = null;
+		if(getPrefix() != null) {
 
-		client.useHelpBuilder(false);
 
-		// sets the owner of the bot
-		client.setOwnerId(String.valueOf(OWNER_ID));
+			// define a command client
+			client = new CommandClientBuilder();
 
-		// sets emojis used throughout the bot on successes, warnings, and failures
-		client.setEmojis("\uD83D\uDE03", "\uD83D\uDE2E", "\uD83D\uDE26");
+			client.useHelpBuilder(false);
 
-		// sets the bot prefix
-		client.setPrefix(getPrefix());
-		
-		//Everyone
-		List<EveryoneCommand> everyoneCommands = new ArrayList<EveryoneCommand>();
-		everyoneCommands.add(new CommandHelp(this));
-		
-		registerEveryoneCommand(everyoneCommands);
-		for(EveryoneCommand cmd : everyoneCommands) {
-			client.addCommand(cmd);
-			tryInterfaceThings(cmd);
-		}
-		
-		//Chat Mod
-		List<ChatModCommand> chatModCommand = new ArrayList<ChatModCommand>();
-		chatModCommand.add(new CommandPing(this));
-		registerChatModCommand(chatModCommand);
-		for(ChatModCommand cmd : chatModCommand) {
-			client.addCommand(cmd);
-			tryInterfaceThings(cmd);
-		}
-		
-		//Guild Mod
-		List<GuildModCommand> guildModCommands = new ArrayList<GuildModCommand>();
-		registerGuildModCommand(guildModCommands);
-		for(GuildModCommand cmd : guildModCommands) {
-			client.addCommand(cmd);
-			tryInterfaceThings(cmd);
-		}
-		
-		//Owner
-		List<OwnerCommand> ownerCommands = new ArrayList<OwnerCommand>();
-		ownerCommands.add(new CommandReload(this));
-		registerOwnerCommand(ownerCommands);
-		for(OwnerCommand cmd : ownerCommands) {
-			client.addCommand(cmd);
-			tryInterfaceThings(cmd);
+			// sets the owner of the bot
+			client.setOwnerId(String.valueOf(OWNER_ID));
+
+			// sets emojis used throughout the bot on successes, warnings, and failures
+			client.setEmojis("\uD83D\uDE03", "\uD83D\uDE2E", "\uD83D\uDE26");
+
+			// sets the bot prefix
+			client.setPrefix(getPrefix());
+
+			//Everyone
+			List<EveryoneCommand> everyoneCommands = new ArrayList<EveryoneCommand>();
+			everyoneCommands.add(new CommandHelp(this));
+
+			registerEveryoneCommand(everyoneCommands);
+			for(EveryoneCommand cmd : everyoneCommands) {
+				client.addCommand(cmd);
+				tryInterfaceThings(cmd);
+			}
+
+			//Chat Mod
+			List<ChatModCommand> chatModCommand = new ArrayList<ChatModCommand>();
+			chatModCommand.add(new CommandPing(this));
+			registerChatModCommand(chatModCommand);
+			for(ChatModCommand cmd : chatModCommand) {
+				client.addCommand(cmd);
+				tryInterfaceThings(cmd);
+			}
+
+			//Guild Mod
+			List<GuildModCommand> guildModCommands = new ArrayList<GuildModCommand>();
+			registerGuildModCommand(guildModCommands);
+			for(GuildModCommand cmd : guildModCommands) {
+				client.addCommand(cmd);
+				tryInterfaceThings(cmd);
+			}
+
+			//Owner
+			List<OwnerCommand> ownerCommands = new ArrayList<OwnerCommand>();
+			ownerCommands.add(new CommandReload(this));
+			registerOwnerCommand(ownerCommands);
+			for(OwnerCommand cmd : ownerCommands) {
+				client.addCommand(cmd);
+				tryInterfaceThings(cmd);
+			}
+
 		}
 
 		// start getting a bot account set up
@@ -108,20 +114,26 @@ public abstract class ESSBot {
 				// set the game for when the bot is loading
 				.setStatus(OnlineStatus.DO_NOT_DISTURB)
 				.setActivity(Activity.playing("Loading..."))
-				// add the listeners
-				.addEventListeners(waiter, client.build())
+				
 
 				.addEventListeners(new ListenerAdapter() {
 
 					@Override
 					public void onReady(ReadyEvent event) {
 
-						jda.getPresence().setActivity(Activity.listening(getPrefix() + "help"));
+						if(getPrefix() != null) {
+							jda.getPresence().setActivity(Activity.listening(getPrefix() + "help"));
+						}
+						
 						guild = event.getJDA().getGuilds().get(0); //only one guild
 						ESSBot.this.onReady();
 					}
 
 				});
+		
+		if(client != null) {
+			builder.addEventListeners(waiter, client.build());
+		}
 
 		List<EventBase> eventList = new ArrayList<EventBase>();
 		registerEventListeners(eventList);
@@ -150,7 +162,7 @@ public abstract class ESSBot {
 			ican.loadOnce();
 		}
 	}
-	
+
 	public void private_onReload() {
 		onReload();
 		for(ICanHasDatabaseFile ican : databaseCallbacks) {
@@ -171,7 +183,7 @@ public abstract class ESSBot {
 			databaseCallbacks.add(ican);
 		}
 	}
-	
+
 	public final JDA getJda() {
 		return jda;
 	}
@@ -183,7 +195,7 @@ public abstract class ESSBot {
 	public static final long getOwnerId() {
 		return OWNER_ID;
 	}
-	
+
 	public final EventWaiter getWaiter() {
 		return waiter;
 	}
