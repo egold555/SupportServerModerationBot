@@ -1,5 +1,6 @@
 package org.golde.discordbot.website.server.routes.temp;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,26 +25,36 @@ public class PageAllMembers extends AbstractJsonResponse {
 		Guild g = WebsiteBot.getInstance().getGuild();
 
 		List<JsonObject> objRoleList = new ArrayList<JsonObject>();
+		
 
 		for(int i = 0; i < g.getRoleCache().size(); i++) {
 
 			Role role = g.getRoleCache().asList().get(i);
 			
-			if(role.getIdLong() == Roles.BOTS || 
-					role.getIdLong() == Roles.EVERYONE || 
+			if(role.getIdLong() == Roles.EVERYONE || 
 					role.getIdLong() == Roles.INTERNAL_DISCORD_BETA_TESTER || 
-					role.getIdLong() == Roles.BOTS || 
+//					role.getName().contains("Bot") ||
 					role.getIdLong() == Roles.ITS_MY_B_DAY || 
 					role.getIdLong() == Roles.YOUTUBE_NOTIFICATIONS ||
 					role.getIdLong() == Roles.MUTED ||
-					role.getName().contains("Bot") || role.getName().contains("Internal - ") || role.getName().contains("Notifications") || role.getName().equals("Under 100 Messages Club")) {
+//					role.getIdLong() == Roles.MEMBER ||
+					role.getName().contains("Internal - ") || 
+					role.getName().contains("Notifications") || 
+					role.getName().equals("Under 100 Messages Club")||
+					role.getName().equals("Server Captcha Bot")
+					) {
 				continue;
 			}
 
 			JsonObject roleObj = new JsonObject();
 			roleObj.addProperty("name", role.getName());
 
-			String hex = "#"+Integer.toHexString(role.getColorRaw()).substring(2).toUpperCase();
+			Color roleColor = role.getColor();
+			if(role.getColor() == null) {
+				roleColor = new Color(Role.DEFAULT_COLOR_RAW);
+			}
+			
+			String hex = "#"+Integer.toHexString(roleColor.getRGB()).substring(2).toUpperCase();
 			roleObj.addProperty("color", hex);
 
 			roleObj.add("members", ESSBot.GSON.toJsonTree(getMembers(g, role)));
@@ -57,10 +68,15 @@ public class PageAllMembers extends AbstractJsonResponse {
 		return root;
 	}
 
+	List<Long> duplateMembers = new ArrayList<Long>();
 	private List<JsonObject> getMembers(Guild g, Role role) {
 		List<JsonObject> list = new ArrayList<JsonObject>();
 		for(Member m : g.getMembersWithRoles(role)) {
-			list.add(toJson(m));
+			if(!duplateMembers.contains(m.getIdLong())) {
+				list.add(toJson(m));
+				duplateMembers.add(m.getIdLong());
+			}
+			
 		}
 		return list;
 	}
