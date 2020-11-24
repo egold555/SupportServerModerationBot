@@ -220,5 +220,18 @@
 		"cmdDesc": "lwjgl natives have become unlinked",
 		"detailedDesc": "Basically you want to paramaterize LayerRenderer with AbstractClientPlayer and all the functions in the same class will error. You need to do this for every class that errors with a similier error message. Keep in mind not every class will use the AbstractClientPlayer. Double check the entity type!",
 		"crashReport": [ "java.lang.UnsatisfiedLinkError: no lwjgl64 in java.library.path" ]
+	},
+	{
+		"shortCodes": [ "decompIndexError", "decompileIndexError", "decompIndex", "decompileIndex" ],
+		"cmdDesc": "decompile.bat IndexError list index out of range",
+		"detailedDesc": "This is a very wacky error only a few people seem to be having. To fix this, open up decompile.py, and comment out ```python commands.checkupdates()```\n\n It should look like this ```python #commands.checkupdates()```\n\n*Thanks to HqperNoob_#2647 for this solution!*",
+		"fakeUser": false,
+		"ocr": [
+			"File \"runtime\\decompile.py\", line 60, in decompile",
+			"commands.checkupdates()",
+			"md5srvdict[entry.split()[0]] = (entry.split()[1], float(entry.split()[2]),",
+			"entry.split()[3])",
+			"IndexError: list index out of range"
+		]
 	}
 ]
