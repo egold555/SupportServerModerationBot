@@ -1,6 +1,7 @@
 package org.golde.discordbot.shared;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import org.golde.discordbot.shared.command.BaseCommand;
@@ -29,6 +30,7 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public abstract class ESSBot {
 
@@ -108,9 +110,10 @@ public abstract class ESSBot {
 		}
 
 		// start getting a bot account set up
-		JDABuilder builder = JDABuilder.createDefault(token, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_PRESENCES)
+		JDABuilder builder = JDABuilder.createDefault(token, EnumSet.allOf(GatewayIntent.class))
 
 				.setMemberCachePolicy(MemberCachePolicy.ALL)
+				.enableCache(EnumSet.allOf(CacheFlag.class))
 				// set the game for when the bot is loading
 				.setStatus(OnlineStatus.DO_NOT_DISTURB)
 				.setActivity(Activity.playing("Loading..."))
