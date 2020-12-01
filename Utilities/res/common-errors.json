@@ -125,7 +125,7 @@
 	{
 		"shortCodes": [ "mcplog", "uploadMcpLog", "uploadLog", "uploadMcp" ],
 		"cmdDesc": "Please send your MCP log file",
-		"detailedDesc": "Can you please send your MCP.log file in this channel? It's located in <project>/logs/mcp.log . You will need to zip it up to send it over Discord.",
+		"detailedDesc": "Can you please send your MCP.log file in this channel? It's located in <project>/logs/mcp.log . You will need to zip it up to send it over Discord. \n\n*Currently the bot will not parse these, so please wait for a human to look at your file. (It's on my TO-DO list to get the bot to understand mcplog files! --Eric*",
 		"fakeUser": true,
 		"ocr": [
 			"failed: 1",
