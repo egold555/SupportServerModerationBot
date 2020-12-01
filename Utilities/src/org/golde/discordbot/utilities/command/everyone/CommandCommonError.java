@@ -49,7 +49,7 @@ public class CommandCommonError extends EveryoneCommand {
 		//Member member = event.getMember();
 
 		if(args.size() < 2) {
-			replyError(event.getChannel(), "Please specify a error", helpErrorBuilt, 20);
+			replyError(event.getChannel(), "Please specify a error", helpErrorBuilt, 60);
 			return;
 		}
 		
