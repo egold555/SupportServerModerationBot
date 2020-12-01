@@ -132,8 +132,6 @@
 			"failed : 1",
 			"Decompile failed",
 			"mcp 9.18",
-			"Press any key to continue",
-			"Scala files will not be recompiled",
 			"FATAL ERROR",
 			"ERRORS FOUND in JAVA CODE",
 			"ERRORS FOUND",
@@ -232,5 +230,19 @@
 			"entry.split()[3])",
 			"IndexError: list index out of range"
 		]
+	},
+	{
+		"shortCodes": [ "lwjgl", "lwjgl64" ],
+		"cmdDesc": "no lwjgl64 in java.library.path",
+		"detailedDesc": "To fix this error, go to **Run Configurations** > **Run/Debug** > **Arguments** > Add `-Djava.library.path=versions/1.8.9/1.8.9-natives/` (Replace `1.8.9` with the Minecraft version you are using)",
+		"ocr": [
+			"no lwjgl64 in java.library.path",
+			"Exception in thread \"main\" java.lang.UnsatisfiedLinkError: no lwjgl64 in java.library.path"
+		]
+	},
+	{
+		"detailedDesc": "Don't worry, this is not an error!",
+		"ocr": [ "Scala files will not be recompiled" ]
 	}
+	
 ]
