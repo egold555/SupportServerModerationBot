@@ -39,17 +39,17 @@ public class MiscModLog extends EventBase {
 		
 		//youtube reaction role. 
 		//TODO: Better way of doing this
-		if(changedRoles.contains(g.getRoleById(667224721544183838L))) {
+		if(changedRoles.contains(g.getRoleById(Roles.YOUTUBE_NOTIFICATIONS))) {
 			return;
 		}
 		
 		//Announcements role
-		if(changedRoles.contains(g.getRoleById(728453778956877904L))) {
+		if(changedRoles.contains(g.getRoleById(Roles.ANNOUNCEMENT_NOTIFICATIONS))) {
 			return;
 		}
 		
 		//Member role -- Ha rember this shit storm?!
-		else if(changedRoles.contains(g.getRoleById(726526640313860236L))) {
+		else if(changedRoles.contains(g.getRoleById(Roles.MEMBER))) {
 			return;
 		}
 		//no need to log twice
@@ -57,7 +57,7 @@ public class MiscModLog extends EventBase {
 			return;
 		}
 		//Under 100 club
-		else if(changedRoles.contains(g.getRoleById(735287621974097950L))) {
+		else if(changedRoles.contains(g.getRoleById(Roles.UNDER_100_MESSAGES_CLUB))) {
 			return;
 		}
 		

@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Tue Oct 06 10:16:02 PDT 2020
+//Generated: Mon Dec 07 12:01:55 PST 2020
 public class Channels {
 
     public static class BotDebugging {
@@ -11,7 +11,6 @@ public class Channels {
     }
 
     public static class OwnerOnly {
-        public static final long NEXT_VID_REMINDER = 676682108793782272L;
         public static final long MODS_TO_CREATE = 638114943442485255L;
         public static final long VIDEO_IDEAS = 641699324237185044L;
         public static final long UNKNOWN_CRASH_REPORTS = 684115853721075715L;
@@ -34,12 +33,19 @@ public class Channels {
         public static final long NEW_APPLICATIONS = 751610755656187984L;
         public static final long UNBAN_APPEAL = 751613176768102510L;
         public static final long COMMON_RESPONCES = 752300126491639839L;
+        public static final long UA_BOTTING_INCIDENT = 781974918803881984L;
     }
 
     public static class Holding {
         public static final long READ_ME_FIRST = 735334629703155844L;
         public static final long WAITING_ROOM = 726534701560496149L;
         public static final long UNDER_100_CLUB = 735335171552837672L;
+    }
+
+    public static class ShitINeedToFigureOutWhatToDoWith {
+        public static final long AWESOMELY_COOL_SECRET_PRIVATE_CHAT = 733489592488951838L;
+        public static final long PA_YOUTUBE_ANNOUNCEMENTS_CHANNEL = 742136949602779227L;
+        public static final long SUGGESTIONS_OLD = 604769523639386112L;
     }
 
     public static class UserContributions {
@@ -61,6 +67,8 @@ public class Channels {
         public static final long OFF_TOPIC = 604763573654257678L;
         public static final long VALENTINES_DAY = 671831833901662208L;
         public static final long REPORT_DM_ADS = 671573931261558805L;
+        public static final long SPOOKY_ESS = 766011874453749770L;
+        public static final long HOLIDAY_LOGO = 776886937822298154L;
     }
 
     public static class Info {
@@ -72,10 +80,10 @@ public class Channels {
     }
 
     public static class INeedHelp {
-        public static final long MCP_HELP = 747178542558609418L;
-        public static final long JAVA_HELP = 747178564385767424L;
         public static final long HELP_WITH_ERROR_MESSAGES = 747178616088952912L;
         public static final long MY_CODE_ISNT_WORKING = 594348119689527298L;
+        public static final long JAVA_HELP = 747178564385767424L;
+        public static final long MCP_HELP = 747178542558609418L;
     }
 
     public static class PrivateLounges {
@@ -102,7 +110,7 @@ public class Channels {
 
     public static class Discussion {
         public static final long GENERAL_CHAT = 594338745449316389L;
-        public static final long LEAK_LOUNGE_V2 = 742561107952271434L;
+        public static final long LEAK_LOUNGE_V3 = 778476882093539329L;
         public static final long MISC_PROGRAMMING = 677955099687125027L;
         public static final long NO_MICROPHONE = 658469317343707137L;
         public static final long DEBATES_AND_ARGUMENTS = 735185038005764217L;
@@ -113,13 +121,15 @@ public class Channels {
         public static final long JAVASCRIPT = 747182820010754148L;
         public static final long C_STUFF = 747182853288362044L;
         public static final long PYTHON = 747182888222457967L;
-        public static final long OTHER_LANGUAGES = 747182922779328583L;
+        public static final long OTHER_CODING_LANGUAGES = 747182922779328583L;
+        public static final long BLOCK_CODING_LANGUAGES = 785592443466285156L;
     }
 
     public static class BetaTester {
         public static final long BETA_TESTER_INFO = 701553074031820911L;
         public static final long BETA_TESTER = 701553280547029022L;
         public static final long REPORT_A_BUG = 701555504488513687L;
+        public static final long CHANNELS = 783864177336123402L;
     }
 
 }
