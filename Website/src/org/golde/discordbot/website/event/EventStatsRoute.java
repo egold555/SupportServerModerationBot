@@ -75,13 +75,13 @@ public class EventStatsRoute extends EventBase {
 					img = imgData.getUrl();
 				}
 
-				if(key.equals("Spotify")) {
-					img = "internal://spotify/";
-				}
-				
-				if(key.equals("Minecraft")) {
-					img = "https://cdn.discordapp.com/app-icons/356875570916753438/166fbad351ecdd02d11a3b464748f66b.webp";
-				}
+//				if(key.equals("Spotify")) {
+//					img = "internal://spotify/";
+//				}
+//				
+//				if(key.equals("Minecraft")) {
+//					img = "https://cdn.discordapp.com/app-icons/356875570916753438/166fbad351ecdd02d11a3b464748f66b.webp";
+//				}
 
 				activitiesToData.put(key, img);
 			}
