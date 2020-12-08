@@ -238,5 +238,11 @@
 	{
 		"detailedDesc": "Don't worry, this is not an error!",
 		"ocr": [ "Scala files will not be recompiled" ]
+	},
+	{
+		"shortCodes": [ "ihavebugs", "bugs" ],
+		"cmdDesc": "people giving the i have bugs question"
+		"detailedDesc": "If your asking a question about something with your client, please state the bug! If you could as well send your crash report, and any code snippets you think are causing the issue, that helps significantly!"
+		
 	}
 ]
