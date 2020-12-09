@@ -3,7 +3,7 @@ package org.golde.discordbot.shared.constants;
 //Generated: Mon Dec 07 12:01:55 PST 2020
 public class Roles {
 
-        public static final long ADMINISTRATOR = 594335758324858880L;
+        public static final long ADMINISTRATOR = 728453778956877904L;
         public static final long BOTS = 604769151843565589L;
         public static final long INTERNAL_ERICS_BOTS = 666067861982281749L;
         public static final long INTERNAL_ERICS_DEV_BOT = 785242051839131659L;
