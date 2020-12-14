@@ -238,5 +238,11 @@
 	{
 		"detailedDesc": "Don't worry, this is not an error!",
 		"ocr": [ "Scala files will not be recompiled" ]
+	},
+	{
+		"detailedDesc": "To fix this error, go to **Window** > **Preferences** > **Java** > **Compiler** > **Compiler compliance level** > **1.8**",
+		"fileAttachments": [ "type-mismatch-error.png" ],
+		"ocr": [ "add(int[][])", "ModelBlock(", "put(String, Map<String,String>)", "Type mismatch: cannot convert from List" ]
+		
 	}
 ]
