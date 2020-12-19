@@ -12,9 +12,12 @@ import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.CommandReload;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
+import org.golde.discordbot.shared.db.AbstractDBTranslation;
 import org.golde.discordbot.shared.db.FileUtil;
 import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.EventBase;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,6 +48,8 @@ public abstract class ESSBot {
 	public static final Gson GSON = new GsonBuilder().disableHtmlEscaping().serializeNulls().setPrettyPrinting().create();
 
 	private List<ICanHasDatabaseFile> databaseCallbacks = new ArrayList<ICanHasDatabaseFile>();
+	
+	private SessionFactory sessionFactory;
 
 	public void run() throws Exception {
 
@@ -108,6 +113,20 @@ public abstract class ESSBot {
 			}
 
 		}
+		
+		List<Class<? extends AbstractDBTranslation>> dbTranslations = new ArrayList<Class<? extends AbstractDBTranslation>>();
+		registerDatabaseTranslations(dbTranslations);
+		if(dbTranslations.size() > 0) {
+			//We should initalize the Mysql DB
+			System.out.println("Connecting to MYSQL...");
+			Configuration cfg = new Configuration();
+			
+			for(Class<? extends AbstractDBTranslation> translation : dbTranslations) {
+				cfg.addAnnotatedClass(translation);
+			}
+			
+			sessionFactory = cfg.configure().buildSessionFactory();
+		}
 
 		// start getting a bot account set up
 		JDABuilder builder = JDABuilder.createDefault(token, EnumSet.allOf(GatewayIntent.class))
@@ -158,6 +177,7 @@ public abstract class ESSBot {
 	public void registerChatModCommand(List<ChatModCommand> cmds){};
 	public void registerGuildModCommand(List<GuildModCommand> cmds){};
 	public void registerOwnerCommand(List<OwnerCommand> cmds){};
+	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {}
 
 	private void private_onLoad() {
 		onLoad();
@@ -201,6 +221,10 @@ public abstract class ESSBot {
 
 	public final EventWaiter getWaiter() {
 		return waiter;
+	}
+	
+	public final SessionFactory getMySQL() {
+		return sessionFactory;
 	}
 
 }

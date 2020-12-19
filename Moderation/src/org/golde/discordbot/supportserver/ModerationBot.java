@@ -7,6 +7,7 @@ import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
+import org.golde.discordbot.shared.db.AbstractDBTranslation;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.supportserver.command.chatmod.*;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
@@ -14,6 +15,7 @@ import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.BannedUrlsChecker;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
@@ -33,12 +35,12 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public String getPrefix() {
-		return ";";
+		return ".";
 	}
 
 	@Override
 	public void onLoad() {
-		Database.loadAllFromFile();
+
 	}
 
 	@Override
@@ -78,6 +80,12 @@ public class ModerationBot extends ESSBot {
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandRemoveAction(this));
 		//cmds.add(new CommandTest(this, getWaiter()));
+	}
+	
+	@Override
+	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {
+		dbt.add(Offence.class);
+		super.registerDatabaseTranslations(dbt);
 	}
 
 }

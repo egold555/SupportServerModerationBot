@@ -58,7 +58,7 @@ public class CommandKick extends GuildModCommand {
 	        
 	        final String reasonFinal = reason;
 	        
-	        Database.addOffence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.KICK, reason);
+	        Database.addOffence(bot, target.getIdLong(), event.getAuthor().getIdLong(), ModAction.KICK, reason);
 	        
 	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 	        		bot,

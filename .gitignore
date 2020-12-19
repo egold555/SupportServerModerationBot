@@ -81,3 +81,5 @@ Utilities/res/like-dislike-poll-channels.json
 Website/html/members/indexbackup.html
 
 Website/html/members/debug.log
+
+_Shared/src/hibernate.cfg.xml

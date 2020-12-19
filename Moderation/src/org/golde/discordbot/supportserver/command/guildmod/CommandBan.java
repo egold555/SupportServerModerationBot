@@ -61,7 +61,7 @@ public class CommandBan extends GuildModCommand {
 
 			final String reasonFinal = reason;
 
-			Database.addOffence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.BAN, reason);
+			Database.addOffence(bot, target.getIdLong(), event.getAuthor().getIdLong(), ModAction.BAN, reason);
 
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					bot,

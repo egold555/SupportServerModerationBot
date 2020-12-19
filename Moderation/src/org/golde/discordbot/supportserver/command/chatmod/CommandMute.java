@@ -62,7 +62,7 @@ public class CommandMute extends ChatModCommand {
 
 			event.getGuild().addRoleToMember(target, mutedRole).queue();
 
-			Database.addOffence(target.getIdLong(), member.getIdLong(), ModAction.MUTE, reason);
+			Database.addOffence(bot, target.getIdLong(), member.getIdLong(), ModAction.MUTE, reason);
 
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					bot,

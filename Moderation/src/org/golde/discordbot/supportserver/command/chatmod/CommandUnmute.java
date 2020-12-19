@@ -65,7 +65,7 @@ public class CommandUnmute extends ChatModCommand {
 
 			event.getGuild().removeRoleFromMember(target, mutedRole).queue();
 
-			Database.addOffence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.UNMUTE, reason);
+			Database.addOffence(bot, target.getIdLong(), event.getAuthor().getIdLong(), ModAction.UNMUTE, reason);
 
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					bot,

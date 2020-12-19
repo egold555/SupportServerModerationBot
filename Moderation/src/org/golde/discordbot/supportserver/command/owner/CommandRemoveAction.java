@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.supportserver.database.Database;
@@ -25,69 +26,71 @@ public class CommandRemoveAction extends OwnerCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-		TextChannel tc = event.getTextChannel();
-		Member target = getMember(event, args, 1);
-
-		if (args.isEmpty() || target == null) {
-			replyError(tc, "I could not find that person!");
-			return;
-		}
-
-		String enumValue = args.get(2).toUpperCase();
-
-		ModAction action = null;
-		try {
-			action = ModAction.valueOf(enumValue);
-		}
-		catch(Exception e) {
-			event.replyError("`" + enumValue + "` is not a valid enum. Please use KICK, BAN, MUTE, WARN");
-			return;
-		}
-
-		if(action == null) {
-			return;
-		}
-
-		int amount  = 1;
-
-		if(args.size() > 2) {
-			try {
-				amount = Integer.parseInt(args.get(3));
-			}
-			catch(NumberFormatException ignored){
-
-			}
-		}
-
-		//I need to go back to coding school and redo the fuck at out this bot
-		//worst way of getting this done, but fuck it I am the only user running the command and i just dont care rn
-		for(int i = 0; i < amount; i++) {
-			Database.removeOffence(target.getIdLong(), action);
-		}
-
-
-		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
-				bot,
-				ModAction.REMOVE, 
-				event.getAuthor(), 
-				new String[][] {
-					new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
-					new String[] {"Offence Removed:", enumValue},
-					new String[] {"Remove Count:", String.valueOf(amount)},
-					new String[] {"Current Offence Count:", Database.getUser(target.getIdLong()).getOffenceCount(action) + ""}
-				}
-				);
+		throw new NotImplementedException("Not implemented!");
+		
+//		TextChannel tc = event.getTextChannel();
+//		Member target = getMember(event, args, 1);
+//
+//		if (args.isEmpty() || target == null) {
+//			replyError(tc, "I could not find that person!");
+//			return;
+//		}
+//
+//		String enumValue = args.get(2).toUpperCase();
+//
+//		ModAction action = null;
+//		try {
+//			action = ModAction.valueOf(enumValue);
+//		}
+//		catch(Exception e) {
+//			event.replyError("`" + enumValue + "` is not a valid enum. Please use KICK, BAN, MUTE, WARN");
+//			return;
+//		}
+//
+//		if(action == null) {
+//			return;
+//		}
+//
+//		int amount  = 1;
+//
+//		if(args.size() > 2) {
+//			try {
+//				amount = Integer.parseInt(args.get(3));
+//			}
+//			catch(NumberFormatException ignored){
+//
+//			}
+//		}
+//
+//		//I need to go back to coding school and redo the fuck at out this bot
+//		//worst way of getting this done, but fuck it I am the only user running the command and i just dont care rn
+//		for(int i = 0; i < amount; i++) {
+//			Database.removeOffence(target.getIdLong(), action);
+//		}
 
 
-		ModLog.log(event.getGuild(), actionEmbed);
-
-		target.getUser().openPrivateChannel().queue((dmChannel) ->
-		{
-			dmChannel.sendMessage(actionEmbed).queue();
-
-		});
-
-		event.replySuccess("Successfully removed x" + amount + " of " + enumValue + " from " + target.getAsMention());
+//		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
+//				bot,
+//				ModAction.REMOVE, 
+//				event.getAuthor(), 
+//				new String[][] {
+//					new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
+//					new String[] {"Offence Removed:", enumValue},
+//					new String[] {"Remove Count:", String.valueOf(amount)},
+//					new String[] {"Current Offence Count:", Database.getUser(target.getIdLong()).getOffenceCount(action) + ""}
+//				}
+//				);
+//
+//
+//		ModLog.log(event.getGuild(), actionEmbed);
+//
+//		target.getUser().openPrivateChannel().queue((dmChannel) ->
+//		{
+//			dmChannel.sendMessage(actionEmbed).queue();
+//
+//		});
+//
+//		event.replySuccess("Successfully removed x" + amount + " of " + enumValue + " from " + target.getAsMention());
 
 	}
 

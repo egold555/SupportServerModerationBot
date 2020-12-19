@@ -55,7 +55,7 @@ public class IShouldNotEvenNeedThis extends AbstractMessageChecker {
 
 		guild.addRoleToMember(target, mutedRole).queue();
 
-		Database.addOffence(target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.MUTE, "[Auto Mute] Very offensive language.");
+		Database.addOffence(bot, target.getIdLong(), guild.getSelfMember().getIdLong(), ModAction.MUTE, "[Auto Mute] Very offensive language.");
 
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				bot,
