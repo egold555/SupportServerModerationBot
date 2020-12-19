@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Mon Dec 07 12:01:55 PST 2020
+//Generated: Thu Dec 10 13:01:41 PST 2020
 public class Channels {
 
     public static class BotDebugging {

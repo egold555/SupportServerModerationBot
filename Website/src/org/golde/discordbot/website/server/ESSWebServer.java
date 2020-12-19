@@ -7,8 +7,8 @@ import java.util.List;
 import org.golde.discordbot.website.server.routes.Page404;
 import org.golde.discordbot.website.server.routes.PageIndex;
 import org.golde.discordbot.website.server.routes.holiday.PageHolidayImages;
+import org.golde.discordbot.website.server.routes.pages.PageAllMembers;
 import org.golde.discordbot.website.server.routes.stats.PageGeneralStats;
-import org.golde.discordbot.website.server.routes.temp.PageAllMembers;
 
 import fi.iki.elonen.router.RouterNanoHTTPD;
 
@@ -45,7 +45,6 @@ public class ESSWebServer extends RouterNanoHTTPD {
 		
 		addRoute("/", PageIndex.class);
 		addRoute("/stats", PageGeneralStats.class);
-		addRoute("/holiday", PageHolidayImages.class);
 		addRoute("/members", PageAllMembers.class);
 	}
 	

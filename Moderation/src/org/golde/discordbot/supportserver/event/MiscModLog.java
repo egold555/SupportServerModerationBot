@@ -71,6 +71,12 @@ public class MiscModLog extends EventBase {
 			}
 		}
 		
+		for(Role r : changedRoles) {
+			if(r.getColorRaw() == 3092790) {
+				return;
+			}
+		}
+		
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				bot,
 				ModAction.ROLE_CHANGE, 
