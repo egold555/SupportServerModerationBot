@@ -10,6 +10,7 @@ import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.util.EnumReplyType;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -19,6 +20,24 @@ public abstract class EventBase extends ListenerAdapter {
 	protected final ESSBot bot;
 	public EventBase(@Nonnull ESSBot bot) {
 		this.bot = bot;
+	}
+	
+	protected static void tryToDmUser(Member member, MessageEmbed embed) {
+		tryToDmUser(member, embed, null);
+	}
+	protected static void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
+
+		member.getUser().openPrivateChannel().queue((dmChannel) ->
+		{
+			dmChannel.sendMessage(embed).queue();
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+		}, fail -> {
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+		});
 	}
 	
 	protected final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {

@@ -102,6 +102,7 @@ public class Database {
 	}
 
 	
+	@Deprecated
 	public static void addOffence(ESSBot bot, long snowflake, long moderator, ModAction action, String reason) {
 		Offence.addOffence(bot, new Offence(snowflake, moderator, action, reason));
 		//getUser(snowflake).addOffence(new Offence(action, new UserDataCache(moderator), reason, System.currentTimeMillis()));

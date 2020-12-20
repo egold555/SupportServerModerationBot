@@ -10,6 +10,7 @@ import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.constants.MiscConstants;
 import org.golde.discordbot.shared.constants.SSEmojis;
 import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
@@ -58,7 +59,9 @@ public class CommandKick extends GuildModCommand {
 	        
 	        final String reasonFinal = reason;
 	        
-	        Database.addOffence(bot, target.getIdLong(), event.getAuthor().getIdLong(), ModAction.KICK, reason);
+	        Long offenceId = Offence.addOffence(bot, new Offence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.KICK, reason));
+	        replySuccess(tc, "Entry added with id: " + offenceId);
+	       // Database.addOffence(bot, target.getIdLong(), event.getAuthor().getIdLong(), ModAction.KICK, reason);
 	        
 	        MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 	        		bot,
@@ -72,8 +75,7 @@ public class CommandKick extends GuildModCommand {
 	        ModLog.log(event.getGuild(), actionEmbed);
 	        
 	        
-	        event.getGuild().kick(target, String.format("Kick by: %#s, with reason: %s",
-	                event.getAuthor(), reasonFinal)).queue();
+	       
 	        
 	        //TODO: Add discord link back to the server
 	        target.getUser().openPrivateChannel().queue((dmChannel) ->
@@ -87,6 +89,9 @@ public class CommandKick extends GuildModCommand {
 		        });
 	        	
 	        });
+	        
+	        event.getGuild().kick(target, String.format("Kick by: %#s, with reason: %s",
+	                event.getAuthor(), reasonFinal)).queue();
 
 	        
 

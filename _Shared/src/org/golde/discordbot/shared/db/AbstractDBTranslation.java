@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class AbstractDBTranslation implements Serializable {
 	@ToString.Exclude 
 	@EqualsAndHashCode.Exclude
 	@Transient
-	protected ESSBot hiddenBotInstance;
+	@Setter protected ESSBot hiddenBotInstance;
 	
 	public final void update() {
 		Session session = hiddenBotInstance.getMySQL().openSession();

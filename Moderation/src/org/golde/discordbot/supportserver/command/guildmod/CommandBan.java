@@ -9,7 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.constants.SSEmojis;
-import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.Offence;
+import org.golde.discordbot.supportserver.util.DateUtil;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
@@ -24,7 +25,7 @@ public class CommandBan extends GuildModCommand {
 	public static final int DEL_DAYS = 7;
 
 	public CommandBan(@Nonnull ESSBot bot) {
-		super(bot, "obliterate", "<player> [reason]", "ban a player", "b", "ban", "taticalnuke", "nuke");
+		super(bot, "obliterate", "<player> [time] [reason]", "ban a player", "b", "ban", "taticalnuke", "nuke");
 	}
 
 	@Override
@@ -47,7 +48,21 @@ public class CommandBan extends GuildModCommand {
 			}
 
 
-			String reason = String.join(" ", args.subList(2, args.size()));
+			String timeString = args.get(2);
+			String reason;
+			Long timeUntilUnban = null;
+
+			if(timeString != null && !timeString.isEmpty() && Character.isDigit(timeString.charAt(0))) {
+				timeUntilUnban = DateUtil.parseDateDiff(timeString, true);
+				if(timeUntilUnban == null) {
+					replyError(tc, "Invalid date/time specified!", "Please use the following format: ");
+					return;
+				}
+				reason = String.join(" ", args.subList(3, args.size()));
+			}
+			else {
+				reason = String.join(" ", args.subList(2, args.size()));
+			}
 
 			if (!event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
@@ -61,31 +76,28 @@ public class CommandBan extends GuildModCommand {
 
 			final String reasonFinal = reason;
 
-			Database.addOffence(bot, target.getIdLong(), event.getAuthor().getIdLong(), ModAction.BAN, reason);
-
+			Long offenceId = Offence.addOffence(bot, new Offence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.BAN, reason, timeUntilUnban));
+			
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					bot,
 					ModAction.BAN, 
 					event.getAuthor(), 
 					new String[][] {
 						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
-						new String[] {"Reason:", StringUtils.abbreviate(reason, 250)}
+						new String[] {"Reason:", StringUtils.abbreviate(reason, 250)},
+						new String[] {"Expires:", timeUntilUnban != null ? StringUtils.abbreviate(DateUtil.formatDateDiff(timeUntilUnban), 250) : "Not specified"},
+						new String[] {"Offence ID:", Long.toString(offenceId)}
 					}
 					);
 
 			ModLog.log(event.getGuild(), actionEmbed);
 			
+			tryToDmUser(target, actionEmbed);
+			
 			event.getGuild().ban(target, DEL_DAYS, String.format("Banned by: %#s, with reason: %s",
 					event.getAuthor(), reasonFinal)).queue();
 
-			target.getUser().openPrivateChannel().queue((dmChannel) ->
-			{
-				dmChannel.sendMessage(actionEmbed).queue((unused1) ->
-				{
-					
-				});
-
-			});
+			
 
 			tc.sendMessage(SSEmojis.TATICAL_NUKE_INCOMING + " **Tatical Nuke, incoming!** " + SSEmojis.TATICAL_NUKE_INCOMING).queue(onSuccess -> {
 				replySuccess(tc, "Successfully obliterated " + target.getAsMention() + " from ESS with the reason '**" + StringUtils.abbreviate(reasonFinal, 250) + "**'!");

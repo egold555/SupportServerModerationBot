@@ -48,6 +48,23 @@ public abstract class BaseCommand extends Command {
 	protected String getHelpReply() {
 		return bot.getPrefix() + this.name + " " + this.arguments;
 	}
+	protected void tryToDmUser(Member member, MessageEmbed embed) {
+		tryToDmUser(member, embed, null);
+	}
+	protected void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
+
+		member.getUser().openPrivateChannel().queue((dmChannel) ->
+		{
+			dmChannel.sendMessage(embed).queue();
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+		}, fail -> {
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+		});
+	}
 
 	/**
 	 * Gets a member from a given String array and index
@@ -66,7 +83,7 @@ public abstract class BaseCommand extends Command {
 			id = id.replace("<@!", "").replace(">", "").trim();
 
 			//System.out.println(id);
-			
+
 			return guild.getMemberById(id);
 
 		}
@@ -74,7 +91,7 @@ public abstract class BaseCommand extends Command {
 
 		return null;
 	}
-	
+
 	protected final EmbedBuilder getReplyEmbedRaw(EnumReplyType type, String title, String desc) {
 
 		EmbedBuilder builder = new EmbedBuilder();
@@ -94,9 +111,13 @@ public abstract class BaseCommand extends Command {
 	protected final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
 		return getReplyEmbedRaw(type, title, desc).build();
 	}
-	
+
 	protected void reply(MessageChannel channel, EmbedBuilder builder) {
-		channel.sendMessage(builder.build()).queue();
+		reply(channel, builder.build());
+	}
+	
+	protected void reply(MessageChannel channel, MessageEmbed embed) {
+		channel.sendMessage(embed).queue();
 	}
 
 	private void reply(MessageChannel channel, EnumReplyType type, String title, String desc) {

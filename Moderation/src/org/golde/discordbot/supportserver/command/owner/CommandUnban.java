@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.chatmod;
+package org.golde.discordbot.supportserver.command.owner;
 
 import java.util.List;
 
@@ -7,9 +7,12 @@ import javax.annotation.Nonnull;
 import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
+import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.constants.SSEmojis;
+import org.golde.discordbot.supportserver.ModerationBot;
 import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.MuteManager;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -22,50 +25,46 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class CommandUnmute extends ChatModCommand {
+public class CommandUnban extends OwnerCommand {
 
-	public CommandUnmute(@Nonnull ESSBot bot) {
-		super(bot, "unmute", "<player> [reason]", "unmute a player", "um");
+	public CommandUnban(@Nonnull ESSBot bot) {
+		super(bot, "unban", "<player> [reason]", "unban a player", "ub");
 	}
 
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
 		TextChannel tc = event.getTextChannel();
-		Member member = event.getMember();
 
 		if(event.getArgs().isEmpty())
 		{
-			replyError(tc, "Please provide the name of a player to unmute!");
+			replyError(tc, "Please provide the name of a player to unban!");
 			return;
 		}
 		else {
 
 
-			Member target = getMember(event, args, 1);
+			long target = Long.parseLong(args.get(1));
 
-			if (args.isEmpty() || target == null) {
-				replyError(tc, "I could not find that person!");
-				return;
-			}
 			String reason = String.join(" ", args.subList(2, args.size()));
-
-
-
-			if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target)) {
-				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
-				return;
-			}
-
 
 			if(reason == null || reason.isEmpty()) {
 				reason = "No reason provided.";
 			}
 
-			reply(tc, MuteManager.unmuteUser(bot, target.getIdLong(), event.getMember().getIdLong(), reason));
-
-
-
+			Long offenceId = Offence.addOffence(bot, new Offence(target, event.getMember().getIdLong(), ModAction.UNBAN, reason));
+			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
+					bot,
+					ModAction.UNBAN, 
+					event.getMember().getUser(), 
+					new String[][] {
+						new String[] {"Offender: ", "<@" + target + ">"}, 
+						new String[] {"Reason:", reason},
+						new String[] {"Offence ID:", Long.toString(offenceId)},
+					}
+					);
+			ModLog.log(event.getGuild(), actionEmbed);
+			event.getGuild().unban(Long.toString(target)).queue();
 		}
 	}
 
