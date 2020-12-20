@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.util;
+package org.golde.discordbot.shared.util;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

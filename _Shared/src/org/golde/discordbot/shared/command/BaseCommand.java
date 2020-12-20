@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.util.EnumReplyType;
+import org.golde.discordbot.shared.util.NotImplementedException;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -259,8 +260,12 @@ public abstract class BaseCommand extends Command {
 
 		//delete their command
 		//event.getMessage().delete().queue();
-
-		execute(event, toPass);
+		try {
+			execute(event, toPass);
+		}
+		catch(NotImplementedException nie) {
+			replyError(event.getChannel(), "Uh oh :(", "Looks like Eric hasn't implemented this command yet! Yikes.");
+		}
 
 	}
 

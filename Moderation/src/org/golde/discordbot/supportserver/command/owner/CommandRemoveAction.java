@@ -4,18 +4,11 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
-import org.golde.discordbot.supportserver.database.Database;
-import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.ModLog.ModAction;
+import org.golde.discordbot.shared.util.NotImplementedException;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
-
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandRemoveAction extends OwnerCommand {
 
@@ -26,7 +19,7 @@ public class CommandRemoveAction extends OwnerCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-		throw new NotImplementedException("Not implemented!");
+		throw new NotImplementedException("Command not implemented yet.");
 		
 //		TextChannel tc = event.getTextChannel();
 //		Member target = getMember(event, args, 1);

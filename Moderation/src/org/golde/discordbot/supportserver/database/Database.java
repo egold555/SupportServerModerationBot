@@ -7,10 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-
-import org.golde.discordbot.shared.ESSBot;
-import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -99,19 +95,6 @@ public class Database {
 
 		return null;
 
-	}
-
-	
-	@Deprecated
-	public static void addOffence(ESSBot bot, long snowflake, long moderator, ModAction action, String reason) {
-		Offence.addOffence(bot, new Offence(snowflake, moderator, action, reason));
-		//getUser(snowflake).addOffence(new Offence(action, new UserDataCache(moderator), reason, System.currentTimeMillis()));
-//		saveToFile(USERS, USERS_FILE);
-	}
-	
-	public static void removeOffence(long snowflake, ModAction action) {
-//		getUser(snowflake).removeLastOffence(action);
-//		saveToFile(USERS, USERS_FILE);
 	}
 
 	public static <T> T jsonFile2JavaObject(String file, Class<T> clazz) {
