@@ -24,7 +24,6 @@ import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
 import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
 import org.golde.discordbot.supportserver.database.Offence;
-import org.golde.discordbot.supportserver.event.BannedUrlsChecker;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
@@ -53,7 +52,6 @@ public class ModerationBot extends ESSBot {
 	@Override
 	public void registerEventListeners(List<EventBase> events) {
 		events.add(new IPGrabberPrevention(this));
-		events.add(new BannedUrlsChecker(this));
 		events.add(new MiscModLog(this));
 		events.add(new TryToFindIntrestingFiles(this));
 		events.add(new StopChattingInTheWrongChannelsPls(this));
