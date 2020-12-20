@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.guildmod.GuildModCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
-import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.db.AbstractDBTranslation;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.supportserver.command.chatmod.CommandAddBlockedUrl;
@@ -29,20 +27,17 @@ import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.BannedUrlsChecker;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
-import org.golde.discordbot.supportserver.event.MuteManager;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
-import org.golde.discordbot.supportserver.event.IShouldNotEvenNeedThis;
 import org.golde.discordbot.supportserver.event.MiscModLog;
+import org.golde.discordbot.supportserver.event.MuteManager;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
 import org.golde.discordbot.supportserver.event.TryToFindIntrestingFiles;
-import org.golde.discordbot.supportserver.util.DateUtil;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.Role;
 
 public class ModerationBot extends ESSBot {
 
@@ -59,7 +54,6 @@ public class ModerationBot extends ESSBot {
 	public void registerEventListeners(List<EventBase> events) {
 		events.add(new IPGrabberPrevention(this));
 		events.add(new BannedUrlsChecker(this));
-		events.add(new IShouldNotEvenNeedThis(this));
 		events.add(new MiscModLog(this));
 		events.add(new TryToFindIntrestingFiles(this));
 		events.add(new StopChattingInTheWrongChannelsPls(this));
