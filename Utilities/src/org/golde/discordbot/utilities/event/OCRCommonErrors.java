@@ -2,9 +2,7 @@ package org.golde.discordbot.utilities.event;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;

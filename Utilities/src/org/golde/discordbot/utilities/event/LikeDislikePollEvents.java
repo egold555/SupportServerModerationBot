@@ -73,7 +73,7 @@ public class LikeDislikePollEvents extends AbstractMessageChecker implements ICa
 	@Override
 	public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
 		
-		Guild g = event.getGuild();
+		//Guild g = event.getGuild();
 		TextChannel tc = event.getChannel();
 		
 		if(event.getUser().isBot() || event.getUser().isFake()) {

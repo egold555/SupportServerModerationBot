@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.golde.discordbot.website.server.routes.Page404;
 import org.golde.discordbot.website.server.routes.PageIndex;
-import org.golde.discordbot.website.server.routes.holiday.PageHolidayImages;
 import org.golde.discordbot.website.server.routes.pages.PageAllMembers;
 import org.golde.discordbot.website.server.routes.stats.PageGeneralStats;
 

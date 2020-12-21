@@ -1,16 +1,13 @@
 package org.golde.discordbot.utilities.crash;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
 
 import org.golde.discordbot.utilities.crash.CrashReport.Stacktrace;
 

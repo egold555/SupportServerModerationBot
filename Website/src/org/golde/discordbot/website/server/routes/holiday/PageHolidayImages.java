@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.golde.discordbot.website.WebsiteBot;
 import org.golde.discordbot.website.server.routes.base.AbstractJsonResponse;
@@ -17,9 +15,9 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.MessageReaction;
-import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
 
 public class PageHolidayImages extends AbstractJsonResponse {

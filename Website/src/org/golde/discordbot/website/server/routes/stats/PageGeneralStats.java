@@ -17,7 +17,6 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.RichPresence.Image;
 
 public class PageGeneralStats extends AbstractJsonResponse {
 

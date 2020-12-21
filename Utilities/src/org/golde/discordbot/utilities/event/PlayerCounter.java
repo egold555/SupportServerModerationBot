@@ -4,14 +4,12 @@ import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.event.EventBase;
 
-import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 
@@ -54,19 +52,19 @@ public class PlayerCounter extends EventBase {
 		vc.getManager().setName("Total Members: " + getTotalMemberCount(g)).queue();
 	}
 	
-	private int[] getMemberTotalCount(Guild g) {
-		int am[] = {0, 0};
-		for(Member m : g.getMemberCache().asSet()) {
-			
-			if(!m.getUser().isBot()) {
-				am[0]++;
-				if(m.getOnlineStatus() != OnlineStatus.OFFLINE && m.getOnlineStatus() != OnlineStatus.INVISIBLE && m.getOnlineStatus() != OnlineStatus.UNKNOWN) {
-					am[1]++;
-				}
-			}
-		}
-		return am;
-	}
+//	private int[] getMemberTotalCount(Guild g) {
+//		int am[] = {0, 0};
+//		for(Member m : g.getMemberCache().asSet()) {
+//			
+//			if(!m.getUser().isBot()) {
+//				am[0]++;
+//				if(m.getOnlineStatus() != OnlineStatus.OFFLINE && m.getOnlineStatus() != OnlineStatus.INVISIBLE && m.getOnlineStatus() != OnlineStatus.UNKNOWN) {
+//					am[1]++;
+//				}
+//			}
+//		}
+//		return am;
+//	}
 	
 	private int getTotalMemberCount(Guild g) {
 		int toReturn = 0;
