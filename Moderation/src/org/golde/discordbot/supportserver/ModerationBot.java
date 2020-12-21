@@ -110,7 +110,7 @@ public class ModerationBot extends ESSBot {
 
 
 					List<Offence> exiredOffences = Offence.getExpiredOffences(ModerationBot.this);
-					System.out.println("Tick: " + exiredOffences.size());
+					//System.out.println("Tick: " + exiredOffences.size());
 
 					for(Offence off : exiredOffences) {
 
