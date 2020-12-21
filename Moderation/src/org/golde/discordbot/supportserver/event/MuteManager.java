@@ -132,7 +132,7 @@ public class MuteManager extends AbstractMessageChecker implements ICanHasDataba
 				);
 
 		ModLog.log(g, actionEmbed);
-		tryToDmUser(g.getMemberById(offender), actionEmbed, null);
+		tryToDmUser(g.getMemberById(offender), actionEmbed);
 		return actionEmbed;
 	}
 

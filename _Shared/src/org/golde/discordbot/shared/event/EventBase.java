@@ -22,10 +22,10 @@ public abstract class EventBase extends ListenerAdapter {
 		this.bot = bot;
 	}
 	
-	protected void tryToDmUser(Member member, MessageEmbed embed) {
+	protected static void tryToDmUser(Member member, MessageEmbed embed) {
 		tryToDmUser(member, embed, null);
 	}
-	protected void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
+	protected static void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
 
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
@@ -38,10 +38,10 @@ public abstract class EventBase extends ListenerAdapter {
 		});
 	}
 
-	protected void tryToDmUser(Member member, String msg) {
+	protected static void tryToDmUser(Member member, String msg) {
 		tryToDmUser(member, msg, null);
 	}
-	protected void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
+	protected static void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
 
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{

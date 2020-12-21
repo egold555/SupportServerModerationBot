@@ -20,6 +20,7 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
+import org.golde.discordbot.supportserver.command.owner.CommandConvertOldDatabase;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
 import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.database.old.OLDParser;
@@ -83,6 +84,7 @@ public class ModerationBot extends ESSBot {
 	@Override
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandUnban(this));
+		cmds.add(new CommandConvertOldDatabase(this));
 		//cmds.add(new CommandRemoveAction(this));
 	}
 
@@ -96,8 +98,6 @@ public class ModerationBot extends ESSBot {
 	@Override
 	public void onReady() {
 		startExpireTimerForOffences();
-		//OLDParser.go(this);
-	
 	}
 
 	private void startExpireTimerForOffences() {
