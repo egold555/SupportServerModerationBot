@@ -48,7 +48,7 @@ public abstract class BaseCommand extends Command {
 	protected String getHelpReply() {
 		return bot.getPrefix() + this.name + " " + this.arguments;
 	}
-	
+
 	protected void tryToDmUser(Member member, MessageEmbed embed) {
 		tryToDmUser(member, embed, null);
 	}
@@ -56,17 +56,15 @@ public abstract class BaseCommand extends Command {
 
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
-			dmChannel.sendMessage(embed).queue();
-			if(onFinishedTrying != null) {
-				onFinishedTrying.run();
-			}
+			dmChannel.sendMessage(embed).queue(sucess -> {if(onFinishedTrying != null) {onFinishedTrying.run();}}, fail -> {if(onFinishedTrying != null) {onFinishedTrying.run();}});
+
 		}, fail -> {
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();
 			}
 		});
 	}
-	
+
 	protected void tryToDmUser(Member member, String msg) {
 		tryToDmUser(member, msg, null);
 	}
@@ -74,10 +72,8 @@ public abstract class BaseCommand extends Command {
 
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
-			dmChannel.sendMessage(msg).queue();
-			if(onFinishedTrying != null) {
-				onFinishedTrying.run();
-			}
+			dmChannel.sendMessage(msg).queue(sucess -> {if(onFinishedTrying != null) {onFinishedTrying.run();}}, fail -> {if(onFinishedTrying != null) {onFinishedTrying.run();}});
+
 		}, fail -> {
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();
@@ -107,18 +103,18 @@ public abstract class BaseCommand extends Command {
 
 		return null;
 	}
-	
+
 	@Deprecated
 	protected Member getMemberOLD(CommandEvent event, List<String> args, int expecting) {
-		
+
 		Long member = getMember(event, args, expecting);
-		
+
 		if(member == null) {
 			return null;
 		}
-		
+
 		return event.getGuild().getMemberById(member);
-		
+
 	}
 
 	protected final EmbedBuilder getReplyEmbedRaw(EnumReplyType type, String title, String desc) {
@@ -144,7 +140,7 @@ public abstract class BaseCommand extends Command {
 	protected void reply(MessageChannel channel, EmbedBuilder builder) {
 		reply(channel, builder.build());
 	}
-	
+
 	protected void reply(MessageChannel channel, MessageEmbed embed) {
 		channel.sendMessage(embed).queue();
 	}

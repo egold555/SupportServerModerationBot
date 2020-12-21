@@ -22,22 +22,31 @@ public abstract class EventBase extends ListenerAdapter {
 		this.bot = bot;
 	}
 	
-	protected static void tryToDmUser(Member member, MessageEmbed embed) {
+	protected void tryToDmUser(Member member, MessageEmbed embed) {
 		tryToDmUser(member, embed, null);
 	}
-	protected static void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
+	protected void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
 
-		if(member == null) {
-			onFinishedTrying.run();
-			return;
-		}
-		
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
-			dmChannel.sendMessage(embed).queue();
+			dmChannel.sendMessage(embed).queue(sucess -> {if(onFinishedTrying != null) {onFinishedTrying.run();}}, fail -> {if(onFinishedTrying != null) {onFinishedTrying.run();}});
+
+		}, fail -> {
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();
 			}
+		});
+	}
+
+	protected void tryToDmUser(Member member, String msg) {
+		tryToDmUser(member, msg, null);
+	}
+	protected void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
+
+		member.getUser().openPrivateChannel().queue((dmChannel) ->
+		{
+			dmChannel.sendMessage(msg).queue(sucess -> {if(onFinishedTrying != null) {onFinishedTrying.run();}}, fail -> {if(onFinishedTrying != null) {onFinishedTrying.run();}});
+
 		}, fail -> {
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();

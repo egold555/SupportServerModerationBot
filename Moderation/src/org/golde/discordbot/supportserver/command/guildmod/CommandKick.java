@@ -1,6 +1,7 @@
 package org.golde.discordbot.supportserver.command.guildmod;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
@@ -22,7 +23,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class CommandKick extends GuildModCommand {
 
 	public CommandKick(@Nonnull ESSBot bot) {
-		super(bot, "kick", "<player> [reason]", "kick a player", "k");
+		super(bot, "dropkick", "<player> [reason]", "kick a player", "kick", "k");
 	}
 
 	@Override
@@ -86,8 +87,11 @@ public class CommandKick extends GuildModCommand {
 
 
 
-			replySuccess(tc, "Successfully kicked <@" + targetId + "> for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
-
+			tc.sendMessage(SSEmojis.SOCCER_BALL + " **Drop kick commencing**").queue(onSuccess -> {
+				replySuccess(tc, "Successfully dropkicked <@" + targetId + "> from ESS with the reason '**" + StringUtils.abbreviate(reasonFinal, 250) + "**'!");
+				tc.sendMessage("https://tenor.com/view/was-geht-gif-19260162").queueAfter(2, TimeUnit.SECONDS);
+			});
+			
 
 
 		}

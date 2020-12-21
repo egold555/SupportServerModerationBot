@@ -27,4 +27,6 @@ public class SSEmojis {
 	
 	public static final String TATICAL_NUKE_INCOMING = "<a:tatical_nuke_incoming:760344337782931467>";
 	
+	public static final String SOCCER_BALL = "\u26bd";
+	
 }
