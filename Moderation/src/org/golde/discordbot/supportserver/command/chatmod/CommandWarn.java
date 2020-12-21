@@ -27,7 +27,7 @@ public class CommandWarn extends ChatModCommand {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-		Member member = event.getMember();
+		//Member member = event.getMember();
 		TextChannel tc = event.getTextChannel();
 
 		Long targetId = getMember(event, args, 1);

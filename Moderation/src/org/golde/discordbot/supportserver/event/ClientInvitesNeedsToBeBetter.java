@@ -102,6 +102,7 @@ public class ClientInvitesNeedsToBeBetter extends EventBase implements ICanHasDa
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void reload() {
 		alreadyUsedServers.clear();

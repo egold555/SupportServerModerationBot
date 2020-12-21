@@ -1,8 +1,6 @@
 package org.golde.discordbot.supportserver;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
@@ -21,7 +19,6 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
-import org.golde.discordbot.supportserver.command.owner.CommandRemoveAction;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
 import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
@@ -83,8 +80,7 @@ public class ModerationBot extends ESSBot {
 	@Override
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandUnban(this));
-		cmds.add(new CommandRemoveAction(this));
-		//cmds.add(new CommandTest(this, getWaiter()));
+		//cmds.add(new CommandRemoveAction(this));
 	}
 
 	@Override

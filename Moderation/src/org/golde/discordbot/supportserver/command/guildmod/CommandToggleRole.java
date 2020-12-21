@@ -11,7 +11,6 @@ import org.golde.discordbot.shared.constants.SSEmojis;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -54,7 +53,7 @@ public class CommandToggleRole extends GuildModCommand {
 		
 		TextChannel tc = event.getTextChannel();
 		Member member = event.getMember();
-		Guild g = event.getGuild();
+		//Guild g = event.getGuild();
 		
 		Long targetId = getMember(event, args, 2);
 		

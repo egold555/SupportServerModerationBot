@@ -12,11 +12,11 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.vdurmont.emoji.EmojiManager;
 
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandTest extends OwnerCommandDangerous {
 
+	@SuppressWarnings("unused")
 	private final EventWaiter waiter;
 
 	public CommandTest(@Nonnull ESSBot bot, EventWaiter waiter) {
@@ -27,7 +27,7 @@ public class CommandTest extends OwnerCommandDangerous {
 	@Override
 	protected void execute(CommandEvent event, List<String> args) {
 
-		Guild g = event.getGuild();
+		//Guild g = event.getGuild();
 
 		TextChannel tc = event.getTextChannel();
 

@@ -2,7 +2,6 @@ package org.golde.discordbot.supportserver.util;
 
 import java.time.Instant;
 
-import org.golde.discordbot.supportserver.ModerationBot;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;
 

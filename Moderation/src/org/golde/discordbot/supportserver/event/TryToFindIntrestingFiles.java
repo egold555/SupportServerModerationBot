@@ -34,7 +34,7 @@ public class TryToFindIntrestingFiles extends AbstractMessageChecker {
 		}
 
 		String theMsg = msg.getContentStripped();
-		Guild g = msg.getGuild();
+		//Guild g = msg.getGuild();
 
 		//System.out.println("Got: " + msg.getContentStripped() + " -- " + sender.getEffectiveName());
 

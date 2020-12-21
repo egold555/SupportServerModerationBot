@@ -9,32 +9,32 @@
 	<classpathentry kind="lib" path="../_Shared/lib/emoji-java-5.1.1.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/gson-2.8.6.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/lombok.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/JDA-4.2.0_168-withDependencies.jar" sourcepath="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/JDA/JDA-4.2.0_168-sources.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/JDA-4.2.0_168-withDependencies.jar" sourcepath="../_Shared/lib/JDA/JDA-4.2.0_168-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/Moderation/lib/CommonLang/commons-lang3-3.11.jar" sourcepath="C:/Users/eric/Documents/Projects/Discord Support Server Bots/Moderation/lib/CommonLang/commons-lang3-3.11-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/eric/Documents/Projects/Discord%20Support%20Server%20Bots/Moderation/lib/CommonLang/commons-lang3-3.11-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/mysql-connector-java-8.0.22.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/agroal-api-1.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/agroal-pool-1.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/antlr-2.7.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/byte-buddy-1.10.17.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/classmate-1.5.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/dom4j-2.1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/FastInfoset-1.2.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/hibernate-commons-annotations-5.1.2.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/hibernate-core-5.4.26.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/istack-commons-runtime-3.0.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/jandex-2.1.3.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/javassist-3.27.0-GA.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/javax.activation-api-1.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/javax.persistence-api-2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/jaxb-api-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/jaxb-runtime-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/jboss-logging-3.4.1.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/jboss-transaction-api_1.2_spec-1.1.1.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/stax-ex-1.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/Documents/Projects/Discord Support Server Bots/_Shared/lib/mysql/hybernate/txw2-2.3.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/mysql-connector-java-8.0.22.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/agroal-api-1.9.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/agroal-pool-1.9.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/byte-buddy-1.10.17.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/classmate-1.5.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/dom4j-2.1.3.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/FastInfoset-1.2.15.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/hibernate-commons-annotations-5.1.2.Final.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/hibernate-core-5.4.26.Final.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/istack-commons-runtime-3.0.7.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/jandex-2.1.3.Final.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/javassist-3.27.0-GA.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/javax.activation-api-1.2.0.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/javax.persistence-api-2.2.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/jaxb-runtime-2.3.1.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/jboss-logging-3.4.1.Final.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/jboss-transaction-api_1.2_spec-1.1.1.Final.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/stax-ex-1.8.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/mysql/hybernate/txw2-2.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
