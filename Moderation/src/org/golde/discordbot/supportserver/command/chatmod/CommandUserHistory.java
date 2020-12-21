@@ -16,11 +16,12 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class CommandUserHistory extends ChatModCommand {
 
 	public CommandUserHistory(@Nonnull ESSBot bot) {
-		super(bot, "userHistory", "<player> [specific | ALL]", "Shows you the players history of bans/kicks/mutes/warns", "uh");
+		super(bot, "userHistory", "<player> [BAN | WARN | MUTE | KICK | ALL]", "Shows you the players history of bans/kicks/mutes/warns", "uh");
 	}
 
 	@Override
@@ -37,11 +38,29 @@ public class CommandUserHistory extends ChatModCommand {
 			replyError(tc, getHelpReply());
 			return;
 		}
-		
+
 		if(target == null) {
 			replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
+			
+			bot.getJda().retrieveUserById(targetId).queue(
+					newUser -> {
+						doThing(event, args, g, tc, targetId, newUser);
+					}, 
+					fail -> {
+						doThing(event, args, g, tc, targetId, null);
+					});
+			
+		}
+		else {
+			doThing(event, args, g, tc, targetId, target.getUser());
 		}
 
+		
+
+
+	}
+	
+	void doThing(CommandEvent event, List<String> args, Guild g, TextChannel tc, Long targetId, User user) {
 		if(args.size() == 2) {
 			EmbedBuilder builder = new EmbedBuilder();
 
@@ -55,11 +74,14 @@ public class CommandUserHistory extends ChatModCommand {
 			builder.setTimestamp(Instant.now());
 			builder.setFooter(bot.getJda().getSelfUser().getAsTag(), bot.getJda().getSelfUser().getAvatarUrl());
 
-			if(target != null) {
-				builder.setAuthor(target.getUser().getAsTag());
-				builder.setThumbnail(target.getUser().getEffectiveAvatarUrl());
+			if(user != null) {
+				builder.setAuthor(user.getAsTag());
+				builder.setThumbnail(user.getEffectiveAvatarUrl());
 			}
 			else {
+
+				
+
 				//default avatar if we could not find it. Maybe we save this in the database?
 				builder.setAuthor(targetId.toString());
 				builder.setThumbnail("https://cdn.discordapp.com/embed/avatars/3.png");
@@ -93,7 +115,7 @@ public class CommandUserHistory extends ChatModCommand {
 				for(Offence o : Offence.getAllOffences(bot, targetId)) {
 					csv.append(o.getAsCSVLine(g));
 				}
-				
+
 			}
 			else {
 				ModAction action = null;
@@ -104,19 +126,17 @@ public class CommandUserHistory extends ChatModCommand {
 					replyError(tc, "Unknown specific: " + specific);
 					return;
 				}
-				
+
 				for(Offence o : Offence.getTotalOffencesByCategory(bot, targetId, action)) {
 					csv.append(o.getAsCSVLine(g));
 				}
-				
+
 			}
 
 			tc.sendFile(csv.toString().getBytes(), targetId + ".csv").queue();;
 			replySuccess(tc, "Generated a CSV file for the following infractions: " + specific + ".");
 
 		}
-
-
 	}
 
 }
