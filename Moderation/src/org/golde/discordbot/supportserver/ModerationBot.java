@@ -46,7 +46,7 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public String getPrefix() {
-		return ".";
+		return ";";
 	}
 
 	@Override
