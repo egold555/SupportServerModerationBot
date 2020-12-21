@@ -4,12 +4,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.constants.SSEmojis;
-import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.util.ModLog;
 import org.golde.discordbot.supportserver.util.ModLog.ModAction;
@@ -32,18 +30,20 @@ public class CommandWarn extends ChatModCommand {
 		Member member = event.getMember();
 		TextChannel tc = event.getTextChannel();
 
-		if(event.getArgs().isEmpty())
+		Long targetId = getMember(event, args, 1);
+
+		if(args.isEmpty() || targetId == null)
 		{
 			event.replyError("Please provide the name of a player to mute!");
 			return;
 		}
 		else {
 
-			Member target = getMember(event, args, 1);
-			
-			if (args.isEmpty() || target == null) {
-				replyError(tc, "I could not find that person!");
-				return;
+			Member target = event.getGuild().getMemberById(targetId);
+
+
+			if(target == null) {
+				replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
 			}
 
 			String reason = String.join(" ", args.subList(2, args.size()));
@@ -52,19 +52,19 @@ public class CommandWarn extends ChatModCommand {
 				reason = "No reason provided.";
 			}
 
-			if (!event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
+			if (target != null && !event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}
 
-			Long offenceId = Offence.addOffence(bot, new Offence(target.getIdLong(), event.getMember().getIdLong(), ModAction.WARN, reason));
+			Long offenceId = Offence.addOffence(bot, new Offence(targetId, event.getMember().getIdLong(), ModAction.WARN, reason));
 
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					bot,
 					ModAction.WARN, 
 					event.getAuthor(), 
 					new String[][] {
-						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
+						new String[] {"Offender: ", "<@" + targetId + ">"}, 
 						new String[] {"Reason:", StringUtils.abbreviate(reason, 250)},
 						//new String[] {"Warn Count:", Database.getUser(target.getIdLong()).getAmountOfWarns() + ""},
 						new String[] {"Offence ID:", Long.toString(offenceId)}
@@ -74,9 +74,11 @@ public class CommandWarn extends ChatModCommand {
 
 			ModLog.log(event.getGuild(), actionEmbed);
 
-			tryToDmUser(target, actionEmbed);
+			if(target != null) {
+				tryToDmUser(target, actionEmbed);
+			}
 
-			replySuccess(tc, "Successfully warned " + target.getAsMention() + " for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
+			replySuccess(tc, "Successfully warned <@" + targetId + "> for '**" + StringUtils.abbreviate(reason, 250) + "**'!");
 
 		}
 

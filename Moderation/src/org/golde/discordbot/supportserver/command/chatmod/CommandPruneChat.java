@@ -39,7 +39,7 @@ public class CommandPruneChat extends ChatModCommand {
 		TextChannel tc = event.getTextChannel();
 		//Member member = event.getMember();
 
-		if(event.getArgs().isEmpty())
+		if(args.isEmpty())
 		{
 			replyError(tc, "You must add a number after Prune command to delete an amount of messages.");
 			return;

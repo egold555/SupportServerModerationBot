@@ -27,20 +27,25 @@ public class CommandMute extends ChatModCommand {
 
 		TextChannel tc = event.getTextChannel();
 		Member member = event.getMember();
+		
+		Long targetId = getMember(event, args, 1);
 
-		if(event.getArgs().isEmpty())
+		if(args.isEmpty() || targetId == null)
 		{
 			replyError(tc, "Please provide the name of a player to mute!");
 			return;
 		}
 		else {
+			
+			Member target = event.getGuild().getMemberById(targetId);
 
-			Member target = getMember(event, args, 1);
 
-			if (args.isEmpty() || target == null) {
-				replyError(tc, "I could not find that person!");
+			if(target == null) {
+				replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
+				replyError(tc, "The user must be online to preform this command.");
 				return;
 			}
+
 
 			String timeString = args.get(2);
 			String reason;
@@ -59,7 +64,7 @@ public class CommandMute extends ChatModCommand {
 			}
 
 
-			if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target)) {
+			if (target != null && (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target))) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}
@@ -68,7 +73,7 @@ public class CommandMute extends ChatModCommand {
 				reason = "No reason provided.";
 			}
 
-			this.reply(tc, MuteManager.muteUser(bot, target.getIdLong(), event.getMember().getIdLong(), reason, timeUntilUnmute));
+			this.reply(tc, MuteManager.muteUser(bot, targetId, event.getMember().getIdLong(), reason, timeUntilUnmute));
 
 
 		}

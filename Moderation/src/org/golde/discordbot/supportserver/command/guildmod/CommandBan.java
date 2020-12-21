@@ -33,20 +33,21 @@ public class CommandBan extends GuildModCommand {
 
 		TextChannel tc = event.getTextChannel();
 
-		if(event.getArgs().isEmpty())
+		Long targetId = getMember(event, args, 1);
+		
+		if(args.isEmpty() || targetId == null)
 		{
 			replyError(tc, "Please provide the name of a player to obliterate ;)");
 			return;
 		}
 		else {
 
-			Member target = getMember(event, args, 1);
+			Member target = event.getGuild().getMemberById(targetId);
+			
 
-			if (target == null) {
-				replyError(tc, "I could not find that person!");
-				return;
+			if(target == null) {
+				replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
 			}
-
 
 			String timeString = args.get(2);
 			String reason;
@@ -64,7 +65,7 @@ public class CommandBan extends GuildModCommand {
 				reason = String.join(" ", args.subList(2, args.size()));
 			}
 
-			if (!event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
+			if (target != null && !event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}
@@ -76,14 +77,14 @@ public class CommandBan extends GuildModCommand {
 
 			final String reasonFinal = reason;
 
-			Long offenceId = Offence.addOffence(bot, new Offence(target.getIdLong(), event.getAuthor().getIdLong(), ModAction.BAN, reason, timeUntilUnban));
+			Long offenceId = Offence.addOffence(bot, new Offence(targetId, event.getAuthor().getIdLong(), ModAction.BAN, reason, timeUntilUnban));
 			
 			MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 					bot,
 					ModAction.BAN, 
 					event.getAuthor(), 
 					new String[][] {
-						new String[] {"Offender: ", "<@" + target.getId() + ">"}, 
+						new String[] {"Offender: ", "<@" + targetId + ">"}, 
 						new String[] {"Reason:", StringUtils.abbreviate(reason, 250)},
 						new String[] {"Expires:", timeUntilUnban != null ? StringUtils.abbreviate(DateUtil.formatDateDiff(timeUntilUnban), 250) : "Not specified"},
 						new String[] {"Offence ID:", Long.toString(offenceId)}
@@ -92,15 +93,17 @@ public class CommandBan extends GuildModCommand {
 
 			ModLog.log(event.getGuild(), actionEmbed);
 			
-			tryToDmUser(target, actionEmbed);
+			if(target != null) {
+				tryToDmUser(target, actionEmbed);
+			}
 			
-			event.getGuild().ban(target, DEL_DAYS, String.format("Banned by: %#s, with reason: %s",
+			event.getGuild().ban(targetId.toString(), DEL_DAYS, String.format("Banned by: %#s, with reason: %s",
 					event.getAuthor(), reasonFinal)).queue();
 
 			
 
 			tc.sendMessage(SSEmojis.TATICAL_NUKE_INCOMING + " **Tatical Nuke, incoming!** " + SSEmojis.TATICAL_NUKE_INCOMING).queue(onSuccess -> {
-				replySuccess(tc, "Successfully obliterated " + target.getAsMention() + " from ESS with the reason '**" + StringUtils.abbreviate(reasonFinal, 250) + "**'!");
+				replySuccess(tc, "Successfully obliterated <@" + targetId + "> from ESS with the reason '**" + StringUtils.abbreviate(reasonFinal, 250) + "**'!");
 				tc.sendMessage("https://tenor.com/view/explosion-explode-clouds-of-smoke-gif-17216934").queueAfter(2, TimeUnit.SECONDS);
 			});
 			

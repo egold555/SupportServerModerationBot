@@ -19,7 +19,6 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -49,6 +48,7 @@ public abstract class BaseCommand extends Command {
 	protected String getHelpReply() {
 		return bot.getPrefix() + this.name + " " + this.arguments;
 	}
+	
 	protected void tryToDmUser(Member member, MessageEmbed embed) {
 		tryToDmUser(member, embed, null);
 	}
@@ -66,6 +66,24 @@ public abstract class BaseCommand extends Command {
 			}
 		});
 	}
+	
+	protected void tryToDmUser(Member member, String msg) {
+		tryToDmUser(member, msg, null);
+	}
+	protected void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
+
+		member.getUser().openPrivateChannel().queue((dmChannel) ->
+		{
+			dmChannel.sendMessage(msg).queue();
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+		}, fail -> {
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+		});
+	}
 
 	/**
 	 * Gets a member from a given String array and index
@@ -74,23 +92,33 @@ public abstract class BaseCommand extends Command {
 	 * @param expecting The index of the array where we expect the user to reside
 	 * @return The member at the index, or null if none is found
 	 */
-	protected Member getMember(CommandEvent evt, List<String> args, int expecting) {
-		Guild guild = evt.getGuild();
+	protected Long getMember(CommandEvent event, List<String> args, int expecting) {
 
 		if(args.size()-1 < expecting) {return null;}
 
 		try {
 			String id = args.get(expecting);
-			id = id.replace("<@!", "").replace(">", "").trim();
+			id = id.replace("<@!", "").replace("<@", "").replace(">", "").trim();
 
-			//System.out.println(id);
-
-			return guild.getMemberById(id);
+			return Long.parseLong(id);
 
 		}
 		catch(NumberFormatException ignored) {}
 
 		return null;
+	}
+	
+	@Deprecated
+	protected Member getMemberOLD(CommandEvent event, List<String> args, int expecting) {
+		
+		Long member = getMember(event, args, expecting);
+		
+		if(member == null) {
+			return null;
+		}
+		
+		return event.getGuild().getMemberById(member);
+		
 	}
 
 	protected final EmbedBuilder getReplyEmbedRaw(EnumReplyType type, String title, String desc) {

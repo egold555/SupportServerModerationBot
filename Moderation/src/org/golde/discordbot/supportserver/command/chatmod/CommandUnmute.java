@@ -4,22 +4,15 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang3.StringUtils;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
-import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.shared.constants.SSEmojis;
-import org.golde.discordbot.supportserver.database.Database;
 import org.golde.discordbot.supportserver.event.MuteManager;
-import org.golde.discordbot.supportserver.util.ModLog;
-import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CommandUnmute extends ChatModCommand {
@@ -34,25 +27,26 @@ public class CommandUnmute extends ChatModCommand {
 		TextChannel tc = event.getTextChannel();
 		Member member = event.getMember();
 
-		if(event.getArgs().isEmpty())
+		Long targetId = getMember(event, args, 1);
+		
+		if(args.isEmpty() || targetId == null)
 		{
 			replyError(tc, "Please provide the name of a player to unmute!");
 			return;
 		}
 		else {
 
+			Member target = event.getGuild().getMemberById(targetId);
 
-			Member target = getMember(event, args, 1);
-
-			if (args.isEmpty() || target == null) {
-				replyError(tc, "I could not find that person!");
-				return;
+			if(target == null) {
+				replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
 			}
+
 			String reason = String.join(" ", args.subList(2, args.size()));
 
 
 
-			if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target)) {
+			if (target != null && (!member.hasPermission(Permission.VOICE_MUTE_OTHERS) || !member.canInteract(target))) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}
@@ -62,7 +56,7 @@ public class CommandUnmute extends ChatModCommand {
 				reason = "No reason provided.";
 			}
 
-			reply(tc, MuteManager.unmuteUser(bot, target.getIdLong(), event.getMember().getIdLong(), reason));
+			reply(tc, MuteManager.unmuteUser(bot, targetId, event.getMember().getIdLong(), reason));
 
 
 

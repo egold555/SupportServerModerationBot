@@ -56,17 +56,20 @@ public class CommandToggleRole extends GuildModCommand {
 		Member member = event.getMember();
 		Guild g = event.getGuild();
 		
-		if(event.getArgs().isEmpty())
+		Long targetId = getMember(event, args, 2);
+		
+		if(args.isEmpty() || targetId == null)
         {
             replyError(tc, "Please provide the name of a player to toggle a role!");
             return;
         }
 		else {
 		
-			Member target = getMember(event, args, 2);
+			Member target = event.getGuild().getMemberById(targetId);
 
-			if (args.isEmpty() || target == null) {
-				replyError(tc, "I could not find that person!");
+
+			if(target == null) {
+				replyError(tc, "I could not find this player on the guild. They must be on the guild in order for me to apply the role.");
 				return;
 			}
 	       

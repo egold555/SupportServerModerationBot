@@ -27,6 +27,11 @@ public abstract class EventBase extends ListenerAdapter {
 	}
 	protected static void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
 
+		if(member == null) {
+			onFinishedTrying.run();
+			return;
+		}
+		
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
 			dmChannel.sendMessage(embed).queue();

@@ -86,58 +86,78 @@ public class ModerationBot extends ESSBot {
 		cmds.add(new CommandRemoveAction(this));
 		//cmds.add(new CommandTest(this, getWaiter()));
 	}
-	
+
 	@Override
 	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {
 		dbt.add(Offence.class);
 		super.registerDatabaseTranslations(dbt);
 	}
-	
+
 	@Deprecated
 	@Override
 	public void onReady() {
-		
-		//Timer to automatically expire offences
-		new Timer().scheduleAtFixedRate(new TimerTask() {
-			
+		startExpireTimerForOffences();
+	}
+
+	private void startExpireTimerForOffences() {
+
+		new Thread() {
+
 			@Override
 			public void run() {
-				
-				List<Offence> exiredOffences = Offence.getExpiredOffences(ModerationBot.this);
-				for(Offence off : exiredOffences) {
 
-					System.out.println("Expired: " + off.toString());
-					
-					off.setHiddenBotInstance(ModerationBot.this);
-					off.setExpired();
-					
-					Guild g = ModerationBot.this.getGuild();
-					
-					if(off.getType() == ModAction.MUTE) {
-						
-						MuteManager.unmuteUser(ModerationBot.this, off.getOffender(), ModerationBot.this.getJda().getSelfUser().getIdLong(), "Automatically unmuted");
-						
+				while(true) {
+
+
+					List<Offence> exiredOffences = Offence.getExpiredOffences(ModerationBot.this);
+					System.out.println("Tick: " + exiredOffences.size());
+
+					for(Offence off : exiredOffences) {
+
+						System.out.println("Expired: " + off.toString());
+
+						off.setHiddenBotInstance(ModerationBot.this);
+						off.setExpired();
+
+						Guild g = ModerationBot.this.getGuild();
+
+						if(off.getType() == ModAction.MUTE) {
+
+							MuteManager.unmuteUser(ModerationBot.this, off.getOffender(), ModerationBot.this.getJda().getSelfUser().getIdLong(), "Automatically unmuted");
+
+						}
+						else if(off.getType() == ModAction.BAN) {	
+							Long offenceId = Offence.addOffence(ModerationBot.this, new Offence(off.getOffender(), ModerationBot.this.getJda().getSelfUser().getIdLong(), ModAction.UNBAN, "Automatically unbanned"));
+							MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
+									ModerationBot.this,
+									ModAction.UNBAN, 
+									ModerationBot.this.getJda().getSelfUser(), 
+									new String[][] {
+										new String[] {"Offender: ", "<@" + off.getOffender() + ">"}, 
+										new String[] {"Reason:", "Automatically unbanned"},
+										new String[] {"Offence ID:", Long.toString(offenceId)},
+									}
+									);
+							ModLog.log(g, actionEmbed);
+							g.unban(Long.toString(off.getOffender())).queue();
+						}
+
 					}
-					else if(off.getType() == ModAction.BAN) {	
-						Long offenceId = Offence.addOffence(ModerationBot.this, new Offence(off.getOffender(), ModerationBot.this.getJda().getSelfUser().getIdLong(), ModAction.UNBAN, "Automatically unbanned"));
-						MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
-								ModerationBot.this,
-								ModAction.UNBAN, 
-								ModerationBot.this.getJda().getSelfUser(), 
-								new String[][] {
-									new String[] {"Offender: ", "<@" + off.getOffender() + ">"}, 
-									new String[] {"Reason:", "Automatically unbanned"},
-									new String[] {"Offence ID:", Long.toString(offenceId)},
-								}
-								);
-						ModLog.log(g, actionEmbed);
-						g.unban(Long.toString(off.getOffender())).queue();
+
+
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					
 				}
-				
+
+
 			}
-		}, 10000, 10000);
+
+		}.start();
+
 	}
 
 }

@@ -1,13 +1,10 @@
 package org.golde.discordbot.supportserver.command.chatmod;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.time.Instant;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.supportserver.database.Offence;
@@ -32,26 +29,17 @@ public class CommandUserHistory extends ChatModCommand {
 
 		Guild g = event.getGuild();
 		TextChannel tc = event.getTextChannel();
-		Member target = getMember(event, args, 1);
-		Long targetId = null;
+		Long targetId = getMember(event, args, 1);
 
-		if (args.isEmpty() || target == null) {
-			try {
-				targetId = Long.parseLong(args.get(1));
-			}
-			catch(NumberFormatException e) {
-				replyError(tc, "Invalid ID format specified!");
-				return;
-			}
-		}
+		Member target = event.getGuild().getMemberById(targetId);
 
-		if(target != null)  {
-			targetId = target.getIdLong();
-		}
-
-		if(targetId == null) {
-			replyError(tc, "Invalid person specified. They were not on the server, and when attempted to get the userId I got: " + args.get(1));
+		if(args.isEmpty() || targetId == null) {
+			replyError(tc, getHelpReply());
 			return;
+		}
+		
+		if(target == null) {
+			replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
 		}
 
 		if(args.size() == 2) {
