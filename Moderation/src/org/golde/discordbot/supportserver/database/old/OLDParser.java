@@ -12,10 +12,12 @@ import org.golde.discordbot.supportserver.database.old.parse.SimpleUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+@SuppressWarnings("deprecation")
 public class OLDParser {
 
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
+	
 	private static List<SimpleUser> USERS = new ArrayList<SimpleUser>();
 
 	public static final String USERNAME_CACHE_FILE = "userdata-cache";

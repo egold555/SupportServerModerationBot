@@ -8,12 +8,14 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
+@Deprecated
 public class OldOffence {
 
 	private ModAction action;
 	private UserDataCache moderator;
 	private String reason;
 	private long timestamp;
+	
 	
 	
 	@Override

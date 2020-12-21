@@ -2,11 +2,13 @@ package org.golde.discordbot.supportserver.database.old.parse;
 
 import lombok.Getter;
 
+@SuppressWarnings("unused")
 @Deprecated
 public class UserDataCache {
 
 	@Getter private final long snowflake;
 	private String username = "null"; //unused
+	
 	private String avatar = "null"; //unused
 	
 	public UserDataCache(long snowflake) {

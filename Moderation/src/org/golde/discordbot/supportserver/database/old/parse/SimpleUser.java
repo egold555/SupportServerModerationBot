@@ -8,6 +8,7 @@ import org.golde.discordbot.supportserver.util.ModLog.ModAction;
 import lombok.Getter;
 
 @Getter
+@Deprecated
 public class SimpleUser {
 
 	private final UserDataCache user;
