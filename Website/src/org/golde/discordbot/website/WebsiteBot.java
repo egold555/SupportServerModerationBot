@@ -36,7 +36,7 @@ public class WebsiteBot extends ESSBot {
 	
 	@Override
 	public void registerEventListeners(List<EventBase> events) {
-		events.add(new EventStatsRoute(this));
+		//events.add(new EventStatsRoute(this));
 		super.registerEventListeners(events);
 	}
 

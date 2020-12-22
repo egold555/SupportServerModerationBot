@@ -1,4 +1,4 @@
-package org.golde.discordbot.website.server.routes;
+package org.golde.discordbot.website.server.routes.error;
 
 import java.util.Map;
 
@@ -9,11 +9,11 @@ import com.google.gson.JsonObject;
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
 
-public class Page404 extends AbstractJsonResponse {
+public class PageNotImplemented extends AbstractJsonResponse {
 
 	@Override
 	public JsonObject getResponse(Map<String, String> urlParams, IHTTPSession session, JsonObject root) {
-		setErrored("Route not found", Status.NOT_FOUND);
+		setErrored("Route not implemented yet!", Status.NOT_IMPLEMENTED);
 		return root;
 	}
 

@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.golde.discordbot.website.server.routes.Page404;
 import org.golde.discordbot.website.server.routes.PageIndex;
+import org.golde.discordbot.website.server.routes.error.PageNotFound;
+import org.golde.discordbot.website.server.routes.error.PageNotImplemented;
 import org.golde.discordbot.website.server.routes.pages.PageAllMembers;
 import org.golde.discordbot.website.server.routes.stats.PageGeneralStats;
 
@@ -21,7 +22,8 @@ public class ESSWebServer extends RouterNanoHTTPD {
 			public void run() {
 				try {
 					ESSWebServer server = new ESSWebServer(8888);
-					server.setNotFoundHandler(Page404.class);
+					server.setNotFoundHandler(PageNotFound.class);
+					server.setNotImplementedHandler(PageNotImplemented.class);
 					server.start(ESSWebServer.SOCKET_READ_TIMEOUT, false);
 				} 
 				catch (IOException e) {
@@ -40,8 +42,6 @@ public class ESSWebServer extends RouterNanoHTTPD {
 
 	@Override
 	public void addMappings() {
-		super.addMappings();
-		
 		addRoute("/", PageIndex.class);
 		addRoute("/stats", PageGeneralStats.class);
 		addRoute("/members", PageAllMembers.class);
