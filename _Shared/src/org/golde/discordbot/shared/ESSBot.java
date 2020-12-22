@@ -35,30 +35,50 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
+/**
+ * Abstract class defining a bot for my support server.
+ * All bots must implement this class.
+ * @author Eric Golde
+ *
+ */
 public abstract class ESSBot {
 
+	//JDA instance
 	private JDA jda;
 
+	//Shortcut to the ESS server
 	private Guild guild;
 
+	//My user ID
 	private static final long OWNER_ID = 199652118100049921L;
 
+	//Used for the command system
 	private EventWaiter waiter;
 
+	//GSON instance for everything that could possably use GSON
 	public static final Gson GSON = new GsonBuilder().disableHtmlEscaping().serializeNulls().setPrettyPrinting().create();
 
+	//List of database callbacks we need to initalize
 	private List<ICanHasDatabaseFile> databaseCallbacks = new ArrayList<ICanHasDatabaseFile>();
 	
+	//MYSQL server instance. Can be null if we are not using MYSQL
 	private SessionFactory sessionFactory;
 
+	/**
+	 * The main method that starts the bot instance
+	 * @throws Exception
+	 */
 	public void run() throws Exception {
 
+		//grab the token from the config file. Its always the first line (Yeah this is bad but it works)
 		String token = FileUtil.readGenericConfig("config", false).get(0);
 
 		// define an eventwaiter, dont forget to add this to the JDABuilder!
 		waiter = new EventWaiter();
 
 		CommandClientBuilder client = null;
+		
+		//Some bots like the website bot don't have commands, so we don't initalise any commands if the prefix for the bot is null
 		if(getPrefix() != null) {
 
 
@@ -114,6 +134,8 @@ public abstract class ESSBot {
 
 		}
 		
+		//Register any mysql translations. If no translations exist, we assume the bot doesn't use any MYSQL.
+		//Yeah its not the best way but it works for my application
 		List<Class<? extends AbstractDBTranslation>> dbTranslations = new ArrayList<Class<? extends AbstractDBTranslation>>();
 		registerDatabaseTranslations(dbTranslations);
 		if(dbTranslations.size() > 0) {
@@ -143,31 +165,37 @@ public abstract class ESSBot {
 					@Override
 					public void onReady(ReadyEvent event) {
 
+						//If we don't have any commands, don't set a activity
 						if(getPrefix() != null) {
 							jda.getPresence().setActivity(Activity.listening(getPrefix() + "help"));
 						}
 						
-						guild = event.getJDA().getGuilds().get(0); //only one guild
+						guild = event.getJDA().getGuilds().get(0); //setup our shortcut guild
 						ESSBot.this.onReady();
 					}
 
 				});
 		
+		//Same thing, if we don't have a prefix, dont initalize the command builder event
 		if(client != null) {
 			builder.addEventListeners(waiter, client.build());
 		}
 
+		//Go through every event listener, and register it
 		List<EventBase> eventList = new ArrayList<EventBase>();
 		registerEventListeners(eventList);
 		for(EventBase listener : eventList) {
 			builder.addEventListeners(listener);
 			tryInterfaceThings(listener);
 		}
+		
+		//start the bot!
 		private_onLoad();
 		// start it up!
 		jda = builder.build();
 	}
 
+	//Methods every bot can implment
 	public abstract String getPrefix();
 	@Deprecated public void onReady() {};
 	@Deprecated public void onLoad() {};
@@ -179,6 +207,7 @@ public abstract class ESSBot {
 	public void registerOwnerCommand(List<OwnerCommand> cmds){};
 	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {}
 
+	//Kind of a shitty way of doing this but it works 
 	private void private_onLoad() {
 		onLoad();
 		for(ICanHasDatabaseFile ican : databaseCallbacks) {
@@ -186,6 +215,7 @@ public abstract class ESSBot {
 		}
 	}
 
+	//Kind of a shitty way of doing this but it works 
 	public void private_onReload() {
 		onReload();
 		for(ICanHasDatabaseFile ican : databaseCallbacks) {
@@ -193,6 +223,7 @@ public abstract class ESSBot {
 		}
 	}
 
+	//I might be able to condence this down to one function but for the time being its two functions
 	private void tryInterfaceThings(EventBase listener) {
 		if(listener instanceof ICanHasDatabaseFile) {
 			ICanHasDatabaseFile ican = (ICanHasDatabaseFile) listener;
@@ -207,6 +238,7 @@ public abstract class ESSBot {
 		}
 	}
 
+	//Getters. Would use lombok but I need them to be final in this class
 	public final JDA getJda() {
 		return jda;
 	}

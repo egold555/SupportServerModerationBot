@@ -83,3 +83,7 @@ Website/html/members/indexbackup.html
 Website/html/members/debug.log
 
 _Shared/src/hibernate.cfg.xml
+
+Moderation/src/hibernate.cfg.xml
+
+Moderation/res/blocked-file-hashes.json
