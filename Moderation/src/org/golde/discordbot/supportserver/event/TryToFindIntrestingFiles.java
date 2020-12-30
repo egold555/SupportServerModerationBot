@@ -60,7 +60,7 @@ public class TryToFindIntrestingFiles extends AbstractMessageChecker {
 				whatToReturn = true;
 			}
 			
-			if(theMsg.contains("mediafire.com") || theMsg.contains("annonfile.com") || theMsg.contains("dropbox.com") || theMsg.contains("mega.nz") || theMsg.contains("mega.co.nz")) {
+			if(theMsg.contains("mediafire.com") || theMsg.contains("anonfile.com") || theMsg.contains("dropbox.com") || theMsg.contains("mega.nz") || theMsg.contains("mega.co.nz")) {
 				intrestingFile(msg);
 			}
 		}
