@@ -36,36 +36,36 @@ public class CrashReportEventHandler extends EventBase {
 
 	private static HashMap<String, String> errorToMessageJava = new HashMap<String, String>();
 	static {
-		
+
 		try {
 			CSVReader reader = new CSVReader(new FileReader("res/java-exported-exceptions.csv"));
-			
+
 			String [] nextLine;
 			// prints the following for the line in your question
 			while ((nextLine = reader.readNext()) != null) {
-			    
+
 				String match = nextLine[0];
 				String url = nextLine[1];
 				errorToMessageJava.put(match, "Here is the Javadoc for that exception: " + url);
 			}
-			
+
 			reader.close();
-			
-			
+
+
 		} 
 		catch (IOException e) {
 			System.err.println("Failed to read res/java-exported-exceptions.csv");
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
-//		if(!event.getChannel().getName().startsWith("t-")) {
-//			return;
-//		}
+		//		if(!event.getChannel().getName().startsWith("t-")) {
+		//			return;
+		//		}
 
 		//		if(!event.getMember().isOwner()) {
 		//			return;
@@ -84,7 +84,7 @@ public class CrashReportEventHandler extends EventBase {
 		CrashReport report = CrashReportParser.parse(crashFile);
 
 		if(report == null) {
-			
+
 			return;
 		}
 
@@ -119,20 +119,20 @@ public class CrashReportEventHandler extends EventBase {
 		String classAndLine = m.group(1);
 		String[] classesSplit = classAndLine.split(":");
 		path = path.substring(0, path.length() - 1); //remove last .
-//		System.out.println(Arrays.toString(split));
-//		System.out.println(linetest);
-//		System.out.println(function);
-//		System.out.println(path);
-//		System.out.println(classAndLine);
-//		System.out.println(Arrays.toString(classesSplit));
-//		System.out.println(report.toString());
+		//		System.out.println(Arrays.toString(split));
+		//		System.out.println(linetest);
+		//		System.out.println(function);
+		//		System.out.println(path);
+		//		System.out.println(classAndLine);
+		//		System.out.println(Arrays.toString(classesSplit));
+		//		System.out.println(report.toString());
 
 		builder.append(report.getException().getType() + "** on line **" + classesSplit[1] + "** in the class ** " + path + "**");
-		
+
 		if(errorToMessageJava.containsKey(report.getException().getType())) {
 			builder.append("\n\n").append(errorToMessageJava.get(report.getException().getType()));
 		}
-		
+
 
 		channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + builder.toString()).queue();
 
@@ -151,7 +151,7 @@ public class CrashReportEventHandler extends EventBase {
 	private void checkForCommonError(Member sender, TextChannel channel, File crashFile) {
 
 		try {
-			
+
 			if(sender.getUser().isBot() || sender.getUser().isFake()) {
 				return;
 			}
@@ -192,29 +192,29 @@ public class CrashReportEventHandler extends EventBase {
 			if(!foundCommonError) {
 				newCrashReporter(sender, channel, crashFile);
 			}
-			
+
 
 		}
 		catch(Exception e) {
 			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
-			
+
 			channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendFile(crashFile, UUID.randomUUID() + " Crash Report.txt").queue();
-			
+
 			try {
 				String ex = toStringException(e);
 				channel.sendMessage("```" + ex + "```");
 				channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendMessage("```" + ex + "```").queue();
 			}
 			catch(IOException ignored) {};
-			
-			
+
+
 			e.printStackTrace();
 		}
 
 	}
-	
-	
-	
+
+
+
 	private void sendUpdateMessage(TextChannel tc, String msg) {
 		tc.sendMessage("[Crash Report Identifier] " + msg).queue();
 	}
@@ -245,14 +245,16 @@ public class CrashReportEventHandler extends EventBase {
 			return;
 		}
 
-		File folder = new File(System.getProperty("java.io.tmpdir"), "SupportServerBot");
-		folder.mkdir();
+		File folder = new File(System.getProperty("java.io.tmpdir"), "ESSUtilityBot");
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
 
 		attachment.downloadToFile(new File(folder, UUID.randomUUID().toString() + ".txt")).thenAccept(in -> {
 
 
 			checkForCommonError(sender, channel, in);
-			
+
 		})
 		.exceptionally(t -> { // handle failure
 			t.printStackTrace();
@@ -273,7 +275,7 @@ public class CrashReportEventHandler extends EventBase {
 		}
 		return builder.toString();
 	}
-	
+
 	static String toStringException(Throwable t) throws IOException {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
