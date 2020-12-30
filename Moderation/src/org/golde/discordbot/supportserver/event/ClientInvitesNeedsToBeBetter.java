@@ -68,12 +68,12 @@ public class ClientInvitesNeedsToBeBetter extends EventBase implements ICanHasDa
 
 			}
 			else {
-				replyError(tc, "Plese only post a client invite and a description in this channel. Chatting isn't allowed.", 20);
+				replyError(tc, "Please only post a client invite and a description in this channel. Chatting isn't allowed.", 20);
 				m.delete().queue();
 			}
 		}
 		else {
-			replyError(tc, "Plese only post a client invite and a description in this channel. Chatting isn't allowed.", 20);
+			replyError(tc, "Please only post a client invite and a description in this channel. Chatting isn't allowed.", 20);
 			m.delete().queue();
 		}
 	}

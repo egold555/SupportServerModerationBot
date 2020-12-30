@@ -1,0 +1,71 @@
+Created by Stealth & mega12345mega
+
+
+Replace the constructors in net.optifine.expr.FunctionType with:
+
+private FunctionType(ExpressionType expressionType, String name, ExpressionType[] parameterTypes)
+{
+	this.expressionType = expressionType;
+	this.name = name;
+	this.parameters = new IParameters() {
+		@Override
+		public ExpressionType[] getParameterTypes(IExpression[] var1) {
+			return parameterTypes;
+		}
+	};
+}
+
+private FunctionType(int precedence, ExpressionType expressionType, String name, ExpressionType[] parameterTypes)
+{
+	this.precedence = precedence;
+	this.expressionType = expressionType;
+	this.name = name;
+	this.parameters = new IParameters() {
+		@Override
+		public ExpressionType[] getParameterTypes(IExpression[] var1) {
+			return parameterTypes;
+		}
+	};
+}
+
+private FunctionType(ExpressionType expressionType, String name, IParameters parameters)
+{
+	this.expressionType = expressionType;
+	this.name = name;
+	this.parameters = parameters;
+}
+
+private FunctionType(int precedence, ExpressionType expressionType, String name, IParameters parameters)
+{
+	this.precedence = precedence;
+	this.expressionType = expressionType;
+	this.name = name;
+	this.parameters = parameters;
+}
+
+
+Replace the parseValue method in net.optifine.config.ConnectedParser with:
+
+public static Comparable parseValue(String str, Class cls)
+{
+	switch (cls.getName()) {
+		case "java.lang.String":
+			return str;
+		case "java.lang.Float":
+			return Float.valueOf(str);
+		case "java.lang.Double":
+			return Double.valueOf(str);
+		case "java.lang.Integer":
+			return Integer.valueOf(str);
+		case "java.lang.Long":
+			return Long.valueOf(str);
+		default:
+			return null;
+	}
+}
+
+Finally, add
+if (token == null) return null;
+right after
+Token token = (Token)deque.peek();
+In method getFunctionType in class net.optifine.expr.ExpressionParser

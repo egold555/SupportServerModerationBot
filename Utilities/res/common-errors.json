@@ -238,5 +238,13 @@
 	{
 		"detailedDesc": "Don't worry, this is not an error!",
 		"ocr": [ "Scala files will not be recompiled" ]
+	},
+	{
+		"detailedDesc": "Looks like you are using Optifine for 1.8.9, and trying to use a Shaderpack.\n\nPlease download the attached document by Stealth, and mega12345mega. \n\nThey both have spent some time trying to debug this issue, and write some instructions n how to fix it.",
+		"fileAttachments": [ "shader-fix-instructions.txt" ],
+		"crashReport": [
+			"java.lang.NullPointerException: Initializing game",
+			"net.optifine.shaders.Shaders.loadShaderPackProperties"
+		]
 	}
 ]
