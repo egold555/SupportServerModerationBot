@@ -28,6 +28,7 @@
 		"cmdDesc": "EntityRenderer$1 MethodNotFoundException",
 		"detailedDesc": "Looks like for some reason, the decompilier left in $ in the name of inner classes. This confused the JRE and JVM into looking for a inner class of a inner class. In order to fix it, just remove all the $ from the classes: \"net.minecraft.client.renderer.EntityRenderer$1\" and \"net.minecraft.client.renderer.EntityRenderer$2\", and new instances of those classes.",
 		"crashReport": [
+			"java.lang.NoClassDefFoundError: net/minecraft/client/renderer/EntityRenderer$1",
 			"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>(Lnet/minecraft/client/renderer/EntityRenderer;)V",
 			"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'"
 		],
