@@ -33,7 +33,6 @@ public class Channels {
         public static final long NEW_APPLICATIONS = 751610755656187984L;
         public static final long UNBAN_APPEAL = 751613176768102510L;
         public static final long COMMON_RESPONCES = 752300126491639839L;
-        public static final long UA_BOTTING_INCIDENT = 781974918803881984L;
     }
 
     public static class Holding {

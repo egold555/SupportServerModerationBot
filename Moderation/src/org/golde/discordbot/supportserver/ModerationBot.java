@@ -22,9 +22,11 @@ import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
 import org.golde.discordbot.supportserver.database.Offence;
+import org.golde.discordbot.supportserver.event.AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore;
 import org.golde.discordbot.supportserver.event.BlockedFileHash;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
+import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.MiscModLog;
@@ -59,6 +61,8 @@ public class ModerationBot extends ESSBot {
 		events.add(new IHateKids2point0(this));
 		events.add(new BlockedUrlsPreventer(this));
 		events.add(new BlockedFileHash(this));
+		events.add(new AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore(this));
+		events.add(new IDislikeKids1Point4(this));
 	}
 
 	@Override
