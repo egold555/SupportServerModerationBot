@@ -94,10 +94,8 @@ public class AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDo
 		String channelName = applyingFor + "-" + userName.split("#")[0];
 
 		g.createTextChannel(channelName).setParent(category).queue(theChannel -> {
-			System.out.println(theChannel.getPosition());
 			g.modifyTextChannelPositions(category).selectPosition(theChannel).moveUp(1).queue();
 			theChannel.sendMessage(sb.toString()).queue();
-
 		});
 
 
