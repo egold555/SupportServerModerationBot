@@ -117,11 +117,11 @@ public class MuteManager extends AbstractMessageChecker implements ICanHasDataba
 
 	private static MessageEmbed doMuteUnmuteDBEntry(ESSBot bot, long offender, long moderator, ModAction action, String reason, Long expireTime) {
 		Guild g = bot.getGuild();
-		Long offenceId = Offence.addOffence(bot, new Offence(offender, moderator, ModAction.MUTE, reason, expireTime));
+		Long offenceId = Offence.addOffence(bot, new Offence(offender, moderator, action, reason, expireTime));
 
 		MessageEmbed actionEmbed = ModLog.getActionTakenEmbed(
 				bot,
-				ModAction.MUTE, 
+				action, 
 				g.getMemberById(moderator).getUser(), 
 				new String[][] {
 					new String[] {"Offender: ", "<@" + offender + ">"}, 
