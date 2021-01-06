@@ -8,7 +8,7 @@ import org.golde.discordbot.shared.ESSBot;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class CommandReload extends OwnerCommandDangerous {
+public class CommandReload extends OwnerCommand {
 
 	public CommandReload(@Nonnull ESSBot bot) {
 		super(bot, "reload", null, "reloads some config files", "rl");
