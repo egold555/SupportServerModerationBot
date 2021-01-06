@@ -1,4 +1,4 @@
-package org.golde.discordbot.supportserver.command.chatmod;
+package org.golde.discordbot.utilities.command.chatmod;
 
 import java.time.Instant;
 import java.util.List;

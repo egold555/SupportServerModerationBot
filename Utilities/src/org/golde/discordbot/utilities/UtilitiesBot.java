@@ -3,9 +3,11 @@ package org.golde.discordbot.utilities;
 import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
+import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
 import org.golde.discordbot.shared.command.everyone.EveryoneCommand;
 import org.golde.discordbot.shared.command.owner.OwnerCommand;
 import org.golde.discordbot.shared.event.EventBase;
+import org.golde.discordbot.utilities.command.chatmod.CommandLookup;
 import org.golde.discordbot.utilities.command.everyone.CommandCommonError;
 import org.golde.discordbot.utilities.command.owner.CommandAddReaction;
 import org.golde.discordbot.utilities.command.owner.CommandTestOCR;
@@ -62,12 +64,16 @@ public class UtilitiesBot extends ESSBot {
 	public void registerEveryoneCommand(List<EveryoneCommand> cmds) {
 		cmds.add(new CommandCommonError(this));
 	}
+	
+	@Override
+	public void registerChatModCommand(List<ChatModCommand> cmds) {
+		cmds.add(new CommandLookup(this));
+	}
 
 	@Override
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandAddReaction(this));
 		cmds.add(new CommandYoutube(this));
-		cmds.add(new CommandTestOCR(this));
 	}
 
 }

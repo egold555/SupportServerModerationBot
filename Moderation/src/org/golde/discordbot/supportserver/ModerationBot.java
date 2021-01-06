@@ -10,7 +10,6 @@ import org.golde.discordbot.shared.db.AbstractDBTranslation;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.supportserver.command.chatmod.CommandAddBlockedUrl;
 import org.golde.discordbot.supportserver.command.chatmod.CommandBlockedUrls;
-import org.golde.discordbot.supportserver.command.chatmod.CommandLookup;
 import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
 import org.golde.discordbot.supportserver.command.chatmod.CommandRemoveBlockedUrl;
@@ -19,7 +18,6 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
-import org.golde.discordbot.supportserver.command.guildmod.CommandToggleRole;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
 import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore;
@@ -67,7 +65,6 @@ public class ModerationBot extends ESSBot {
 
 	@Override
 	public void registerChatModCommand(List<ChatModCommand> cmds) {
-		cmds.add(new CommandLookup(this));
 		cmds.add(new CommandMute(this));
 		cmds.add(new CommandUnmute(this));
 		cmds.add(new CommandWarn(this));
@@ -82,7 +79,6 @@ public class ModerationBot extends ESSBot {
 	public void registerGuildModCommand(List<GuildModCommand> cmds) {
 		cmds.add(new CommandKick(this));
 		cmds.add(new CommandBan(this));
-		cmds.add(new CommandToggleRole(this));
 	}
 
 	@Override
