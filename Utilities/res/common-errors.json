@@ -215,7 +215,15 @@
 		"crashReport": [ "Caused by: java.net.ConnectException: Connection refused: connect" ]
 	},
 	{
-		"shortCodes": [ "decompIndexError", "decompileIndexError", "decompIndex", "decompileIndex", "decompilepy" ],
+		"shortCodes": [
+			"decompIndexError",
+			"decompileIndexError",
+			"decompIndex",
+			"decompileIndex",
+			"decompilepy",
+			"checkupdates",
+			"mcpupdate"
+		],
 		"cmdDesc": "decompile.bat IndexError list index out of range",
 		"detailedDesc": "This is a very wacky error only a few people seem to be having. To fix this, open up decompile.py, and comment out: ```py\ncommands.checkupdates()```\n\n It should look like this: ```py\n#commands.checkupdates()```\n\n*Thanks to HqperNoob_#2647 for this solution!*",
 		"ocr": [
