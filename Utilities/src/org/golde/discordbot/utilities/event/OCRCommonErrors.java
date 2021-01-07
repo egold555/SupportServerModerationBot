@@ -60,7 +60,7 @@ public class OCRCommonErrors extends EventBase {
 					if(a.getFileExtension() != null && ALLOWED_FILE_EXTENTIONS.contains(a.getFileExtension())) {
 
 						if(a.getSize() > 1024000) {
-							System.out.println("[OCR] File too big. We need to either resize this, or do something with it.");
+							//System.out.println("[OCR] File too big. We need to either resize this, or do something with it.");
 							
 							return;
 						}
@@ -71,7 +71,7 @@ public class OCRCommonErrors extends EventBase {
 
 							@Override
 							public void onResponse(int statusCode, String response) {
-								System.out.println(response);
+								//System.out.println(response);
 
 								if(statusCode == 200) {
 									doOcr(bot, tc, event.getMember(), response, a);
@@ -83,14 +83,14 @@ public class OCRCommonErrors extends EventBase {
 							@Override
 							public void onIOError(IOException ex) {
 								sendErrorMessageToChannel(event.getGuild(), "onIoError", StringUtil.toString(ex), a);
-								System.err.println("[OCR] Huh, something didnt go right");
+								//System.err.println("[OCR] Huh, something didnt go right");
 								ex.printStackTrace();
 							}
 						}).send();
 
 					}
 					else {
-						System.out.println("[OCR] File Not allowed");
+						//System.out.println("[OCR] File Not allowed");
 					}
 
 				}
@@ -143,13 +143,13 @@ public class OCRCommonErrors extends EventBase {
 
 		if(IsErroredOnProcessing) {
 			sendErrorMessageToChannel(g, "IsErroredOnProcessing", "IsErroredOnProcessing == true", a);
-			System.err.println("[OCR] IsErroredOnProcessing == true");
+			//System.err.println("[OCR] IsErroredOnProcessing == true");
 			return;
 		}
 
 		if(OCRExitCode != 1) {
 			sendErrorMessageToChannel(g, "OCRExitCode Failed", "Code was " + OCRExitCode + " and not 1.", a);
-			System.err.println("[OCR] OCRExitCode Failed: " + OCRExitCode);
+			//System.err.println("[OCR] OCRExitCode Failed: " + OCRExitCode);
 			return;
 		}
 
@@ -160,9 +160,9 @@ public class OCRCommonErrors extends EventBase {
 
 		//failed for some reason
 		if(fileParseExitCode != 1) {
-			System.err.println("[OCR] Failed: " + fileParseExitCode);
-			System.err.println("[OCR]    Error message: " + errorMessage);
-			System.err.println("[OCR]    Error details: " + errorDetails);
+			//System.err.println("[OCR] Failed: " + fileParseExitCode);
+			//System.err.println("[OCR]    Error message: " + errorMessage);
+			//System.err.println("[OCR]    Error details: " + errorDetails);
 			sendErrorMessageToChannel(g, "fileParseExitCode", "Error Message: " + errorMessage + "\n\nError Details: " + errorDetails, a);
 			return;
 		}
@@ -171,9 +171,9 @@ public class OCRCommonErrors extends EventBase {
 
 		String[] lines = ParsedText.split("\\r?\\n");
 
-		System.out.println("\n\n===============\n\n" + response + "\n\n===============\n\n");
-		System.out.println("Success: ");
-		System.out.println(Arrays.toString(lines));
+		//System.out.println("\n\n===============\n\n" + response + "\n\n===============\n\n");
+		//System.out.println("Success: ");
+		//System.out.println(Arrays.toString(lines));
 
 		for(CommonError ce : CommonErrorManager.getCommonErrors()) {
 
@@ -183,7 +183,7 @@ public class OCRCommonErrors extends EventBase {
 					CommonErrorManager.sendCEMessage(bot, tc, ce);
 				}
 				else {
-					System.out.println("No match");
+					//System.out.println("No match");
 				}
 			}
 			else {
