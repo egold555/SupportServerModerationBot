@@ -54,6 +54,15 @@ public abstract class BaseCommand extends Command {
 	}
 	protected void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
 
+		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+
+			return;
+		}
+
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
 			dmChannel.sendMessage(embed).queue(sucess -> {if(onFinishedTrying != null) {onFinishedTrying.run();}}, fail -> {if(onFinishedTrying != null) {onFinishedTrying.run();}});
@@ -69,6 +78,15 @@ public abstract class BaseCommand extends Command {
 		tryToDmUser(member, msg, null);
 	}
 	protected void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
+
+		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+
+			return;
+		}
 
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{

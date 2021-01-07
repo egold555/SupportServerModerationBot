@@ -21,11 +21,19 @@ public abstract class EventBase extends ListenerAdapter {
 	public EventBase(@Nonnull ESSBot bot) {
 		this.bot = bot;
 	}
-	
+
 	protected static void tryToDmUser(Member member, MessageEmbed embed) {
 		tryToDmUser(member, embed, null);
 	}
 	protected static void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
+		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+
+			return;
+		}
 
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
@@ -43,6 +51,15 @@ public abstract class EventBase extends ListenerAdapter {
 	}
 	protected static void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
 
+		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+
+			if(onFinishedTrying != null) {
+				onFinishedTrying.run();
+			}
+
+			return;
+		}
+
 		member.getUser().openPrivateChannel().queue((dmChannel) ->
 		{
 			dmChannel.sendMessage(msg).queue(sucess -> {if(onFinishedTrying != null) {onFinishedTrying.run();}}, fail -> {if(onFinishedTrying != null) {onFinishedTrying.run();}});
@@ -53,7 +70,7 @@ public abstract class EventBase extends ListenerAdapter {
 			}
 		});
 	}
-	
+
 	protected final MessageEmbed getReplyEmbed(EnumReplyType type, String title, String desc) {
 
 		EmbedBuilder builder = new EmbedBuilder();
@@ -194,5 +211,5 @@ public abstract class EventBase extends ListenerAdapter {
 	public void reply(MessageChannel channel, String title, String desc, int secondsUntilDelete, Consumer<Void> finished) {
 		reply(channel, EnumReplyType.NONE, title, desc, secondsUntilDelete, finished);
 	}
-	
+
 }
