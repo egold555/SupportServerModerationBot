@@ -1,19 +1,27 @@
 package org.golde.discordbot.utilities.crash;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;
@@ -67,21 +75,31 @@ public class CrashReportEventHandler extends EventBase {
 		//			return;
 		//		}
 
-		//		if(!event.getMember().isOwner()) {
-		//			return;
-		//		}
+				if(!event.getMember().isOwner()) {
+					return;
+				}
 
-		checkFiles(event.getMember(), event.getChannel(), event.getMessage().getAttachments());
+		if(
+				event.getChannel().getIdLong() == Channels.INeedHelp.HELP_WITH_ERROR_MESSAGES ||
+				event.getChannel().getIdLong() == Channels.INeedHelp.JAVA_HELP ||
+				event.getChannel().getIdLong() == Channels.INeedHelp.MCP_HELP ||
+				event.getChannel().getIdLong() == Channels.INeedHelp.MY_CODE_ISNT_WORKING ||
+				event.getChannel().getIdLong() == Channels.MiscellaneousChats.BOT_COMMANDS
+				) {
+
+			checkPastes(event.getMember(), event.getChannel(),event.getMessage().getContentStripped());
+			checkFiles(event.getMember(), event.getChannel(), event.getMessage().getAttachments());
+		}
 		//checkMessage(event.getMember(), event.getChannel(), event.getMessage().getContentStripped());
 	}
 
 
 
-	private void newCrashReporter(Member sender, TextChannel channel, File crashFile) throws IOException, ParseException {
+	private void newCrashReporter(Member sender, TextChannel channel, String text) throws IOException, ParseException {
 
 		//System.out.println(crashFile.getAbsolutePath());
 
-		CrashReport report = CrashReportParser.parse(crashFile);
+		CrashReport report = CrashReportParser.parse(text);
 
 		if(report == null) {
 
@@ -148,7 +166,7 @@ public class CrashReportEventHandler extends EventBase {
 
 	}
 
-	private void checkForCommonError(Member sender, TextChannel channel, File crashFile) {
+	private void checkForCommonError(Member sender, TextChannel channel, InputStream input) {
 
 		try {
 
@@ -156,13 +174,12 @@ public class CrashReportEventHandler extends EventBase {
 				return;
 			}
 
-			String msg = "";
+			String msg = new BufferedReader(
+					new InputStreamReader(input, StandardCharsets.UTF_8))
+					.lines()
+					.collect(Collectors.joining("\n"));
 
-			StringBuilder contentBuilder = new StringBuilder();
-			Stream<String> stream = Files.lines( crashFile.toPath(), StandardCharsets.ISO_8859_1); //UTF doesn't work sometimes, and ISO_8859_1 is a catchall  https://stackoverflow.com/questions/26268132/all-inclusive-charset-to-avoid-java-nio-charset-malformedinputexception-input
-			stream.forEach(s -> contentBuilder.append(s).append("\n"));
-			msg = contentBuilder.toString();
-			stream.close();
+
 
 			if(msg.isEmpty()) {
 				return;
@@ -190,25 +207,13 @@ public class CrashReportEventHandler extends EventBase {
 			}
 
 			if(!foundCommonError) {
-				newCrashReporter(sender, channel, crashFile);
+				newCrashReporter(sender, channel, msg);
 			}
 
 
 		}
 		catch(Exception e) {
-			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
-
-			channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendFile(crashFile, UUID.randomUUID() + " Crash Report.txt").queue();
-
-			try {
-				String ex = toStringException(e);
-				channel.sendMessage("```" + ex + "```");
-				channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendMessage("```" + ex + "```").queue();
-			}
-			catch(IOException ignored) {};
-
-
-			e.printStackTrace();
+			anErrorOccurred(channel, input, e);
 		}
 
 	}
@@ -221,6 +226,78 @@ public class CrashReportEventHandler extends EventBase {
 
 	private boolean isMinecraftCrashReport(String s) {
 		return s.split("\n")[0].contains("---- Minecraft Crash Report ----");
+	}
+
+	private void checkPastes(Member sender, TextChannel channel, String message) {
+
+		List<String> urlsInMessage = extractUrls(message);
+		//System.out.println(urlsInMessage.toString());
+
+		for(String s : urlsInMessage) {
+			boolean yes = false;
+			if(s.startsWith("https://pastebin.com/")) {
+				s = s.replace("https://pastebin.com/", "https://pastebin.com/raw/");
+				yes = true;
+			}
+			else if(s.startsWith("https://hastebin.com/")) {
+				s = s.replace("https://hastebin.com/", "https://hastebin.com/raw/");
+				if(s.contains(".")) {
+					//s = s.split("\\.")[0];
+				}
+				
+				yes = true;
+			}
+
+			if(yes) {
+
+				try {
+				//	System.out.println(s);
+					URLConnection conn = new URL(s).openConnection();
+					conn.addRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
+					InputStream input = conn.getInputStream();
+					checkForCommonError(sender, channel, input);
+				}
+				catch(Throwable err) {
+					anErrorOccurred(channel, "Link: " + s, err);
+				}
+
+			}
+
+		}
+
+	}
+	
+	private void anErrorOccurred(TextChannel tc, Throwable err) {
+		anErrorOccurred(tc, "", err);
+	}
+	
+	private void anErrorOccurred(TextChannel tc, InputStream file, Throwable err) {
+		
+		String text = null;
+		
+		if(file != null) {
+			text = new BufferedReader(
+					new InputStreamReader(file, StandardCharsets.UTF_8))
+					.lines()
+					.collect(Collectors.joining("\n"));
+		}
+		
+		anErrorOccurred(tc, text, err);
+	}
+
+	private void anErrorOccurred(TextChannel tc, String file, Throwable err) {
+		err.printStackTrace();
+		sendUpdateMessage(tc, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
+		try {
+			String uuid = UUID.randomUUID().toString();
+			TextChannel errorChannel = tc.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS);
+			errorChannel.sendFile(toStringException(err).getBytes(), uuid + " Exception.txt").queue();
+			if(file != null && !file.isEmpty()) {
+				errorChannel.sendFile(file.getBytes(), uuid + " Crash Report.txt").queue();
+			}
+			
+		}
+		catch(IOException ignored) {};
 	}
 
 	private void checkFiles(Member sender, TextChannel channel, List<Attachment> attachments) {
@@ -253,16 +330,16 @@ public class CrashReportEventHandler extends EventBase {
 		attachment.downloadToFile(new File(folder, UUID.randomUUID().toString() + ".txt")).thenAccept(in -> {
 
 
-			checkForCommonError(sender, channel, in);
+
+			try {
+				checkForCommonError(sender, channel, new FileInputStream(in));
+			} catch (FileNotFoundException e) {
+				anErrorOccurred(channel, e);
+			}
 
 		})
 		.exceptionally(t -> { // handle failure
-			t.printStackTrace();
-			sendUpdateMessage(channel, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric. Error code: 2");
-			try {
-				channel.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS).sendMessage("```" + toStringException(t) + "```").queue();
-			}
-			catch(IOException ignored) {};
+			this.anErrorOccurred(channel, t);
 			return null;
 		});
 
@@ -284,6 +361,22 @@ public class CrashReportEventHandler extends EventBase {
 		pw.close();
 		sw.close();
 		return toReturn;
+	}
+
+	//https://stackoverflow.com/a/28269120/11245667
+	static List<String> extractUrls(String text) {
+		List<String> containedUrls = new ArrayList<String>();
+		String urlRegex = "((https?|ftp|gopher|telnet|file):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+		Pattern pattern = Pattern.compile(urlRegex, Pattern.CASE_INSENSITIVE);
+		Matcher urlMatcher = pattern.matcher(text);
+
+		while (urlMatcher.find())
+		{
+			containedUrls.add(text.substring(urlMatcher.start(0),
+					urlMatcher.end(0)));
+		}
+
+		return containedUrls;
 	}
 
 }

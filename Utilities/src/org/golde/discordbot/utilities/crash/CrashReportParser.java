@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -13,9 +14,9 @@ import org.golde.discordbot.utilities.crash.CrashReport.Stacktrace;
 
 public class CrashReportParser {
 
-	public static CrashReport parse(File f) throws ParseException, IOException {
+	public static CrashReport parse(String text) throws ParseException, IOException {
 
-		List<String> linesOrig = Files.readAllLines(f.toPath(), Charset.forName("ISO-8859-1"));
+		List<String> linesOrig = Arrays.asList(text.split("\n"));
 		
 		Queue<String> lines = new LinkedList<String>(linesOrig);
 
