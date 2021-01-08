@@ -1,7 +1,5 @@
 package org.golde.discordbot.supportserver.event;
 
-import java.util.List;
-
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;
 import org.golde.discordbot.shared.constants.Roles;
@@ -13,12 +11,12 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp extends EventBase {
 
-	private static final long EXPIRES = 1000 * 60 * 2; //2m
+	private static final long EXPIRES = 1000 * 60 * 1; //1m
+	private static final int TRIGGER_LENGTH = 10;
 	
 	public ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(ESSBot bot) {
 		super(bot);
@@ -49,13 +47,23 @@ public class ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp extends EventBa
 			}
 
 			//Chat moderators bypass this
-			if(mem.getRoles().contains(g.getRoleById(Roles.CHAT_MODERATOR))) {
+			if(mem.getRoles().contains(g.getRoleById(Roles.CHAT_MODERATOR)) || mem.getRoles().contains(g.getRoleById(Roles.CODE_HELPER))) {
 				return;
 			}
 			
 			long userID = mem.getUser().getIdLong();
 			long messageID = event.getMessageIdLong();
 			String text = msg.getContentStripped();
+			
+			if(text.length() < TRIGGER_LENGTH) {
+				return;
+			}
+			
+			//commands
+			if(text.startsWith(";") || text.startsWith(".") || text.startsWith("-") || text.startsWith(",") || text.startsWith("!")) {
+				return;
+			}
+			
 			String hash = HashUtils.md5(text.toLowerCase());
 
 			boolean has = ExpiredMessage.hasUserSentThisHashBefore(bot, userID, hash);
