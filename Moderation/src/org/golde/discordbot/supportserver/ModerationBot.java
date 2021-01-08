@@ -19,11 +19,13 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
+import org.golde.discordbot.supportserver.database.ExpiredMessage;
 import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore;
 import org.golde.discordbot.supportserver.event.BlockedFileHash;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
+import org.golde.discordbot.supportserver.event.ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp;
 import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
@@ -61,6 +63,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new BlockedFileHash(this));
 		events.add(new AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore(this));
 		events.add(new IDislikeKids1Point4(this));
+		events.add(new ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(this));
 	}
 
 	@Override
@@ -90,6 +93,7 @@ public class ModerationBot extends ESSBot {
 	@Override
 	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {
 		dbt.add(Offence.class);
+		dbt.add(ExpiredMessage.class);
 		super.registerDatabaseTranslations(dbt);
 	}
 
@@ -141,6 +145,20 @@ public class ModerationBot extends ESSBot {
 							ModLog.log(g, actionEmbed);
 							g.unban(Long.toString(off.getOffender())).queue();
 						}
+
+					}
+					
+					
+					//Old messages
+					List<ExpiredMessage> expiredMessages = ExpiredMessage.getAllExpiredMessages(ModerationBot.this);
+
+					for(ExpiredMessage off : expiredMessages) {
+
+						//System.out.println("Expired: " + off.toString());
+
+						off.setHiddenBotInstance(ModerationBot.this);
+						off.setExpired();
+						off.delete();
 
 					}
 
