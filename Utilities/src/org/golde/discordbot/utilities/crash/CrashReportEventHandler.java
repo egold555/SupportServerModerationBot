@@ -75,9 +75,9 @@ public class CrashReportEventHandler extends EventBase {
 		//			return;
 		//		}
 
-				if(!event.getMember().isOwner()) {
-					return;
-				}
+//				if(!event.getMember().isOwner()) {
+//					return;
+//				}
 
 		if(
 				event.getChannel().getIdLong() == Channels.INeedHelp.HELP_WITH_ERROR_MESSAGES ||
