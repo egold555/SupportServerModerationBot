@@ -22,7 +22,12 @@ public class AbstractDBTranslation implements Serializable {
 	@ToString.Exclude 
 	@EqualsAndHashCode.Exclude
 	@Transient
-	@Setter protected ESSBot hiddenBotInstance;
+	protected ESSBot hiddenBotInstance;
+	
+	public AbstractDBTranslation setHiddenBotInstance(ESSBot hiddenBotInstance) {
+		this.hiddenBotInstance = hiddenBotInstance;
+		return this;
+	}
 	
 	public final void update() {
 		Session session = hiddenBotInstance.getMySQL().openSession();
