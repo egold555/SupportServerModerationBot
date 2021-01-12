@@ -290,7 +290,7 @@ public class CrashReportEventHandler extends EventBase {
 		sendUpdateMessage(tc, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
 		try {
 			String uuid = UUID.randomUUID().toString();
-			TextChannel errorChannel = tc.getGuild().getTextChannelById(Channels.OwnerOnly.UNKNOWN_CRASH_REPORTS);
+			TextChannel errorChannel = tc.getGuild().getTextChannelById(Channels.BotDebugging.UNKNOWN_CRASH_REPORTS);
 			errorChannel.sendFile(toStringException(err).getBytes(), uuid + " Exception.txt").queue();
 			if(file != null && !file.isEmpty()) {
 				errorChannel.sendFile(file.getBytes(), uuid + " Crash Report.txt").queue();

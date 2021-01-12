@@ -1,7 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Categories;
@@ -32,7 +31,7 @@ public class AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDo
 		Guild g = event.getGuild();
 
 		if(user.isBot() || user.isFake()) {
-			if(tc.getIdLong() == Channels.Applications.NEW_APPLICATIONS || tc.getIdLong() == Channels.Applications.UNBAN_APPEAL) {
+			if(tc.getIdLong() == Channels.Logs.NEW_APPLICATIONS || tc.getIdLong() == Channels.Logs.UNBAN_APPEAL) {
 				List<MessageEmbed> embeds = msg.getEmbeds();
 
 				if(embeds.size() > 0) {
