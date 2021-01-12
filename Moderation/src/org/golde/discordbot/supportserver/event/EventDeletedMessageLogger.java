@@ -54,9 +54,9 @@ public class EventDeletedMessageLogger extends EventBase {
 		event.getGuild().getTextChannelById(Channels.Logs.MESSAGE_LOGS).sendMessage(builder.build()).queue();
 		
 		
-		System.out.println("User '" + dm.getUser() + "' updated message '" + msgId + "'.");
-		System.out.println("	OLD: " + dm.getText());
-		System.out.println("	NEW: " + newText);
+		//System.out.println("User '" + dm.getUser() + "' updated message '" + msgId + "'.");
+		//System.out.println("	OLD: " + dm.getText());
+		//System.out.println("	NEW: " + newText);
 		dm.updateText(msgId, newText);
 		
 	}
@@ -84,7 +84,7 @@ public class EventDeletedMessageLogger extends EventBase {
 		builder.setFooter(bot.getJda().getSelfUser().getAsTag(), bot.getJda().getSelfUser().getAvatarUrl());
 		event.getGuild().getTextChannelById(Channels.Logs.MESSAGE_LOGS).sendMessage(builder.build()).queue();
 		
-		System.out.println("User '" + dm.getUser() + "' deleted the message '" + dm.getText() + "'.");
+		//System.out.println("User '" + dm.getUser() + "' deleted the message '" + dm.getText() + "'.");
 		dm.delete();
 		
 	}
