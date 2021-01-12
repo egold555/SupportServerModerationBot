@@ -80,7 +80,7 @@ public class BlockedFileHash extends EventBase implements ICanHasDatabaseFile {
 				URLConnection c = url.openConnection();
 				c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
 
-				if(urlStr.endsWith(".mp4") || urlStr.endsWith(".mov") || urlStr.endsWith(".webm")) {
+				if(urlStr.endsWith(".mp4") || urlStr.endsWith(".mov") || urlStr.endsWith(".webm") || urlStr.endsWith(".mp3") || urlStr.endsWith(".ogg") || urlStr.endsWith(".wav")) {
 					doWeNeedToBlockIt(msg, c.getInputStream());
 				}
 				else {
