@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Thu Dec 10 13:01:41 PST 2020
+//Generated: Mon Jan 11 14:21:00 PST 2021
 public class Roles {
 
         public static final long ADMINISTRATOR = 594335758324858880L;
@@ -15,6 +15,7 @@ public class Roles {
         public static final long ITS_MY_B_DAY = 655191789879296041L;
         public static final long SERVER_BOOSTER = 644854909891510293L;
         public static final long CODE_HELPER = 735591581708582975L;
+        public static final long TICKET_SUPPORT_TEAM = 797198756558012446L;
         public static final long INTERNAL_LEGACY_CODE_HELPER = 594351130235109397L;
         public static final long CONTRIBUTOR = 635532547287285762L;
         public static final long MANGO_CULT_CONTRIBUTOR = 745285049615646750L;

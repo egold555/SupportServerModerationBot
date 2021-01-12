@@ -1,22 +1,21 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Thu Dec 10 13:01:41 PST 2020
+//Generated: Mon Jan 11 14:21:00 PST 2021
 public class Channels {
 
     public static class BotDebugging {
         public static final long COMMAND_TESTING = 604769552416374807L;
         public static final long COUNTING_V2 = 717213659876556830L;
-        public static final long CIRCULAR_CLIENT_INVITES_TEST = 742108596065533993L;
         public static final long OCR_ERRORS = 760619956932182066L;
+        public static final long UNKNOWN_CRASH_REPORTS = 684115853721075715L;
     }
 
     public static class OwnerOnly {
         public static final long MODS_TO_CREATE = 638114943442485255L;
         public static final long VIDEO_IDEAS = 641699324237185044L;
-        public static final long UNKNOWN_CRASH_REPORTS = 684115853721075715L;
         public static final long ESS_SUGGESTIONS = 685007582762500098L;
-        public static final long BUGS = 699318635348492319L;
         public static final long FEEDBACK = 706347420644016375L;
+        public static final long TRANSPARENCY_V2 = 798067785107636244L;
     }
 
     public static class ModStuffThings {
@@ -30,8 +29,6 @@ public class Channels {
     }
 
     public static class Applications {
-        public static final long NEW_APPLICATIONS = 751610755656187984L;
-        public static final long UNBAN_APPEAL = 751613176768102510L;
         public static final long COMMON_RESPONCES = 752300126491639839L;
     }
 
@@ -59,6 +56,9 @@ public class Channels {
         public static final long CAPTCHA_LOGS = 744952933850021898L;
         public static final long MODERATION_LOGS = 652295175850426398L;
         public static final long JOIN_LOGS = 744682228633698484L;
+        public static final long NEW_APPLICATIONS = 751610755656187984L;
+        public static final long UNBAN_APPEAL = 751613176768102510L;
+        public static final long MESSAGE_LOGS = 798310479184658542L;
     }
 
     public static class ArchivedChannels {
@@ -68,6 +68,8 @@ public class Channels {
         public static final long REPORT_DM_ADS = 671573931261558805L;
         public static final long SPOOKY_ESS = 766011874453749770L;
         public static final long HOLIDAY_LOGO = 776886937822298154L;
+        public static final long __ = 793955404807667713L;
+        public static final long TC_EXPRESSION_PARSER_CE = 793330418215682058L;
     }
 
     public static class Info {
@@ -76,6 +78,8 @@ public class Channels {
         public static final long FAQ_ABOUT_ESS = 654017649294049281L;
         public static final long USER_OPTIONS = 667098803312132124L;
         public static final long STAFF_APPLICATIONS = 751865958024478832L;
+        public static final long PUBLIC_BOT_NOTIFICATIONS = 796480290049490986L;
+        public static final long BOT_TRANSPARENCY = 797906687705088010L;
     }
 
     public static class INeedHelp {
@@ -121,7 +125,6 @@ public class Channels {
         public static final long C_STUFF = 747182853288362044L;
         public static final long PYTHON = 747182888222457967L;
         public static final long OTHER_CODING_LANGUAGES = 747182922779328583L;
-        public static final long BLOCK_CODING_LANGUAGES = 785592443466285156L;
     }
 
     public static class BetaTester {
