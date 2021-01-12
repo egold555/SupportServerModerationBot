@@ -89,3 +89,5 @@ Moderation/src/hibernate.cfg.xml
 Moderation/res/blocked-file-hashes.json
 
 Moderation/src/org/golde/discordbot/supportserver/event/IDislikeKids1Point4.java
+
+Website/html/

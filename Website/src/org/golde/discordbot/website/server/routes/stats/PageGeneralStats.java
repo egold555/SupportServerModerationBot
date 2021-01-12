@@ -54,7 +54,7 @@ public class PageGeneralStats extends AbstractJsonResponse {
 		
 		
 		
-		objGuild.add("popularGames", getPopularGames());
+		//objGuild.add("popularGames", getPopularGames());
 		
 		
 		root.add("guild", objGuild);

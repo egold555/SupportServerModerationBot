@@ -1,4 +1,4 @@
-package org.golde.discordbot.website.server.routes.pages;
+package org.golde.discordbot.website.server.routes.generic;
 
 import java.awt.Color;
 import java.util.ArrayList;

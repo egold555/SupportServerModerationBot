@@ -1,4 +1,4 @@
-package org.golde.discordbot.website.server.routes.holiday;
+package org.golde.discordbot.website.server.routes.imgcomp;
 
 import java.util.ArrayList;
 import java.util.Collections;

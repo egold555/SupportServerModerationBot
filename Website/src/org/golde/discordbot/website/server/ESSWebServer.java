@@ -7,7 +7,7 @@ import java.util.List;
 import org.golde.discordbot.website.server.routes.PageIndex;
 import org.golde.discordbot.website.server.routes.error.PageNotFound;
 import org.golde.discordbot.website.server.routes.error.PageNotImplemented;
-import org.golde.discordbot.website.server.routes.pages.PageAllMembers;
+import org.golde.discordbot.website.server.routes.generic.PageAllMembers;
 import org.golde.discordbot.website.server.routes.stats.PageGeneralStats;
 
 import fi.iki.elonen.router.RouterNanoHTTPD;
