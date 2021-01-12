@@ -19,12 +19,14 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
+import org.golde.discordbot.supportserver.database.DeletedMessage;
 import org.golde.discordbot.supportserver.database.ExpiredMessage;
 import org.golde.discordbot.supportserver.database.Offence;
 import org.golde.discordbot.supportserver.event.AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore;
 import org.golde.discordbot.supportserver.event.BlockedFileHash;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
+import org.golde.discordbot.supportserver.event.EventDeletedMessageLogger;
 import org.golde.discordbot.supportserver.event.ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp;
 import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
@@ -64,6 +66,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore(this));
 		events.add(new IDislikeKids1Point4(this));
 		events.add(new ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(this));
+		events.add(new EventDeletedMessageLogger(this));
 	}
 
 	@Override
@@ -94,6 +97,7 @@ public class ModerationBot extends ESSBot {
 	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {
 		dbt.add(Offence.class);
 		dbt.add(ExpiredMessage.class);
+		dbt.add(DeletedMessage.class);
 		super.registerDatabaseTranslations(dbt);
 	}
 
@@ -162,6 +166,12 @@ public class ModerationBot extends ESSBot {
 
 					}
 
+					List<DeletedMessage> deletedMessages = DeletedMessage.getAllMessages(ModerationBot.this);
+					for(DeletedMessage dm : deletedMessages) {
+						dm.setHiddenBotInstance(ModerationBot.this);
+						dm.delete();
+					}
+					
 
 					try {
 						Thread.sleep(1000);
