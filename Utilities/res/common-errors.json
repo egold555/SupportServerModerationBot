@@ -257,5 +257,10 @@
 			"java.lang.NullPointerException: Initializing game",
 			"net.optifine.shaders.Shaders.loadShaderPackProperties"
 		]
+	},
+	{
+		"shortCodes": [ "learnJava", "javaHelp" ]
+		"cmdDesc": "Java help"
+		"detailedDesc": "https://t.ly/q12D"
 	}
 ]
