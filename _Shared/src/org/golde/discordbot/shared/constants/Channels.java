@@ -63,13 +63,6 @@ public class Channels {
 
     public static class ArchivedChannels {
         public static final long ARCHIVED_CHANNELS = 751533122704900117L;
-        public static final long OFF_TOPIC = 604763573654257678L;
-        public static final long VALENTINES_DAY = 671831833901662208L;
-        public static final long REPORT_DM_ADS = 671573931261558805L;
-        public static final long SPOOKY_ESS = 766011874453749770L;
-        public static final long HOLIDAY_LOGO = 776886937822298154L;
-        public static final long __ = 793955404807667713L;
-        public static final long TC_EXPRESSION_PARSER_CE = 793330418215682058L;
     }
 
     public static class Info {
