@@ -9,7 +9,7 @@ import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Channels;
 import org.golde.discordbot.shared.db.ICanHasDatabaseFile;
 import org.golde.discordbot.shared.event.EventBase;
-import org.golde.discordbot.supportserver.database.Database;
+import org.golde.discordbot.supportserver.database.JsonDB;
 
 import net.dv8tion.jda.api.entities.Invite.InviteType;
 import net.dv8tion.jda.api.entities.Message;
@@ -94,7 +94,7 @@ public class ClientInvitesNeedsToBeBetter extends EventBase implements ICanHasDa
 				}
 				else {
 					alreadyUsedServers.add(guildGotId);
-					Database.saveToFile(alreadyUsedServers, "client-invites");
+					JsonDB.saveToFile(alreadyUsedServers, "client-invites");
 				}
 			}
 
@@ -106,7 +106,7 @@ public class ClientInvitesNeedsToBeBetter extends EventBase implements ICanHasDa
 	@Override
 	public void reload() {
 		alreadyUsedServers.clear();
-		alreadyUsedServers = (Set<String>)Database.jsonFile2JavaObject("client-invites", Set.class);
+		alreadyUsedServers = (Set<String>)JsonDB.jsonFile2JavaObject("client-invites", Set.class);
 	}
 
 }
