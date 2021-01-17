@@ -88,7 +88,6 @@
 		"shortCodes": [ "-Xincgc", "xincgc" ],
 		"cmdDesc": "Unrecognized option: -Xincgc",
 		"detailedDesc": "Hover over run, go to Run Configurations -> Arguments then remove the option '-Xincgc'.",
-		"fileAttachments": [ "xincgc.png" ],
 		"ocr": [ "Could not create the Java Virtual Machine", "A fatal exception has occurred." ]
 	},
 	{
@@ -126,7 +125,7 @@
 	{
 		"shortCodes": [ "mcplog", "uploadMcpLog", "uploadLog", "uploadMcp" ],
 		"cmdDesc": "Please send your MCP log file",
-		"detailedDesc": "Can you please send your MCP.log file in this channel? It's located in <project>/logs/mcp.log . You will need to zip it up to send it over Discord. \n\n*Currently the bot will not parse these, so please wait for a human to look at your file. (It's on my TO-DO list to get the bot to understand mcplog files! --Eric*",
+		"detailedDesc": "Can you please send your MCP.log file in this channel? It's located in <project>/logs/mcp.log . You will need to zip it up to send it over Discord. \n\n*__Currently the bot will not parse these, so please wait for a human to look at your file.__*",
 		"fakeUser": true,
 		"ocr": [
 			"failed: 1",
@@ -256,6 +255,15 @@
 		"crashReport": [
 			"java.lang.NullPointerException: Initializing game",
 			"net.optifine.shaders.Shaders.loadShaderPackProperties"
+		]
+	},
+	{
+		"shortCodes": [ "cartesian", "cartesian.java" ],
+		"cmdDesc": "Cartesian.java error when decompiling mcp",
+		"detailedDesc": "Sometimes when decompiling mcp, you encounter an error with Cartesian.java, shown in this screenshot. The solution to this is going to line 73 in Cartesian.java and changing the line from:\n```java\nreturn (Iterator<T[]>)(this.iterables.length <= 0 ? Collections.singletonList((Object[])Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));\n```\nTo:\n```java\nreturn (Iterator)(this.iterables.length <= 0 ? Collections.singletonList((Object[])Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));\n```",
+		"crashReport": [
+			"net.minecraft.util.Cartesian$GetList.apply",
+			"Type mismatch: cannot convert from List<Object> to List<T>"
 		]
 	}
 ]
