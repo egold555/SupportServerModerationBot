@@ -11,7 +11,6 @@ import org.hibernate.Transaction;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
@@ -48,6 +47,7 @@ public class AbstractDBTranslation implements Serializable {
 	}
 
 	public final void delete(){
+		System.out.println("Delete");
 		Session session =  hiddenBotInstance.getMySQL().openSession();
 		Transaction tx = null;
 
