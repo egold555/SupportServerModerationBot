@@ -49,7 +49,9 @@ public class ESSWebServer extends RouterNanoHTTPD {
 	
 	@Override
 	public void addRoute(String url, Class<?> handler, Object... initParameter) {
-		routes.add(url);
+		if(!url.equals("/")) {
+			routes.add(url);
+		}
 		super.addRoute(url, handler, initParameter);
 	}
 
