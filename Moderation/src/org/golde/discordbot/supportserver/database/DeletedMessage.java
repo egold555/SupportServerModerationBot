@@ -33,8 +33,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class DeletedMessage extends AbstractDBTranslation {
 
+	private static final long serialVersionUID = 2256518716105528487L;
 	private static final long DELETION_TIME = 1000 * 60 * 60 * 24 * 7; //7 days
-	private static final long serialVersionUID = -1041074304692260659L;
 
 	@Id 
 	long msgID;
