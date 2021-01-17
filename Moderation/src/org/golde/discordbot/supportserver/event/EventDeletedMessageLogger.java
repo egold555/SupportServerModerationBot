@@ -38,8 +38,8 @@ public class EventDeletedMessageLogger extends EventBase {
 		}
 		
 		String newText = null;
-		if(msg.getContentRaw() != null && !msg.getContentRaw().isEmpty()) {
-			newText = msg.getContentRaw();
+		if(msg.getContentStripped() != null && !msg.getContentStripped().isEmpty()) {
+			newText = msg.getContentStripped();
 		}
 		
 		EmbedBuilder builder = new EmbedBuilder();
@@ -100,8 +100,8 @@ public class EventDeletedMessageLogger extends EventBase {
 		String text = null;
 		long msgId = msg.getIdLong();
 		long userId = user.getIdLong();
-		if(msg.getContentRaw() != null && !msg.getContentRaw().isEmpty()) {
-			text = msg.getContentRaw();
+		if(msg.getContentStripped() != null && !msg.getContentStripped().isEmpty()) {
+			text = msg.getContentStripped();
 		}
 		
 		DeletedMessage.addMessage(bot, new DeletedMessage(msgId, userId, text));
