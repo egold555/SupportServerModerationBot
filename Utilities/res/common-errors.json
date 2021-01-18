@@ -265,5 +265,14 @@
 			"net.minecraft.util.Cartesian$GetList.apply",
 			"Type mismatch: cannot convert from List<Object> to List<T>"
 		]
+	},
+	{
+		"shortCodes": [ "modelRotation" ],
+		"cmdDesc": "ModelRotation decompile error reguarding Matrix4F imports",
+		"detailedDesc": "Looks like a decompile error, where there are two classes called Matrix4F, and eclipse is confused which one needs to be used. To fix this, change \n```java\npublic Matrix4f getMatrix()\n{\nreturn Reflector.ForgeHooksClient_getMatrix.exists() ? (javax.vecmath.Matrix4f)Reflector.call(Reflector.ForgeHooksClient_getMatrix, new Object[] {this}): new Matrix4f(this.getMatrix());\n}\n```\nTo:\n```java\npublic javax.vecmath.Matrix4f getMatrix()\n{\nreturn Reflector.ForgeHooksClient_getMatrix.exists() ? (javax.vecmath.Matrix4f)Reflector.call(Reflector.ForgeHooksClient_getMatrix, new Object[] {this}): new javax.vecmath.Matrix4f(this.getMatrix());\n}\n```\nIn the class **net.minecraft.client.resources.model.ModelRotation**",
+		"crashReport": [
+			"The constructor Matrix4f(Matrix4f) is",
+			"incompatible types: javax.vecmath.Matrix4f cannot be converted to org.lwjgl.util.vector.Matrix4f"
+		]
 	}
 ]
