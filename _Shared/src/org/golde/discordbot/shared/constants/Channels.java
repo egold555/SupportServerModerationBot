@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Mon Jan 11 14:21:00 PST 2021
+//Generated: Mon Jan 18 19:54:17 PST 2021
 public class Channels {
 
     public static class BotDebugging {
@@ -30,18 +30,17 @@ public class Channels {
 
     public static class Applications {
         public static final long COMMON_RESPONCES = 752300126491639839L;
+        public static final long UA_MATTHEWTGM = 800596483954311250L;
     }
 
     public static class Holding {
         public static final long READ_ME_FIRST = 735334629703155844L;
         public static final long WAITING_ROOM = 726534701560496149L;
-        public static final long UNDER_100_CLUB = 735335171552837672L;
     }
 
     public static class ShitINeedToFigureOutWhatToDoWith {
+        public static final long LEGACY_CODE_HELPERS_HANGOUT = 671813203956596789L;
         public static final long AWESOMELY_COOL_SECRET_PRIVATE_CHAT = 733489592488951838L;
-        public static final long PA_YOUTUBE_ANNOUNCEMENTS_CHANNEL = 742136949602779227L;
-        public static final long SUGGESTIONS_OLD = 604769523639386112L;
     }
 
     public static class UserContributions {
@@ -56,13 +55,22 @@ public class Channels {
         public static final long CAPTCHA_LOGS = 744952933850021898L;
         public static final long MODERATION_LOGS = 652295175850426398L;
         public static final long JOIN_LOGS = 744682228633698484L;
+        public static final long MESSAGE_LOGS = 798310479184658542L;
         public static final long NEW_APPLICATIONS = 751610755656187984L;
         public static final long UNBAN_APPEAL = 751613176768102510L;
-        public static final long MESSAGE_LOGS = 798310479184658542L;
     }
 
     public static class ArchivedChannels {
         public static final long ARCHIVED_CHANNELS = 751533122704900117L;
+        public static final long OFF_TOPIC = 604763573654257678L;
+        public static final long VALENTINES_DAY = 671831833901662208L;
+        public static final long REPORT_DM_ADS = 671573931261558805L;
+        public static final long SPOOKY_ESS = 766011874453749770L;
+        public static final long HOLIDAY_LOGO = 776886937822298154L;
+        public static final long __ = 793955404807667713L;
+        public static final long POLL_YOUTUBE_ANNOUNCEMENTS_CHANNEL = 742136949602779227L;
+        public static final long SUGGESTIONS_OLD = 604769523639386112L;
+        public static final long TC_EXPRESSION_PARSER_CE = 793330418215682058L;
     }
 
     public static class Info {
@@ -84,18 +92,17 @@ public class Channels {
 
     public static class PrivateLounges {
         public static final long CONTRIBUTORS_HANGOUT = 671811668761772113L;
-        public static final long LEGACY_CODE_HELPERS_HANGOUT = 671813203956596789L;
         public static final long CODE_HELPER_HANGOUT = 752584661527691264L;
         public static final long SERVER_BOOSTER_HANGOUT = 671814883477553153L;
         public static final long THE_MANGO_CULT_HANGOUT = 745284957458530395L;
     }
 
     public static class ClientCodingSeries {
-        public static final long YOUTUBE_NOTIFICATIONS = 743146948650860585L;
         public static final long SERIES_LINKS = 604762324997374008L;
         public static final long COMMON_ERRORS = 637484447205425153L;
         public static final long SHORT_TUTORIALS = 636613019836874772L;
         public static final long TUTORIAL_UPDATES = 699474426399424512L;
+        public static final long NEW_VIDEO_POLL = 798651218029051954L;
     }
 
     public static class MiscellaneousChats {

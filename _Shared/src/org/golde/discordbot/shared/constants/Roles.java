@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Mon Jan 11 14:21:00 PST 2021
+//Generated: Mon Jan 18 19:54:17 PST 2021
 public class Roles {
 
         public static final long ADMINISTRATOR = 594335758324858880L;
@@ -22,6 +22,5 @@ public class Roles {
         public static final long MEMBER = 726526640313860236L;
         public static final long ANNOUNCEMENT_NOTIFICATIONS = 728453778956877904L;
         public static final long YOUTUBE_NOTIFICATIONS = 667224721544183838L;
-        public static final long UNDER_100_MESSAGES_CLUB = 735287621974097950L;
         public static final long EVERYONE = 594335572173258752L;
 }

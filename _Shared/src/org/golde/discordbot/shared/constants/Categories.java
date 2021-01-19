@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Mon Jan 11 14:21:00 PST 2021
+//Generated: Mon Jan 18 19:54:17 PST 2021
 public class Categories {
 
         public static final long MOD_STUFF__THINGS = 652289601334935561L;
