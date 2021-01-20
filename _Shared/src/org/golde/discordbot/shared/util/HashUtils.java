@@ -25,20 +25,38 @@ public class HashUtils {
 
 		is.close();
 
-		return md5(complete.digest());
+		byte[] result = complete.digest();
+
+		String textResult = "";
+		
+		for (int i=0; i < result.length; i++) {
+			textResult += Integer.toString( ( result[i] & 0xff ) + 0x100, 16).substring( 1 );
+		}
+		return textResult.toUpperCase();
 	}
 	
-	public static final String md5(String data) {
-		return md5(data.getBytes());
-	}
+	public static String md5(String in) {
+		
+		try {
+			MessageDigest complete = MessageDigest.getInstance("MD5");
+			
+			complete.update(in.getBytes());
+			
+			byte[] result = complete.digest();
 
-	public static final String md5(byte[] data) {
-		String result = "";
-
-		for (int i=0; i < data.length; i++) {
-			result += Integer.toString( ( data[i] & 0xff ) + 0x100, 16).substring( 1 );
+			String textResult = "";
+			
+			for (int i=0; i < result.length; i++) {
+				textResult += Integer.toString( ( result[i] & 0xff ) + 0x100, 16).substring( 1 );
+			}
+			
+			return textResult;
 		}
-		return result.toUpperCase();
+		catch(NoSuchAlgorithmException neverThrown) {
+			neverThrown.printStackTrace();
+			return "";
+		}
+		
 	}
-
+	
 }
