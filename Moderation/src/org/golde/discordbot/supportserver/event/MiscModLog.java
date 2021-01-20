@@ -56,10 +56,6 @@ public class MiscModLog extends EventBase {
 		else if(changedRoles.contains(g.getRoleById(Roles.MUTED))) {
 			return;
 		}
-		//Under 100 club
-		else if(changedRoles.contains(g.getRoleById(Roles.UNDER_100_MESSAGES_CLUB))) {
-			return;
-		}
 		
 		else if(changedRoles.contains(g.getRoleById(Roles.CODE_HELPER))) {
 			return;

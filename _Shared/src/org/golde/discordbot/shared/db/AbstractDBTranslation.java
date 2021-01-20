@@ -47,7 +47,6 @@ public class AbstractDBTranslation implements Serializable {
 	}
 
 	public final void delete(){
-		System.out.println("Delete");
 		Session session =  hiddenBotInstance.getMySQL().openSession();
 		Transaction tx = null;
 

@@ -17,7 +17,7 @@ public class ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp extends EventBa
 
 	private static final long EXPIRES = 1000 * 60 * 1; //1m
 	private static final int TRIGGER_LENGTH = 10;
-	
+
 	public ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(ESSBot bot) {
 		super(bot);
 	}
@@ -50,32 +50,39 @@ public class ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp extends EventBa
 			if(mem.getRoles().contains(g.getRoleById(Roles.CHAT_MODERATOR)) || mem.getRoles().contains(g.getRoleById(Roles.CODE_HELPER))) {
 				return;
 			}
-			
+
 			long userID = mem.getUser().getIdLong();
 			long messageID = event.getMessageIdLong();
 			String text = msg.getContentStripped();
-			
+
 			if(text.length() < TRIGGER_LENGTH) {
 				return;
 			}
-			
+
 			//commands
 			if(text.startsWith(";") || text.startsWith(".") || text.startsWith("-") || text.startsWith(",") || text.startsWith("!")) {
 				return;
 			}
-			
+
 			String hash = HashUtils.md5(text.toLowerCase());
 
-			boolean has = ExpiredMessage.hasUserSentThisHashBefore(bot, userID, hash);
+			try {
 
-			if(has) {
-				msg.delete().queue();
-				replyError(tc, "Duplicate message detected!", "You have already sent this message before, please don't send the same message to mutiple channels " + mem.getAsMention() + "!", 20);
-				return;
+				boolean has = ExpiredMessage.hasUserSentThisHashBefore(bot, userID, hash);
+
+				if(has) {
+					msg.delete().queue();
+					replyError(tc, "Duplicate message detected!", "You have already sent this message before, please don't send the same message to mutiple channels " + mem.getAsMention() + "!", 20);
+					return;
+				}
+				else {
+					ExpiredMessage.addMessage(bot, new ExpiredMessage(messageID, userID, hash, System.currentTimeMillis() + EXPIRES));
+
+				}
 			}
-			else {
-				ExpiredMessage.addMessage(bot, new ExpiredMessage(messageID, userID, hash, System.currentTimeMillis() + EXPIRES));
-
+			catch(Throwable ex) {
+				ex.printStackTrace();
+				System.err.println("The hash: " + hash);
 			}
 
 		}

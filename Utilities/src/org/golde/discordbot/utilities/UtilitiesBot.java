@@ -10,7 +10,6 @@ import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.utilities.command.chatmod.CommandLookup;
 import org.golde.discordbot.utilities.command.everyone.CommandCommonError;
 import org.golde.discordbot.utilities.command.owner.CommandAddReaction;
-import org.golde.discordbot.utilities.command.owner.CommandTestOCR;
 import org.golde.discordbot.utilities.command.owner.CommandYoutube;
 import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 import org.golde.discordbot.utilities.crash.CrashReportEventHandler;
@@ -21,7 +20,6 @@ import org.golde.discordbot.utilities.event.LikeDislikePollEvents;
 import org.golde.discordbot.utilities.event.OCRCommonErrors;
 import org.golde.discordbot.utilities.event.PlayerCounter;
 import org.golde.discordbot.utilities.event.ReactionRolesListener;
-import org.golde.discordbot.utilities.event.Under100ClubEvent;
 
 public class UtilitiesBot extends ESSBot {
 
@@ -53,7 +51,6 @@ public class UtilitiesBot extends ESSBot {
 		events.add(new CrashReportEventHandler(this));
 		events.add(new ReactionRolesListener(this));
 		events.add(new PlayerCounter(this));
-		events.add(new Under100ClubEvent(this));
 		events.add(new AutoRemoveBirthdayRole(this));
 		events.add(new OCRCommonErrors(this));
 		events.add(new ImageOnlyChannel(this));
