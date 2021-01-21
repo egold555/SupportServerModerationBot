@@ -259,8 +259,8 @@
 	},
 	{
 		"shortCodes": [ "cartesian", "cartesian.java" ],
-		"cmdDesc": "Cartesian.java error when decompiling mcp",
-		"detailedDesc": "Sometimes when decompiling mcp, you encounter an error with Cartesian.java, shown in this screenshot. The solution to this is going to line 73 in Cartesian.java and changing the line from:\n```java\nreturn (Iterator<T[]>)(this.iterables.length <= 0 ? Collections.singletonList((Object[])Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));\n```\nTo:\n```java\nreturn (Iterator)(this.iterables.length <= 0 ? Collections.singletonList((Object[])Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));\n```",
+		"cmdDesc": "Cartesian.java | cannot convert from List<Object> to List<T>",
+		"detailedDesc": "Sometimes when decompiling mcp, you encounter an error with Cartesian.java The solution to this is going to line 73 in Cartesian.java and changing the line from:\n```java\nreturn (Iterator<T[]>)(this.iterables.length <= 0 ? Collections.singletonList((Object[])Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));\n```\nTo:\n```java\nreturn (Iterator)(this.iterables.length <= 0 ? Collections.singletonList((Object[])Cartesian.createArray(this.clazz, 0)).iterator() : new Cartesian.Product.ProductIterator(this.clazz, this.iterables));\n```",
 		"crashReport": [
 			"net.minecraft.util.Cartesian$GetList.apply",
 			"Type mismatch: cannot convert from List<Object> to List<T>"
