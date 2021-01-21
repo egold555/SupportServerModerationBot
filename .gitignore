@@ -97,3 +97,5 @@ ArchiveCreator/res/
 Website/src/org/golde/discordbot/website/server/routes/hidden/
 
 ArchiveCreator/
+
+_Shared/src/git-hash.txt
