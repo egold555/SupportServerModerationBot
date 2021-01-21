@@ -16,7 +16,7 @@ public class VersionUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		finally {
+		finally { 
 			try {
 				reader.close();
 			} catch (IOException e) {}
