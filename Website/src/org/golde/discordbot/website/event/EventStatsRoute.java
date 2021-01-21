@@ -88,10 +88,10 @@ public class EventStatsRoute extends EventBase {
 		}
 
 
-		for(String key : activitiesToMembers.keySet()) {
-			System.out.println("\"" + key + "\" " + activitiesToMembers.get(key).size());
-		}
-		System.out.println();
+//		for(String key : activitiesToMembers.keySet()) {
+//			System.out.println("\"" + key + "\" " + activitiesToMembers.get(key).size());
+//		}
+//		System.out.println();
 	}
 
 	@SuppressWarnings("unchecked")

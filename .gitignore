@@ -93,3 +93,5 @@ Moderation/src/org/golde/discordbot/supportserver/event/IDislikeKids1Point4.java
 Website/html/
 
 ArchiveCreator/res/
+
+Website/src/org/golde/discordbot/website/server/routes/hidden/

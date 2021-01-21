@@ -1,4 +1,4 @@
-package org.golde.discordbot.website.server.routes.stats;
+package org.golde.discordbot.website.server.routes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
+import fi.iki.elonen.NanoHTTPD.Method;
+import fi.iki.elonen.NanoHTTPD.Response.Status;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -22,6 +24,11 @@ public class PageGeneralStats extends AbstractJsonResponse {
 
 	@Override
 	public JsonObject getResponse(Map<String, String> urlParams, IHTTPSession session, JsonObject root) {
+		
+		if(session.getMethod() != Method.GET) {
+			setErrored("Only GET is supported", Status.BAD_REQUEST);
+			return root;
+		}
 		
 		if(
 				WebsiteBot.getInstance() == null || 

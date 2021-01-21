@@ -1,4 +1,4 @@
-package org.golde.discordbot.website.server.routes.imgcomp;
+package org.golde.discordbot.website.server.routes.old;
 
 import java.util.ArrayList;
 import java.util.Collections;

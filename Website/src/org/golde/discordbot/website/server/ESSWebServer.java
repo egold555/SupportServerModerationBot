@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.golde.discordbot.website.server.routes.PageAllMembers;
+import org.golde.discordbot.website.server.routes.PageGeneralStats;
 import org.golde.discordbot.website.server.routes.PageIndex;
 import org.golde.discordbot.website.server.routes.error.PageNotFound;
 import org.golde.discordbot.website.server.routes.error.PageNotImplemented;
-import org.golde.discordbot.website.server.routes.generic.PageAllMembers;
-import org.golde.discordbot.website.server.routes.stats.PageGeneralStats;
+import org.golde.discordbot.website.server.routes.hidden.PageCanSubmitApplication;
 
 import fi.iki.elonen.router.RouterNanoHTTPD;
 
@@ -45,11 +46,12 @@ public class ESSWebServer extends RouterNanoHTTPD {
 		addRoute("/", PageIndex.class);
 		addRoute("/stats", PageGeneralStats.class);
 		addRoute("/members", PageAllMembers.class);
+		addRoute("/private/canSubmitApplication", PageCanSubmitApplication.class);
 	}
 	
 	@Override
 	public void addRoute(String url, Class<?> handler, Object... initParameter) {
-		if(!url.equals("/")) {
+		if(!url.equals("/") && !url.contains("/private/")) {
 			routes.add(url);
 		}
 		super.addRoute(url, handler, initParameter);

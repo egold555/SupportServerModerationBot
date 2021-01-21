@@ -42,7 +42,7 @@ public abstract class AbstractJsonResponse extends DefaultHandler {
 		this.setErrored(errorMessage, Status.BAD_REQUEST);
 	}
 
-    public void setErrored(String errorMessage, Status status) {
+    public void setErrored(String errorMessage, IStatus status) {
 		this.errorMessage = errorMessage;
 		this.status = status;
 	}
