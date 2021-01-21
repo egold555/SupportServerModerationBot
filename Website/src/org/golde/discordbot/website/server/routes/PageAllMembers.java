@@ -47,7 +47,6 @@ public class PageAllMembers extends AbstractJsonResponse {
 //					role.getIdLong() == Roles.MEMBER ||
 					role.getName().contains("Internal - ") || 
 					role.getName().contains("Notifications") || 
-					role.getName().equals("Under 100 Messages Club")||
 					role.getName().equals("Server Captcha Bot")
 					) {
 				continue;
