@@ -3,7 +3,9 @@ package org.golde.discordbot.website;
 import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
+import org.golde.discordbot.shared.db.AbstractDBTranslation;
 import org.golde.discordbot.shared.event.EventBase;
+import org.golde.discordbot.website.db.Offence;
 import org.golde.discordbot.website.event.EventStatsRoute;
 import org.golde.discordbot.website.server.ESSWebServer;
 
@@ -26,6 +28,12 @@ public class WebsiteBot extends ESSBot {
 	@Override
 	public String getPrefix() {
 		return null;
+	}
+	
+	@Override
+	public void registerDatabaseTranslations(List<Class<? extends AbstractDBTranslation>> dbt) {
+		dbt.add(Offence.class);
+		super.registerDatabaseTranslations(dbt);
 	}
 
 	@Override

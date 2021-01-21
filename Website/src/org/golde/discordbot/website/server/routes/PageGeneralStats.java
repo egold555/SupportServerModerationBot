@@ -1,16 +1,11 @@
 package org.golde.discordbot.website.server.routes;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
 import org.golde.discordbot.website.WebsiteBot;
-import org.golde.discordbot.website.event.EventStatsRoute;
 import org.golde.discordbot.website.server.routes.base.AbstractJsonResponse;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
@@ -24,11 +19,6 @@ public class PageGeneralStats extends AbstractJsonResponse {
 
 	@Override
 	public JsonObject getResponse(Map<String, String> urlParams, IHTTPSession session, JsonObject root) {
-		
-		if(session.getMethod() != Method.GET) {
-			setErrored("Only GET is supported", Status.BAD_REQUEST);
-			return root;
-		}
 		
 		if(
 				WebsiteBot.getInstance() == null || 
@@ -47,45 +37,11 @@ public class PageGeneralStats extends AbstractJsonResponse {
 		objMembers.addProperty("total", getTotalMemberCount(g));
 		objMembers.addProperty("online", getOnlineMemberCount(g));
 		
-		
-		
 		objGuild.add("members", objMembers);
-		
-		
-		JsonObject objGuildBoost = new JsonObject();
-		
-		objGuildBoost.addProperty("tier", g.getBoostTier().name());
-		objGuildBoost.addProperty("count", g.getBoostCount());
-		
-		objGuild.add("boost", objGuildBoost);
-		
-		
-		
-		//objGuild.add("popularGames", getPopularGames());
-		
 		
 		root.add("guild", objGuild);
 		
 		return root;
-	}
-	
-	private JsonElement getPopularGames() {
-		List<JsonObject> popularGames = new ArrayList<JsonObject>();
-		Map<String, Integer> theRawGameData = EventStatsRoute.getActivitiesToMembers();
-		
-		for(String key : EventStatsRoute.getActivitiesToMembers().keySet()) {
-			int count = theRawGameData.get(key);
-			String logo = EventStatsRoute.getActivitiesToData().get(key);
-			JsonObject data = new JsonObject();
-			
-			data.addProperty("name", key);
-			data.addProperty("count", count);
-			data.addProperty("logo", logo);
-			
-			popularGames.add(data);
-		}
-		
-		return ESSBot.GSON.toJsonTree(popularGames);
 	}
 	
 	private int getTotalMemberCount(Guild g) {
