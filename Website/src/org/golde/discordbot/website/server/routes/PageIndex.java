@@ -15,7 +15,7 @@ public class PageIndex extends AbstractJsonResponse {
 
 	@Override
 	public JsonObject getResponse(Map<String, String> urlParams, IHTTPSession session, JsonObject root) {
-		root.addProperty("git", VersionUtil.getHash());
+		root.addProperty("git", VersionUtil.getHash()); 
 		root.addProperty("uptime", System.currentTimeMillis() - ESSWebServer.start);
 		root.add("routes", ESSBot.GSON.toJsonTree(ESSWebServer.routes));
 		return root;
