@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-shared"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/lib/json-20160810.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/emoji-java-5.1.1.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/gson-2.8.6.jar"/>
@@ -13,7 +13,7 @@
 	<classpathentry kind="lib" path="../Utilities/lib/OpenCSV/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="../Utilities/lib/OpenCSV/commons-text-1.1.jar"/>
 	<classpathentry kind="lib" path="../Utilities/lib/OpenCSV/opencsv-4.0.jar"/>
-	<classpathentry kind="lib" path="../_Shared/lib/JDA/JDA-4.2.0_168-withDependencies.jar" sourcepath="../_Shared/lib/JDA/JDA-4.2.0_168-sources.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/JDA-4.2.0_168-withDependencies.jar" sourcepath="/_Shared/lib/JDA/JDA-4.2.0_168-sources.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/jda-utilities-commons-3.0.3.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/jda-utilities-menu-3.0.3.jar"/>
 	<classpathentry kind="lib" path="../Utilities/lib/discord-webhooks-0.3.1.jar"/>
