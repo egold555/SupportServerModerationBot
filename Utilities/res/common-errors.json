@@ -105,7 +105,7 @@
 	{
 		"shortCodes": [ "flip()", "ByteBuffer", "bytebuff", "flip" ],
 		"cmdDesc": "java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;",
-		"detailedDesc": "This is a strange issue but it seems to be fixed by: casting ByteBuffer instances to Buffer before calling the method. Two fixes: ```Crashed on export:``` https://stackoverflow.com/questions/8122843/how-to-have-eclipse-use-jdk8-to-compile-a-project ```Crash inside of IDE: ``` Open Minecraft.java and find the readImageToBuffer method. Find the line that says `ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);`.  Before the ByteBuffer.allocate part, put `(ByteBuffer)`. For more detail (if your interested): https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;",
+		"detailedDesc": "This is a strange issue but it seems to be fixed by: casting ByteBuffer instances to Buffer before calling the method. Two fixes: ```Crashed on export:``` https://stackoverflow.com/a/8123245/11245667 ```Crash inside of IDE: ``` Open Minecraft.java and find the readImageToBuffer method. Find the line that says `ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);`.  Before the ByteBuffer.allocate part, put `(ByteBuffer)`. For more detail (if your interested): https://github.com/apache/felix/pull/114 and https://www.google.com/search?q=java.lang.NoSuchMethodError:%20java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;",
 		"crashReport": [ "java.lang.NoSuchMethodError: java.nio.ByteBuffer.flip()Ljava/nio/ByteBuffer;" ]
 	},
 	{
