@@ -31,6 +31,7 @@ import org.golde.discordbot.supportserver.event.ForTheLoveOfGodPleaseStopDoubleP
 import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
+import org.golde.discordbot.supportserver.event.KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife;
 import org.golde.discordbot.supportserver.event.MiscModLog;
 import org.golde.discordbot.supportserver.event.MuteManager;
 import org.golde.discordbot.supportserver.event.StopChattingInTheWrongChannelsPls;
@@ -67,6 +68,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new IDislikeKids1Point4(this));
 		events.add(new ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(this));
 		events.add(new EventDeletedMessageLogger(this));
+		events.add(new KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife(this));
 	}
 
 	@Override
