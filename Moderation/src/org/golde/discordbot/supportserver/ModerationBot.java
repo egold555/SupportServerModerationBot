@@ -12,12 +12,12 @@ import org.golde.discordbot.supportserver.command.chatmod.CommandAddBlockedUrl;
 import org.golde.discordbot.supportserver.command.chatmod.CommandBlockedUrls;
 import org.golde.discordbot.supportserver.command.chatmod.CommandMute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandPruneChat;
-import org.golde.discordbot.supportserver.command.chatmod.CommandRemoveBlockedUrl;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUnmute;
 import org.golde.discordbot.supportserver.command.chatmod.CommandUserHistory;
 import org.golde.discordbot.supportserver.command.chatmod.CommandWarn;
 import org.golde.discordbot.supportserver.command.guildmod.CommandBan;
 import org.golde.discordbot.supportserver.command.guildmod.CommandKick;
+import org.golde.discordbot.supportserver.command.owner.CommandRemoveBlockedUrl;
 import org.golde.discordbot.supportserver.command.owner.CommandUnban;
 import org.golde.discordbot.supportserver.database.DeletedMessage;
 import org.golde.discordbot.supportserver.database.ExpiredMessage;
@@ -27,6 +27,7 @@ import org.golde.discordbot.supportserver.event.BlockedFileHash;
 import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.EventDeletedMessageLogger;
+import org.golde.discordbot.supportserver.event.EventDenyFileUploadsAndLinks;
 import org.golde.discordbot.supportserver.event.ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp;
 import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
@@ -69,6 +70,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(this));
 		events.add(new EventDeletedMessageLogger(this));
 		events.add(new KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife(this));
+		events.add(new EventDenyFileUploadsAndLinks(this));
 	}
 
 	@Override
@@ -80,7 +82,7 @@ public class ModerationBot extends ESSBot {
 		cmds.add(new CommandUserHistory(this));
 		cmds.add(new CommandAddBlockedUrl(this));
 		cmds.add(new CommandBlockedUrls(this));
-		cmds.add(new CommandRemoveBlockedUrl(this));
+		
 	}
 
 	@Override
@@ -93,6 +95,7 @@ public class ModerationBot extends ESSBot {
 	public void registerOwnerCommand(List<OwnerCommand> cmds) {
 		cmds.add(new CommandUnban(this));
 		//cmds.add(new CommandRemoveAction(this));
+		cmds.add(new CommandRemoveBlockedUrl(this));
 	}
 
 	@Override

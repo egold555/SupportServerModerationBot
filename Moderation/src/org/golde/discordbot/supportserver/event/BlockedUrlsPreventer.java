@@ -1,5 +1,6 @@
 package org.golde.discordbot.supportserver.event;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.golde.discordbot.shared.ESSBot;
@@ -26,10 +27,12 @@ public class BlockedUrlsPreventer extends AbstractMessageChecker implements ICan
 	@Override
 	public void reload() {
 		BAD_URLS = FileUtil.loadArrayFromFile(FILE_NAME, String[].class);
+		Collections.sort(BAD_URLS);
 	}
 
 	public static void addUrl(String url) {
 		BAD_URLS.add(url);
+		Collections.sort(BAD_URLS);
 		FileUtil.saveToFile(BAD_URLS, FILE_NAME);
 	}
 

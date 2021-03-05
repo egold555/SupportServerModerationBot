@@ -9,6 +9,8 @@ import java.util.List;
 
 public class CommandBlockedUrls extends ChatModCommand {
 
+	private static final int MAX_PER_EMBED = 75;
+	
     public CommandBlockedUrls(ESSBot bot) {
         super(bot, "blockedurls", null, "View all blocked URLs");
     }
@@ -18,14 +20,25 @@ public class CommandBlockedUrls extends ChatModCommand {
         List<String> badUrls = BlockedUrlsPreventer.getUrls();
         StringBuilder builder = new StringBuilder();
         int index = 0;
+        int count = 1;
+        int page = 0;
         for (String url : badUrls) {
             if (index == badUrls.size() - 1) {
                 builder.append("•   ").append(url);
             } else {
                 builder.append("•   ").append(url).append("\n");
             }
+            
+            if(count > MAX_PER_EMBED) {
+            	count = 0;
+            	page++;
+            	reply(event.getChannel(), "Blocked URLs (Page " + page + ")", builder.toString());
+            	builder = new StringBuilder();
+            }
+            count++;
         }
-        reply(event.getChannel(), "Blocked URLs", builder.toString());
+        page++;
+        reply(event.getChannel(), "Blocked URLs (Page " + page + ")", builder.toString());
     }
 
 }
