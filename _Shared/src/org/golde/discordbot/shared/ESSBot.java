@@ -3,6 +3,8 @@ package org.golde.discordbot.shared;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.golde.discordbot.shared.command.BaseCommand;
 import org.golde.discordbot.shared.command.chatmod.ChatModCommand;
@@ -167,7 +169,16 @@ public abstract class ESSBot {
 
 						//If we don't have any commands, don't set a activity
 						if(getPrefix() != null) {
-							jda.getPresence().setActivity(Activity.listening(getPrefix() + "help"));
+							
+							//WTF - Not sure when this change was added, but bots have a default message "playing PREFIXhelp"
+							new Timer().schedule(new TimerTask() {
+								
+								@Override
+								public void run() {
+									jda.getPresence().setActivity(Activity.listening(getPrefix() + "help"));
+								}
+							}, 2);
+							
 						}
 						
 						guild = event.getJDA().getGuilds().get(0); //setup our shortcut guild
