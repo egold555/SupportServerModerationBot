@@ -7,7 +7,11 @@
 	<classpathentry kind="lib" path="../_Shared/lib/emoji-java-5.1.1.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/gson-2.8.6.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/lombok.jar"/>
-	<classpathentry kind="lib" path="../_Shared/lib/JDA/JDA-4.2.0_168-withDependencies.jar" sourcepath="/_Shared/lib/JDA/JDA-4.2.0_168-sources.jar"/>
+	<classpathentry kind="lib" path="../_Shared/lib/JDA/JDA.jar" sourcepath="/_Shared/lib/JDA/sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/../_Shared/lib/JDA/javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/jda-utilities-commons-3.0.3.jar"/>
 	<classpathentry kind="lib" path="../_Shared/lib/JDAUtilities/jda-utilities-menu-3.0.3.jar"/>
 	<classpathentry kind="lib" path="../Website/lib/http/nanohttpd-2.3.1.jar"/>
