@@ -31,10 +31,13 @@ import org.golde.discordbot.utilities.commonerror.CommonErrorManager;
 
 import com.opencsv.CSVReader;
 
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message.Attachment;
+import net.dv8tion.jda.api.entities.Message.MentionType;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class CrashReportEventHandler extends EventBase {
 
@@ -145,15 +148,15 @@ public class CrashReportEventHandler extends EventBase {
 		//		System.out.println(Arrays.toString(classesSplit));
 		//		System.out.println(report.toString());
 
-		builder.append(report.getException().getType() + "** on line **" + classesSplit[1] + "** in the class ** " + path + "**");
+		builder.append(sanitize(report.getException().getType()) + "** on line **" + sanitize(classesSplit[1]) + "** in the class ** " + sanitize(path) + "**");
 
 		if(errorToMessageJava.containsKey(report.getException().getType())) {
-			builder.append("\n\n").append(errorToMessageJava.get(report.getException().getType()));
+			builder.append("\n\n").append(sanitize(errorToMessageJava.get(report.getException().getType())));
 		}
 
 
-		channel.sendMessage("[Crash Report Identifier] :white_check_mark: " + builder.toString()).queue();
-
+		sendMessage(channel, "[Crash Report Identifier] :white_check_mark: " + builder.toString());
+		
 
 		//		}
 		//		catch(Exception e) {
@@ -164,6 +167,14 @@ public class CrashReportEventHandler extends EventBase {
 
 
 
+	}
+	
+	private static final String sanitize(String in) {
+		return MarkdownSanitizer.sanitize(in).replace("@", "").replace("<", "").replace(">", "");
+	}
+	
+	private static void sendMessage(TextChannel tc, String msg) {
+		tc.sendMessage(new MessageBuilder().denyMentions(MentionType.values()).append(msg).build()).queue();;
 	}
 
 	private void checkForCommonError(Member sender, TextChannel channel, InputStream input) {
@@ -179,7 +190,7 @@ public class CrashReportEventHandler extends EventBase {
 					.lines()
 					.collect(Collectors.joining("\n"));
 
-
+			msg = sanitize(msg);
 
 			if(msg.isEmpty()) {
 				return;
@@ -221,7 +232,7 @@ public class CrashReportEventHandler extends EventBase {
 
 
 	private void sendUpdateMessage(TextChannel tc, String msg) {
-		tc.sendMessage("[Crash Report Identifier] " + msg).queue();
+		sendMessage(tc, "[Crash Report Identifier] " + msg);
 	}
 
 	private boolean isMinecraftCrashReport(String s) {
