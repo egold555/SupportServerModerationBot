@@ -32,6 +32,7 @@ import com.opencsv.CSVReader;
 
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.Message.MentionType;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -89,15 +90,15 @@ public class CrashReportEventHandler extends EventBase {
 				event.getChannel().getIdLong() == Channels.MiscellaneousChats.BOT_COMMANDS
 				) {
 
-			checkPastes(event.getMember(), event.getChannel(),event.getMessage().getContentStripped());
-			checkFiles(event.getMember(), event.getChannel(), event.getMessage().getAttachments());
+			checkPastes(event.getMember(), event.getChannel(),event.getMessage());
+			checkFiles(event.getMember(), event.getChannel(), event.getMessage());
 		}
 		//checkMessage(event.getMember(), event.getChannel(), event.getMessage().getContentStripped());
 	}
 
 
 
-	private void newCrashReporter(Member sender, TextChannel channel, String text) throws IOException, ParseException {
+	private void newCrashReporter(Member sender, Message toReplyTo, String text) throws IOException, ParseException {
 
 		//System.out.println(crashFile.getAbsolutePath());
 
@@ -154,7 +155,7 @@ public class CrashReportEventHandler extends EventBase {
 		}
 
 
-		sendMessage(channel, "[Crash Report Identifier] :white_check_mark: " + builder.toString());
+		sendMessage(toReplyTo, "[Crash Report Identifier] :white_check_mark: " + builder.toString());
 		
 
 		//		}
@@ -172,11 +173,11 @@ public class CrashReportEventHandler extends EventBase {
 		return MarkdownSanitizer.sanitize(in).replace("@", "").replace("<", "").replace(">", "");
 	}
 	
-	private static void sendMessage(TextChannel tc, String msg) {
-		tc.sendMessage(new MessageBuilder().denyMentions(MentionType.values()).append(msg).build()).queue();;
+	private static void sendMessage(Message toReplyTo, String msg) {
+		toReplyTo.reply(new MessageBuilder().denyMentions(MentionType.values()).append(msg).build()).queue();;
 	}
 
-	private void checkForCommonError(Member sender, TextChannel channel, InputStream input) {
+	private void checkForCommonError(Member sender, Message toReplyTo, TextChannel channel, InputStream input) {
 
 		try {
 
@@ -200,7 +201,7 @@ public class CrashReportEventHandler extends EventBase {
 				return;
 			}
 
-			sendUpdateMessage(channel, "Parsing crash data... This might take a moment.");
+			sendUpdateMessage(toReplyTo, "Parsing crash data... This might take a moment.");
 
 			boolean foundCommonError = false;
 
@@ -217,28 +218,30 @@ public class CrashReportEventHandler extends EventBase {
 			}
 
 			if(!foundCommonError) {
-				newCrashReporter(sender, channel, msg);
+				newCrashReporter(sender, toReplyTo, msg);
 			}
 
 
 		}
 		catch(Exception e) {
-			anErrorOccurred(channel, input, e);
+			anErrorOccurred(toReplyTo, input, e);
 		}
 
 	}
 
 
 
-	private void sendUpdateMessage(TextChannel tc, String msg) {
-		sendMessage(tc, "[Crash Report Identifier] " + msg);
+	private void sendUpdateMessage(Message replyTo, String msg) {
+		sendMessage(replyTo, "[Crash Report Identifier] " + msg);
 	}
 
 	private boolean isMinecraftCrashReport(String s) {
 		return s.split("\n")[0].contains("---- Minecraft Crash Report ----");
 	}
 
-	private void checkPastes(Member sender, TextChannel channel, String message) {
+	private void checkPastes(Member sender, TextChannel channel, Message toReplyTo) {
+		
+		String message = toReplyTo.getContentStripped();
 
 		List<String> urlsInMessage = extractUrls(message);
 		//System.out.println(urlsInMessage.toString());
@@ -265,10 +268,10 @@ public class CrashReportEventHandler extends EventBase {
 					URLConnection conn = new URL(s).openConnection();
 					conn.addRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
 					InputStream input = conn.getInputStream();
-					checkForCommonError(sender, channel, input);
+					checkForCommonError(sender, toReplyTo, channel, input);
 				}
 				catch(Throwable err) {
-					anErrorOccurred(channel, "Link: " + s, err);
+					anErrorOccurred(toReplyTo, "Link: " + s, err);
 				}
 
 			}
@@ -277,11 +280,11 @@ public class CrashReportEventHandler extends EventBase {
 
 	}
 	
-	private void anErrorOccurred(TextChannel tc, Throwable err) {
-		anErrorOccurred(tc, "", err);
+	private void anErrorOccurred(Message toReplyTo, Throwable err) {
+		anErrorOccurred(toReplyTo, "", err);
 	}
 	
-	private void anErrorOccurred(TextChannel tc, InputStream file, Throwable err) {
+	private void anErrorOccurred(Message toReplyTo, InputStream file, Throwable err) {
 		
 		String text = null;
 		
@@ -292,15 +295,15 @@ public class CrashReportEventHandler extends EventBase {
 					.collect(Collectors.joining("\n"));
 		}
 		
-		anErrorOccurred(tc, text, err);
+		anErrorOccurred(toReplyTo, text, err);
 	}
 
-	private void anErrorOccurred(TextChannel tc, String file, Throwable err) {
+	private void anErrorOccurred(Message toReplyTo, String file, Throwable err) {
 		err.printStackTrace();
-		sendUpdateMessage(tc, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
+		sendUpdateMessage(toReplyTo, ":x: An internal error has occurred while parsing your crash report. I have passed this information onto Eric.");
 		try {
 			String uuid = UUID.randomUUID().toString();
-			TextChannel errorChannel = tc.getGuild().getTextChannelById(Channels.BotDebugging.UNKNOWN_CRASH_REPORTS);
+			TextChannel errorChannel = toReplyTo.getGuild().getTextChannelById(Channels.BotDebugging.UNKNOWN_CRASH_REPORTS);
 			errorChannel.sendFile(toStringException(err).getBytes(), uuid + " Exception.txt").queue();
 			if(file != null && !file.isEmpty()) {
 				errorChannel.sendFile(file.getBytes(), uuid + " Crash Report.txt").queue();
@@ -310,8 +313,10 @@ public class CrashReportEventHandler extends EventBase {
 		catch(IOException ignored) {};
 	}
 
-	private void checkFiles(Member sender, TextChannel channel, List<Attachment> attachments) {
+	private void checkFiles(Member sender, TextChannel channel, Message toReplyTo) {
 
+		List<Attachment> attachments = toReplyTo.getAttachments();
+		
 		if(attachments.size() == 0) {
 			return;
 		}
@@ -342,14 +347,14 @@ public class CrashReportEventHandler extends EventBase {
 
 
 			try {
-				checkForCommonError(sender, channel, new FileInputStream(in));
+				checkForCommonError(sender, toReplyTo, channel, new FileInputStream(in));
 			} catch (FileNotFoundException e) {
-				anErrorOccurred(channel, e);
+				anErrorOccurred(toReplyTo, e);
 			}
 
 		})
 		.exceptionally(t -> { // handle failure
-			this.anErrorOccurred(channel, t);
+			this.anErrorOccurred(toReplyTo, t);
 			return null;
 		});
 
