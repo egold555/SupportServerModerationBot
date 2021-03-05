@@ -1,6 +1,6 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Thu Feb 18 12:10:46 PST 2021
+//Generated: Fri Mar 05 10:49:40 PST 2021
 public class Categories {
 
         public static final long MOD_STUFF__THINGS = 652289601334935561L;
@@ -15,9 +15,10 @@ public class Categories {
         public static final long MISC_PROGRAMMING_DISCUSSION = 747182647008165961L;
         public static final long MISCELLANEOUS_CHATS = 644005865103556608L;
         public static final long PRIVATE_LOUNGES = 722535139674030140L;
+        public static final long TEMPORARY_CHANNELS = 812053448468070460L;
         public static final long ARCHIVED_CHANNELS = 751525235253182494L;
+        public static final long STILL_NEED_TO_ARCHIVE = 814604615613153310L;
         public static final long BOT_DEBUGGING = 760620145742839828L;
         public static final long OWNER_ONLY = 594337679605366804L;
         public static final long SHIT_I_NEED_TO_FIGURE_OUT_WHAT_TO_DO_WITH = 661677763232661525L;
-        public static final long TEMPORARY_CHANNELS = 812053448468070460L;
 }

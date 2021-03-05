@@ -1,11 +1,10 @@
 package org.golde.discordbot.shared.constants;
 
-//Generated: Thu Feb 18 12:10:46 PST 2021
+//Generated: Fri Mar 05 10:49:40 PST 2021
 public class Channels {
 
     public static class BotDebugging {
         public static final long COMMAND_TESTING = 604769552416374807L;
-        public static final long COUNTING_V2 = 717213659876556830L;
         public static final long OCR_ERRORS = 760619956932182066L;
         public static final long UNKNOWN_CRASH_REPORTS = 684115853721075715L;
     }
@@ -26,10 +25,6 @@ public class Channels {
         public static final long COMMUNITY_UPDATES = 739329271675486378L;
         public static final long ANONYMOUS_REPORTS = 751611087840870430L;
         public static final long ACCOUNT_REPORTS = 811856788919549963L;
-    }
-
-    public static class Applications {
-        public static final long COMMON_RESPONCES = 752300126491639839L;
     }
 
     public static class Holding {
@@ -61,17 +56,7 @@ public class Channels {
         public static final long REPORT_DM_ADS = 671573931261558805L;
         public static final long SPOOKY_ESS = 766011874453749770L;
         public static final long HOLIDAY_LOGO = 776886937822298154L;
-        public static final long __ = 793955404807667713L;
         public static final long VALENTINES_DAY_2021 = 808755112877096990L;
-        public static final long POLL_YOUTUBE_ANNOUNCEMENTS_CHANNEL = 742136949602779227L;
-        public static final long SUGGESTIONS_OLD = 604769523639386112L;
-        public static final long TC_EXPRESSION_PARSER_CE = 793330418215682058L;
-        public static final long TMP_EE587FBC_E76C_4AA1_82DB_B7D11A6A645A = 805191995692679274L;
-        public static final long WINNER_ITZFROSTTHEWOLF = 810604023786110986L;
-        public static final long WINNER_ = 810603770756857866L;
-        public static final long WINNER_POWH = 810603075676012555L;
-        public static final long WINNER_ENFORDERT = 810603559380713512L;
-        public static final long WINNER_BSDEVS = 810603380644905011L;
     }
 
     public static class Info {
