@@ -46,7 +46,7 @@ public class OCRCommonErrors extends EventBase {
 		TextChannel tc = event.getChannel();
 		Message m = event.getMessage();
 
-		if(event.getAuthor().isBot() || event.getAuthor().isFake()) {
+		if(event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) {
 			return;
 		}
 

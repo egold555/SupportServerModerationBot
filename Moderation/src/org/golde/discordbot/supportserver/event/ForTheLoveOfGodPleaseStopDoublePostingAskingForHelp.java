@@ -30,7 +30,7 @@ public class ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp extends EventBa
 		TextChannel tc = event.getChannel();
 		Message msg = event.getMessage();
 
-		if(mem == null || mem.getUser() == null || mem.getUser().isBot() || mem.getUser().isFake()) {
+		if(mem == null || mem.getUser() == null || mem.getUser().isBot() || event.getMessage().isWebhookMessage()) {
 			return;
 		}
 

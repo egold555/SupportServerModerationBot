@@ -30,7 +30,7 @@ public class AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDo
 		User user = event.getAuthor();
 		Guild g = event.getGuild();
 
-		if(user.isBot() || user.isFake()) {
+		if(user.isBot() || event.isWebhookMessage()) {
 			if(tc.getIdLong() == Channels.Logs.NEW_APPLICATIONS || tc.getIdLong() == Channels.Logs.UNBAN_APPEAL) {
 				List<MessageEmbed> embeds = msg.getEmbeds();
 

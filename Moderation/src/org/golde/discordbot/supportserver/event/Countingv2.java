@@ -59,7 +59,7 @@ public class Countingv2 extends EventBase {
 
 	void checkMessage(TextChannel tc, Member sender, Message message) {
 
-		if(sender.getUser().isBot() || sender.getUser().isFake()) {
+		if(sender.getUser().isBot() || message.isWebhookMessage()) {
 			return;
 		}
 

@@ -20,7 +20,7 @@ public abstract class AbstractMessageChecker extends EventBase {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
 		//omg
-		if(event.getAuthor().isBot() || event.getAuthor().isFake()) {
+		if(event.getAuthor().isBot() || event.isWebhookMessage()) {
 			return;
 		}
 
@@ -34,7 +34,7 @@ public abstract class AbstractMessageChecker extends EventBase {
 	public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
 
 		//omg
-		if(event.getAuthor().isBot() || event.getAuthor().isFake()) {
+		if(event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) {
 			return;
 		}
 

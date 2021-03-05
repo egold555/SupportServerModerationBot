@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -181,7 +180,7 @@ public class CrashReportEventHandler extends EventBase {
 
 		try {
 
-			if(sender.getUser().isBot() || sender.getUser().isFake()) {
+			if(sender.getUser().isBot()) {
 				return;
 			}
 

@@ -49,7 +49,7 @@ public class ClientInvitesNeedsToBeBetter extends EventBase implements ICanHasDa
 			return;
 		}
 		
-		if(user.isBot() || user.isFake()) {
+		if(user.isBot() || event.isWebhookMessage()) {
 			return;
 		}
 

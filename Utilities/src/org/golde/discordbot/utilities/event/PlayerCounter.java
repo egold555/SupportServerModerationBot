@@ -70,7 +70,7 @@ public class PlayerCounter extends EventBase {
 		int toReturn = 0;
 		
 		for(Member m : g.getMembersWithRoles(g.getRoleById(Roles.MEMBER))) {
-			if(!m.getUser().isBot() && !m.getUser().isFake()) {
+			if(!m.getUser().isBot()) {
 				toReturn++;
 			}
 		}

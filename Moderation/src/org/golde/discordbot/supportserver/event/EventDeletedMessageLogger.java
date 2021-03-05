@@ -26,7 +26,7 @@ public class EventDeletedMessageLogger extends EventBase {
 		
 		User user = event.getAuthor();
 		Message msg = event.getMessage();
-		if(user.isBot() || user.isFake()) {
+		if(user.isBot() || event.getMessage().isWebhookMessage()) {
 			return;
 		}
 		
@@ -93,7 +93,7 @@ public class EventDeletedMessageLogger extends EventBase {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		User user = event.getAuthor();
 		Message msg = event.getMessage();
-		if(user.isBot() || user.isFake()) {
+		if(user.isBot() || event.getMessage().isWebhookMessage()) {
 			return;
 		}
 		

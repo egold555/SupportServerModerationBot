@@ -37,7 +37,7 @@ public class LikeDislikePollEvents extends AbstractMessageChecker implements ICa
 			return false;
 		}
 		
-		if(sender.isFake() || sender.getUser().isBot()) {
+		if(msg.isWebhookMessage() || sender.getUser().isBot()) {
 			return false;
 		}
 		
@@ -76,7 +76,7 @@ public class LikeDislikePollEvents extends AbstractMessageChecker implements ICa
 		//Guild g = event.getGuild();
 		TextChannel tc = event.getChannel();
 		
-		if(event.getUser().isBot() || event.getUser().isFake()) {
+		if(event.getUser().isBot()) {
 			return;
 		}
 		

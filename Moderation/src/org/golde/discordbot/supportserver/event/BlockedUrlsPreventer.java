@@ -63,7 +63,7 @@ public class BlockedUrlsPreventer extends AbstractMessageChecker implements ICan
 	@Override
 	protected void takeAction(Guild guild, Member target, Message msg) {
 
-		if(target == null || target.getUser() == null || target.getUser().isBot() || target.getUser().isFake()) {
+		if(target == null || target.getUser() == null || target.getUser().isBot() || msg.isWebhookMessage()) {
 			return;
 		}
 		

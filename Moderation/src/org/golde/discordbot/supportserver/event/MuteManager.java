@@ -44,7 +44,7 @@ public class MuteManager extends AbstractMessageChecker implements ICanHasDataba
 	@Override
 	protected boolean checkMessage(Member sender, Message msg) {
 
-		if(sender.isOwner() || sender.isFake() || sender.getUser().isBot()) {
+		if(sender.isOwner() || msg.isWebhookMessage() || sender.getUser().isBot()) {
 			return false;
 		}
 
@@ -77,7 +77,7 @@ public class MuteManager extends AbstractMessageChecker implements ICanHasDataba
 
 		super.onGuildMessageReceived(event);
 
-		if(event.getAuthor().isBot() || event.getAuthor().isFake()) {
+		if(event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) {
 			return;
 		}
 

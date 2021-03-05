@@ -54,7 +54,7 @@ public abstract class BaseCommand extends Command {
 	}
 	protected void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
 
-		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+		if(member == null || member.getUser() == null || member.getUser().isBot()) {
 
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();
@@ -79,7 +79,7 @@ public abstract class BaseCommand extends Command {
 	}
 	protected void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
 
-		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+		if(member == null || member.getUser() == null || member.getUser().isBot()) {
 
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();

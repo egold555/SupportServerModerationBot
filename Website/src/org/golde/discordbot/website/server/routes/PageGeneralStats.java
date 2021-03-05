@@ -9,8 +9,6 @@ import org.golde.discordbot.website.server.routes.base.AbstractJsonResponse;
 import com.google.gson.JsonObject;
 
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
-import fi.iki.elonen.NanoHTTPD.Method;
-import fi.iki.elonen.NanoHTTPD.Response.Status;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -48,7 +46,7 @@ public class PageGeneralStats extends AbstractJsonResponse {
 		int toReturn = 0;
 		
 		for(Member m : g.getMembersWithRoles(g.getRoleById(Roles.MEMBER))) {
-			if(!m.getUser().isBot() && !m.getUser().isFake()) {
+			if(!m.getUser().isBot()) {
 				toReturn++;
 			}
 		}
@@ -59,7 +57,7 @@ public class PageGeneralStats extends AbstractJsonResponse {
 		int toReturn = 0;
 		
 		for(Member m : g.getMembersWithRoles(g.getRoleById(Roles.MEMBER))) {
-			if(!m.getUser().isBot() && !m.getUser().isFake()) {
+			if(!m.getUser().isBot()) {
 				if(m.getOnlineStatus() != OnlineStatus.OFFLINE && m.getOnlineStatus() != OnlineStatus.UNKNOWN) {
 					toReturn++;
 				}

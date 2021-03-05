@@ -65,7 +65,7 @@ public class CommandBan extends GuildModCommand {
 				reason = String.join(" ", args.subList(2, args.size()));
 			}
 
-			if (target != null && !event.getMember().canInteract(target) || target.getUser().isBot() || target.getUser().isFake()) {
+			if (target != null && !event.getMember().canInteract(target) || target.getUser().isBot() || event.getMessage().isWebhookMessage()) {
 				replyError(tc, SSEmojis.HAL9000 + " I'm sorry " + event.getMember().getAsMention() + ", I'm afraid I can't let you do that." );
 				return;
 			}

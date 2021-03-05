@@ -25,7 +25,7 @@ public class TryToFindIntrestingFiles extends AbstractMessageChecker {
 	@Override
 	protected boolean checkMessage(Member sender, Message msg) {
 
-		if(sender.getUser().isBot() || sender.getUser().isFake()) {
+		if(sender.getUser().isBot() || msg.isWebhookMessage()) {
 			return false;
 		}
 

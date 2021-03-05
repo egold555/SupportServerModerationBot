@@ -61,7 +61,7 @@ public class BlockedFileHash extends EventBase implements ICanHasDatabaseFile {
 		Message msg = event.getMessage();
 		Member target = event.getMember();
 
-		if(target == null || target.getUser() == null || target.getUser().isBot() || target.getUser().isFake()) {
+		if(target == null || target.getUser() == null || target.getUser().isBot() || event.isWebhookMessage()) {
 			return;
 		}
 

@@ -26,7 +26,7 @@ public abstract class EventBase extends ListenerAdapter {
 		tryToDmUser(member, embed, null);
 	}
 	protected static void tryToDmUser(Member member, MessageEmbed embed, Runnable onFinishedTrying) {
-		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+		if(member == null || member.getUser() == null || member.getUser().isBot()) {
 
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();
@@ -51,7 +51,7 @@ public abstract class EventBase extends ListenerAdapter {
 	}
 	protected static void tryToDmUser(Member member, String msg, Runnable onFinishedTrying) {
 
-		if(member == null || member.getUser() == null || member.getUser().isBot() || member.getUser().isFake()) {
+		if(member == null || member.getUser() == null || member.getUser().isBot()) {
 
 			if(onFinishedTrying != null) {
 				onFinishedTrying.run();

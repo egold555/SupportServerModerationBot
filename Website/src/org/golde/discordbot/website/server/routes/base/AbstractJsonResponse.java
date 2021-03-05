@@ -60,7 +60,8 @@ public abstract class AbstractJsonResponse extends DefaultHandler {
     public final Response get(UriResource uriResource, Map<String, String> urlParams, IHTTPSession session) {
     	
     	//urlParams is always empty for some reason
-    	JsonObject responce = getResponse(session.getParms(), session, new JsonObject());
+    	@SuppressWarnings("deprecation")
+		JsonObject responce = getResponse(session.getParms(), session, new JsonObject());
     	
     	JsonObject obj = new JsonObject();
     	
