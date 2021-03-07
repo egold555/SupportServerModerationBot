@@ -41,10 +41,10 @@ public class OCRCommonErrors extends EventBase {
 			);
 
 	@Override
-	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+	public void onGuildMessageReceived(final GuildMessageReceivedEvent event) {
 
-		TextChannel tc = event.getChannel();
-		Message m = event.getMessage();
+		final TextChannel tc = event.getChannel();
+		final Message m = event.getMessage();
 
 		if(event.getAuthor().isBot() || event.getMessage().isWebhookMessage()) {
 			return;
@@ -74,7 +74,7 @@ public class OCRCommonErrors extends EventBase {
 								//System.out.println(response);
 
 								if(statusCode == 200) {
-									doOcr(bot, tc, event.getMember(), response, a);
+									doOcr(bot, tc, event.getMember(), response, a, m);
 
 								}
 
@@ -134,7 +134,7 @@ public class OCRCommonErrors extends EventBase {
 
 	}
 
-	public static void doOcr(ESSBot bot, TextChannel tc, Member mem, String response, Attachment a) {
+	public static void doOcr(ESSBot bot, TextChannel tc, Member mem, String response, Attachment a, Message toReply) {
 		Guild g = tc.getGuild();
 		JsonObject jsonObject = new Gson().fromJson(response, JsonObject.class);
 
@@ -180,7 +180,7 @@ public class OCRCommonErrors extends EventBase {
 			if(ce.getOcr() != null && ce.getOcr().length > 0) {
 
 				if(contains(lines, ce.getOcr())) {
-					CommonErrorManager.sendCEMessage(bot, tc, ce);
+					CommonErrorManager.sendCEMessage(bot, tc, ce, toReply);
 				}
 				else {
 					//System.out.println("No match");

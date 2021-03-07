@@ -12,6 +12,7 @@ import org.golde.discordbot.shared.db.FileUtil;
 
 import lombok.Getter;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -27,10 +28,18 @@ public class CommonErrorManager {
 	}
 
 	public static void sendCEMessage(ESSBot bot, TextChannel tc, CommonError ce) {
-		sendCEMessage(bot, tc, ce, null);
+		sendCEMessage(bot, tc, ce, null, null);
+	}
+	
+	public static void sendCEMessage(ESSBot bot, TextChannel tc, CommonError ce, Message toReply) {
+		sendCEMessage(bot, tc, ce, null, toReply);
 	}
 	
 	public static void sendCEMessage(ESSBot bot, TextChannel tc, CommonError ce, String[] extraArguments) {
+		sendCEMessage(bot, tc, ce, extraArguments, null);
+	}
+	
+	public static void sendCEMessage(ESSBot bot, TextChannel tc, CommonError ce, String[] extraArguments, Message toReply) {
 
 		String desc = ce.getDetailedDesc();
 		if(extraArguments != null) {
@@ -41,7 +50,13 @@ public class CommonErrorManager {
 		
 
 		if(ce.getCmdArgs() != null && extraArguments.length != ce.getCmdArgs().length) {
-			reply(tc, getReplyEmbedRaw(bot, EnumReplyType.ERROR, "Missing arguments", "This common error is missing the required extra arguments: " + Arrays.toString(ce.getCmdArgs())));
+			if(toReply != null) {
+				toReply.reply(getReplyEmbedRaw(bot, EnumReplyType.ERROR, "Missing arguments", "This common error is missing the required extra arguments: " + Arrays.toString(ce.getCmdArgs())).build());
+			}
+			else {
+				reply(tc, getReplyEmbedRaw(bot, EnumReplyType.ERROR, "Missing arguments", "This common error is missing the required extra arguments: " + Arrays.toString(ce.getCmdArgs())));
+			}
+			
 			return;
 		}
 
@@ -51,8 +66,17 @@ public class CommonErrorManager {
 				desc
 				);
 
-		MessageAction theMsg = tc.sendMessage(embed);
-		MessageAction attachmentMessage = tc.sendMessage(" ");
+		MessageAction theMsg;
+		MessageAction attachmentMessage;
+		if(toReply != null) {
+			theMsg = toReply.reply(embed);
+			attachmentMessage = toReply.reply(" ");
+		}
+		else {
+			theMsg = tc.sendMessage(embed);
+			attachmentMessage = tc.sendMessage(" ");
+		}
+		
 
 		if(ce.getFileAttachments() != null && ce.getFileAttachments().length > 0) {
 			for(String fileName : ce.getFileAttachments()) {
