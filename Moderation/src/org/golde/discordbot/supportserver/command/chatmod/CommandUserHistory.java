@@ -32,12 +32,14 @@ public class CommandUserHistory extends ChatModCommand {
 		TextChannel tc = event.getTextChannel();
 		Long targetId = getMember(event, args, 1);
 
-		Member target = event.getGuild().getMemberById(targetId);
-
+		
 		if(args.isEmpty() || targetId == null) {
 			replyError(tc, getHelpReply());
 			return;
 		}
+		
+		Member target = event.getGuild().getMemberById(targetId);
+
 
 		if(target == null) {
 			replyWarning(tc, "I could not find this player on the guild, but will attempt to preform the given action anyway...");
