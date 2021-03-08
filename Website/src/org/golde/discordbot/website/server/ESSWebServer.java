@@ -10,6 +10,8 @@ import org.golde.discordbot.website.server.routes.PageIndex;
 import org.golde.discordbot.website.server.routes.error.PageNotFound;
 import org.golde.discordbot.website.server.routes.error.PageNotImplemented;
 import org.golde.discordbot.website.server.routes.hidden.HiddenRoutes;
+import org.golde.discordbot.website.server.routes.login.PageLoginRedirect;
+import org.golde.discordbot.website.server.routes.login.PageLoginReturnBackFromDiscord;
 
 import fi.iki.elonen.router.RouterNanoHTTPD;
 
@@ -46,6 +48,8 @@ public class ESSWebServer extends RouterNanoHTTPD {
 		addRoute("/", PageIndex.class);
 		addRoute("/stats", PageGeneralStats.class);
 		addRoute("/members", PageAllMembers.class);
+		addRoute("/login", PageLoginRedirect.class);
+		addRoute("/login/response", PageLoginReturnBackFromDiscord.class);
 		//addRoute("/lookupUser", PageLookupUser.class);
 		for(String key : HiddenRoutes.getRoutes().keySet()) {
 			addRoute(key, HiddenRoutes.getRoutes().get(key));

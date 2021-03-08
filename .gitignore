@@ -103,3 +103,7 @@ _Shared/src/git-hash.txt
 Emma/
 
 Moderation/src/org/golde/discordbot/supportserver/event/KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife.java
+
+WebsiteNew/
+
+Website/src/org/golde/discordbot/website/server/routes/login/PageLoginRedirect.java
