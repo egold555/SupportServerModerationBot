@@ -6,7 +6,6 @@ import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.db.AbstractDBTranslation;
 import org.golde.discordbot.shared.event.EventBase;
 import org.golde.discordbot.website.db.Offence;
-import org.golde.discordbot.website.event.EventStatsRoute;
 import org.golde.discordbot.website.server.ESSWebServer;
 
 import net.dv8tion.jda.api.OnlineStatus;
@@ -44,7 +43,6 @@ public class WebsiteBot extends ESSBot {
 	
 	@Override
 	public void registerEventListeners(List<EventBase> events) {
-		events.add(new EventStatsRoute(this));
 		super.registerEventListeners(events);
 	}
 
