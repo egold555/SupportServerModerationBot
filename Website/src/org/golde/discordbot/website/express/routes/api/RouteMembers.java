@@ -1,36 +1,36 @@
-package org.golde.discordbot.website.server.routes;
+package org.golde.discordbot.website.express.routes.api;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import org.golde.discordbot.shared.ESSBot;
 import org.golde.discordbot.shared.constants.Roles;
-import org.golde.discordbot.website.WebsiteBot;
-import org.golde.discordbot.website.server.routes.base.AbstractJsonResponse;
+import org.golde.discordbot.website.express.routes.Route;
 
 import com.google.gson.JsonObject;
 
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
-import fi.iki.elonen.NanoHTTPD.Method;
-import fi.iki.elonen.NanoHTTPD.Response.Status;
+import express.DynExpress;
+import express.http.request.Request;
+import express.http.response.Response;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
-public class PageAllMembers extends AbstractJsonResponse {
+public class RouteMembers extends Route {
 
 	@Override
-	public JsonObject getResponse(Map<String, String> urlParams, IHTTPSession session, JsonObject root) {
+	@DynExpress(context = "/api/members")
+	public void onRequest(Request req, Response res) {
+		JsonObject data = new JsonObject();
 
-		if(session.getMethod() != Method.GET) {
-			setErrored("Only GET is supported", Status.BAD_REQUEST);
-			return root;
+		Guild g = getGuild();
+		
+		if(g == null) {
+			sendError(req, res, 503, "Discord seems to be down. Please try again later.");
+			return;
 		}
-
-		Guild g = WebsiteBot.getInstance().getGuild();
 
 		List<JsonObject> objRoleList = new ArrayList<JsonObject>();
 
@@ -48,17 +48,18 @@ public class PageAllMembers extends AbstractJsonResponse {
 					//					role.getIdLong() == Roles.MEMBER ||
 					role.getName().contains("Internal - ") || 
 					role.getName().contains("Notifications") || 
-					role.getName().equals("Server Captcha Bot")
+					role.getName().equals("Server Captcha Bot") ||
+					role.getName().contains("Unused")
 					) {
 				continue;
 			}
 
 			List<JsonObject> membersInRole = getMembers(g, role);
-			
+
 			if(membersInRole.isEmpty()) {
 				continue;
 			}
-			
+
 			JsonObject roleObj = new JsonObject();
 			roleObj.addProperty("name", role.getName());
 
@@ -82,15 +83,17 @@ public class PageAllMembers extends AbstractJsonResponse {
 
 		}
 
-		root.add("roles", ESSBot.GSON.toJsonTree(objRoleList));
-
-		return root;
+		data.add("roles", ESSBot.GSON.toJsonTree(objRoleList));
+		sendSuccess(req, res, data);
 	}
 
-	List<Long> duplateMembers = new ArrayList<Long>();
+	
 	private List<JsonObject> getMembers(Guild g, Role role) {
+		List<Long> duplateMembers = new ArrayList<Long>();
 		List<JsonObject> list = new ArrayList<JsonObject>();
 		List<Member> sorted = g.getMembersWithRoles(role);
+		
+		
 		
 		sorted.sort(new Comparator<Member>() {
 
@@ -98,9 +101,11 @@ public class PageAllMembers extends AbstractJsonResponse {
 			public int compare(Member o1, Member o2) {
 				return o1.getEffectiveName().compareTo(o2.getEffectiveName());
 			}
-			
+
 		});
 		
+		
+
 		for(Member m : sorted) {
 			if(!duplateMembers.contains(m.getIdLong())) {
 				list.add(toJson(m));
@@ -108,6 +113,7 @@ public class PageAllMembers extends AbstractJsonResponse {
 			}
 
 		}
+
 		return list;
 	}
 
@@ -117,8 +123,6 @@ public class PageAllMembers extends AbstractJsonResponse {
 		obj.addProperty("displayName", member.getEffectiveName());
 		obj.addProperty("actualName", member.getUser().getAsTag());
 		obj.addProperty("avatar", member.getUser().getEffectiveAvatarUrl());
-		//obj.addProperty("id", member.getId());
-
 		return obj;
 	}
 
