@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 
 public class PlayerCounter extends EventBase {
@@ -37,9 +38,14 @@ public class PlayerCounter extends EventBase {
 	
 	@Override
 	public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent event) {
-		Role the100club = event.getGuild().getRoleById(735287621974097950L);
-		
-		if(event.getRoles().contains(the100club)) {
+		if(event.getRoles().contains(event.getGuild().getRoleById(Roles.MEMBER))) {
+			updateChannel(event.getGuild());
+		}
+	}
+	
+	@Override
+	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
+		if(event.getRoles().contains(event.getGuild().getRoleById(Roles.MEMBER))) {
 			updateChannel(event.getGuild());
 		}
 	}
