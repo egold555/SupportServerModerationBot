@@ -30,7 +30,10 @@
 		"crashReport": [
 			"java.lang.NoClassDefFoundError: net/minecraft/client/renderer/EntityRenderer$1",
 			"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>(Lnet/minecraft/client/renderer/EntityRenderer;)V",
-			"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'"
+			"java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.EntityRenderer$1.<init>(net.minecraft.client.renderer.EntityRenderer)'",
+			"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1.<init>",
+			"java.lang.NoSuchMethodError: net.minecraft.client.renderer.EntityRenderer$1",
+			"net.minecraft.client.renderer.EntityRenderer$1"
 		],
 		"ocr": [
 			"EntityRendererS1",

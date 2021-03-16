@@ -192,7 +192,7 @@ public class CrashReportEventHandler extends EventBase {
 
 			msg = sanitize(msg);
 
-			if(msg.isEmpty()) {
+			if(msg == null || msg.isEmpty()) {
 				return;
 			}
 
@@ -208,7 +208,7 @@ public class CrashReportEventHandler extends EventBase {
 			for(CommonError ce : CommonErrorManager.getCommonErrors()) {
 				if(ce.getCrashReport() != null) {
 					for(String trigger : ce.getCrashReport()) {
-						if(msg.contains(trigger)) {
+						if(trigger != null && msg.contains(trigger)) {
 							foundCommonError = true;
 							CommonErrorManager.sendCEMessage(bot, channel, ce);
 							break;
