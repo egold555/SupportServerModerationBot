@@ -28,6 +28,7 @@ import org.golde.discordbot.supportserver.event.BlockedUrlsPreventer;
 import org.golde.discordbot.supportserver.event.ClientInvitesNeedsToBeBetter;
 import org.golde.discordbot.supportserver.event.EventDeletedMessageLogger;
 import org.golde.discordbot.supportserver.event.EventDenyFileUploadsAndLinks;
+import org.golde.discordbot.supportserver.event.EventLetUsersKnowThatWeCanOnlyHelpWithEricsTutorialVideos;
 import org.golde.discordbot.supportserver.event.ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp;
 import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
@@ -67,10 +68,11 @@ public class ModerationBot extends ESSBot {
 		events.add(new BlockedFileHash(this));
 		events.add(new AutomaticallyPutUserApplicationsIntoChannelsBecauseEricIsToLazyToDoThisAnymore(this));
 		events.add(new IDislikeKids1Point4(this));
-		events.add(new ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(this));
+		//events.add(new ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp(this));
 		events.add(new EventDeletedMessageLogger(this));
 		events.add(new KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife(this));
 		events.add(new EventDenyFileUploadsAndLinks(this));
+		events.add(new EventLetUsersKnowThatWeCanOnlyHelpWithEricsTutorialVideos(this));
 	}
 
 	@Override
@@ -163,7 +165,7 @@ public class ModerationBot extends ESSBot {
 
 					for(ExpiredMessage off : expiredMessages) {
 
-						//System.out.println("Expired: " + off.toString());
+						System.out.println("Expired: " + off.toString());
 
 						off.setHiddenBotInstance(ModerationBot.this);
 						off.setExpired();
