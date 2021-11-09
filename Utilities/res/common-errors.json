@@ -287,7 +287,6 @@
 		"shortCodes": [ "ata", "dontAta", "dontAskToAsk" ],
 		"cmdDesc": "Please dont ask to ask!",
 		"detailedDesc": "https://dontasktoask.com",
-		"fakeUser": true,
-
+		"fakeUser": true
 	}
 ]
