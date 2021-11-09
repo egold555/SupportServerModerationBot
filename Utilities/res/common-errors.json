@@ -277,5 +277,17 @@
 			"The constructor Matrix4f(Matrix4f) is",
 			"incompatible types: javax.vecmath.Matrix4f cannot be converted to org.lwjgl.util.vector.Matrix4f"
 		]
+	},
+	{
+		"shortCodes": [ "noError", "showErr", "giberr" ],
+		"cmdDesc": "Please show your error my dude",
+		"detailedDesc": "If you want help with a issue, please post errors if availible (the full trace, use a paste service like https://pastebin.com!), what you've tried, the code, the wanted outcome and everything else you can supply that may help us with identifying your problem.",
+		"fakeUser": true
+	},
+		"shortCodes": [ "ata", "dontAta", "dontAskToAsk" ],
+		"cmdDesc": "Please dont ask to ask!",
+		"detailedDesc": "https://dontasktoask.com",
+		"fakeUser": true,
+
 	}
 ]
