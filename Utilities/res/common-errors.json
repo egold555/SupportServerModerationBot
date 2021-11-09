@@ -288,5 +288,12 @@
 		"cmdDesc": "Please dont ask to ask!",
 		"detailedDesc": "https://dontasktoask.com",
 		"fakeUser": true
+	},
+	{
+		"shortCodes": [ "lmgtfy", "google", "usegoogle", "justgooglethisomfg" ],
+		"cmdDesc": "Tell someone else that google exists",
+		"detailedDesc": "https://letmegooglethat.com/?q=%A1%",
+		"cmdArgs": [ "query" ],
+		"fakeUser": true
 	}
 ]
