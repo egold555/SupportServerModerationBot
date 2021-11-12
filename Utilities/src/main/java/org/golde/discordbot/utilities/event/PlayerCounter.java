@@ -23,7 +23,7 @@ public class PlayerCounter extends EventBase {
 	
 	@Override
 	public void onReady(ReadyEvent event) {
-		updateChannel(event.getJDA().getGuildById("594335572173258752"));
+		updateChannel(event.getJDA().getGuildById("803873408198508594"));
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class PlayerCounter extends EventBase {
 	}
 	
 	private void updateChannel(Guild g) {
-		VoiceChannel vc = g.getVoiceChannelById("661108732838674445");
+		VoiceChannel vc = g.getVoiceChannelById("803873409481834559");
 		//int[] rawData = getMemberTotalCount(g);
 		
 		//vc.getManager().setName("Online: " + rawData[1] + " / " + rawData[0]).queue();

@@ -12,4 +12,12 @@ public class CommonError {
 	String[] crashReport; //nullable
 	String[] ocr; //nullable
 	boolean fakeUser = false; //default false
+
+	/**
+	 * IDEA isn't liking the lombok here so I've added a method for it.
+	 * @return uses a fake user.
+	 */
+	public boolean getFakeUser() {
+		return fakeUser;
+	}
 }
