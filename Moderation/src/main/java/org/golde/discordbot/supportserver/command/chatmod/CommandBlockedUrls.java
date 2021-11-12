@@ -24,9 +24,9 @@ public class CommandBlockedUrls extends ChatModCommand {
         int page = 0;
         for (String url : badUrls) {
             if (index == badUrls.size() - 1) {
-                builder.append("•   ").append(url);
+                builder.append("â€¢   ").append(url);
             } else {
-                builder.append("•   ").append(url).append("\n");
+                builder.append("â€¢   ").append(url).append("\n");
             }
             
             if(count > MAX_PER_EMBED) {
