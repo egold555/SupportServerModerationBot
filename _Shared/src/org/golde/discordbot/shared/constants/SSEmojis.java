@@ -29,4 +29,6 @@ public class SSEmojis {
 	
 	public static final String SOCCER_BALL = "\u26bd";
 	
+	public static final String MUTE = "\u1f507";
+	
 }
