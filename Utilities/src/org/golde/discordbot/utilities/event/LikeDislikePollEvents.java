@@ -57,8 +57,8 @@ public class LikeDislikePollEvents extends AbstractMessageChecker implements ICa
 	@Override
 	protected void takeAction(Guild guild, Member target, Message msg) {
 		
-		msg.addReaction("like:604876349844226060").queue(onSuccess -> {
-			msg.addReaction("dislike:604876349286645780").queue(onSuccess2 -> {
+		msg.addReaction("like:862087811708878889").queue(onSuccess -> {
+			msg.addReaction("dislike:862087811514892349").queue(onSuccess2 -> {
 				
 			}, onFail2 -> {
 				//do nothing
