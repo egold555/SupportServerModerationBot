@@ -32,6 +32,7 @@ import org.golde.discordbot.supportserver.event.EventLetUsersKnowThatWeCanOnlyHe
 import org.golde.discordbot.supportserver.event.ForTheLoveOfGodPleaseStopDoublePostingAskingForHelp;
 import org.golde.discordbot.supportserver.event.IDislikeKids1Point4;
 import org.golde.discordbot.supportserver.event.IHateKids2point0;
+import org.golde.discordbot.supportserver.event.IHateKids2point1;
 import org.golde.discordbot.supportserver.event.IPGrabberPrevention;
 import org.golde.discordbot.supportserver.event.KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife;
 import org.golde.discordbot.supportserver.event.MiscModLog;
@@ -73,6 +74,7 @@ public class ModerationBot extends ESSBot {
 		events.add(new KidsWhoMakeAltAccountstoSpamAndBanEvadeHaveNoLife(this));
 		events.add(new EventDenyFileUploadsAndLinks(this));
 		events.add(new EventLetUsersKnowThatWeCanOnlyHelpWithEricsTutorialVideos(this));
+		events.add(new IHateKids2point1(this));
 	}
 
 	@Override
