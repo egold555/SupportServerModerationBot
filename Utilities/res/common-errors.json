@@ -277,5 +277,13 @@
 			"The constructor Matrix4f(Matrix4f) is",
 			"incompatible types: javax.vecmath.Matrix4f cannot be converted to org.lwjgl.util.vector.Matrix4f"
 		]
+	},
+	{
+		"shortCodes": [ "fx", "javafx" ],
+		"cmdDesc": "Could not find JavaFX",
+		"detailedDesc": "Your JDK does not include JavaFX. Download a JDK with JavaFX for this to work. Download Azul JDKFX 8 here: https://www.azul.com/downloads/?version=java-8-lts&package=jdk-fx (Choose the version for your OS)",
+		"crashReport": [
+			"java.lang.NoClassDefFoundError: javafx/"
+		]
 	}
 ]
