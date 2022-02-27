@@ -284,6 +284,7 @@
 		"detailedDesc": "If you want help with a issue, please post errors if availible (the full trace, use a paste service like https://pastebin.com!), what you've tried, the code, the wanted outcome and everything else you can supply that may help us with identifying your problem.",
 		"fakeUser": true
 	},
+	{
 		"shortCodes": [ "ata", "dontAta", "dontAskToAsk" ],
 		"cmdDesc": "Please dont ask to ask!",
 		"detailedDesc": "https://dontasktoask.com",
@@ -294,6 +295,12 @@
 		"cmdDesc": "Tell someone else that google exists",
 		"detailedDesc": "https://letmegooglethat.com/?q=%A1%",
 		"cmdArgs": [ "query" ],
+		"fakeUser": true
+	},
+	{
+		"shortCodes": [ "tryitandsee", "tias" ],
+		"cmdDesc": "Tell someone to just try something and see",
+		"detailedDesc": "https://tryitands.ee",
 		"fakeUser": true
 	}
 ]
