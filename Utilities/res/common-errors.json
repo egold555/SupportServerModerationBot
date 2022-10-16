@@ -58,7 +58,7 @@
 	{
 		"shortCodes": [ "compilejava8", "source16", "source1.6", "mcp16", "mcp1.6" ],
 		"cmdDesc": "default methods are not supported in -source 1.6",
-		"detailedDesc": "When runnign recompile.bat, it fails with this message: \"error: default methods are not supported in -source 1.6\"\n\nIn /conf/mcp.cfg, find\n```\n CmdRecomp     = %s -Xlint:-options -deprecation -g -source 1.6 -target 1.6 -classpath \"{classpath}\" -sourcepath {sourcepath} -d {outpath} @{javasrc}\n```\nand replace it with\n```\nCmdRecomp     = %s -Xlint:-options -deprecation -g -source 1.8 -target 1.8 -classpath \"{classpath}\" -sourcepath {sourcepath} -d {outpath} @{javasrc}\n```"
+		"detailedDesc": "When running recompile.bat, it fails with this message: \"error: default methods are not supported in -source 1.6\"\n\nIn /conf/mcp.cfg, find\n```\n CmdRecomp     = %s -Xlint:-options -deprecation -g -source 1.6 -target 1.6 -classpath \"{classpath}\" -sourcepath {sourcepath} -d {outpath} @{javasrc}\n```\nand replace it with\n```\nCmdRecomp     = %s -Xlint:-options -deprecation -g -source 1.8 -target 1.8 -classpath \"{classpath}\" -sourcepath {sourcepath} -d {outpath} @{javasrc}\n```"
 	},
 	{
 		"shortCodes": [ "getAdapter", "gsonAdapter" ],
@@ -121,7 +121,7 @@
 			"optitext"
 		],
 		"cmdDesc": "Missing Optifine Textures",
-		"detailedDesc": "Looks like your missing the optifine textures. You can either extract the textures from the jar yourself, or I have created this zip file. Extract it to \"<mcp>/src/minecraft/assets/minecraft/textures\", and refresh your project",
+		"detailedDesc": "Looks like you're missing the optifine textures. You can either extract the textures from the jar yourself, or I have created this zip file. Extract it to \"<mcp>/src/minecraft/assets/minecraft/textures\", and refresh your project",
 		"fileAttachments": [ "optifine-textures.zip" ],
 		"fakeUser": true
 	},
